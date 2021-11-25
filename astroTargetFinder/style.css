@@ -127,12 +127,14 @@ button {
 	margin-left: 30px;
 	flex-grow: 1;
 	cursor: pointer;
+	animation-fill-mode: forwards;
 }
 .submitButton1 {
 	margin-top: 3px;
 	margin-left: 3px;
 	flex-grow: 1;
 	cursor: pointer;
+	animation-fill-mode: forwards;
 }
 
 .submitButton:hover {
@@ -174,6 +176,7 @@ button {
 	border-radius: 5px;
 	border: 0;
 	cursor: pointer;
+	animation-fill-mode: forwards;
 }
 
 .p1 {
