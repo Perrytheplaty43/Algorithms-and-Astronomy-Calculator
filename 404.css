@@ -1,0 +1,38 @@
+
+body {
+    background-color: #000;
+    color: lightseagreen;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace
+}
+
+a:link, a:visited {
+    color: gray
+}
+
+a:active, a:focus, a:hover {
+    color: #00f
+}
+
+a:focus-visible {
+    outline: thin dashed #00f
+}
+
+.title {
+    animation: text-fade-in 3s 1
+}
+
+.subtitle {
+    animation-name: text-fade-in;
+    animation-duration: 6s;
+    animation-iteration-count: 1
+}
+
+@keyframes text-fade-in {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
+}

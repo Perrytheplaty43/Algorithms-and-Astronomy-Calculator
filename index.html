@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+
+    <title>Word Unscrambler</title>
+    <script src="/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="flexbox">
+        <div class="container1">
+            <h1 class="title" id="title">Scrambler/unscrambler and random case converter:</h1>
+        </div>
+        <div class="container2">
+            <form onsubmit="return onSubmit(event)">
+                <input type="text" name="words" id="words" class="form" placeholder="Enter Text">
+                <div class="inputContainer">
+                    <input type="reset" value="Reset" class="resetButton">
+                    <button type="submit" class="submitButton" id="clear_button" name="clear_button">Clear</button>
+                    <button type="submit" class="submitButton" id="scramble_button" name="scramble_button">Scramble/Unscramble</button>
+                    <button type="submit" class="submitButton" id="randomCase_button" name="randomCase_button">Convert to Random Case</button>
+                    <button type="submit" class="submitButtonSort" id="sorting_button" name="sorting_button">Sort and Search</button>
+                </div>
+            </form>
+        </div>
+        <div class="container3">
+            <p class="p2">Output:</p>
+            <p class="p3" id="timerLable"></p>
+            <p class="p3" id="word"></p>
+        </div>
+        <div class="container4">
+            <p id="p1" class="p1">Submit Input</p>
+            <a id="bla"></a>
+            <br />
+            <p class="p1">Input Format (for Sort and Search):</p>
+            <p class="p1">[number to search for], [input array length], [algorithum to use]</p>
+            <br />
+            <p class="p1">Algorithums:</p>
+            <pre class="p1">1          : Bubble sort</pre>
+            <pre class="p1">3          : js's built in sort method</pre>
+            <pre class="p1">heap       : fake heap sort</pre>
+            <pre class="p1">4          : min max pattern (search will not work)</pre>
+            <pre class="p1">4 sort     : min max pattern using a merge sort (search will not work)</pre>
+            <pre class="p1">[all else] : merge sort</pre>
+
+            <br />
+            <br />
+            <form onsubmit="return bottomForm(event)">
+                <button type="submit" class="submitButton" id="back_to_top">Back to top</button>
+                <button type="submit" class="submitButton" id="redirect">Astro Target Finder Site</button>
+                <button type="submit" class="submitButton" id="redirect_mine">Minesweeper Site</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

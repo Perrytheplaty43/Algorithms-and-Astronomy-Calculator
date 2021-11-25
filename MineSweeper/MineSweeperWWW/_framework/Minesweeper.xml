@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Minesweeper</name></assembly>
+<members>
+<member name="T:Minesweeper.MinesweeperGrid">
+<summary>
+ Represents a 2D array of cells
+</summary>
+</member>
+<member name="T:Minesweeper.Cell">
+<summary>
+ Represents one square on a minesweeper grid
+</summary>
+</member>
+<member name="T:Minesweeper.CellStatus">
+<summary>
+ The visibility of the cell, and whether its flagged.
+</summary>
+</member>
+<member name="T:Minesweeper.CellType">
+<summary>
+ The non-changing type of cell.
+</summary>
+</member>
+<member name="M:Minesweeper.MinesweeperGridModule.generate(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Generates a minesweeper grid with a given RNG, width, height, mine count, and starting position.
+ </summary>
+ <remarks>
+ The width and the height cannot be less than 5 
+ The mine count must be between 1 and the width * height - 1
+ The x value must be between 0 and the width - 1
+ The y value must be between 0 and the height - 1
+ Does not uncover the first square, must call `MinesweeperGrid.uncover` separately.
+ </remarks>
+</member>
+<member name="M:Minesweeper.MinesweeperGridModule.verify(System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Verfies that a minesweeper grid with, width, height, mine count, is possible.
+ </summary>
+ <remarks>
+ The width and the height cannot be less than 5 
+ The mine count must be between 1 and the width * height - 1
+ The x value must be between 0 and the width - 1
+ The y value must be between 0 and the height - 1
+ </remarks>
+</member>
+<member name="M:Minesweeper.MinesweeperGridModule.uncover(System.Int32,System.Int32,Minesweeper.MinesweeperGrid)">
+<summary>
+ Uncovers a coordinate.
+ Returns a new grid with cells uncovered and whether the game has been won or lost
+</summary>
+</member>
+<member name="M:Minesweeper.MinesweeperGridModule.flag(System.Int32,System.Int32,Minesweeper.MinesweeperGrid)">
+<summary>
+ Flags/unflags a coordinate.
+ Returns the same grid if it can&apos;t be flagged/unflagged. 
+</summary>
+</member>
+<member name="M:Minesweeper.MinesweeperGridModule.flagCount(Minesweeper.MinesweeperGrid)">
+<summary>
+ Returns the number of flagged cells in a grid.
+</summary>
+</member>
+<member name="T:Minesweeper.MinesweeperGridModule">
+<summary>
+ Functions to generate and non destructively modify the grid.
+</summary>
+</member>
+</members>
+</doc>

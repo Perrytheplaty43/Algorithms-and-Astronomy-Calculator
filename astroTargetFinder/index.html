@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="/astroTargetFinder/style.css" />
+
+    <title>Astro Target Finder</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/astroTargetFinder/script.js"></script>
+</head>
+
+<body>
+    <div class="flexbox">
+        <div class="container1">
+            <h1 class="title">Astro Deep Sky Target Finder</h1>
+        </div>
+        <div class="container2">
+            <form onsubmit="return onSubmit(event)">
+                <input type="text" name="words" id="Long" class="form" placeholder="Enter: Lat, Long" value="47.740372, -122.222695">
+                <div class="inputContainer">
+                    <input type="reset" value="Reset" class="resetButton">
+                    <button type="submit" class="submitButton" id="scramble_button" name="scramble_button">Enter</button>
+                    <button type="submit" class="submitButton1" id="loc_button" name="scramble_button">Get Current location</button>
+                    <button type="submit" class="submitButton1" id="home_button" name="scramble_button">Home</button>
+                </div>
+            </form>
+        </div>
+        <div class="container5">
+            <p class="p2">Weather for location:</p>
+            <iframe class="weather" id="weather" src="./enterInput.html" frameborder="0"></iframe>
+        </div>
+        <div class="container3">
+            <p class="p2">Output:</p>
+            <p class="p3" id="timerLable"></p>
+            <p class="p3" id="word"></p>
+        </div>
+        <div class="container4">
+            <p id="p1" class="p1">Submit Input</p>
+        </div>
+        <div class="container4">
+            <p>First:</p>
+            <img id="iframe1">
+
+            <p>Second:</p>
+            <img id="iframe2">
+
+            <p>Third:</p>
+            <img id="iframe3">
+
+            <p>Fourth:</p>
+            <img id="iframe4">
+
+            <p>Fifth:</p>
+            <img id="iframe5">
+            <a id="bla"></a>
+        </div>
+    </div>
+</body>
+
+</html>
