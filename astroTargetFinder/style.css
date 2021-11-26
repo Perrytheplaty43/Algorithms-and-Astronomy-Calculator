@@ -139,9 +139,11 @@ button {
 
 .submitButton:hover {
 	animation: darken 1s;
+	animation-fill-mode: forwards;
 }
 .submitButton1:hover {
 	animation: darken 1s;
+	animation-fill-mode: forwards;
 }
 
 @keyframes darken {
@@ -155,6 +157,7 @@ button {
 
 .resetButton:hover {
 	animation: redin 15s;
+	animation-fill-mode: forwards;
 }
 
 @keyframes redin {
