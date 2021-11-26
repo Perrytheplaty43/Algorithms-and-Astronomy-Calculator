@@ -198,7 +198,7 @@ function updateUI(final, timer, lat, long) {
                 "2nd best target: " + (() => { let firstChar = final[1][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final[1][0].split(""); if (firstChar[0] == "I") { return final[1][0].substring(1) } else { return final[1][0] } })() + ", Magnitude: " + final[1][2] + ", Type: " + final[1][3] + ", Constellation: " + final[1][4] + "<br />" +
                 "3rd best target: " + (() => { let firstChar = final[2][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final[2][0].split(""); if (firstChar[0] == "I") { return final[2][0].substring(1) } else { return final[2][0] } })() + ", Magnitude: " + final[2][2] + ", Type: " + final[2][3] + ", Constellation: " + final[2][4] + "<br />" +
                 "4th best target: " + (() => { let firstChar = final[3][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final[3][0].split(""); if (firstChar[0] == "I") { return final[3][0].substring(1) } else { return final[3][0] } })() + ", Magnitude: " + final[3][2] + ", Type: " + final[3][3] + ", Constellation: " + final[3][4] + "<br />";
-        } else if (final.length == 5) {
+        } else {
             document.getElementById("p1").innerHTML = "Best target: " + (() => { let firstChar = final[0][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final[0][0].split(""); if (firstChar[0] == "I") { return final[0][0].substring(1) } else { return final[0][0] } })() + ", Magnitude: " + final[0][2] + ", Type: " + final[0][3] + ", Constellation: " + final[0][4] + "<br />" +
                 "2nd best target: " + (() => { let firstChar = final[1][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final[1][0].split(""); if (firstChar[0] == "I") { return final[1][0].substring(1) } else { return final[1][0] } })() + ", Magnitude: " + final[1][2] + ", Type: " + final[1][3] + ", Constellation: " + final[1][4] + "<br />" +
                 "3rd best target: " + (() => { let firstChar = final[2][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final[2][0].split(""); if (firstChar[0] == "I") { return final[2][0].substring(1) } else { return final[2][0] } })() + ", Magnitude: " + final[2][2] + ", Type: " + final[2][3] + ", Constellation: " + final[2][4] + "<br />" +
@@ -212,18 +212,59 @@ function updateUI(final, timer, lat, long) {
 
     document.getElementById("weather").src = "https://clearoutside.com/forecast/" + lat + "/" + long + "?view=midday";
 
-    var frame1 = document.getElementById("iframe1");
-    frame1.src = mapImages[final[0][0]] ?? "./blank.jpg";
+    let frame1 = document.getElementById("iframe1");
+    let frame2 = document.getElementById("iframe2");
+    let frame3 = document.getElementById("iframe3");
+    let frame4 = document.getElementById("iframe4");
+    let frame5 = document.getElementById("iframe5");
 
-    var frame2 = document.getElementById("iframe2");
-    frame2.src = mapImages[final[1][0]] ?? "./blank.jpg";
+    if (final == null) {
+        frame1.src = "./blank.jpg"
+        frame2.src = "./blank.jpg"
+        frame3.src = "./blank.jpg"
+        frame4.src = "./blank.jpg"
+        frame5.src = "./blank.jpg"
+    }
+    if (final.length == 1) {
+        frame1.src = mapImages[final[0][0]] ?? "./blank.jpg";
+    } else {
+        frame2.src = "./blank.jpg"
+        frame3.src = "./blank.jpg"
+        frame4.src = "./blank.jpg"
+        frame5.src = "./blank.jpg"
+    }
 
-    var frame3 = document.getElementById("iframe3");
-    frame3.src = mapImages[final[2][0]] ?? "./blank.jpg";
+    if (final.length == 2) {
+        frame2.src = mapImages[final[1][0]] ?? "./blank.jpg";
+    } else {
+        frame3.src = "./blank.jpg"
+        frame4.src = "./blank.jpg"
+        frame5.src = "./blank.jpg"
+    }
 
-    var frame4 = document.getElementById("iframe4");
-    frame4.src = mapImages[final[3][0]] ?? "./blank.jpg";
+    if (final.length == 3) {
+        frame3.src = mapImages[final[2][0]] ?? "./blank.jpg";
+    } else {
+        frame4.src = "./blank.jpg"
+        frame5.src = "./blank.jpg"
+    }
 
-    var frame5 = document.getElementById("iframe5");
-    frame5.src = mapImages[final[4][0]] ?? "./blank.jpg";
+    if (final.length == 4) {
+        frame4.src = mapImages[final[3][0]] ?? "./blank.jpg";
+    } else {
+        frame5.src = "./blank.jpg"
+    }
+
+    if (final.length == 5) {
+        frame5.src = mapImages[final[4][0]] ?? "./blank.jpg";
+    } else {
+        frame5.src = "./blank.jpg"
+    }
+    if (final.length > 5) {
+        frame1.src = mapImages[final[0][0]] ?? "./blank.jpg";
+        frame2.src = mapImages[final[1][0]] ?? "./blank.jpg";
+        frame3.src = mapImages[final[2][0]] ?? "./blank.jpg";
+        frame4.src = mapImages[final[3][0]] ?? "./blank.jpg";
+        frame5.src = mapImages[final[4][0]] ?? "./blank.jpg";
+    }
 }
