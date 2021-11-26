@@ -31,12 +31,24 @@ const options = {
     key: fs.readFileSync(home + 'Unscrambler-main' + delimiter + 'privkeyKey.pem'),
     cert: fs.readFileSync(home + 'Unscrambler-main' + delimiter + 'fullchainCert.pem')
 };
-
-let lineCount = 0;
+let lineCount;
+fs.readFile(home + 'Unscrambler-main' + delimiter + 'Logs' + delimiter + 'lineCount.txt', function (err, html) {
+    lineCount = parseInt(html)
+})
 let fileCount = 0;
 
 const server = https.createServer(options, function (req, res) {
     const { method, url } = req;
+    fs.writeFile(home + 'Unscrambler-main' + delimiter + 'Logs' + delimiter + 'lineCount.txt', lineCount.toString(), err => {
+        if (err) {
+            console.log(err);
+            fs.appendFile(home + 'Unscrambler-main' + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err, (err) => {
+                if (err) console.log(err);
+                return;
+            })
+            return;
+        }
+    })
     if (lineCount > 500) {
         fileCount++;
         fs.writeFile(home + 'Unscrambler-main' + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', (err) => {
