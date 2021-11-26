@@ -268,3 +268,8 @@ function updateUI(final, timer, lat, long) {
         frame5.src = mapImages[final[4][0]] ?? "./blank.jpg";
     }
 }
+
+function ShowHideDiv(chk, target) {
+    var dv = document.getElementById(target);
+    dv.style.display = chk.checked ? "block" : "none";
+}
