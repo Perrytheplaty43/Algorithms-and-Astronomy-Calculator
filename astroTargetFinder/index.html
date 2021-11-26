@@ -19,7 +19,7 @@
             <h1 class="title">Astro Deep Sky Target Finder</h1>
         </div>
         <div class="container2">
-            <form onsubmit="return onSubmit(event)">
+            <form onsubmit="return onSubmit(event)" id="search">
                 <input type="text" name="words" id="Long" class="form" placeholder="Enter: Lat, Long" value="47.740372, -122.222695">
                 <div class="inputContainer">
                     <input type="reset" value="Reset" class="resetButton">
@@ -28,6 +28,70 @@
                     <button type="submit" class="submitButton1" id="home_button" name="scramble_button">Home</button>
                 </div>
             </form>
+        </div>
+        <div class="container6">
+            <p class="p2">Advanced Opions:</p>
+            <div class="optionContainer">
+                <div class="checkboxes">
+                    <p class="p4">Type:</p>
+                    <form id="advOpt">
+                        <input type="checkbox" id="Gx" name="Gx" value="Gx" checked>
+                        <label for="Gx"> Galaxy</label><br>
+
+                        <input type="checkbox" id="OC" name="OC" value="OC" checked>
+                        <label for="OC"> Open star cluster</label><br>
+
+                        <input type="checkbox" id="Gb" name="Gb" value="Gb" checked>
+                        <label for="Gb"> Globular star cluster</label><br>
+
+                        <input type="checkbox" id="Nb" name="Nb" value="Nb" checked>
+                        <label for="Nb"> Bright emission or reflection nebula</label><br>
+
+                        <input type="checkbox" id="Pl" name="Pl" value="Pl" checked>
+                        <label for="Pl"> Planetary nebula</label><br>
+
+                        <input type="checkbox" id="CpN" name="CpN" value="CpN" checked>
+                        <label for="CpN"> Cluster associated with nebulosity</label><br>
+
+                        <input type="checkbox" id="Ast" name="Ast" value="Ast" checked>
+                        <label for="Ast"> Asterism</label><br>
+
+                        <input type="checkbox" id="Kt" name="Kt" value="Kt" checked>
+                        <label for="Kt"> Knot or nebulous region in an external galaxy</label><br>
+
+                        <input type="checkbox" id="TS" name="TS" value="TS" checked>
+                        <label for="TS"> Triple star</label><br>
+
+                        <input type="checkbox" id="DS" name="DS" value="DS" checked>
+                        <label for="DS"> Double star</label><br>
+
+                        <input type="checkbox" id="SS" name="SS" value="SS" checked>
+                        <label for="SS"> Single star</label><br>
+                        
+                        <input type="checkbox" id="Q" name="Q" value="Q" checked>
+                        <label for="Q"> Uncertain type or may not exist</label><br>
+
+                        <input type="checkbox" id="U" name="U" value="U" checked>
+                        <label for="U"> Unidentified at the place given, or type unknown</label><br>
+                        
+                        <input type="checkbox" id="D" name="D" value="D" checked>
+                        <label for="D"> Object called nonexistent in the RNGC</label><br>
+
+                        <input type="checkbox" id="PD" name="PD" value="PD" checked>
+                        <label for="PD"> Photographic plate defect</label><br>
+                    </form>
+                </div>
+                <div class="params">
+                    <p class="p4">Parameters:</p>
+                    <form id="advParams">
+                        <p>Enter Tolerance (42-88):</p>
+                        <input type="number" name="tolerance" id="tolerance" class="form" placeholder="Tolerance" value="70" max=88 min=42>
+
+                        <p>Enter Mag Tolerance:</p>
+                        <input type="number" name="toleranceMag" id="toleranceMag" class="form" placeholder="Mag Tolerance" value="10" min=0>
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="container5">
             <p class="p2">Weather for location:</p>

@@ -11,6 +11,7 @@ import (
 	"sort"
 	"strconv"
 	"time"
+	"strings"
 )
 
 type object struct {
@@ -39,8 +40,14 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		r.ParseForm()
 		lat, _ := strconv.ParseFloat(r.Form["lat"][0], 64)
 		long, _ := strconv.ParseFloat(r.Form["long"][0], 64)
+		tol, _ := strconv.ParseFloat(r.Form["tol"][0], 64)
+		tolMag, _ := strconv.ParseFloat(r.Form["tolMag"][0], 64)
+		types := strings.Split(r.Form["type"][0], ",")
+		fmt.Println(tol)
+		fmt.Println(tolMag)
+		fmt.Println(types)
 		records := readCsvFile("/home/pi/Unscrambler-main/astroTargetFinder/ngc2000Final.txt")
-		finalArray := astro(records[:], lat, long)
+		finalArray := astro(records[:], lat, long, tol, tolMag, types)
 		j, _ := json.Marshal(finalArray)
 		w.Write(j)
 	default:
@@ -74,7 +81,7 @@ func main() {
 	log.Println("Go!")
 	log.Fatal(http.ListenAndServe(":8001", nil))
 }
-func astro(data [][]string, lat float64, long float64) [][]interface{}{
+func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string) [][]interface{}{
 	var avgALTArray [][]interface{}
 	var ALT2 float64
 
@@ -112,9 +119,9 @@ func astro(data [][]string, lat float64, long float64) [][]interface{}{
 	sort.Slice(avgALTArray[:], func(i, j int) bool {
 		return avgALTArray[i][1].(float64) > avgALTArray[j][1].(float64)
 	})
-	return formOutput(avgALTArray, data)
+	return formOutput(avgALTArray, data, tol, tolMag, types)
 }
-func formOutput(avgArray [][]interface{}, data [][]string) [][]interface{}{
+func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, tolMag float64, types []string) [][]interface{}{
 	var final [][]interface{}
 
 	typeKey := make(map[string]string)
@@ -123,15 +130,15 @@ func formOutput(avgArray [][]interface{}, data [][]string) [][]interface{}{
 	typeKey["Gb"] = "Globular star cluster"
 	typeKey["Nb"] = "Bright emission or reflection nebula"
 	typeKey["Pl"] = "Planetary nebula"
-	typeKey["C+N"] = "Cluster associated with nebulosity"
+	typeKey["CpN"] = "Cluster associated with nebulosity"
 	typeKey["Ast"] = "Asterism"
 	typeKey["Kt"] = "Knot or nebulous region in an external galaxy"
 	typeKey["TS"] = "Triple star"
 	typeKey["DS"] = "Double star"
 	typeKey["SS"] = "Single star"
-	typeKey["?"] ="Uncertain type or may not exist"
+	typeKey["Q"] ="Uncertain type or may not exist"
 	typeKey["U"] ="Unidentified at the place given, or type unknown"
-	typeKey["-"] ="Object called nonexistent in the RNGC"
+	typeKey["D"] ="Object called nonexistent in the RNGC"
 	typeKey["PD"] = "Photographic plate defect"
 
 	constellationKey := make(map[string]string)
@@ -222,8 +229,6 @@ func formOutput(avgArray [][]interface{}, data [][]string) [][]interface{}{
 	constellationKey["Per"] = "Perseus"
 	constellationKey["Gem"] = "Gemini"
 
-	minAccALT := 60
-
 	var outArray [][]interface{}
 
 	for i := 0; i <= len(avgArray) - 1; i++ {
@@ -254,7 +259,7 @@ func formOutput(avgArray [][]interface{}, data [][]string) [][]interface{}{
 	
 	for i := 0; i <= len(outArray) - 1; i++ {
 		one, _ := strconv.ParseFloat(outArray[i][2].(string), 64)
-		if  one < 10 && one != 0 {
+		if  one < tolMag && one != 0 && isGoodType(outArray[i][3].(string), types){
 			final = append(final, outArray[i])
 		}
 	}
@@ -314,4 +319,16 @@ func toRadians(angle float64) float64{
 }
 func toDegrees(angle float64) float64{
 	return angle * (180 / math.Pi)
+}
+func isGoodType(input string, types []string) bool{
+	for i := 0; i <= len(types) - 1; i++{
+		if input == types[i] {
+			return true
+		}
+	}
+	return false
+}
+
+func remove(slice [][]interface{}, s int) [][]interface{} {
+    return append(slice[:s], slice[s+1:]...)
 }

@@ -347,9 +347,13 @@ const server = https.createServer(options, function (req, res) {
         let searchParams = surl.searchParams
         let lat = searchParams.get('lat')
         let long = searchParams.get('long')
+        let tol = searchParams.get('tol')
+        let tolMag = searchParams.get('tolMag')
+        let types = searchParams.get('type')
+
         //console.log(lat, long)
         fetch(
-            'http://192.168.1.88:8001/astro?lat=' + lat + '&long=' + long,
+            'http://192.168.1.88:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types,
             { method: 'GET' }
         )
             .then(response => response.text())

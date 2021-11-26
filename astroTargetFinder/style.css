@@ -64,6 +64,18 @@ button {
 	animation-fill-mode: forwards;
 }
 
+label {
+	color: lightseagreen;
+	font-family: 'Courier New', Courier, monospace;
+	border: 0;
+}
+.optionContainer{
+	display: flex;
+}
+.p4{
+	font-weight: bold;
+}
+
 .title {
 	overflow: hidden;
 	/*text-align: center;*/

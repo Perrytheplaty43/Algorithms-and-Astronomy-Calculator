@@ -101,30 +101,97 @@ function onSubmit(event) {
     } else {
         let timer = new Date();
         let [lat, long] = document.getElementById("Long").value.split(",");
+        let types = []
+        let Gx = document.getElementById("Gx");
+        let OC = document.getElementById("OC");
+        let Gb = document.getElementById("Gb");
+        let Nb = document.getElementById("Nb");
+        let Pl = document.getElementById("Pl");
+        let CpN = document.getElementById("CpN");
+        let Ast = document.getElementById("Ast");
+        let Kt = document.getElementById("Kt");
+        let TS = document.getElementById("TS");
+        let DS = document.getElementById("DS");
+        let SS = document.getElementById("SS");
+        let Q = document.getElementById("Q");
+        let U = document.getElementById("U");
+        let D = document.getElementById("D");
+        let PD = document.getElementById("PD");
+
+        let tol = document.getElementById("tolerance").value;
+        let tolMag = document.getElementById("toleranceMag").value;
+
+        if (Gx.checked) {
+            types.push("Gx")
+        } 
+        if (OC.checked) {
+            types.push("OC")
+        }
+        if (Gb.checked) {
+            types.push("Gb")
+        }
+        if (Nb.checked) {
+            types.push("Nb")
+        }
+        if (Pl.checked) {
+            types.push("Pl")
+        }
+        if (CpN.checked) {
+            types.push("CpN")
+        }
+        if (Ast.checked) {
+            types.push("Ast")
+        }
+        if (Kt.checked) {
+            types.push("Kt")
+        }
+        if (TS.checked) {
+            types.push("TS")
+        }
+        if (DS.checked) {
+            types.push("DS")
+        }
+        if (SS.checked) {
+            types.push("SS")
+        }
+        if (Q.checked) {
+            types.push("Q")
+        }
+        if (U.checked) {
+            types.push("U")
+        }
+        if (D.checked) {
+            types.push("D")
+        }
+        if (PD.checked) {
+            types.push("PD")
+        }
         long = parseFloat(long);
         lat = parseFloat(lat);
-        event.preventDefault();
+
         fetch(
-            'https://athesto.ddns.net/astro?lat=' + lat + '&long=' + long,
+            'https://athesto.ddns.net/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types,
             { method: 'GET' }
         )
             .then(response => response.text())
             .then(finalData => {
-                console.log(finalData)
                 updateUI(JSON.parse(finalData), timer, lat, long)
             })
             .catch(error => console.log('error:', error));
-
+        event.preventDefault();
     }
     return false;
 }
 function updateUI(final, timer, lat, long) {
+    if (final != null){
     document.getElementById("p1").innerHTML = "Best target: " + (() => { let firstChar = final[0][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final[0][0].split(""); if (firstChar[0] == "I") { return final[0][0].substring(1) } else { return final[0][0] } })() + ", Magnitude: " + final[0][2] + ", Type: " + final[0][3] + ", Constellation: " + final[0][4] + "<br />" +
         "2nd best target: " + (() => { let firstChar = final[1][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final[1][0].split(""); if (firstChar[0] == "I") { return final[1][0].substring(1) } else { return final[1][0] } })() + ", Magnitude: " + final[1][2] + ", Type: " + final[1][3] + ", Constellation: " + final[1][4] + "<br />" +
         "3rd best target: " + (() => { let firstChar = final[2][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final[2][0].split(""); if (firstChar[0] == "I") { return final[2][0].substring(1) } else { return final[2][0] } })() + ", Magnitude: " + final[2][2] + ", Type: " + final[2][3] + ", Constellation: " + final[2][4] + "<br />" +
         "4th best target: " + (() => { let firstChar = final[3][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final[3][0].split(""); if (firstChar[0] == "I") { return final[3][0].substring(1) } else { return final[3][0] } })() + ", Magnitude: " + final[3][2] + ", Type: " + final[3][3] + ", Constellation: " + final[3][4] + "<br />" +
         "5th best target: " + (() => { let firstChar = final[4][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final[4][0].split(""); if (firstChar[0] == "I") { return final[4][0].substring(1) } else { return final[4][0] } })() + ", Magnitude: " + final[4][2] + ", Type: " + final[4][3] + ", Constellation: " + final[4][4];
-
+    } else {
+        document.getElementById("p1").innerHTML = "No targets found for the search params, try widening the search."
+    }
     document.getElementById("timerLable").innerHTML = "Computed in:" + (new Date() - timer) / 1000 + "s";
 
     document.getElementById("weather").src = "https://clearoutside.com/forecast/" + lat + "/" + long + "?view=midday";
