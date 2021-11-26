@@ -83,6 +83,7 @@ const mapImages = {
     '1068': './Images/NGC1068.jpg',
     '1232': './Images/NGC1232.jpg',
     '1398': './Images/NGC1398.jpg',
+    '1912': './Images/NGC1912.jpg',
 };
 function onSubmit(event) {
     if (event.submitter.id == "home_button") {
