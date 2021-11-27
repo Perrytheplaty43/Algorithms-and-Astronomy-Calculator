@@ -395,6 +395,7 @@ function myServer(req, res) {
 const server = home.startsWith('/home/runner/') ?
     http.createServer(myServer).listen(8000, '127.0.0.1', () => {
         console.log(`Server running`);
+        process.exit();
     }) :
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
