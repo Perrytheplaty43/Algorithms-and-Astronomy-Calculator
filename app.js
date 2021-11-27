@@ -393,14 +393,12 @@ function myServer(req, res) {
 
 
 const server = home.startsWith('/home/runner/') ?
-    http.createServer(myServer):
+    http.createServer(myServer).listen(8000, '127.0.0.1', () => {
+        console.log(`Server running`);
+    }) :
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
         cert: fs.readFileSync(home + delimiter + 'fullchainCert.pem')
-    }, myServer);
-
-const hostname = '192.168.1.88';
-const port = 8000;
-server.listen(port, hostname, () => {
-    console.log(`Server running at https://${hostname}:${port}/`);
-});
+    }, myServer).listen(8000, '192.168.1.88', () => {
+        console.log(`Server running`);
+    });
