@@ -23,7 +23,6 @@ type object struct {
 }
 var sample []object
 
-
 var star *object = &object{
 	Id: "38",
 	Dec: 23.23234,
