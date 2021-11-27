@@ -34,7 +34,6 @@ var star *object = &object{
 
 
 func astroHandler(w http.ResponseWriter, r *http.Request) {
-
 	switch r.Method {
 	case "GET":
 		r.ParseForm()
