@@ -22,7 +22,7 @@ jobs:
       run: go mod init example.com/m/v2
       
     - name: Build
-      run: go build -v github.com/Perrytheplaty43/Algorithums-and-Astronomy-Calculator/blob/master/Go/server.go
+      run: go build -v ./Go/server.go
 
     - name: Test
-      run: go test -v github.com/Perrytheplaty43/Algorithums-and-Astronomy-Calculator/blob/master/Go/server.go
+      run: go test -v ./Go/server.go
