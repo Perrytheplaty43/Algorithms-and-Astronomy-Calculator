@@ -309,9 +309,11 @@ func sunsetriseTime(lat float64, long float64) []float64 {
 func toRadians(angle float64) float64{
 	return angle * (math.Pi / 180)
 }
+
 func toDegrees(angle float64) float64{
 	return angle * (180 / math.Pi)
 }
+
 func isGoodType(input string, types []string) bool{
 	for i := 0; i <= len(types) - 1; i++{
 		if input == types[i] {
