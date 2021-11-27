@@ -12,6 +12,7 @@ globalThis.path = path
 
 const delimiter = "/";
 //const delimiter = "\\";
+//TEST
 
 const home = "/home/pi/"
 //const home = "C:\\"
