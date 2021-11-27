@@ -62,10 +62,8 @@ func readCsvFile(filePath string) [][]string {
     if err != nil {
         log.Fatal("Unable to parse file as CSV for " + filePath, err)
     }
-
     return records
 }
-
 
 func main() {	
 	sample = append(sample, *star, *star, *star)
