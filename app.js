@@ -4,6 +4,9 @@ globalThis.fetch = fetch
 import https from "https";
 globalThis.https = https
 
+import http from "http";
+globalThis.http = http
+
 import fs from "fs";
 globalThis.fs = fs
 
@@ -20,19 +23,14 @@ const frameworkPath1 = "/MineSweeper/MineSweeperWWW/_framework";
 const frameworkPath2 = "/_framework";
 
 //const hostname = '10.172.195.3';
-const hostname = '192.168.1.88';
-const port = 8000;
-const options = {
-    key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
-    cert: fs.readFileSync(home + delimiter + 'fullchainCert.pem')
-};
+
 let lineCount;
 fs.readFile(home + delimiter + 'Logs' + delimiter + 'lineCount.txt', function (err, html) {
     lineCount = parseInt(html)
 })
 let fileCount = 0;
 
-const server = https.createServer(options, function (req, res) {
+function myServer(req, res) {
     const { method, url } = req;
     fs.writeFile(home + delimiter + 'Logs' + delimiter + 'lineCount.txt', lineCount.toString(), err => {
         if (err) {
@@ -391,8 +389,18 @@ const server = https.createServer(options, function (req, res) {
         })
     });
     return;
-});
+}
 
+
+const server = home.startsWith('/home/runner/') ?
+    http.createServer(myServer):
+    https.createServer({
+        key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
+        cert: fs.readFileSync(home + delimiter + 'fullchainCert.pem')
+    }, myServer);
+
+const hostname = '192.168.1.88';
+const port = 8000;
 server.listen(port, hostname, () => {
     console.log(`Server running at https://${hostname}:${port}/`);
 });
