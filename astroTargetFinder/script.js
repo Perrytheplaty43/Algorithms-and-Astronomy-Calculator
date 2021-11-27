@@ -236,21 +236,31 @@ function updateUI(final, timer, lat, long) {
         frame5.src = "./blank.jpg"
     }
     if (final.length == 2) {
+        frame1.src = mapImages[final[0][0]] ?? "./blank.jpg";
         frame2.src = mapImages[final[1][0]] ?? "./blank.jpg";
         frame3.src = "./blank.jpg"
         frame4.src = "./blank.jpg"
         frame5.src = "./blank.jpg"
     }
     if (final.length == 3) {
+        frame1.src = mapImages[final[0][0]] ?? "./blank.jpg";
+        frame2.src = mapImages[final[1][0]] ?? "./blank.jpg";
         frame3.src = mapImages[final[2][0]] ?? "./blank.jpg";
         frame4.src = "./blank.jpg"
         frame5.src = "./blank.jpg"
     }
     if (final.length == 4) {
+        frame1.src = mapImages[final[0][0]] ?? "./blank.jpg";
+        frame2.src = mapImages[final[1][0]] ?? "./blank.jpg";
+        frame3.src = mapImages[final[2][0]] ?? "./blank.jpg";
         frame4.src = mapImages[final[3][0]] ?? "./blank.jpg";
         frame5.src = "./blank.jpg"
     }
     if (final.length == 5) {
+        frame1.src = mapImages[final[0][0]] ?? "./blank.jpg";
+        frame2.src = mapImages[final[1][0]] ?? "./blank.jpg";
+        frame3.src = mapImages[final[2][0]] ?? "./blank.jpg";
+        frame4.src = mapImages[final[3][0]] ?? "./blank.jpg";
         frame5.src = mapImages[final[4][0]] ?? "./blank.jpg";
     }
     if (final.length > 5) {
