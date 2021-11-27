@@ -86,6 +86,10 @@ const mapImages = {
     '1912': './Images/NGC1912.jpg',
     '1023': './Images/NGC1023.jpg',
     '1027': './Images/NGC1027.jpg',
+    '2419': './Images/NGC2419.jpg',
+    '2392': './Images/NGC2392.jpg',
+    'I2149': './Images/IC2149.jpg',
+    '1514': './Images/NGC1514.jpg',
 };
 function onSubmit(event) {
     if (event.submitter.id == "home_button") {
