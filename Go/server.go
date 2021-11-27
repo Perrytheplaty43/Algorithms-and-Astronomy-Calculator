@@ -31,7 +31,6 @@ var star *object = &object{
 	Con: "fun",
 }
 
-
 func astroHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
