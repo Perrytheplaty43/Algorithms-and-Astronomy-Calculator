@@ -9,11 +9,6 @@ globalThis.fs = fs
 
 import path from "path";
 globalThis.path = path
-// const http = require('http'),
-//     fs = require('fs'),
-//     https = require('https'),
-//     path = require('path');
-//const { resourceUsage } = require('process');
 
 const delimiter = "/";
 //const delimiter = "\\";

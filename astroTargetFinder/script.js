@@ -84,6 +84,7 @@ const mapImages = {
     '1232': './Images/NGC1232.jpg',
     '1398': './Images/NGC1398.jpg',
     '1912': './Images/NGC1912.jpg',
+    '1023': './Images/NGC1023.jpg',
 };
 function onSubmit(event) {
     if (event.submitter.id == "home_button") {
@@ -228,38 +229,28 @@ function updateUI(final, timer, lat, long) {
     }
     if (final.length == 1) {
         frame1.src = mapImages[final[0][0]] ?? "./blank.jpg";
-    } else {
         frame2.src = "./blank.jpg"
         frame3.src = "./blank.jpg"
         frame4.src = "./blank.jpg"
         frame5.src = "./blank.jpg"
     }
-
     if (final.length == 2) {
         frame2.src = mapImages[final[1][0]] ?? "./blank.jpg";
-    } else {
         frame3.src = "./blank.jpg"
         frame4.src = "./blank.jpg"
         frame5.src = "./blank.jpg"
     }
-
     if (final.length == 3) {
         frame3.src = mapImages[final[2][0]] ?? "./blank.jpg";
-    } else {
         frame4.src = "./blank.jpg"
         frame5.src = "./blank.jpg"
     }
-
     if (final.length == 4) {
         frame4.src = mapImages[final[3][0]] ?? "./blank.jpg";
-    } else {
         frame5.src = "./blank.jpg"
     }
-
     if (final.length == 5) {
         frame5.src = mapImages[final[4][0]] ?? "./blank.jpg";
-    } else {
-        frame5.src = "./blank.jpg"
     }
     if (final.length > 5) {
         frame1.src = mapImages[final[0][0]] ?? "./blank.jpg";
