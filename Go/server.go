@@ -128,9 +128,9 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 	typeKey["TS"] = "Triple star"
 	typeKey["DS"] = "Double star"
 	typeKey["SS"] = "Single star"
-	typeKey["Q"] ="Uncertain type or may not exist"
-	typeKey["U"] ="Unidentified at the place given, or type unknown"
-	typeKey["D"] ="Object called nonexistent in the RNGC"
+	typeKey["Q"] = "Uncertain type or may not exist"
+	typeKey["U"] = "Unidentified at the place given, or type unknown"
+	typeKey["D"] = "Object called nonexistent in the RNGC"
 	typeKey["PD"] = "Photographic plate defect"
 
 	constellationKey := make(map[string]string)
