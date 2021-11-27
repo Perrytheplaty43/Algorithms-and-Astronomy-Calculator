@@ -19,7 +19,7 @@ jobs:
         go-version: 1.17
 
     - name: Go Mod Setup
-      run: go mod init
+      run: go mod init example.com/m/v2
       
     - name: Build
       run: go build -v ./...
