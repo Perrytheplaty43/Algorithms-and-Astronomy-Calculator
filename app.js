@@ -19,7 +19,6 @@ const frameworkPath1 = "/MineSweeper/MineSweeperWWW/_framework";
 const frameworkPath2 = "/_framework";
 
 //const hostname = '10.172.195.3';
-//const hostname = '192.168.1.23';
 const hostname = '192.168.1.88';
 const port = 8000;
 const options = {
