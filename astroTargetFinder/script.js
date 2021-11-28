@@ -233,6 +233,12 @@ function updateUI(final, timer, lat, long) {
         frame5.src = "./blank.jpg"
     }
     if (final.length == 1) {
+        if (mapImages[final[0][0]] == null) {
+            fetch(
+                'https://athesto.ddns.net/astroBlank?id=' + final[0][0],
+                { method: 'POST' }
+            )
+        }
         frame1.src = mapImages[final[0][0]] ?? "./blank.jpg";
         frame2.src = "./blank.jpg"
         frame3.src = "./blank.jpg"
@@ -240,6 +246,18 @@ function updateUI(final, timer, lat, long) {
         frame5.src = "./blank.jpg"
     }
     if (final.length == 2) {
+        if (mapImages[final[0][0]] == null) {
+            fetch(
+                'https://athesto.ddns.net/astroBlank?id=' + final[0][0],
+                { method: 'POST' }
+            )
+        }
+        if (mapImages[final[1][0]] == null) {
+            fetch(
+                'https://athesto.ddns.net/astroBlank?id=' + final[1][0],
+                { method: 'POST' }
+            )
+        }
         frame1.src = mapImages[final[0][0]] ?? "./blank.jpg";
         frame2.src = mapImages[final[1][0]] ?? "./blank.jpg";
         frame3.src = "./blank.jpg"
@@ -247,6 +265,24 @@ function updateUI(final, timer, lat, long) {
         frame5.src = "./blank.jpg"
     }
     if (final.length == 3) {
+        if (mapImages[final[0][0]] == null) {
+            fetch(
+                'https://athesto.ddns.net/astroBlank?id=' + final[0][0],
+                { method: 'POST' }
+            )
+        }
+        if (mapImages[final[1][0]] == null) {
+            fetch(
+                'https://athesto.ddns.net/astroBlank?id=' + final[1][0],
+                { method: 'POST' }
+            )
+        }
+        if (mapImages[final[2][0]] == null) {
+            fetch(
+                'https://athesto.ddns.net/astroBlank?id=' + final[2][0],
+                { method: 'POST' }
+            )
+        }
         frame1.src = mapImages[final[0][0]] ?? "./blank.jpg";
         frame2.src = mapImages[final[1][0]] ?? "./blank.jpg";
         frame3.src = mapImages[final[2][0]] ?? "./blank.jpg";
@@ -254,20 +290,67 @@ function updateUI(final, timer, lat, long) {
         frame5.src = "./blank.jpg"
     }
     if (final.length == 4) {
+        if (mapImages[final[0][0]] == null) {
+            fetch(
+                'https://athesto.ddns.net/astroBlank?id=' + final[0][0],
+                { method: 'POST' }
+            )
+        }
+        if (mapImages[final[1][0]] == null) {
+            fetch(
+                'https://athesto.ddns.net/astroBlank?id=' + final[1][0],
+                { method: 'POST' }
+            )
+        }
+        if (mapImages[final[2][0]] == null) {
+            fetch(
+                'https://athesto.ddns.net/astroBlank?id=' + final[2][0],
+                { method: 'POST' }
+            )
+        }
+        if (mapImages[final[3][0]] == null) {
+            fetch(
+                'https://athesto.ddns.net/astroBlank?id=' + final[3][0],
+                { method: 'POST' }
+            )
+        }
         frame1.src = mapImages[final[0][0]] ?? "./blank.jpg";
         frame2.src = mapImages[final[1][0]] ?? "./blank.jpg";
         frame3.src = mapImages[final[2][0]] ?? "./blank.jpg";
         frame4.src = mapImages[final[3][0]] ?? "./blank.jpg";
         frame5.src = "./blank.jpg"
     }
-    if (final.length == 5) {
-        frame1.src = mapImages[final[0][0]] ?? "./blank.jpg";
-        frame2.src = mapImages[final[1][0]] ?? "./blank.jpg";
-        frame3.src = mapImages[final[2][0]] ?? "./blank.jpg";
-        frame4.src = mapImages[final[3][0]] ?? "./blank.jpg";
-        frame5.src = mapImages[final[4][0]] ?? "./blank.jpg";
-    }
-    if (final.length > 5) {
+    if (final.length >= 5) {
+        if (mapImages[final[0][0]] == null) {
+            fetch(
+                'https://athesto.ddns.net/astroBlank?id=' + final[0][0],
+                { method: 'POST' }
+            )
+        }
+        if (mapImages[final[1][0]] == null) {
+            fetch(
+                'https://athesto.ddns.net/astroBlank?id=' + final[1][0],
+                { method: 'POST' }
+            )
+        }
+        if (mapImages[final[2][0]] == null) {
+            fetch(
+                'https://athesto.ddns.net/astroBlank?id=' + final[2][0],
+                { method: 'POST' }
+            )
+        }
+        if (mapImages[final[3][0]] == null) {
+            fetch(
+                'https://athesto.ddns.net/astroBlank?id=' + final[3][0],
+                { method: 'POST' }
+            )
+        }
+        if (mapImages[final[4][0]] == null) {
+            fetch(
+                'https://athesto.ddns.net/astroBlank?id=' + final[4][0],
+                { method: 'POST' }
+            )
+        }
         frame1.src = mapImages[final[0][0]] ?? "./blank.jpg";
         frame2.src = mapImages[final[1][0]] ?? "./blank.jpg";
         frame3.src = mapImages[final[2][0]] ?? "./blank.jpg";
@@ -281,7 +364,7 @@ function ShowHideDiv(chk, target) {
     dv.style.display = chk.checked ? "block" : "none";
 }
 
-function bottomForm(event){
+function bottomForm(event) {
     event.preventDefault();
-	window.location.href = "https://github.com/Perrytheplaty43/Algorithums-and-Astronomy-Calculator";
+    window.location.href = "https://github.com/Perrytheplaty43/Algorithums-and-Astronomy-Calculator";
 }

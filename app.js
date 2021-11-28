@@ -39,7 +39,7 @@ function myServer(req, res) {
         }
         if (stats.size > 10000) {
             fileCount++;
-            fs.writeFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "",{}, (err) => {
+            fs.writeFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "", {}, (err) => {
                 if (err) {
                     console.log(err);
                     fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err, (err) => {
@@ -73,10 +73,25 @@ function myServer(req, res) {
             res.end();
             fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write, (err) => {
                 if (err) console.log(err);
-                
+
                 return;
             })
         });
+        return;
+    }
+    if (method == 'POST' && surl.pathname == '/astroBlank') {
+        let idBlank = surl.searchParams
+        let id = idBlank.get('id')
+        if (id != null) {
+            fs.appendFile(home + delimiter + 'Logs' + delimiter + 'todo.txt', "\n" + id, (err) => {
+                fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err, (err) => {
+                    if (err) console.log(err);
+                    return;
+                })
+                return;
+            })
+            res.end();
+        }
         return;
     }
     if (method == 'GET' && surl.pathname == '/style.css') {
