@@ -90,6 +90,8 @@ const mapImages = {
     '2392': './Images/NGC2392.jpg',
     'I2149': './Images/IC2149.jpg',
     '1514': './Images/NGC1514.jpg',
+    '205': './Images/NGC205.jpg',
+    '221': './Images/NGC221.jpg',
 };
 function onSubmit(event) {
     if (event.submitter.id == "home_button") {
