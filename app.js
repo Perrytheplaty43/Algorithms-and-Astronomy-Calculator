@@ -28,7 +28,7 @@ let fileCount = 0;
 
 function myServer(req, res) {
     const { method, url } = req;
-    fs.writeFile(home + delimiter + 'Logs' + delimiter + 'lineCount.txt', lineCount.toString(), err => {
+    fs.stat(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', (err, stats) => {
         if (err) {
             console.log(err);
             fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err, (err) => {
@@ -37,11 +37,9 @@ function myServer(req, res) {
             })
             return;
         }
-    })
-    fs.stat(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', (err, stats) => {
         if (stats.size > 10000) {
             fileCount++;
-            fs.writeFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', (err) => {
+            fs.writeFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "",{}, (err) => {
                 if (err) {
                     console.log(err);
                     fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err, (err) => {
@@ -52,6 +50,7 @@ function myServer(req, res) {
                 }
             })
         }
+        return
     })
     //const surl = new URL(url, 'http://10.172.195.3');
     const surl = new URL(url, 'https://192.168.1.88/');
@@ -74,7 +73,7 @@ function myServer(req, res) {
             res.end();
             fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write, (err) => {
                 if (err) console.log(err);
-                lineCount++;
+                
                 return;
             })
         });
@@ -145,7 +144,6 @@ function myServer(req, res) {
             res.end();
             fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write, (err) => {
                 if (err) console.log(err);
-                lineCount++;
                 return;
             })
         });
@@ -260,7 +258,6 @@ function myServer(req, res) {
             res.end();
             fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write, (err) => {
                 if (err) console.log(err);
-                lineCount++;
                 return;
             })
         });
@@ -283,7 +280,6 @@ function myServer(req, res) {
             res.end();
             fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write, (err) => {
                 if (err) console.log(err);
-                lineCount++;
                 return;
             })
         });
@@ -381,7 +377,6 @@ function myServer(req, res) {
         res.end();
         fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write, (err) => {
             if (err) console.log(err);
-            lineCount++;
             return;
         })
     });
