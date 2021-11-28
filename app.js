@@ -24,7 +24,10 @@ const frameworkPath2 = "/_framework";
 
 //const hostname = '10.172.195.3';
 
-let fileCount = 0;
+let fileCount;
+fs.readFile(home + delimiter + 'Logs' + delimiter + 'fileCount.txt', function (err, html) {
+    fileCount = parseInt(html)
+})
 
 function myServer(req, res) {
     const { method, url } = req;
@@ -39,6 +42,16 @@ function myServer(req, res) {
         }
         if (stats.size > 10000) {
             fileCount++;
+            fs.writeFile(home + delimiter + 'Logs' + delimiter + 'fileCount.txt', fileCount, {}, (err) => {
+                if (err) {
+                    console.log(err);
+                    fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err, (err) => {
+                        if (err) console.log(err);
+                        return;
+                    })
+                    return;
+                }
+            })
             fs.writeFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "", {}, (err) => {
                 if (err) {
                     console.log(err);
