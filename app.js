@@ -24,10 +24,6 @@ const frameworkPath2 = "/_framework";
 
 //const hostname = '10.172.195.3';
 
-let lineCount;
-fs.readFile(home + delimiter + 'Logs' + delimiter + 'lineCount.txt', function (err, html) {
-    lineCount = parseInt(html)
-})
 let fileCount = 0;
 
 function myServer(req, res) {
@@ -42,20 +38,21 @@ function myServer(req, res) {
             return;
         }
     })
-    if (lineCount > 500) {
-        fileCount++;
-        fs.writeFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', (err) => {
-            if (err) {
-                console.log(err);
-                fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err, (err) => {
-                    if (err) console.log(err);
+    fs.stat(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', (err, stats) => {
+        if (stats.size > 10000) {
+            fileCount++;
+            fs.writeFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', (err) => {
+                if (err) {
+                    console.log(err);
+                    fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err, (err) => {
+                        if (err) console.log(err);
+                        return;
+                    })
                     return;
-                })
-                return;
-            }
-        })
-        lineCount = 0;
-    }
+                }
+            })
+        }
+    })
     //const surl = new URL(url, 'http://10.172.195.3');
     const surl = new URL(url, 'https://192.168.1.88/');
     let date = new Date();
