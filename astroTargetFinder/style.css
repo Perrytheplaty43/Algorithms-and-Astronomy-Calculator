@@ -143,6 +143,12 @@ label {
 	cursor: pointer;
 	animation-fill-mode: forwards;
 }
+.submitButton4 {
+	margin-top: 3px;
+	flex-grow: 1;
+	cursor: pointer;
+	animation-fill-mode: forwards;
+}
 .submitButton1 {
 	margin-top: 3px;
 	margin-left: 3px;

@@ -280,3 +280,8 @@ function ShowHideDiv(chk, target) {
     var dv = document.getElementById(target);
     dv.style.display = chk.checked ? "block" : "none";
 }
+
+function bottomForm(event){
+    event.preventDefault();
+	window.location.href = "https://github.com/Perrytheplaty43/Algorithums-and-Astronomy-Calculator";
+}
