@@ -14,7 +14,6 @@ import path from "path";
 globalThis.path = path
 
 const delimiter = "/";
-const __dirname = path.resolve();
 //const delimiter = "\\";
 
 const home = process.cwd()
@@ -23,7 +22,6 @@ const frameworkPath1 = "/MineSweeper/MineSweeperWWW/_framework";
 const frameworkPath2 = "/_framework";
 
 //const hostname = '10.172.195.3';
-
 let fileCount;
 fs.readFile(home + delimiter + 'Logs' + delimiter + 'fileCount.txt', function (err, html) {
     fileCount = parseInt(html)
@@ -376,8 +374,6 @@ function myServer(req, res) {
         let tol = searchParams.get('tol')
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
-
-        //console.log(lat, long)
         fetch(
             'http://192.168.1.88:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types,
             { method: 'GET' }
@@ -410,7 +406,6 @@ function myServer(req, res) {
     });
     return;
 }
-
 
 const server = home.startsWith('/home/runner/') ?
     http.createServer(myServer).listen(8000, '127.0.0.1', () => {
