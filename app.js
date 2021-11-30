@@ -13,8 +13,7 @@ globalThis.fs = fs
 import path from "path";
 globalThis.path = path
 
-import exec from "child_process";
-globalThis.exec = exec
+const { exec } = require('child_process');
 
 const delimiter = "/";
 //const delimiter = "\\";
