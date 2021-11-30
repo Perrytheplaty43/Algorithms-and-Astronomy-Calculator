@@ -351,8 +351,11 @@ function myServer(req, res) {
 const server = home.startsWith('/home/runner/') ?
     http.createServer(myServer).listen(8000, '127.0.0.1', () => {
         testing = true;
+        let finished = 0;
         console.log(`Server running`);
         child.exec('curl http://127.0.0.1:8000/', (err, stdout, stderr) => {
+            finished++;
+            console.log(`Server running`);
             if (stdout.startsWith("<!DOCTYPE html>") && err == null) {
                 console.log("GETing \'/\' (1/7): Success")
             } else {
@@ -361,6 +364,7 @@ const server = home.startsWith('/home/runner/') ?
             return;
         });
         child.exec('curl http://127.0.0.1:8000/astroTargetFinder', (err, stdout, stderr) => {
+            finished++;
             if (stdout.startsWith("<!DOCTYPE html>") && err == null) {
                 console.log("GETing \'/astroTargetFinder\' (2/7): Success")
             } else {
@@ -369,6 +373,7 @@ const server = home.startsWith('/home/runner/') ?
             return;
         });
         child.exec('curl http://127.0.0.1:8000/MineSweeper', (err, stdout, stderr) => {
+            finished++;
             if (stdout.startsWith("<!DOCTYPE html>") && err == null) {
                 console.log("GETing \'/MineSweeper\' (3/7): Success")
             } else {
@@ -377,6 +382,7 @@ const server = home.startsWith('/home/runner/') ?
             return;
         });
         child.exec('curl http://127.0.0.1:8000/script.js', (err, stdout, stderr) => {
+            finished++;
             if (stdout.startsWith("let") && err == null) {
                 console.log("GETing \'/script.js\' (4/7): Success")
             } else {
@@ -385,6 +391,7 @@ const server = home.startsWith('/home/runner/') ?
             return;
         });
         child.exec('curl http://127.0.0.1:8000/style.css', (err, stdout, stderr) => {
+            finished++;
             if (stdout.startsWith("body") && err == null) {
                 console.log("GETing \'/style.css\' (5/7): Success")
             } else {
@@ -394,6 +401,7 @@ const server = home.startsWith('/home/runner/') ?
         });
 
         child.exec('curl http://127.0.0.1:8000/astroTargetFinder/script.js', (err, stdout, stderr) => {
+            finished++;
             if (stdout.startsWith("const") && err == null) {
                 console.log("GETing \'/astroTargetFinder/script.js\' (6/7): Success")
             } else {
@@ -402,6 +410,7 @@ const server = home.startsWith('/home/runner/') ?
             return;
         });
         child.exec('curl http://127.0.0.1:8000/astroTargetFinder/style.css', (err, stdout, stderr) => {
+            finished++;
             if (stdout.startsWith("body") && err == null) {
                 console.log("GETing \'/astroTargetFinder/style.css\' (7/7): Success")
             } else {
@@ -409,7 +418,7 @@ const server = home.startsWith('/home/runner/') ?
             }
             return;
         });
-        process.exit();
+        setInterval(() => {if(finished == 7) process.exit();}, 1000)
     }) :
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
