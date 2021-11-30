@@ -28,7 +28,7 @@ jobs:
         cache: 'npm'
         start: node app.js
         wait-on: "http://127.0.0.1:8000"
-        run: curl http://127.0.0.1:8000/
+    - run: curl http://127.0.0.1:8000/
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
