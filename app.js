@@ -414,8 +414,8 @@ const server = home.startsWith('/home/runner/') ?
     http.createServer(myServer).listen(8000, '127.0.0.1', () => {
         console.log(`Server running`);
         child.exec('curl http://127.0.0.1:8000/', (err, stdout, stderr) => {
-            if (stdout.startsWith("<!DOCTYPE html>") && stderr == null) {
-                console.log("Sucsess")
+            if (stdout.startsWith("<!DOCTYPE html>")) {
+                console.log("Sucsess", stderr)
             } else {
                 throw stderr;
             }
@@ -423,8 +423,8 @@ const server = home.startsWith('/home/runner/') ?
             return;
         });
         child.exec('curl http://127.0.0.1:8000/astroTargetFinder', (err, stdout, stderr) => {
-            if (stdout.startsWith("<!DOCTYPE html>") && stderr == null) {
-                console.log("Sucsess")
+            if (stdout.startsWith("<!DOCTYPE html>")) {
+                console.log("Sucsess", stderr)
             } else {
                 throw stderr;
             }
@@ -432,8 +432,8 @@ const server = home.startsWith('/home/runner/') ?
             return;
         });
         child.exec('curl http://127.0.0.1:8000/MineSweeper', (err, stdout, stderr) => {
-            if (stdout.startsWith("<!DOCTYPE html>") && stderr == null) {
-                console.log("Sucsess")
+            if (stdout.startsWith("<!DOCTYPE html>")) {
+                console.log("Sucsess", stderr)
             } else {
                 throw stderr;
             }
