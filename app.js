@@ -358,7 +358,6 @@ const server = home.startsWith('/home/runner/') ?
             } else {
                 throw stderr;
             }
-            process.exit();
             return;
         });
         child.exec('curl http://127.0.0.1:8000/astroTargetFinder', (err, stdout, stderr) => {
@@ -367,7 +366,6 @@ const server = home.startsWith('/home/runner/') ?
             } else {
                 throw stderr;
             }
-            process.exit();
             return;
         });
         child.exec('curl http://127.0.0.1:8000/MineSweeper', (err, stdout, stderr) => {
@@ -376,7 +374,6 @@ const server = home.startsWith('/home/runner/') ?
             } else {
                 throw stderr;
             }
-            process.exit();
             return;
         });
         child.exec('curl http://127.0.0.1:8000/script.js', (err, stdout, stderr) => {
@@ -385,7 +382,6 @@ const server = home.startsWith('/home/runner/') ?
             } else {
                 throw stderr;
             }
-            process.exit();
             return;
         });
         child.exec('curl http://127.0.0.1:8000/style.css', (err, stdout, stderr) => {
@@ -394,7 +390,6 @@ const server = home.startsWith('/home/runner/') ?
             } else {
                 throw stderr;
             }
-            process.exit();
             return;
         });
 
@@ -404,7 +399,6 @@ const server = home.startsWith('/home/runner/') ?
             } else {
                 throw stderr;
             }
-            process.exit();
             return;
         });
         child.exec('curl http://127.0.0.1:8000/astroTargetFinder/style.css', (err, stdout, stderr) => {
@@ -413,9 +407,9 @@ const server = home.startsWith('/home/runner/') ?
             } else {
                 throw stderr;
             }
-            process.exit();
             return;
         });
+        process.exit();
     }) :
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
