@@ -415,7 +415,7 @@ const server = home.startsWith('/home/runner/') ?
         console.log(`Server running`);
         child.exec('curl http://127.0.0.1:8000/', (err, stdout, stderr) => {
             if (stdout.startsWith("<!DOCTYPE html>")) {
-                console.log("Sucsess")
+                console.error("Sucsess")
             } else {
                 throw err;
             }
