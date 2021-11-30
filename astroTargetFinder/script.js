@@ -92,7 +92,7 @@ const mapImages = {
     '1514': './Images/NGC1514.jpg',
     '205': './Images/NGC205.jpg',
     '221': './Images/NGC221.jpg',
-    'I342': './Images/IC342.jpg',
+    'I 342': './Images/IC342.jpg',
 };
 function onSubmit(event) {
     if (event.submitter.id == "home_button") {
