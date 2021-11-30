@@ -92,6 +92,7 @@ const mapImages = {
     '1514': './Images/NGC1514.jpg',
     '205': './Images/NGC205.jpg',
     '221': './Images/NGC221.jpg',
+    'I342': './Images/IC342.jpg',
 };
 function onSubmit(event) {
     if (event.submitter.id == "home_button") {
@@ -177,7 +178,6 @@ function onSubmit(event) {
         }
         long = parseFloat(long);
         lat = parseFloat(lat);
-
         fetch(
             'https://athesto.ddns.net/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types,
             { method: 'GET' }
