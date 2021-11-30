@@ -26,8 +26,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: node app.js
-    - run: curl http://127.0.0.1:8000/
+    - run: |
+        node app.js
+        curl http://127.0.0.1:8000/
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
