@@ -37,31 +37,22 @@ function myServer(req, res) {
         fs.stat(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', (err, stats) => {
             if (err) {
                 console.log(err);
-                fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err, (err) => {
-                    if (err) console.log(err);
-                    return;
-                })
+                errorLog(testing, err, "16")
                 return;
             }
             if (stats.size > 10000) {
                 fileCount++;
-                fs.writeFile(home + delimiter + 'Logs' + delimiter + 'fileCount.txt', fileCount, {}, (err) => {
+                fs.writeFile(home + delimiter + 'Logs' + delimiter + 'fileCount.txt', fileCount.toString(), {}, (err) => {
                     if (err) {
                         console.log(err);
-                        fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err, (err) => {
-                            if (err) console.log(err);
-                            return;
-                        })
+                        errorLog(testing, err, "17")
                         return;
                     }
                 })
                 fs.writeFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "", {}, (err) => {
                     if (err) {
                         console.log(err);
-                        fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err, (err) => {
-                            if (err) console.log(err);
-                            return;
-                        })
+                        errorLog(testing, err, "18")
                         return;
                     }
                 })
@@ -77,7 +68,7 @@ function myServer(req, res) {
         fs.readFile(home + delimiter + 'index.html', function (err, html) {
             if (err) {
                 console.log(err);
-                errorLog(testing, err)
+                errorLog(testing, err, "1")
                 return;
             }
             res.writeHead(200, { 'Content-Type': 'text/html' });
@@ -94,10 +85,11 @@ function myServer(req, res) {
         let id = idBlank.get('id')
         if (id != null && !testing) {
             fs.appendFile(home + delimiter + 'Logs' + delimiter + 'todo.txt', "\n" + id, (err) => {
-                fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err, (err) => {
-                    if (err) console.log(err);
+                if (err) {
+                    console.log(err);
+                    errorLog(testing, err, "20")
                     return;
-                })
+                }
                 return;
             })
             res.end();
@@ -108,7 +100,7 @@ function myServer(req, res) {
         fs.readFile(home + delimiter + 'style.css', function (err, html) {
             if (err) {
                 console.log(err);
-                errorLog(testing, err)
+                errorLog(testing, err, "2")
                 return;
             }
             res.writeHead(200, { 'Content-Type': 'text/css' });
@@ -121,7 +113,7 @@ function myServer(req, res) {
         fs.readFile(home + delimiter + 'script.js', function (err, html) {
             if (err) {
                 console.log(err);
-                errorLog(testing, err)
+                errorLog(testing, err, "3")
                 return;
             }
             res.writeHead(200, { 'Content-Type': 'text/js' });
@@ -134,7 +126,7 @@ function myServer(req, res) {
         fs.readFile(home + delimiter + 'favicon.ico', function (err, html) {
             if (err) {
                 console.log(err);
-                errorLog(testing, err)
+                errorLog(testing, err, "4")
                 return;
             }
             res.writeHead(200, { 'Content-Type': 'image/x-icon' });
@@ -147,7 +139,7 @@ function myServer(req, res) {
         fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'index.html', function (err, html) {
             if (err) {
                 console.log(err);
-                errorLog(testing, err)
+                errorLog(testing, err, "5")
                 return;
             }
             let date = new Date();
@@ -163,7 +155,7 @@ function myServer(req, res) {
         fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'script.js', function (err, html) {
             if (err) {
                 console.log(err);
-                errorLog(testing, err)
+                errorLog(testing, err, "6")
                 return;
             }
             res.writeHead(200, { 'Content-Type': 'text/js' });
@@ -176,7 +168,7 @@ function myServer(req, res) {
         fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'style.css', function (err, html) {
             if (err) {
                 console.log(err);
-                errorLog(testing, err)
+                errorLog(testing, err, "7")
                 return;
             }
             res.writeHead(200, { 'Content-Type': 'text/css' });
@@ -189,7 +181,7 @@ function myServer(req, res) {
         fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'ngc2000Final.txt', function (err, html) {
             if (err) {
                 console.log(err);
-                errorLog(testing, err)
+                errorLog(testing, err, "8")
                 return;
             }
             res.writeHead(200, { 'Content-Type': 'text/txt' });
@@ -202,7 +194,7 @@ function myServer(req, res) {
         fs.readFile(home + delimiter + 'enterInput.html', function (err, html) {
             if (err) {
                 console.log(err);
-                errorLog(testing, err)
+                errorLog(testing, err, "9")
                 return;
             }
             res.writeHead(200, { 'Content-Type': 'text/html' });
@@ -215,7 +207,7 @@ function myServer(req, res) {
         fs.readFile(home + delimiter + '404.css', function (err, html) {
             if (err) {
                 console.log(err);
-                errorLog(testing, err)
+                errorLog(testing, err, "10")
                 return;
             }
             res.writeHead(200, { 'Content-Type': 'text/css' });
@@ -240,7 +232,7 @@ function myServer(req, res) {
         fs.readFile(home + delimiter + 'Images' + delimiter + name + '.jpg', function (err, html) {
             if (err) {
                 console.log(err);
-                errorLog(testing, err)
+                errorLog(testing, err, "11")
                 return;
             }
             let date = new Date();
@@ -256,7 +248,7 @@ function myServer(req, res) {
         fs.readFile(home + delimiter + 'MineSweeper' + delimiter + 'MineSweeperWWW' + delimiter + 'index.html', function (err, html) {
             if (err) {
                 console.log(err);
-                errorLog(testing, err)
+                errorLog(testing, err, "12")
                 return;
             }
             let date = new Date();
@@ -272,7 +264,7 @@ function myServer(req, res) {
         fs.readFile(home + delimiter + 'MineSweeper' + delimiter + 'MineSweeperWWW' + delimiter + 'css' + delimiter + 'index.css', function (err, html) {
             if (err) {
                 console.log(err);
-                errorLog(testing, err)
+                errorLog(testing, err, "13")
                 return;
             }
             res.writeHead(200, { 'Content-Type': 'text/css' });
@@ -287,7 +279,7 @@ function myServer(req, res) {
         fs.readFile(home + delimiter + 'MineSweeper' + delimiter + 'MineSweeperWWW' + delimiter + '_framework' + delimiter + fileName, function (err, html) {
             if (err) {
                 console.log(err);
-                errorLog(testing, err)
+                errorLog(testing, err, "14")
                 return;
             }
             res.writeHead(200, { 'Content-Type': 'text/' + extention });
@@ -302,7 +294,7 @@ function myServer(req, res) {
         fs.readFile(home + delimiter + 'MineSweeper' + delimiter + 'MineSweeperWWW' + delimiter + '_framework' + delimiter + fileName, function (err, html) {
             if (err) {
                 console.log(err);
-                errorLog(testing, err)
+                errorLog(testing, err, "15")
                 return;
             }
             if (fileName == "/dotnet.wasm") {
@@ -431,9 +423,9 @@ const server = home.startsWith('/home/runner/') ?
         console.log(`Server running`);
     });
 
-function errorLog(testing, err) {
+function errorLog(testing, err, id) {
     if (!testing) {
-        fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err, (err) => {
+        fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err + " ID=" + id, (err) => {
             if (err) console.log(err);
             return;
         })
@@ -450,7 +442,4 @@ function logging(testing, write) {
             return;
         })
     }
-}
-function file() {
-
 }
