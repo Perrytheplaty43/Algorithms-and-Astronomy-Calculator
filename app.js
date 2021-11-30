@@ -179,20 +179,20 @@ function myServer(req, res) {
         return;
     }
     if (method == 'GET' && surl.pathname == '/astroTargetFinder/script.js') {
-        // fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'script.js', function (err, html) {
-        //     if (err) {
-        //         console.log(err);
-        //         fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err, (err) => {
-        //             if (err) console.log(err);
-        //             return;
-        //         })
-        //         return;
-        //     }
-        //     res.writeHead(200, { 'Content-Type': 'text/js' });
-        //     res.write(html);
-        //     res.end();
-        // });
-        // return;
+        fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'script.js', function (err, html) {
+            if (err) {
+                console.log(err);
+                fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err, (err) => {
+                    if (err) console.log(err);
+                    return;
+                })
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/js' });
+            res.write(html);
+            res.end();
+        });
+        return;
     }
     if (method == 'GET' && surl.pathname == '/astroTargetFinder/style.css') {
         fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'style.css', function (err, html) {
