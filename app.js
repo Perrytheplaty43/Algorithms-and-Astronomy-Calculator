@@ -140,7 +140,7 @@ function myServer(req, res) {
         return;
     }
     if (method == 'GET' && surl.pathname == '/astroTargetFinder') {
-        fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'index1.html', function (err, html) {
+        fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'index.html', function (err, html) {
             if (err) {
                 console.log(err);
                 errorLog(testing, err)
