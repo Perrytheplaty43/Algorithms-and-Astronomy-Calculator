@@ -23,7 +23,12 @@ const home = process.cwd()
 //const home = "C:\\"
 const frameworkPath1 = "/MineSweeper/MineSweeperWWW/_framework";
 const frameworkPath2 = "/_framework";
-
+let fileCount;
+if (!home.startsWith('/home/runner')) {
+    fs.readFile(home + delimiter + 'Logs' + delimiter + 'fileCount.txt', function (err, html) {
+        fileCount = parseInt(html)
+    })
+}
 //const hostname = '10.172.195.3';
 
 function myServer(req, res) {
@@ -417,16 +422,12 @@ const server = home.startsWith('/home/runner/') ?
             }
             return;
         });
-        setInterval(() => {if(finished == 7) process.exit();}, 1000)
+        setInterval(() => { if (finished == 7) process.exit(); }, 1000)
     }) :
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
         cert: fs.readFileSync(home + delimiter + 'fullchainCert.pem')
     }, myServer).listen(8000, '192.168.1.88', () => {
-        let fileCount;
-        fs.readFile(home + delimiter + 'Logs' + delimiter + 'fileCount.txt', function (err, html) {
-            fileCount = parseInt(html)
-        })
         console.log(`Server running`);
     });
 
@@ -449,4 +450,7 @@ function logging(testing, write) {
             return;
         })
     }
+}
+function file() {
+
 }
