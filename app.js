@@ -13,7 +13,8 @@ globalThis.fs = fs
 import path from "path";
 globalThis.path = path
 
-const { exec } = require('child_process');
+import * as child from 'child_process';
+globalThis.child = child
 
 const delimiter = "/";
 //const delimiter = "\\";
@@ -412,7 +413,7 @@ function myServer(req, res) {
 const server = home.startsWith('/home/runner/') ?
     http.createServer(myServer).listen(8000, '127.0.0.1', () => {
         console.log(`Server running`);
-        exec('curl http://127.0.0.1:8000/', (err, stdout, stderr) => {
+        child.exec('curl http://127.0.0.1:8000/', (err, stdout, stderr) => {
             console.log(stdout)
         });
         process.exit();
