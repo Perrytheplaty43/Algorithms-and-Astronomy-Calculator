@@ -26,7 +26,6 @@ const frameworkPath2 = "/_framework";
 
 //const hostname = '10.172.195.3';
 
-
 function myServer(req, res) {
     const { method, url } = req;
     if (!testing) {
