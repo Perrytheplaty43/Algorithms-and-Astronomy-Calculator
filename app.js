@@ -411,7 +411,6 @@ function myServer(req, res) {
     return;
 }
 
-
 const server = home.startsWith('/home/runner/') ?
     http.createServer(myServer).listen(8000, '127.0.0.1', () => {
         console.log(`Server running`);
