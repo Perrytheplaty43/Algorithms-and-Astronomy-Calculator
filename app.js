@@ -416,8 +416,9 @@ const server = home.startsWith('/home/runner/') ?
         child.exec('curl http://127.0.0.1:8000/', (err, stdout, stderr) => {
             console.log("RUNNNNINIGNIGGINGNIGNIGNG")
             console.log(stdout)
+            process.exit();
+            return;
         });
-        process.exit();
     }) :
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
