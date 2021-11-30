@@ -417,7 +417,7 @@ const server = home.startsWith('/home/runner/') ?
             if (stdout.startsWith("<!DOCTYPE html>") && stderr == null) {
                 console.log("Sucsess")
             } else {
-            let toThrow = err + stderr;
+                let toThrow = err + stderr;
                 throw toThrow;
             }
             process.exit();
@@ -427,7 +427,8 @@ const server = home.startsWith('/home/runner/') ?
             if (stdout.startsWith("<!DOCTYPE html>") && stderr == null) {
                 console.log("Sucsess")
             } else {
-                throw err + stderr;
+                let toThrow = err + stderr;
+                throw toThrow;
             }
             process.exit();
             return;
@@ -436,7 +437,8 @@ const server = home.startsWith('/home/runner/') ?
             if (stdout.startsWith("<!DOCTYPE html>") && stderr == null) {
                 console.log("Sucsess")
             } else {
-                throw err + stderr;
+                let toThrow = err + stderr;
+                throw toThrow;
             }
             process.exit();
             return;
