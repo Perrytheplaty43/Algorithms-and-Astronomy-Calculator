@@ -414,8 +414,11 @@ const server = home.startsWith('/home/runner/') ?
     http.createServer(myServer).listen(8000, '127.0.0.1', () => {
         console.log(`Server running`);
         child.exec('curl http://127.0.0.1:8000/', (err, stdout, stderr) => {
-            console.log("RUNNNNINIGNIGGINGNIGNIGNG")
-            console.log(stdout)
+            if (stdout.startsWith("<!DOCTYPE html>")) {
+                console.log("Sucsess")
+            } else {
+                throw err;
+            }
             process.exit();
             return;
         });
