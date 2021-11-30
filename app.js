@@ -13,7 +13,7 @@ globalThis.fs = fs
 import path from "path";
 globalThis.path = path
 
-import * as child from 'child_process';
+import child from 'child_process';
 globalThis.child = child
 
 const delimiter = "/";
