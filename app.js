@@ -178,7 +178,7 @@ function myServer(req, res) {
         });
         return;
     }
-    if (method == 'GET' && surl.pathname == '/astroTargetFinder/script.js') {
+    //if (method == 'GET' && surl.pathname == '/astroTargetFinder/script.js') {
         fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'script.js', function (err, html) {
             if (err) {
                 console.log(err);
