@@ -88,6 +88,8 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 		times = sunsetriseTime(lat, long, date)
 	} else {
 		times = sunsetriseTime(lat, long, time.Now().String())
+		fmt.Println("else")
+		fmt.Println(len(date))
 	}
 
 	daysSinceJ2000 := (diff.Hours() / 24)
