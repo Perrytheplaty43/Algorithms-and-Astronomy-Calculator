@@ -85,7 +85,6 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 	if len(date) > 0 {
 		then2,_ := time.Parse(time.RFC3339, date  + "T00:00:00Z")
 		diff += time.Since(then2)
-		fmt.Println(date)
 		times = sunsetriseTime(lat, long, date)
 	} else {
 		times = sunsetriseTime(lat, long, time.Now().String())
@@ -298,8 +297,6 @@ func findLST(time float64, daysSinceJ2000 float64, long float64) float64{
 func sunsetriseTime(lat float64, long float64, date1 string) []float64 {
 	date, _ := time.Parse(time.RFC3339, date1  + "T00:00:00Z")
 	day := date.YearDay()
-	fmt.Println(date1)
-	fmt.Print("_____")
 
 	y := ((float64(2) * math.Pi) / float64(365)) * (float64(day) - float64(365))
 
