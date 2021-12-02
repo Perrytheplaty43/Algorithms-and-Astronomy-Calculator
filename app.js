@@ -416,10 +416,8 @@ const server = home.startsWith('/home/runner/') ?
         });
         child.exec('curl http://127.0.0.1:8000/astroTargetFinder/styleaaa.css', (err, stdout, stderr) => {
             finished++;
-            if (stdout.startsWith("body") && err == null) {
-                console.log("GETing \'/astroTargetFinder/style.css\' (7/7): Success")
-            } else {
-                throw stderr;
+            if (err) {
+                throw err
             }
             return;
         });
