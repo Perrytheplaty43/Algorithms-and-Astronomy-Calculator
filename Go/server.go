@@ -72,7 +72,7 @@ func main() {
 
 	http.HandleFunc("/astro", astroHandler)
 
-	log.Println("Go!")
+	log.Println("Go!!")
 	log.Fatal(http.ListenAndServe(":8001", nil))
 }
 func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string, date string) [][]interface{}{
