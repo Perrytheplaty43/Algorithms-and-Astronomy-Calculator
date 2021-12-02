@@ -8,7 +8,8 @@ algorithm that takes the entire NGC catalogue ([using this source](https://heasa
 and parses it based on supplied long and lat and then finds the best 5 targets based on the
 objects ALT (degrees above the horizon) for that night and its integrated (total) magnitude 
 as listed in the NGC catalog. The Minesweeper page is a Bolero applitction writen in F# from
-this [repository](https://github.com/albert-du/BoleroMinesweeper).
+this [repository](https://github.com/albert-du/BoleroMinesweeper). Server running the server 
+auto updates from the master branch.
 
 
 ## Acknowledgements
