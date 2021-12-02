@@ -98,7 +98,7 @@ const mapImages = {
     '147': './Images/NGC147.jpg',
 };
 let date = new Date();
-let theDateInput = document.getElementById("date");
+let theDateInput = document.getElementById("date43");
 theDateInput.min = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDay();
 function onSubmit(event) {
     if (event.submitter.id == "home_button") {
