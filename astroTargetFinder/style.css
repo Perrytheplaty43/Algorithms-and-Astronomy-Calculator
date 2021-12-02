@@ -29,9 +29,6 @@ h1 {
 .container2 {
 	margin-right: 8px;
 }
-.container6 {
-	display: none;
-}
 
 .form {
 	width: 100%;
@@ -123,6 +120,9 @@ label {
 	display: flex;
 	justify-content: center;
 	margin-bottom: 2.25vw;
+}
+.container6 {
+	display: none;
 }
 @keyframes typing {
 	from {
