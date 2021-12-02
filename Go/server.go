@@ -40,7 +40,6 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		tol, _ := strconv.ParseFloat(r.Form["tol"][0], 64)
 		tolMag, _ := strconv.ParseFloat(r.Form["tolMag"][0], 64)
 		date := r.Form["date"][0]
-		fmt.Println(date)
 		types := strings.Split(r.Form["type"][0], ",")
 		records := readCsvFile("/home/pi/github/Algorithums-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
 		finalArray := astro(records[:], lat, long, tol, tolMag, types, date)
@@ -301,9 +300,7 @@ func sunsetriseTime(lat float64, long float64, date1 string, isElse bool) []floa
 	} else {
 		date, _ = time.Parse(time.RFC3339, date1  + "T00:00:00Z")
 	}
-	
 	day := date.YearDay()
-	fmt.Println(day)
 
 	y := ((float64(2) * math.Pi) / float64(365)) * (float64(day) - float64(365))
 
