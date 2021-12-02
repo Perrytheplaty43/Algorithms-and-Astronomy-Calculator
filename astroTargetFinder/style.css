@@ -29,6 +29,9 @@ h1 {
 .container2 {
 	margin-right: 8px;
 }
+.container6 {
+	display: none;
+}
 
 .form {
 	width: 100%;
