@@ -97,6 +97,7 @@ const mapImages = {
     '1960': './Images/NGC1960.jpg',
     '147': './Images/NGC147.jpg',
 };
+alert("load")
 let date = new Date();
 function onSubmit(event) {
     if (event.submitter.id == "home_button") {
@@ -113,6 +114,7 @@ function onSubmit(event) {
             document.getElementById("Long").value = position.coords.latitude + ", " + position.coords.longitude;
         }
     } else {
+        alert("else")
         let timer = new Date();
         let [lat, long] = document.getElementById("Long").value.split(",");
         let dateToSend = document.getElementById("date").value
@@ -181,7 +183,6 @@ function onSubmit(event) {
         if (PD.checked) {
             types.push("PD")
         }
-        alert('https://athesto.ddns.net/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend)
         long = parseFloat(long);
         lat = parseFloat(lat);
         fetch(
