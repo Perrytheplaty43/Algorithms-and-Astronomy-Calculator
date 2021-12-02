@@ -95,6 +95,7 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 			d -= 365
 		}
 		fmt.Println(d)
+		fmt.Println(d >= 365 || d != 366)
 	}
 
 	daysSinceJ2000 := (diff.Hours() / 24)
