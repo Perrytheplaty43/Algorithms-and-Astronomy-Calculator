@@ -39,7 +39,7 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		long, _ := strconv.ParseFloat(r.Form["long"][0], 64)
 		tol, _ := strconv.ParseFloat(r.Form["tol"][0], 64)
 		tolMag, _ := strconv.ParseFloat(r.Form["tolMag"][0], 64)
-		date := strings.Split(r.Form["date"][0], "-")
+		date := r.Form["date"][0]
 		types := strings.Split(r.Form["type"][0], ",")
 		records := readCsvFile("/home/pi/github/Algorithums-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
 		finalArray := astro(records[:], lat, long, tol, tolMag, types, date)
@@ -74,20 +74,24 @@ func main() {
 	log.Println("Go!")
 	log.Fatal(http.ListenAndServe(":8001", nil))
 }
-func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string, date []string) [][]interface{}{
+func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string, date string) [][]interface{}{
 	var avgALTArray [][]interface{}
 	var ALT2 float64
 
     then,_ := time.Parse(time.RFC3339, "2000-01-01T00:00:00Z")
+	var times []float64
     diff := time.Since(then)
 	if len(date) > 0 {
-		then2,_ := time.Parse(time.RFC3339, strings.Join(date[:], "")  + "T00:00:00Z")
+		then2,_ := time.Parse(time.RFC3339, date  + "T00:00:00Z")
 		diff += time.Since(then2)
+		times = sunsetriseTime(lat, long, date, false)
+	} else {
+		times = sunsetriseTime(lat, long, time.Now().Format(time.RFC3339), true)
 	}
 
 	daysSinceJ2000 := (diff.Hours() / 24)
 
-	times := sunsetriseTime(lat, long)
+	
 	noon := (times[2] / 60) - 12;
 	if noon < 0 {
 		noon += 24
@@ -289,8 +293,13 @@ func findLST(time float64, daysSinceJ2000 float64, long float64) float64{
 	return LST
 }
 
-func sunsetriseTime(lat float64, long float64) []float64 {
-	date := time.Now()
+func sunsetriseTime(lat float64, long float64, date1 string, isElse bool) []float64 {
+	var date time.Time
+	if isElse {
+		date, _ = time.Parse(time.RFC3339, date1)
+	} else {
+		date, _ = time.Parse(time.RFC3339, date1  + "T00:00:00Z")
+	}
 	day := date.YearDay()
 
 	y := ((float64(2) * math.Pi) / float64(365)) * (float64(day) - float64(365))
