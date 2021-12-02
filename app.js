@@ -314,8 +314,9 @@ function myServer(req, res) {
         let tol = searchParams.get('tol')
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
+        let dateToSend = searchParams.get('date')
         fetch(
-            'http://192.168.1.88:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types,
+            'https://athesto.ddns.net/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
             { method: 'GET' }
         )
             .then(response => response.text())
@@ -394,7 +395,7 @@ function curlTest(path) {
     child.exec('curl http://127.0.0.1:8000' + path, (err, stdout, stderr) => {
         finished++;
         if (!stdout.startsWith("<!-- 404 -->") && err == null) {
-            console.log("GETing \'" + path + "\': Success")
+            console.log("Geting \'" + path + "\': Success")
         } else {
             throw stderr;
         }
