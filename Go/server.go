@@ -40,6 +40,7 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		tol, _ := strconv.ParseFloat(r.Form["tol"][0], 64)
 		tolMag, _ := strconv.ParseFloat(r.Form["tolMag"][0], 64)
 		date := r.Form["date"][0]
+		fmt.Println(date)
 		types := strings.Split(r.Form["type"][0], ",")
 		records := readCsvFile("/home/pi/github/Algorithums-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
 		finalArray := astro(records[:], lat, long, tol, tolMag, types, date)
@@ -75,6 +76,7 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8001", nil))
 }
 func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string, date string) [][]interface{}{
+	fmt.Println(date)
 	var avgALTArray [][]interface{}
 	var ALT2 float64
 
@@ -84,6 +86,7 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 		then2,_ := time.Parse(time.RFC3339, date  + "T00:00:00Z")
 		diff += time.Since(then2)
 	}
+	fmt.Println(diff)
 
 	daysSinceJ2000 := (diff.Hours() / 24)
 
