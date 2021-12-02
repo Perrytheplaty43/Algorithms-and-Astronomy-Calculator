@@ -347,7 +347,6 @@ function myServer(req, res) {
 const server = home.startsWith('/home/runner/') ?
     http.createServer(myServer).listen(8000, '127.0.0.1', () => {
         testing = true;
-        let finished = 0;
         console.log(`Server running`);
         curlTest("/")
         curlTest("/MineSweeper")
@@ -361,7 +360,7 @@ const server = home.startsWith('/home/runner/') ?
         curlTest("/404.css")
         curlTest("/Images/NGC4494.jpg")
         curlTest("/MineSweeper/MineSweeperWWW/css/index.css")
-        setInterval(() => {console.log(finished); if (finished == 12) process.exit(); }, 1000)
+        setInterval(() => {if (finished == 12) process.exit(); }, 1000)
     }) :
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
@@ -394,7 +393,6 @@ let finished = 0;
 function curlTest(path) {
     child.exec('curl http://127.0.0.1:8000' + path, (err, stdout, stderr) => {
         finished++;
-        console.log(finished)
         if (!stdout.startsWith("<!-- 404 -->") && err == null) {
             console.log("GETing \'" + path + "\': Success")
         } else {
