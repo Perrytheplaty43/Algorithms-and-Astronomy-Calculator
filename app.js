@@ -317,7 +317,7 @@ function myServer(req, res) {
         let dateToSend = searchParams.get('date')
         console.log(dateToSend)
         fetch(
-            'https://athesto.ddns.net/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+            'http://192.168.1.88:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
             { method: 'GET' }
         )
             .then(response => response.text())
