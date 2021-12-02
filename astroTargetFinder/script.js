@@ -115,7 +115,7 @@ function onSubmit(event) {
     } else {
         let timer = new Date();
         let [lat, long] = document.getElementById("Long").value.split(",");
-        let dateToSend = document.getElementById("date").value
+        let dateToSend = document.getElementById("date43").value
         let types = []
         let Gx = document.getElementById("Gx");
         let OC = document.getElementById("OC");
