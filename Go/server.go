@@ -80,15 +80,19 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 	var ALT2 float64
 
     then,_ := time.Parse(time.RFC3339, "2000-01-01T00:00:00Z")
+	var times []float64
     diff := time.Since(then)
 	if len(date) > 0 {
 		then2,_ := time.Parse(time.RFC3339, date  + "T00:00:00Z")
 		diff += time.Since(then2)
+		times = sunsetriseTime(lat, long, date)
+	} else {
+		times = sunsetriseTime(lat, long, time.Now().String())
 	}
 
 	daysSinceJ2000 := (diff.Hours() / 24)
 
-	times := sunsetriseTime(lat, long, date)
+	
 	noon := (times[2] / 60) - 12;
 	if noon < 0 {
 		noon += 24
