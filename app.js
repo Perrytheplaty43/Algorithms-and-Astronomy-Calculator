@@ -394,6 +394,7 @@ let finished = 0;
 function curlTest(path) {
     child.exec('curl http://127.0.0.1:8000' + path, (err, stdout, stderr) => {
         finished++;
+        console.log(finished)
         if (!stdout.startsWith("<!-- 404 -->") && err == null) {
             console.log("GETing \'" + path + "\': Success")
         } else {
