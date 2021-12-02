@@ -181,6 +181,7 @@ function onSubmit(event) {
         if (PD.checked) {
             types.push("PD")
         }
+        alert('https://athesto.ddns.net/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend)
         long = parseFloat(long);
         lat = parseFloat(lat);
         fetch(
