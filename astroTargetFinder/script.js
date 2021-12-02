@@ -97,7 +97,6 @@ const mapImages = {
     '1960': './Images/NGC1960.jpg',
     '147': './Images/NGC147.jpg',
 };
-alert("load")
 let date = new Date();
 function onSubmit(event) {
     if (event.submitter.id == "home_button") {
@@ -114,7 +113,6 @@ function onSubmit(event) {
             document.getElementById("Long").value = position.coords.latitude + ", " + position.coords.longitude;
         }
     } else {
-        alert("else")
         let timer = new Date();
         let [lat, long] = document.getElementById("Long").value.split(",");
         let dateToSend = document.getElementById("date").value
@@ -137,6 +135,7 @@ function onSubmit(event) {
 
         let tol = document.getElementById("tolerance").value;
         let tolMag = document.getElementById("toleranceMag").value;
+        alert("else")
 
         if (Gx.checked) {
             types.push("Gx")
