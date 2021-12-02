@@ -10,26 +10,25 @@ import (
 	"os"
 	"sort"
 	"strconv"
-	"strings"
 	"time"
+	"strings"
 )
 
 type object struct {
-	Id   string  `json:"id"`
-	Dec  float64 `json:"dec"`
-	Mag  int     `json:"mag"`
-	Type string  `json:"type"`
-	Con  string  `json:"con"`
+	Id string `json:"id"`
+	Dec float64 `json:"dec"`
+	Mag int `json:"mag"`
+	Type string `json:"type"`
+	Con string `json:"con"`
 }
-
 var sample []object
 
 var star *object = &object{
-	Id:   "38",
-	Dec:  23.23234,
-	Mag:  2,
+	Id: "38",
+	Dec: 23.23234,
+	Mag: 2,
 	Type: "star",
-	Con:  "fun",
+	Con: "fun",
 }
 
 func astroHandler(w http.ResponseWriter, r *http.Request) {
@@ -41,6 +40,7 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		tol, _ := strconv.ParseFloat(r.Form["tol"][0], 64)
 		tolMag, _ := strconv.ParseFloat(r.Form["tolMag"][0], 64)
 		date := r.Form["date"][0]
+		fmt.Println(date)
 		types := strings.Split(r.Form["type"][0], ",")
 		records := readCsvFile("/home/pi/github/Algorithums-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
 		finalArray := astro(records[:], lat, long, tol, tolMag, types, date)
@@ -53,61 +53,48 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func readCsvFile(filePath string) [][]string {
-	f, err := os.Open(filePath)
-	if err != nil {
-		log.Fatal("Unable to read input file "+filePath, err)
-	}
-	defer f.Close()
+    f, err := os.Open(filePath)
+    if err != nil {
+        log.Fatal("Unable to read input file " + filePath, err)
+    }
+    defer f.Close()
 
-	csvReader := csv.NewReader(f)
-	records, err := csvReader.ReadAll()
-	if err != nil {
-		log.Fatal("Unable to parse file as CSV for "+filePath, err)
-	}
-	return records
+    csvReader := csv.NewReader(f)
+    records, err := csvReader.ReadAll()
+    if err != nil {
+        log.Fatal("Unable to parse file as CSV for " + filePath, err)
+    }
+    return records
 }
 
-func main() {
+func main() {	
 	sample = append(sample, *star, *star, *star)
 
 	http.HandleFunc("/astro", astroHandler)
 
-	log.Println("Go!!")
+	log.Println("Go!")
 	log.Fatal(http.ListenAndServe(":8001", nil))
 }
-func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string, date string) [][]interface{} {
+func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string, date string) [][]interface{}{
 	var avgALTArray [][]interface{}
 	var ALT2 float64
 
-	then, _ := time.Parse(time.RFC3339, "2000-01-01T00:00:00Z")
-	diff := time.Since(then)
+    then,_ := time.Parse(time.RFC3339, "2000-01-01T00:00:00Z")
+    diff := time.Since(then)
 	if len(date) > 0 {
-		then2, _ := time.Parse(time.RFC3339, date+"T00:00:00Z")
+		then2,_ := time.Parse(time.RFC3339, date  + "T00:00:00Z")
 		diff += time.Since(then2)
 	}
-	d := diff.Hours() / 24
-	fmt.Println(d)
-	leapYear := 0
-	for d >= 365{
-		if leapYear == 4 {
-			d -= 366
-			leapYear = 0
-		} else {
-			d -= 365
-		}
-		fmt.Println(d)
-	}
-	fmt.Println(d)
 
 	daysSinceJ2000 := (diff.Hours() / 24)
 
-	times := sunsetriseTime(lat, long, d)
-	noon := (times[2] / 60) - 12
+	times := sunsetriseTime(lat, long, date)
+	noon := (times[2] / 60) - 12;
 	if noon < 0 {
 		noon += 24
 	}
 	LST := findLST(noon, daysSinceJ2000, long)
-	for i := 0; i <= len(data)-1; i++ {
+	for i := 0; i <= len(data) - 1; i++ {
 		RAhour, _ := strconv.ParseFloat(data[i][2], 64)
 		RAMin, _ := strconv.ParseFloat(data[i][3], 64)
 
@@ -132,7 +119,7 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 	})
 	return formOutput(avgALTArray, data, tol, tolMag, types)
 }
-func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, tolMag float64, types []string) [][]interface{} {
+func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, tolMag float64, types []string) [][]interface{}{
 	var final [][]interface{}
 
 	typeKey := make(map[string]string)
@@ -242,7 +229,7 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 
 	var outArray [][]interface{}
 
-	for i := 0; i <= len(avgArray)-1; i++ {
+	for i := 0; i <= len(avgArray) - 1; i++ {
 		toPush := []interface{}{avgArray[i][0], avgArray[i][1]}
 
 		if avgArray[i][1].(float64) >= float64(minAccALT) {
@@ -250,7 +237,7 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 		}
 	}
 	n := 0
-	for i := 0; i <= len(data)-1; i++ {
+	for i := 0; i <= len(data) - 1; i++ {
 		if data[i][0] == outArray[n][0] {
 			pushing := []interface{}{outArray[n][0], outArray[n][1], data[i][7], data[i][1], data[i][6]}
 			outArray[n] = pushing
@@ -261,16 +248,16 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 			i = 0
 		}
 	}
-
+	
 	sort.Slice(outArray[:], func(i, j int) bool {
 		one, _ := strconv.ParseFloat(outArray[i][2].(string), 64)
 		two, _ := strconv.ParseFloat(outArray[j][2].(string), 64)
 		return one < two
 	})
-
-	for i := 0; i <= len(outArray)-1; i++ {
+	
+	for i := 0; i <= len(outArray) - 1; i++ {
 		one, _ := strconv.ParseFloat(outArray[i][2].(string), 64)
-		if one < tolMag && one != 0 && isGoodType(outArray[i][3].(string), types) {
+		if  one < tolMag && one != 0 && isGoodType(outArray[i][3].(string), types){
 			final = append(final, outArray[i])
 		}
 	}
@@ -279,7 +266,7 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 		two, _ := strconv.ParseFloat(final[j][2].(string), 64)
 		return one < two
 	})
-	for i := 0; i <= len(final)-1; i++ {
+	for i := 0; i <= len(final) - 1; i++ {
 		final[i][3] = typeKey[final[i][3].(string)]
 		if final[i][3] == nil {
 			final[i][3] = "Not cataloged!!"
@@ -291,8 +278,8 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 	}
 	return final
 }
-func findLST(time float64, daysSinceJ2000 float64, long float64) float64 {
-	LST := 100.46 + 0.985647*daysSinceJ2000 + long + 15*time
+func findLST(time float64, daysSinceJ2000 float64, long float64) float64{
+	LST := 100.46 + 0.985647 * daysSinceJ2000 + long + 15 * time
 	if LST > 360 {
 		LST -= 360
 	} else if LST < 0 {
@@ -303,40 +290,39 @@ func findLST(time float64, daysSinceJ2000 float64, long float64) float64 {
 	return LST
 }
 
-func sunsetriseTime(lat float64, long float64, d float64) []float64 {
-	// date := time.Now()
-	// day := date.YearDay()
-
-	day := d
+func sunsetriseTime(lat float64, long float64, date1 string) []float64 {
+	date, _ := time.Parse(time.RFC3339, date1  + "T00:00:00Z")
+	day := date.YearDay()
 	fmt.Println(day)
+
 	y := ((float64(2) * math.Pi) / float64(365)) * (float64(day) - float64(365))
 
-	eqtime := 229.18 * (0.000075 + 0.001868*math.Cos(y) - 0.032077*math.Sin(y) - 0.014615*math.Cos(2*y) - 0.040849*math.Sin(2*y))
-	decl := 0.006918 - 0.399912*math.Cos(y) + 0.070257*math.Sin(y) - 0.006758*math.Cos(2*y) + 0.000907*math.Sin(2*y) - 0.002697*math.Cos(3*y) + 0.00148*math.Sin(3*y)
+	eqtime := 229.18 * (0.000075 + 0.001868 * math.Cos(y) - 0.032077 * math.Sin(y) - 0.014615 * math.Cos(2 * y) - 0.040849 * math.Sin(2 * y))
+	decl := 0.006918 - 0.399912 * math.Cos(y) + 0.070257 * math.Sin(y) - 0.006758 * math.Cos(2 * y) + 0.000907 * math.Sin(2 * y) - 0.002697 * math.Cos(3 * y) + 0.00148 * math.Sin(3 * y)
 
-	haP := math.Acos(((math.Cos(toRadians(90.833))) / (math.Cos(toRadians(lat)) * math.Cos(decl))) - math.Tan(toRadians(lat))*math.Tan(decl))
+	haP := math.Acos(((math.Cos(toRadians(90.833))) / (math.Cos(toRadians(lat)) * math.Cos(decl))) - math.Tan(toRadians(lat)) * math.Tan(decl))
 	haP = toDegrees(haP)
 
-	haM := -1 * math.Acos(((math.Cos(toRadians(90.833)))/(math.Cos(toRadians(lat))*math.Cos(decl)))-math.Tan(toRadians(lat))*math.Tan(decl))
+	haM := -1 * math.Acos(((math.Cos(toRadians(90.833))) / (math.Cos(toRadians(lat)) * math.Cos(decl))) - math.Tan(toRadians(lat)) * math.Tan(decl))
 	haM = toDegrees(haM)
 
-	sunRiseSet1 := 720 - 4*(long+haP) - eqtime
-	sunRiseSet2 := 720 - 4*(long+haM) - eqtime
-	solarNoon := 720 - 4*long - eqtime
+	sunRiseSet1 := 720 - 4 * (long + haP) - eqtime
+	sunRiseSet2 := 720 - 4 * (long + haM) - eqtime
+	solarNoon := 720 - 4 * long - eqtime
 	output := []float64{sunRiseSet1, sunRiseSet2, solarNoon}
 	return output
 }
 
-func toRadians(angle float64) float64 {
+func toRadians(angle float64) float64{
 	return angle * (math.Pi / 180)
 }
 
-func toDegrees(angle float64) float64 {
+func toDegrees(angle float64) float64{
 	return angle * (180 / math.Pi)
 }
 
-func isGoodType(input string, types []string) bool {
-	for i := 0; i <= len(types)-1; i++ {
+func isGoodType(input string, types []string) bool{
+	for i := 0; i <= len(types) - 1; i++{
 		if input == types[i] {
 			return true
 		}
