@@ -97,6 +97,8 @@ const mapImages = {
     '1960': './Images/NGC1960.jpg',
     '147': './Images/NGC147.jpg',
 };
+let date = new Date();
+document.getElementById("date").min = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDay()
 function onSubmit(event) {
     if (event.submitter.id == "home_button") {
         event.preventDefault();
@@ -114,6 +116,7 @@ function onSubmit(event) {
     } else {
         let timer = new Date();
         let [lat, long] = document.getElementById("Long").value.split(",");
+        let dateToSend = document.getElementById("date").value
         let types = []
         let Gx = document.getElementById("Gx");
         let OC = document.getElementById("OC");
@@ -182,7 +185,7 @@ function onSubmit(event) {
         long = parseFloat(long);
         lat = parseFloat(lat);
         fetch(
-            'https://athesto.ddns.net/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types,
+            'https://athesto.ddns.net/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
             { method: 'GET' }
         )
             .then(response => response.text())
