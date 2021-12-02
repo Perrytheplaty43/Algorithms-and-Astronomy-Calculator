@@ -87,7 +87,7 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 	}
 	d := diff.Hours() / 24
 	leapYear := 0
-	for d <= 365 || d == 366 {
+	for d >= 365 || d != 366 {
 		if leapYear == 4 {
 			d -= 366
 			leapYear = 0
