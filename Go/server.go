@@ -85,6 +85,7 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 	if len(date) > 0 {
 		then2,_ := time.Parse(time.RFC3339, date  + "T00:00:00Z")
 		diff += time.Since(then2)
+		fmt.Println(date)
 		times = sunsetriseTime(lat, long, date)
 	} else {
 		times = sunsetriseTime(lat, long, time.Now().String())
