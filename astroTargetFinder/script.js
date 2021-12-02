@@ -97,6 +97,8 @@ const mapImages = {
     '1960': './Images/NGC1960.jpg',
     '147': './Images/NGC147.jpg',
 };
+var dv = document.getElementById(target);
+dv.style.display = chk.checked ? "block" : "none";
 let date = new Date();
 function onSubmit(event) {
     if (event.submitter.id == "home_button") {
