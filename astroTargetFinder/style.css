@@ -121,9 +121,6 @@ label {
 	justify-content: center;
 	margin-bottom: 2.25vw;
 }
-.container6 {
-	display: none;
-}
 @keyframes typing {
 	from {
 		width: 0
