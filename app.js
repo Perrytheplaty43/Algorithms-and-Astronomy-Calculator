@@ -390,7 +390,7 @@ function logging(testing, write) {
         })
     }
 }
-
+let finished = 0;
 function curlTest(path) {
     child.exec('curl http://127.0.0.1:8000' + path, (err, stdout, stderr) => {
         finished++;
