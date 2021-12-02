@@ -416,8 +416,8 @@ const server = home.startsWith('/home/runner/') ?
         });
         child.exec('curl http://127.0.0.1:8000/astroTargetFinder/styleaaa.css', (err, stdout, stderr) => {
             finished++;
-            if (err) {
-                throw err
+            if (stderr) {
+                throw stderr
             }
             return;
         });
