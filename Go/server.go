@@ -295,9 +295,9 @@ func findLST(time float64, daysSinceJ2000 float64, long float64) float64{
 }
 
 func sunsetriseTime(lat float64, long float64, date1 string) []float64 {
-	fmt.Println(date1)
 	date, _ := time.Parse(time.RFC3339, date1  + "T00:00:00Z")
 	day := date.YearDay()
+	fmt.Println(day)
 
 	y := ((float64(2) * math.Pi) / float64(365)) * (float64(day) - float64(365))
 
