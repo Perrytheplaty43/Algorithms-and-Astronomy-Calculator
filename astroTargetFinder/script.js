@@ -97,9 +97,10 @@ const mapImages = {
     '1960': './Images/NGC1960.jpg',
     '147': './Images/NGC147.jpg',
 };
-var dv = document.getElementById("container6");
-var chk = document.getElementById("visAdv");
-dv.style.display = chk.checked ? "block" : "none";
+var dvs = document.getElementById("container6");
+var chks = document.getElementById("visAdv");
+dvs.style.display = "none";
+chks.checked = false;
 let date = new Date();
 function onSubmit(event) {
     if (event.submitter.id == "home_button") {
