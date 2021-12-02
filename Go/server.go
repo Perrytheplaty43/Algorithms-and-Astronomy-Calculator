@@ -308,6 +308,7 @@ func sunsetriseTime(lat float64, long float64, d float64) []float64 {
 	// day := date.YearDay()
 
 	day := d
+	fmt.Println(day)
 	y := ((float64(2) * math.Pi) / float64(365)) * (float64(day) - float64(365))
 
 	eqtime := 229.18 * (0.000075 + 0.001868*math.Cos(y) - 0.032077*math.Sin(y) - 0.014615*math.Cos(2*y) - 0.040849*math.Sin(2*y))
