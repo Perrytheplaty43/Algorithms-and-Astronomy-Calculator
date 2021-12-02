@@ -86,6 +86,7 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 		diff += time.Since(then2)
 	}
 	d := diff.Hours() / 24
+	fmt.Println(d)
 	leapYear := 0
 	for d >= 365{
 		if leapYear == 4 {
@@ -94,7 +95,9 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 		} else {
 			d -= 365
 		}
+		fmt.Println(d)
 	}
+	fmt.Println(d)
 
 	daysSinceJ2000 := (diff.Hours() / 24)
 
