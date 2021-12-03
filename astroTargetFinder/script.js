@@ -369,7 +369,7 @@ function updateUI(final, timer, lat, long) {
 function ShowHideDiv(chk) {
     var dv = document.getElementById(chk.id + "-container");
     dv.style.display = chk.checked ? "block" : "none";
-    let current = history.state;
+    let current = history.state || {};
     current[chk.id] = chk.checked;
     history.pushState(current);
 }
