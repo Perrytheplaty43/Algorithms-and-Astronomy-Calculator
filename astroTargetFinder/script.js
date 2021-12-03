@@ -382,7 +382,9 @@ window.onpopstate = () => {
         "visWeather",
     ].forEach(id => {
         let chk = document.getElementById(id);
+        console.log('onpop 2', chk.checked);
         chk.checked = history.state[id]; 
+        console.log('onpop 32', chk.checked);
         ShowHideDiv(chk);
     })
 }
