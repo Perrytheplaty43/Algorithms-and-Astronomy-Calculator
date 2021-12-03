@@ -366,11 +366,24 @@ function updateUI(final, timer, lat, long) {
     }
 }
 
-function ShowHideDiv(chk, target) {
-    var dv = document.getElementById(target);
+function ShowHideDiv(chk) {
+    var dv = document.getElementById(chk.id + "-container");
     dv.style.display = chk.checked ? "block" : "none";
+    let current = history.state;
+    current[chk.id] = chk.checked;
+    history.pushState(current);
 }
 
+window.onpopstate = () => {
+    [
+        "visAdv",
+        "visWeather",
+    ].forEach(id => {
+        let chk = document.getElementById(id);
+        chk.checked = history.state[id]; 
+        ShowHideDiv(chk);
+    })
+}
 function bottomForm(event) {
     event.preventDefault();
     window.location.href = "https://github.com/Perrytheplaty43/Algorithums-and-Astronomy-Calculator";

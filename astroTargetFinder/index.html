@@ -37,14 +37,14 @@
                     <button type="submit" class="submitButton1" id="home_button" name="scramble_button">Home</button>
                     <br>
                 </div>
-                <input type="checkbox" id="visAdv" name="visAdv" value="visAdv" onclick="ShowHideDiv(this, 'container6')">
+                <input type="checkbox" id="visAdv" name="visAdv" value="visAdv" onclick="ShowHideDiv(this)">
                 <label for="visAdv"> Show advanced options</label>
                 
                 <input type="checkbox" id="visWeather" name="visWeather" value="visWeather" onclick="ShowHideDiv(this, 'container5')">
                 <label for="visWeather"> Show weather</label>
             </form>
         </div>
-        <div class="container6" id="container6">
+        <div class="container6" id="visAdv-container">
             <p class="p2">Advanced Options:</p>
             <div class="optionContainer">
                 <div class="checkboxes">
@@ -111,7 +111,7 @@
                 </div>
             </div>
         </div>
-        <div class="container5" id="container5">
+        <div class="container5" id="visWeather-container">
             <p class="p2">Weather for location:</p>
             <iframe class="weather" id="weather" src="./enterInput.html" frameborder="0"></iframe>
         </div>
