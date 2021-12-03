@@ -372,7 +372,7 @@ function ShowHideDiv(chk) {
     let current = history.state || {};
     console.log(current)
     current[chk.id] = chk.checked;
-    history.pushState(current);
+    history.pushState(current, "");
 }
 
 window.onpopstate = () => {
