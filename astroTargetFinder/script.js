@@ -370,12 +370,13 @@ function ShowHideDiv(chk) {
     var dv = document.getElementById(chk.id + "-container");
     dv.style.display = chk.checked ? "block" : "none";
     let current = history.state || {};
-    console.log(current)
-    current[chk.id] = chk.checked;
+     current[chk.id] = chk.checked;
     history.pushState(current, "");
+    console.log(current)
 }
 
 window.onpopstate = () => {
+    console.log('onpop', history.state);
     [
         "visAdv",
         "visWeather",
