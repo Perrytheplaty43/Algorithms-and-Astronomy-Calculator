@@ -370,7 +370,7 @@ function ShowHideDiv(chk) {
     var dv = document.getElementById(chk.id + "-container");
     dv.style.display = chk.checked ? "block" : "none";
     let current = history.state || {};
-     current[chk.id] = chk.checked;
+    current[chk.id] = chk.checked;
     history.pushState(current, "");
     console.log(current)
 }
@@ -383,9 +383,10 @@ window.onpopstate = () => {
     ].forEach(id => {
         let chk = document.getElementById(id);
         console.log('onpop 2', chk.checked);
-        chk.checked = history.state[id]; 
+        chk.checked = history.state[id];
         console.log('onpop 32', chk.checked);
-        ShowHideDiv(chk);
+        var dv = document.getElementById(chk.id + "-container");
+        dv.style.display = chk.checked ? "block" : "none";
     })
 }
 function bottomForm(event) {
