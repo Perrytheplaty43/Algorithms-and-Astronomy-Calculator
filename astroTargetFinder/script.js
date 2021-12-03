@@ -371,7 +371,7 @@ function ShowHideDiv(chk) {
     dv.style.display = chk.checked ? "block" : "none";
     let current = history.state || {};
     current[chk.id] = chk.checked;
-    history.pushState(current, "");
+    history.pushState(current, "", "#" + JSON.stringify(current));
     console.log(current)
 }
 
