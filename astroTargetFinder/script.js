@@ -135,7 +135,6 @@ function onSubmit(event) {
 
         let tol = document.getElementById("tolerance").value;
         let tolMag = document.getElementById("toleranceMag").value;
-        alert("else")
 
         if (Gx.checked) {
             types.push("Gx")
