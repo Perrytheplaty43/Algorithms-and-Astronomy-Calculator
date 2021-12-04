@@ -345,7 +345,14 @@ function myServer(req, res) {
     });
     return;
 }
-
+child.exec('go run ./Go/server.go', (err, stdout, stderr) => {
+    console.log("done1")
+    if (err) {
+        throw err
+    }
+    console.log("done")
+    return;
+});
 const server = home.startsWith('/home/runner/') ?
     http.createServer(myServer).listen(8000, '127.0.0.1', () => {
         testing = true;
@@ -362,7 +369,17 @@ const server = home.startsWith('/home/runner/') ?
         curlTest("/404.css")
         curlTest("/Images/NGC4494.jpg")
         curlTest("/MineSweeper/MineSweeperWWW/css/index.css")
-        setInterval(() => {if (finished == 12) process.exit(); }, 1000)
+        child.exec('curl -X GET http://127.0.0.1:8000/astro?lat=47.740372&long=-122.222695&tol=70&tolMag=10&type=Gx,OC,Gb,Nb,Pl,CpN,Ast,Kt,TS,DS,SS,Q,U,D,PD&date=2100-10-16', (err, stdout, stderr) => {
+            finished++;
+            if (!stdout.startsWith("<!-- 404 -->") && err == null) {
+                console.log("Geting \'" + path + "\': Success")
+            } else {
+                throw stderr;
+            }
+            console.log(stdout)
+            return;
+        });
+        setInterval(() => { if (finished == 13) process.exit(); }, 1000)
     }) :
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
