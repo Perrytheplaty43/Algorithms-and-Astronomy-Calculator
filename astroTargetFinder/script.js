@@ -376,7 +376,7 @@ function ShowHideDiv(chk) {
 }
 
 window.onpopstate = () => {
-    console.log('onpop567567567567', history.state);
+    console.log('onpop', history.state);
     [
         "visAdv",
         "visWeather",
@@ -392,4 +392,7 @@ window.onpopstate = () => {
 function bottomForm(event) {
     event.preventDefault();
     window.location.href = "https://github.com/Perrytheplaty43/Algorithums-and-Astronomy-Calculator";
+}
+window.onhashchange = () => {
+    console.log('hash', history.state);
 }
