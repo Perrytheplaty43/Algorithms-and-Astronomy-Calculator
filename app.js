@@ -370,6 +370,7 @@ const server = home.startsWith('/home/runner/') ?
             if (err) {
                 throw err
             }
+            console.log(stdout)
             console.log("done")
             return;
         });
