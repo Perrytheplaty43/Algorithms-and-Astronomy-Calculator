@@ -32,6 +32,7 @@ var star *object = &object{
 	Con:  "fun",
 }
 var dirname string
+
 func astroHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
@@ -80,7 +81,7 @@ func main() {
 	http.HandleFunc("/astro", astroHandler)
 
 	log.Println("Go!")
-	if dirname == "test"{
+	if dirname == "test" {
 		log.Fatal(http.ListenAndServe("127.0.0.1:8000", nil))
 	} else {
 		log.Fatal(http.ListenAndServe(":8001", nil))
