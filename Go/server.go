@@ -42,10 +42,10 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		tolMag, _ := strconv.ParseFloat(r.Form["tolMag"][0], 64)
 		date := r.Form["date"][0]
 		types := strings.Split(r.Form["type"][0], ",")
-		dirname, _ := os.UserHomeDir()
+		dirname := os.Args[1]
 		var records [][]string
-		fmt.Println(os.UserHomeDir())
-		if dirname == "/home/runner/" {
+		fmt.Println(dirname)
+		if dirname == "test" {
 			records = readCsvFile("/home/runner/work/Algorithms-and-Astronomy-Calculator/Algorithms-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
 		} else {
 			records = readCsvFile("/home/pi/github/Algorithums-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
