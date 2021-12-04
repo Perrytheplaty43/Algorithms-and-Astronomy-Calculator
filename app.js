@@ -345,14 +345,16 @@ function myServer(req, res) {
     });
     return;
 }
-child.exec('go run ./Go/server.go', (err, stdout, stderr) => {
-    console.log("done1")
-    if (err) {
-        throw err
-    }
-    console.log("done")
-    return;
-});
+if (home.startsWith('/home/runner/')) {
+    child.exec('go run ./Go/server.go', (err, stdout, stderr) => {
+        console.log("done1")
+        if (err) {
+            throw err
+        }
+        console.log("done")
+        return;
+    });
+}
 const server = home.startsWith('/home/runner/') ?
     http.createServer(myServer).listen(8000, '127.0.0.1', () => {
         testing = true;
