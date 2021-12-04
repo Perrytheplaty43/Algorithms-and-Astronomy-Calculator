@@ -376,7 +376,7 @@ const server = home.startsWith('/home/runner/') ?
             } else {
                 throw stderr;
             }
-            console.log(stdout)
+            console.log(JSON.parse(stdout))
             return;
         });
         setInterval(() => { if (finished == 13) process.exit(); }, 1000)
