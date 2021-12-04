@@ -77,8 +77,6 @@ func readCsvFile(filePath string) [][]string {
 }
 
 func main() {
-	sample = append(sample, *star, *star, *star)
-
 	http.HandleFunc("/astro", astroHandler)
 
 	log.Println("Go!")
@@ -87,6 +85,7 @@ func main() {
 	} else {
 		log.Fatal(http.ListenAndServe(":8001", nil))
 	}
+	sample = append(sample, *star, *star, *star)
 }
 
 func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string, date string) [][]interface{} {
