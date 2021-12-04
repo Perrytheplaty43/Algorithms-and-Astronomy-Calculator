@@ -357,7 +357,7 @@ const server = home.startsWith('/home/runner/') ?
             if (err) {
                 throw err
             }
-            
+
             console.log("done")
             return;
         });
@@ -373,7 +373,7 @@ const server = home.startsWith('/home/runner/') ?
         curlTest("/404.css")
         curlTest("/Images/NGC4494.jpg")
         curlTest("/MineSweeper/MineSweeperWWW/css/index.css")
-        setInterval(() => { if (finished == 12 && doneGet) process.exit(); }, 1000)
+        setInterval(() => { if (finished == 12) process.exit(); }, 1000)
     }) :
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
