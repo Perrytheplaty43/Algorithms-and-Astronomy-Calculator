@@ -355,6 +355,7 @@ if (home.startsWith('/home/runner/')) {
         return;
     });
 }
+
 const server = home.startsWith('/home/runner/') ?
     http.createServer(myServer).listen(8000, '127.0.0.1', () => {
         testing = true;
