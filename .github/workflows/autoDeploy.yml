@@ -1,0 +1,22 @@
+name: Deployment
+on: 
+  push:
+    branches: [ master ]
+
+jobs:
+  job_one:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: testing server ssh connection
+        uses: appleboy/ssh-action@master
+        with:
+          host: athesto.ddns.net
+          username: pi
+          key: ${{ secrets.ASTRO_SECRET }}
+          port: 2222
+          script: |
+            cd ~/github/Algorithums-and-Astronomy-Calculator/
+            git pull origin master
+            git status
+            
