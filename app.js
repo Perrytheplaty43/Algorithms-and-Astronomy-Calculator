@@ -365,6 +365,14 @@ const server = home.startsWith('/home/runner/') ?
         //     }
         //     return;
         // });
+        child.exec('ls /opt/hostedtoolcache/go/1.17.3/x64', (err, stdout, stderr) => {
+            finished++;
+            if (err) {
+                throw err
+            }
+            console.log("done")
+            return;
+        });
         curlTest("/")
         curlTest("/MineSweeper")
         curlTest("/astroTargetFinder")
@@ -377,7 +385,7 @@ const server = home.startsWith('/home/runner/') ?
         curlTest("/404.css")
         curlTest("/Images/NGC4494.jpg")
         curlTest("/MineSweeper/MineSweeperWWW/css/index.css")
-        setInterval(() => { if (finished == 12) process.exit(); }, 1000)
+        setInterval(() => { if (finished == 13) process.exit(); }, 1000)
     }) :
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
