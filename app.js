@@ -316,19 +316,35 @@ function myServer(req, res) {
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
         console.log(dateToSend)
-        fetch(
-            'http://192.168.1.88:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
-            { method: 'GET' }
-        )
-            .then(response => response.text())
-            .then(finalData => {
-                //console.log(finalData)
-                res.writeHead(200, { 'Content-Type': 'text/json' });
-                res.write(finalData);
-                res.end();
-            })
-            .catch(error => console.log('error:', error));
-        return;
+        if (!home.startsWith('/home/runner/')) {
+            fetch(
+                'http://192.168.1.88:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+                { method: 'GET' }
+            )
+                .then(response => response.text())
+                .then(finalData => {
+                    //console.log(finalData)
+                    res.writeHead(200, { 'Content-Type': 'text/json' });
+                    res.write(finalData);
+                    res.end();
+                })
+                .catch(error => console.log('error:', error));
+            return;
+        } else {
+            fetch(
+                'http://127.0.0.1:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+                { method: 'GET' }
+            )
+                .then(response => response.text())
+                .then(finalData => {
+                    //console.log(finalData)
+                    res.writeHead(200, { 'Content-Type': 'text/json' });
+                    res.write(finalData);
+                    res.end();
+                })
+                .catch(error => console.log('error:', error));
+            return;
+        }
     }
     fs.readFile(home + delimiter + 'notfound.html', function (err, html) {
         if (err) {
