@@ -351,6 +351,7 @@ const server = home.startsWith('/home/runner/') ?
         testing = true;
         console.log(`Server running`);
         let runningGo = false;
+        let doneGet = false;
         child.exec('go run ./Go/server.go', (err, stdout, stderr) => {
             runningGo = true;
             if (err) {
@@ -362,7 +363,6 @@ const server = home.startsWith('/home/runner/') ?
         });
         setInterval(() => {
             if (runningGo) {
-                let doneGet = false;
                 child.exec('curl http://127.0.0.1:8001/astro?lat=47.740372&long=-122.222695&tol=70&tolMag=10&type=Gx,OC,Gb,Nb,Pl,CpN,Ast,Kt,TS,DS,SS,Q,U,D,PD&date=2100-10-16' + path, (err, stdout, stderr) => {
                     if (!stdout.startsWith("<!-- 404 -->") && err == null) {
                         console.log("Geting \'" + path + "\': Success")
