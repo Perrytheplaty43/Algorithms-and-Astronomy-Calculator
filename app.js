@@ -350,9 +350,9 @@ const server = home.startsWith('/home/runner/') ?
     http.createServer(myServer).listen(8000, '127.0.0.1', () => {
         testing = true;
         console.log(`Server running`);
-        let didGo = false;
+        let runningGo = false;
         child.exec('go run ./Go/server.go', (err, stdout, stderr) => {
-            finished++;
+            runningGo = true;
             if (err) {
                 throw err
             }
@@ -360,6 +360,22 @@ const server = home.startsWith('/home/runner/') ?
             console.log("done")
             return;
         });
+        setInterval(() => {
+            if (runningGo) {
+                let doneGet = false;
+                child.exec('curl http://127.0.0.1:8001/astro?lat=47.740372&long=-122.222695&tol=70&tolMag=10&type=Gx,OC,Gb,Nb,Pl,CpN,Ast,Kt,TS,DS,SS,Q,U,D,PD&date=2100-10-16' + path, (err, stdout, stderr) => {
+                    if (!stdout.startsWith("<!-- 404 -->") && err == null) {
+                        console.log("Geting \'" + path + "\': Success")
+                    } else {
+                        throw stderr;
+                    }
+                    console.log(JSON.parse(stdout))
+                    doneGet = true;
+                    return;
+                });
+                setInterval(() => { if (doneGet) return; }, 1000)
+            }
+        }, 1000)
         curlTest("/")
         curlTest("/MineSweeper")
         curlTest("/astroTargetFinder")
@@ -372,7 +388,7 @@ const server = home.startsWith('/home/runner/') ?
         curlTest("/404.css")
         curlTest("/Images/NGC4494.jpg")
         curlTest("/MineSweeper/MineSweeperWWW/css/index.css")
-        setInterval(() => { if (finished == 14) process.exit(); }, 1000)
+        setInterval(() => { if (finished == 12 && doneGet) process.exit(); }, 1000)
     }) :
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
