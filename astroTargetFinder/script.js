@@ -375,7 +375,13 @@ function ShowHideDiv(chk) {
     console.log(current)
 }
 
-window.onpopstate = () => {
+window.onpopstate = handleHistroyState;
+
+function bottomForm(event) {
+    event.preventDefault();
+    window.location.href = "https://github.com/Perrytheplaty43/Algorithums-and-Astronomy-Calculator";
+}
+function handleHistroyState() {
     console.log('onpop', history.state);
     [
         "visAdv",
@@ -389,9 +395,6 @@ window.onpopstate = () => {
         dv.style.display = chk.checked ? "block" : "none";
     })
 }
-function bottomForm(event) {
-    event.preventDefault();
-    window.location.href = "https://github.com/Perrytheplaty43/Algorithums-and-Astronomy-Calculator";
-}
-
 console.log('hash', history.state);
+
+history.state && handleHistroyState();
