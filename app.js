@@ -397,6 +397,7 @@ const server = home.startsWith('/home/runner/') ?
             if (!stdout.startsWith("<!-- 404 -->") && err == null) {
                 console.log("Geting algorithms: Success")
             } else {
+                console.log(err)
                 throw stderr;
             }
             console.log(JSON.parse(stdout))
