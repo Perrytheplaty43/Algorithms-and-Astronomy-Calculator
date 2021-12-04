@@ -393,6 +393,5 @@ function bottomForm(event) {
     event.preventDefault();
     window.location.href = "https://github.com/Perrytheplaty43/Algorithums-and-Astronomy-Calculator";
 }
-window.onhashchange = () => {
-    console.log('hash', history.state);
-}
+
+console.log('hash', history.state);
