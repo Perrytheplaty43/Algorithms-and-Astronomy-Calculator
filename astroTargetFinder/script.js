@@ -376,10 +376,6 @@ function ShowHideDiv(chk) {
 
 window.onpopstate = handleHistroyState;
 
-function bottomForm(event) {
-    event.preventDefault();
-    window.location.href = "https://github.com/Perrytheplaty43/Algorithums-and-Astronomy-Calculator";
-}
 function handleHistroyState() {
     [
         "visAdv",
@@ -395,3 +391,8 @@ function handleHistroyState() {
 window.addEventListener('DOMContentLoaded', (event) => {
     history.state && handleHistroyState();
 });
+
+function bottomForm(event) {
+    event.preventDefault();
+    window.location.href = "https://github.com/Perrytheplaty43/Algorithums-and-Astronomy-Calculator";
+}
