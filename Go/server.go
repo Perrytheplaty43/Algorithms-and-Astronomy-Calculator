@@ -43,7 +43,7 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		date := r.Form["date"][0]
 		types := strings.Split(r.Form["type"][0], ",")
 		var dirname string
-		if len(os.Args) > 0 {
+		if len(os.Args) > 1 {
 			dirname = os.Args[1]
 		}
 		var records [][]string
