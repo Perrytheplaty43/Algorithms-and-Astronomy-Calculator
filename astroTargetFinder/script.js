@@ -96,6 +96,15 @@ const mapImages = {
     '2403': './Images/NGC2403.jpg',
     '1960': './Images/NGC1960.jpg',
     '147': './Images/NGC147.jpg',
+    '6341': './Images/NGC6341.jpg',
+    'I1369': './Images/IC1369.jpg',
+    '5194': './Images/NGC5194.jpg',
+    '6229': './Images/NGC6229.jpg',
+    '5055': './Images/NGC5055.jpg',
+    '4736': './Images/NGC4736.jpg',
+    '5195': './Images/NGC5195.jpg',
+    '2683': './Images/NGC2683.jpg',
+    '2841': './Images/NGC2841.jpg',
 };
 let date = new Date();
 function onSubmit(event) {
