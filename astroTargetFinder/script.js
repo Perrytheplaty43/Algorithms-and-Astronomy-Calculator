@@ -372,7 +372,6 @@ function ShowHideDiv(chk) {
     let current = history.state || {};
     current[chk.id] = chk.checked;
     history.pushState(current, "", "#" + JSON.stringify(current));
-    console.log(current)
 }
 
 window.onpopstate = handleHistroyState;
@@ -382,24 +381,17 @@ function bottomForm(event) {
     window.location.href = "https://github.com/Perrytheplaty43/Algorithums-and-Astronomy-Calculator";
 }
 function handleHistroyState() {
-    console.log('onpop', history.state);
     [
         "visAdv",
         "visWeather",
     ].forEach(id => {
         let chk = document.getElementById(id);
-        console.log('onpop 2', chk.checked);
         chk.checked = history.state[id];
-        console.log('onpop 32', chk.checked);
         var dv = document.getElementById(chk.id + "-container");
         dv.style.display = chk.checked ? "block" : "none";
     })
 }
-console.log('hash', history.state);
 
 window.addEventListener('DOMContentLoaded', (event) => {
     history.state && handleHistroyState();
-    console.log('DOM fully loaded and parsed');
 });
-
-//history.state && handleHistroyState();
