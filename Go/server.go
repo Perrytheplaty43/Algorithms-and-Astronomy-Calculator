@@ -42,7 +42,8 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		tolMag, _ := strconv.ParseFloat(r.Form["tolMag"][0], 64)
 		date := r.Form["date"][0]
 		types := strings.Split(r.Form["type"][0], ",")
-		records := readCsvFile("/home/pi/github/Algorithums-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
+		//records := readCsvFile("/home/pi/github/Algorithums-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
+		records := readCsvFile("./astroTargetFinder/ngc2000Final.txt")
 		finalArray := astro(records[:], lat, long, tol, tolMag, types, date)
 		j, _ := json.Marshal(finalArray)
 		w.Write(j)
