@@ -81,6 +81,7 @@ func main() {
 	log.Println("Go!")
 	log.Fatal(http.ListenAndServe(":8001", nil))
 }
+
 func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string, date string) [][]interface{} {
 	var avgALTArray [][]interface{}
 	var ALT2 float64
