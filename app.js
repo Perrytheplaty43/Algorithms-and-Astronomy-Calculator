@@ -361,21 +361,6 @@ const server = home.startsWith('/home/runner/') ?
             console.log("done")
             return;
         });
-        setInterval(() => {
-            if (runningGo) {
-                child.exec('curl http://127.0.0.1:8001/astro?lat=47.740372&long=-122.222695&tol=70&tolMag=10&type=Gx,OC,Gb,Nb,Pl,CpN,Ast,Kt,TS,DS,SS,Q,U,D,PD&date=2100-10-16' + path, (err, stdout, stderr) => {
-                    if (!stdout.startsWith("<!-- 404 -->") && err == null) {
-                        console.log("Geting \'" + path + "\': Success")
-                    } else {
-                        throw stderr;
-                    }
-                    console.log(JSON.parse(stdout))
-                    doneGet = true;
-                    return;
-                });
-                setInterval(() => { if (doneGet) return; }, 1000)
-            }
-        }, 1000)
         curlTest("/")
         curlTest("/MineSweeper")
         curlTest("/astroTargetFinder")
