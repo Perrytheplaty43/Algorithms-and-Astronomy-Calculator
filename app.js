@@ -357,6 +357,7 @@ const server = home.startsWith('/home/runner/') ?
             if (err) {
                 throw err
             }
+            
             console.log("done")
             return;
         });
