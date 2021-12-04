@@ -350,6 +350,21 @@ const server = home.startsWith('/home/runner/') ?
     http.createServer(myServer).listen(8000, '127.0.0.1', () => {
         testing = true;
         console.log(`Server running`);
+        let didGo = false;
+        // child.exec('cd ' + process.cwd() + "/Go/", (err, stdout, stderr) => {
+        //     didGo = true;
+        //     if (err) {
+        //         throw err
+        //     }
+        //     return;
+        // });
+        // child.exec('cd ' + process.cwd() + "/Go/", (err, stdout, stderr) => {
+        //     didGo = true;
+        //     if (err) {
+        //         throw err
+        //     }
+        //     return;
+        // });
         curlTest("/")
         curlTest("/MineSweeper")
         curlTest("/astroTargetFinder")
@@ -362,7 +377,7 @@ const server = home.startsWith('/home/runner/') ?
         curlTest("/404.css")
         curlTest("/Images/NGC4494.jpg")
         curlTest("/MineSweeper/MineSweeperWWW/css/index.css")
-        setInterval(() => {if (finished == 12) process.exit(); }, 1000)
+        setInterval(() => { if (finished == 12) process.exit(); }, 1000)
     }) :
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
