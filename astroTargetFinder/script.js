@@ -397,4 +397,9 @@ function handleHistroyState() {
 }
 console.log('hash', history.state);
 
-history.state && handleHistroyState();
+window.addEventListener('DOMContentLoaded', (event) => {
+    history.state && handleHistroyState();
+    console.log('DOM fully loaded and parsed');
+});
+
+//history.state && handleHistroyState();
