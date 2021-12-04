@@ -353,6 +353,7 @@ const server = home.startsWith('/home/runner/') ?
         let runningGo = false;
         let doneGet = false;
         child.exec('go run ./Go/server.go', (err, stdout, stderr) => {
+            console.log("done1")
             runningGo = true;
             if (err) {
                 throw err
