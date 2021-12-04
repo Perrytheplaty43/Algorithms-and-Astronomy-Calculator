@@ -81,7 +81,7 @@ func main() {
 
 	log.Println("Go!")
 	if dirname == "test"{
-		log.Fatal(http.ListenAndServe("127.0.0.1:8001", nil))
+		log.Fatal(http.ListenAndServe("127.0.0.1:8000", nil))
 	} else {
 		log.Fatal(http.ListenAndServe(":8001", nil))
 	}
