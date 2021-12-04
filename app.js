@@ -351,21 +351,16 @@ const server = home.startsWith('/home/runner/') ?
         testing = true;
         console.log(`Server running`);
         let didGo = false;
-        // child.exec('cd ' + process.cwd() + "/Go/", (err, stdout, stderr) => {
-        //     didGo = true;
-        //     if (err) {
-        //         throw err
-        //     }
-        //     return;
-        // });
-        // child.exec('cd ' + process.cwd() + "/Go/", (err, stdout, stderr) => {
-        //     didGo = true;
-        //     if (err) {
-        //         throw err
-        //     }
-        //     return;
-        // });
-        child.exec('ls /home/runner/go', (err, stdout, stderr) => {
+        child.exec('go install ./Go/server.go', (err, stdout, stderr) => {
+            finished++;
+            if (err) {
+                throw err
+            }
+            console.log(stdout)
+            console.log("done")
+            return;
+        });
+        child.exec('ls ./Go/', (err, stdout, stderr) => {
             finished++;
             if (err) {
                 throw err
@@ -386,7 +381,7 @@ const server = home.startsWith('/home/runner/') ?
         curlTest("/404.css")
         curlTest("/Images/NGC4494.jpg")
         curlTest("/MineSweeper/MineSweeperWWW/css/index.css")
-        setInterval(() => { if (finished == 13) process.exit(); }, 1000)
+        setInterval(() => { if (finished == 14) process.exit(); }, 1000)
     }) :
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
