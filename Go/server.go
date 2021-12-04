@@ -22,7 +22,7 @@ type object struct {
 	Con  string  `json:"con"`
 }
 
-var sample []object = []object{}
+var sample []object
 
 var star *object = &object{
 	Id:   "38",
@@ -43,16 +43,9 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		tolMag, _ := strconv.ParseFloat(r.Form["tolMag"][0], 64)
 		date := r.Form["date"][0]
 		types := strings.Split(r.Form["type"][0], ",")
-		if len(os.Args) > 1 {
-			dirname = os.Args[1]
-		}
 		var records [][]string
 		fmt.Println(dirname)
-		if dirname == "test" {
-			records = readCsvFile("/home/runner/work/Algorithms-and-Astronomy-Calculator/Algorithms-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
-		} else {
-			records = readCsvFile("/home/pi/github/Algorithums-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
-		}
+		records = readCsvFile("/home/pi/github/Algorithums-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
 		finalArray := astro(records[:], lat, long, tol, tolMag, types, date)
 		j, _ := json.Marshal(finalArray)
 		w.Write(j)
@@ -78,15 +71,22 @@ func readCsvFile(filePath string) [][]string {
 }
 
 func main() {
+	if len(os.Args) > 1 {
+		dirname = os.Args[1]
+	}
+	if dirname == "test" {
+		records := readCsvFile("/home/runner/work/Algorithms-and-Astronomy-Calculator/Algorithms-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
+		var types []string = []string{"Gx", "OC", "Gb", "Nb", "Pl", "CpN", "Ast", "Kt", "TS", "DS", "SS", "Q", "U", "D", "PD"}
+		fmt.Print(astro(records[:], 47.740372, -122.222695, 70, 10, types, "2100-10-16"))
+	}
 	http.HandleFunc("/astro", astroHandler)
-
+	sample = append(sample, *star, *star, *star)
 	log.Println("Go!")
 	if dirname == "test" {
 		log.Fatal(http.ListenAndServe("127.0.0.1:8000", nil))
 	} else {
 		log.Fatal(http.ListenAndServe(":8001", nil))
 	}
-	sample = append(sample, *star, *star, *star)
 }
 
 func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string, date string) [][]interface{} {
