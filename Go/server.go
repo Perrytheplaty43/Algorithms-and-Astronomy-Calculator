@@ -42,7 +42,7 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		tolMag, _ := strconv.ParseFloat(r.Form["tolMag"][0], 64)
 		date := r.Form["date"][0]
 		types := strings.Split(r.Form["type"][0], ",")
-		dirname := os.Args[1]
+		dirname := os.Args[0]
 		var records [][]string
 		fmt.Println(dirname)
 		if dirname == "test" {
