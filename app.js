@@ -351,6 +351,7 @@ if (home.startsWith('/home/runner/')) {
         if (err) {
             throw err
         }
+        console.log("Stoping Go server...")
         return;
     });
 }
