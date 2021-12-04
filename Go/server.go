@@ -44,7 +44,6 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		date := r.Form["date"][0]
 		types := strings.Split(r.Form["type"][0], ",")
 		var records [][]string
-		fmt.Println(dirname)
 		records = readCsvFile("/home/pi/github/Algorithums-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
 		finalArray := astro(records[:], lat, long, tol, tolMag, types, date)
 		j, _ := json.Marshal(finalArray)

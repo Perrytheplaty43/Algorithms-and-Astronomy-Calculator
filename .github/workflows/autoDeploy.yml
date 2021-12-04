@@ -8,7 +8,7 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: testing server ssh connection
+      - name: Update Server
         uses: appleboy/ssh-action@master
         with:
           host: athesto.ddns.net
@@ -19,4 +19,4 @@ jobs:
             cd ~/github/Algorithums-and-Astronomy-Calculator/
             git pull origin master
             git status
-            
+

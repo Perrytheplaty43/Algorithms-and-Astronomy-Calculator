@@ -315,16 +315,13 @@ function myServer(req, res) {
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
-        console.log(dateToSend + "/astrooooooooooo")
         if (!home.startsWith('/home/runner/')) {
-            console.log("not runner")
             fetch(
                 'http://192.168.1.88:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
                 { method: 'GET' }
             )
                 .then(response => response.text())
                 .then(finalData => {
-                    //console.log(finalData)
                     res.writeHead(200, { 'Content-Type': 'text/json' });
                     res.write(finalData);
                     res.end();
@@ -332,7 +329,6 @@ function myServer(req, res) {
                 .catch(error => console.log('error:', error));
             return;
         } else {
-            console.log("runner")
             fetch(
                 'http://127.0.0.1:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
                 { method: 'GET' }
