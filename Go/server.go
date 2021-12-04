@@ -31,7 +31,7 @@ var star *object = &object{
 	Type: "star",
 	Con:  "fun",
 }
-
+var dirname string
 func astroHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
@@ -42,7 +42,6 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		tolMag, _ := strconv.ParseFloat(r.Form["tolMag"][0], 64)
 		date := r.Form["date"][0]
 		types := strings.Split(r.Form["type"][0], ",")
-		var dirname string
 		if len(os.Args) > 1 {
 			dirname = os.Args[1]
 		}
@@ -83,7 +82,11 @@ func main() {
 	http.HandleFunc("/astro", astroHandler)
 
 	log.Println("Go!")
-	log.Fatal(http.ListenAndServe(":8001", nil))
+	if dirname == "test"{
+		log.Fatal(http.ListenAndServe("127.0.0.1:8001", nil))
+	} else {
+		log.Fatal(http.ListenAndServe(":8001", nil))
+	}
 }
 
 func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string, date string) [][]interface{} {
