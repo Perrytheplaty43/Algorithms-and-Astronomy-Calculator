@@ -44,6 +44,7 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		types := strings.Split(r.Form["type"][0], ",")
 		dirname, _ := os.UserHomeDir()
 		var records [][]string
+		fmt.Println(os.UserHomeDir())
 		if dirname == "/home/runner/" {
 			records = readCsvFile("/home/runner/work/Algorithms-and-Astronomy-Calculator/Algorithms-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
 		} else {
