@@ -20,6 +20,7 @@ child.exec('go run /home/runner/work/Algorithms-and-Astronomy-Calculator/Algorit
         console.log("Success")
     } else {
         throw stdout
+        console.log(expectedOutput)
     }
     finished = true
     return;
