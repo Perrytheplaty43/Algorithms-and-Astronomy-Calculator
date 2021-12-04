@@ -365,7 +365,7 @@ const server = home.startsWith('/home/runner/') ?
         //     }
         //     return;
         // });
-        child.exec('ls /opt/hostedtoolcache/go/1.17.3/x64', (err, stdout, stderr) => {
+        child.exec('ls /home/runner/go', (err, stdout, stderr) => {
             finished++;
             if (err) {
                 throw err
