@@ -373,17 +373,17 @@ const server = home.startsWith('/home/runner/') ?
         curlTest("/404.css")
         curlTest("/Images/NGC4494.jpg")
         curlTest("/MineSweeper/MineSweeperWWW/css/index.css")
-        // child.exec('ip addr', (err, stdout, stderr) => {
-        //     finished++;
-        //     console.log("lsing")
-        //     if (!stdout.startsWith("<!-- 404 -->") && err == null) {
-        //         console.log("lss: Success")
-        //     } else {
-        //         throw stderr;
-        //     }
-        //     console.log(stdout)
-        //     return;
-        // });
+        child.exec('ip addr', (err, stdout, stderr) => {
+            finished++;
+            console.log("lsing")
+            if (!stdout.startsWith("<!-- 404 -->") && err == null) {
+                console.log("lss: Success")
+            } else {
+                throw stderr;
+            }
+            console.log(stdout)
+            return;
+        });
         child.exec('curl -H "Accept: test/json" "http://172.17.0.1:8001/astro?lat=47.740372&long=-122.222695&tol=70&tolMag=10&type=Gx,OC,Gb,Nb,Pl,CpN,Ast,Kt,TS,DS,SS,Q,U,D,PD&date=2100-10-16"', (err, stdout, stderr) => {
             finished++;
             console.log("Geting algorithms__")
