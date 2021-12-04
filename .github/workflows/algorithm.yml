@@ -19,7 +19,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Running Script
+    - name: Running Server
       run: |
         go run /home/runner/work/Algorithms-and-Astronomy-Calculator/Algorithms-and-Astronomy-Calculator/Go/server.go test
+    
+    - name: Test Server
+      run: |
         curl -H "Accept: test/json" "http://127.0.0.1:8000/astro?lat=47.740372&long=-122.222695&tol=70&tolMag=10&type=Gx,OC,Gb,Nb,Pl,CpN,Ast,Kt,TS,DS,SS,Q,U,D,PD&date=2100-10-16"
