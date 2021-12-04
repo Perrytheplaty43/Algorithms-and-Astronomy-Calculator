@@ -15,6 +15,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_PORT: 8000
+      POSTGRES_PASSWORD: admin
+      POSTGRES_USER: postgres
     steps:
     - uses: actions/checkout@v2
 
