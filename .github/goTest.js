@@ -9,7 +9,7 @@ globalThis.child = child
 
 let finished = false
 
-const expectedOutput = "[[2281 75.79402625989589 5 Open star cluster Auriga] [2403 71.88315260617465 8 Galaxy Camelopardalis] [2683 72.5597752409676 9 Galaxy Lynx] [2841 76.28062857396247 9 Galaxy Ursa Major]]"
+const expectedOutput = "[[2281 75.78907994327734 5 Open star cluster Auriga] [2403 71.88244736944793 8 Galaxy Camelopardalis] [2683 72.56316162573884 9 Galaxy Lynx] [2841 76.28558392145153 9 Galaxy Ursa Major]]"
 
 console.log("Starting Go server...")
 child.exec('go run /home/runner/work/Algorithms-and-Astronomy-Calculator/Algorithms-and-Astronomy-Calculator/Go/server.go test', (err, stdout, stderr) => {
@@ -19,7 +19,6 @@ child.exec('go run /home/runner/work/Algorithms-and-Astronomy-Calculator/Algorit
     if (stdout == expectedOutput) {
         console.log("Success")
     } else {
-        console.log(expectedOutput)
         throw stdout
     }
     finished = true
