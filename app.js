@@ -352,9 +352,9 @@ const server = home.startsWith('/home/runner/') ?
         console.log(`Server running`);
         let runningGo = false;
         let doneGet = false;
-        child.exec('go run ./Go/server.go', (err, stdout, stderr) => {
+        child.exec('ls', (err, stdout, stderr) => {
             console.log("done1")
-            runningGo = true;
+            finished++;
             if (err) {
                 throw err
             }
@@ -374,7 +374,7 @@ const server = home.startsWith('/home/runner/') ?
         curlTest("/404.css")
         curlTest("/Images/NGC4494.jpg")
         curlTest("/MineSweeper/MineSweeperWWW/css/index.css")
-        setInterval(() => { if (finished == 12) process.exit(); }, 1000)
+        setInterval(() => { if (finished == 13) process.exit(); }, 1000)
     }) :
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
