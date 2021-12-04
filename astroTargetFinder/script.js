@@ -376,7 +376,7 @@ function ShowHideDiv(chk) {
 }
 
 window.onpopstate = () => {
-    console.log('onpop', history.state);
+    console.log('onpop567567567567', history.state);
     [
         "visAdv",
         "visWeather",
