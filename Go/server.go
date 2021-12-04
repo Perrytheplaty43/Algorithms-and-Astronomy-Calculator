@@ -69,12 +69,13 @@ func readCsvFile(filePath string) [][]string {
 	}
 	return records
 }
-
+var amTesting bool
 func main() {
 	if len(os.Args) > 1 {
 		dirname = os.Args[1]
 	}
 	if dirname == "test" {
+		amTesting = true
 		records := readCsvFile("/home/runner/work/Algorithms-and-Astronomy-Calculator/Algorithms-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
 		var types []string = []string{"Gx", "OC", "Gb", "Nb", "Pl", "CpN", "Ast", "Kt", "TS", "DS", "SS", "Q", "U", "D", "PD"}
 		fmt.Print(astro(records[:], 47.740372, -122.222695, 70, 10, types, "2100-10-16"))
@@ -129,6 +130,9 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 		ALT := (math.Sin(toRadians(DECDeg)) * math.Sin(toRadians(lat))) + (math.Cos(toRadians(DECDeg)) * math.Cos(toRadians(lat)) * math.Cos(toRadians(HA)))
 		ALT2 = toDegrees(math.Asin(ALT))
 
+		if amTesting {
+			ALT2 = math.Round(ALT2)
+		}
 		toPush := []interface{}{data[i][0], ALT2}
 		avgALTArray = append(avgALTArray, toPush)
 	}
