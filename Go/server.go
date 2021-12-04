@@ -78,14 +78,15 @@ func main() {
 		records := readCsvFile("/home/runner/work/Algorithms-and-Astronomy-Calculator/Algorithms-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
 		var types []string = []string{"Gx", "OC", "Gb", "Nb", "Pl", "CpN", "Ast", "Kt", "TS", "DS", "SS", "Q", "U", "D", "PD"}
 		fmt.Print(astro(records[:], 47.740372, -122.222695, 70, 10, types, "2100-10-16"))
-	}
-	http.HandleFunc("/astro", astroHandler)
-	sample = append(sample, *star, *star, *star)
-	log.Println("Go!")
-	if dirname == "test" {
-		log.Fatal(http.ListenAndServe("127.0.0.1:8000", nil))
 	} else {
-		log.Fatal(http.ListenAndServe(":8001", nil))
+		http.HandleFunc("/astro", astroHandler)
+		sample = append(sample, *star, *star, *star)
+		log.Println("Go!")
+		if dirname == "test" {
+			log.Fatal(http.ListenAndServe("127.0.0.1:8000", nil))
+		} else {
+			log.Fatal(http.ListenAndServe(":8001", nil))
+		}
 	}
 }
 
