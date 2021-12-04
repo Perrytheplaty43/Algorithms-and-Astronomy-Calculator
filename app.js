@@ -351,16 +351,7 @@ const server = home.startsWith('/home/runner/') ?
         testing = true;
         console.log(`Server running`);
         let didGo = false;
-        child.exec('go install ./Go/server.go', (err, stdout, stderr) => {
-            finished++;
-            if (err) {
-                throw err
-            }
-            console.log(stdout)
-            console.log("done")
-            return;
-        });
-        child.exec('ls ./Go/', (err, stdout, stderr) => {
+        child.exec('go run ./Go/server.go', (err, stdout, stderr) => {
             finished++;
             if (err) {
                 throw err
