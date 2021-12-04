@@ -347,11 +347,9 @@ function myServer(req, res) {
 }
 if (home.startsWith('/home/runner/')) {
     child.exec('go run ./Go/server.go', (err, stdout, stderr) => {
-        console.log("done1")
         if (err) {
             throw err
         }
-        console.log("done")
         return;
     });
 }
