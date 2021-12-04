@@ -14,7 +14,7 @@ child.exec('go run /home/runner/work/Algorithms-and-Astronomy-Calculator/Algorit
     if (err) {
         throw err
     }
-    console.log(stdout)
+    console.log(JSON.parse(stdout))
     finished = true
     return;
 });
