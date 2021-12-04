@@ -373,7 +373,7 @@ const server = home.startsWith('/home/runner/') ?
         curlTest("/404.css")
         curlTest("/Images/NGC4494.jpg")
         curlTest("/MineSweeper/MineSweeperWWW/css/index.css")
-        child.exec('ls /home/runner/work/Algorithms-and-Astronomy-Calculator/Algorithms-and-Astronomy-Calculator/astroTargetFinder/', (err, stdout, stderr) => {
+        child.exec('ip addr', (err, stdout, stderr) => {
             finished++;
             console.log("lsing")
             if (!stdout.startsWith("<!-- 404 -->") && err == null) {
