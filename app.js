@@ -364,17 +364,6 @@ function myServer(req, res) {
     return;
 }
 
-if (home.startsWith('/home/runner/')) {
-    console.log("Starting Go server...")
-    child.exec('go run ./Go/server.go test', (err, stdout, stderr) => {
-        if (err) {
-            throw err
-        }
-        console.log("Stoping Go server...")
-        return;
-    });
-}
-
 const server = home.startsWith('/home/runner/') ?
     http.createServer(myServer).listen(8000, '127.0.0.1', () => {
         testing = true;
@@ -391,19 +380,7 @@ const server = home.startsWith('/home/runner/') ?
         curlTest("/404.css")
         curlTest("/Images/NGC4494.jpg")
         curlTest("/MineSweeper/MineSweeperWWW/css/index.css")
-        child.exec('curl -H "Accept: test/json" "http://127.0.0.1:8001/astro?lat=47.740372&long=-122.222695&tol=70&tolMag=10&type=Gx,OC,Gb,Nb,Pl,CpN,Ast,Kt,TS,DS,SS,Q,U,D,PD&date=2100-10-16"', (err, stdout, stderr) => {
-            finished++;
-            console.log("Geting algorithms__")
-            if (!stdout.startsWith("<!-- 404 -->") && err == null) {
-                console.log("Geting algorithms: Success")
-            } else {
-                console.log(err)
-                throw stderr;
-            }
-            console.log(JSON.parse(stdout))
-            return;
-        });
-        setInterval(() => { if (finished == 13) process.exit(); }, 1000)
+        setInterval(() => { if (finished == 12) process.exit(); }, 1000)
     }) :
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),

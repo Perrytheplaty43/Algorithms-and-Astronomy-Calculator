@@ -1,0 +1,22 @@
+name: Algorithm Test
+
+on:
+  push:
+    branches: 
+      - master
+      - beta
+  pull_request:
+    branches: 
+      - master
+      - beta
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Running Script
+      run: node /home/runner/work/Algorithms-and-Astronomy-Calculator/Algorithms-and-Astronomy-Calculator/.github/goTest.js

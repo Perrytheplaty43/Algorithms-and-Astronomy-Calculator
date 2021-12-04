@@ -22,7 +22,7 @@ type object struct {
 	Con  string  `json:"con"`
 }
 
-var sample []object
+var sample []object = []object{}
 
 var star *object = &object{
 	Id:   "38",
