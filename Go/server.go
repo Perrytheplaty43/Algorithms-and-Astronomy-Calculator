@@ -22,6 +22,10 @@ type object struct {
 	Con  string  `json:"con"`
 }
 
+func Sum(x int, y int) int {
+	return x + y
+}
+
 var sample []object
 
 var star *object = &object{
@@ -68,7 +72,9 @@ func readCsvFile(filePath string) [][]string {
 	}
 	return records
 }
+
 var amTesting bool
+
 func main() {
 	if len(os.Args) > 1 {
 		dirname = os.Args[1]
@@ -82,11 +88,7 @@ func main() {
 		http.HandleFunc("/astro", astroHandler)
 		sample = append(sample, *star, *star, *star)
 		log.Println("Go!")
-		if dirname == "test" {
-			log.Fatal(http.ListenAndServe("127.0.0.1:8000", nil))
-		} else {
-			log.Fatal(http.ListenAndServe(":8001", nil))
-		}
+		log.Fatal(http.ListenAndServe(":8001", nil))
 	}
 }
 
