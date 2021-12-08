@@ -22,6 +22,10 @@ type object struct {
 	Con  string  `json:"con"`
 }
 
+func Sum(x int, y int) int {
+	return x + y
+}
+
 var sample []object
 
 var star *object = &object{
@@ -68,7 +72,9 @@ func readCsvFile(filePath string) [][]string {
 	}
 	return records
 }
+
 var amTesting bool
+
 func main() {
 	if len(os.Args) > 1 {
 		dirname = os.Args[1]
@@ -82,11 +88,7 @@ func main() {
 		http.HandleFunc("/astro", astroHandler)
 		sample = append(sample, *star, *star, *star)
 		log.Println("Go!")
-		if dirname == "test" {
-			log.Fatal(http.ListenAndServe("127.0.0.1:8000", nil))
-		} else {
-			log.Fatal(http.ListenAndServe(":8001", nil))
-		}
+		log.Fatal(http.ListenAndServe(":8001", nil))
 	}
 }
 
@@ -94,16 +96,15 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 	var avgALTArray [][]interface{}
 	var ALT2 float64
 
-	then, _ := time.Parse(time.RFC3339, "2000-01-01T00:00:00Z")
-	var times []float64
-	diff := time.Since(then)
+	janFirst, _ := time.Parse(time.RFC3339, "2000-01-01T00:00:00Z")
+	targetDate := time.Now()
+
 	if len(date) > 0 {
-		then2, _ := time.Parse(time.RFC3339, date+"T00:00:00Z")
-		diff += time.Since(then2)
-		times = sunsetriseTime(lat, long, date, false)
-	} else {
-		times = sunsetriseTime(lat, long, time.Now().Format(time.RFC3339), true)
+		targetDate, _ = time.Parse(time.RFC3339, date+"T00:00:00Z")
 	}
+
+	diff := targetDate.Sub(janFirst)
+	times := sunsetriseTime(lat, long, targetDate)
 
 	daysSinceJ2000 := (diff.Hours() / 24)
 
@@ -317,14 +318,8 @@ func findLST(time float64, daysSinceJ2000 float64, long float64) float64 {
 	return LST
 }
 
-func sunsetriseTime(lat float64, long float64, date1 string, isElse bool) []float64 {
-	var date time.Time
-	if isElse {
-		date, _ = time.Parse(time.RFC3339, date1)
-	} else {
-		date, _ = time.Parse(time.RFC3339, date1+"T00:00:00Z")
-	}
-	day := date.YearDay()
+func sunsetriseTime(lat float64, long float64, targetDate time.Time) []float64 {
+	day := targetDate.YearDay()
 
 	y := ((float64(2) * math.Pi) / float64(365)) * (float64(day) - float64(365))
 
