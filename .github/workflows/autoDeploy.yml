@@ -19,4 +19,3 @@ jobs:
             cd ~/github/Algorithums-and-Astronomy-Calculator/
             git pull origin master
             git status
-
