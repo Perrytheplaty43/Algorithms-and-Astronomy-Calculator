@@ -381,7 +381,7 @@ const server = home.startsWith('/home/runner/') ?
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
         cert: fs.readFileSync(home + delimiter + 'fullchainCert.pem')
-    }, myServer).listen(403, '10.138.0.3', () => {
+    }, myServer).listen(403, () => {
         console.log(`Server running`);
     });
 
