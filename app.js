@@ -32,7 +32,6 @@ if (!home.startsWith('/home/runner')) {
 //const hostname = '10.172.195.3';
 
 function myServer(req, res) {
-    console.log("rtest")
     const { method, url } = req;
     if (!testing) {
         fs.stat(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', (err, stats) => {
@@ -382,7 +381,7 @@ const server = home.startsWith('/home/runner/') ?
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
         cert: fs.readFileSync(home + delimiter + 'fullchainCert.pem')
-    }, myServer).listen(403, () => {
+    }, myServer).listen(443, '10.138.0.3', () => {
         console.log(`Server running`);
     });
 
