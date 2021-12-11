@@ -76,6 +76,7 @@ func readCsvFile(filePath string) [][]string {
 var amTesting bool
 
 func main() {
+	fmt.Println(os.UserHomeDir())
 	if len(os.Args) > 1 {
 		dirname = os.Args[1]
 	}
