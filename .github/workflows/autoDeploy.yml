@@ -12,11 +12,11 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: athesto.ddns.net
-          username: pi
+          username: alexander_i_bakalov
           key: ${{ secrets.ASTRO_SECRET }}
-          port: 2222
+          port: 22
           script: |
-            cd ~/github/Algorithums-and-Astronomy-Calculator/
+            cd ~/AAC/ 
             git pull origin master
             git status
 
