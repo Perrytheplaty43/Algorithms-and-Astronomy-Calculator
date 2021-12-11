@@ -17,10 +17,10 @@ import child from 'child_process';
 globalThis.child = child
 
 const delimiter = "/";
-//const delimiter = "\\";
+
 let testing = false;
 const home = process.cwd()
-//const home = "C:\\"
+
 const frameworkPath1 = "/MineSweeper/MineSweeperWWW/_framework";
 const frameworkPath2 = "/_framework";
 let fileCount;
@@ -29,7 +29,6 @@ if (!home.startsWith('/home/runner')) {
         fileCount = parseInt(html)
     })
 }
-//const hostname = '10.172.195.3';
 
 function myServer(req, res) {
     const { method, url } = req;
@@ -60,7 +59,6 @@ function myServer(req, res) {
             return
         })
     }
-    //const surl = new URL(url, 'http://10.172.195.3');
     const surl = new URL(url, 'https://10.138.0.3/');
     let date = new Date();
     if (req.socket.remoteAddress == "98.232.109.230") console.log((parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + " Rish visit")
