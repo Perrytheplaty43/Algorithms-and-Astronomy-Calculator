@@ -32,6 +32,7 @@ if (!home.startsWith('/home/runner')) {
 //const hostname = '10.172.195.3';
 
 function myServer(req, res) {
+    console.log("rtest")
     const { method, url } = req;
     if (!testing) {
         fs.stat(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', (err, stats) => {
