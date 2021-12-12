@@ -193,7 +193,7 @@ function onSubmit(event) {
         long = parseFloat(long);
         lat = parseFloat(lat);
         fetch(
-            'https://athesto.ddns.net/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+            'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
             { method: 'GET' }
         )
             .then(response => response.text())

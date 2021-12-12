@@ -80,12 +80,11 @@ label {
 
 .title {
 	overflow: hidden;
-	/*text-align: center;*/
 	font-weight: bold;
 	animation-fill-mode: forwards;
 	width: fit-content;
 	display: inline-block;
-	max-width: 70vw;
+	max-width: 40vw;
 	font-size: 2.25vw;
 	text-align: center;
 	white-space: nowrap;
