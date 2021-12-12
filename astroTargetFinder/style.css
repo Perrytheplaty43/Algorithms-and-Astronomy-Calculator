@@ -279,8 +279,6 @@ img {
 	animation: showtooltip 4s;
 	animation-delay: 4s;
 	visibility: visible;
-	top: -5px;
-	left: 105%;
 }
 
 @keyframes showtooltip {
