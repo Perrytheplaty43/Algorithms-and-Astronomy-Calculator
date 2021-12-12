@@ -271,6 +271,8 @@ img {
 	border-radius: 6px;
 	font-size: 2vw;
 	position: absolute;
+	display: none;
+	visibility: hidden;
 }
 
 .advParams:hover .tooltiptext {
@@ -289,5 +291,7 @@ img {
 
 	to {
 		opacity: 1;
+		display: block;
+		visibility: visible;
 	}
 }
