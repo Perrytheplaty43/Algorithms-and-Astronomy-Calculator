@@ -98,15 +98,15 @@
                 </div>
                 <div class="params">
                     <p class="p4">Parameters:</p>
-                    <form id="advParams">
+                    <form id="advParams" class="advParams">
                         <p>Enter Tolerance (42-88):</p>
                         <input type="number" name="tolerance" id="tolerance" class="form" placeholder="Tolerance" value="70" max=88 min=42>
 
                         <p>Enter Mag Tolerance:</p>
                         <p class="tooltiptext">
-                            Tolerance: Tolerance in altitude above the horizon (in degrees) that the algorithm will accept.
-                            Mag Tolerance: Tolerance in brightness in magnitudes. The objects dimmer than the enter tolerance will be discarded from the result.
-                            Date: The date that the algorithm will check.
+                            <b>Tolerance:</b> Tolerance in altitude above the horizon (in degrees) that the algorithm will accept.
+                            <b>Mag Tolerance:</b> Tolerance in brightness in magnitudes. The objects dimmer than the enter tolerance will be discarded from the result.
+                            <b>Date:</b> The date that the algorithm will check.
                         </p>
                         <input type="number" name="toleranceMag" id="toleranceMag" class="form" placeholder="Mag Tolerance" value="10" min=0>
 
