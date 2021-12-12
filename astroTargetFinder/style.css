@@ -279,7 +279,7 @@ img {
 	animation-duration: 4s;
 	animation-name: showtooltip;
 	animation-delay: 4s;
-	margin-left: 100%;
+	margin-left: 10%;
 }
 
 @keyframes showtooltip {
