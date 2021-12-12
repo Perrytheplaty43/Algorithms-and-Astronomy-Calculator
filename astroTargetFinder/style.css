@@ -294,7 +294,7 @@ img {
 	}
 }
 
-.question {
+label.question {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -304,6 +304,11 @@ img {
 	background-image: url("question.png");
 }
 
+input.question {
+	display: none;
+}
+
 .params {
 	position: relative;
 }
+
