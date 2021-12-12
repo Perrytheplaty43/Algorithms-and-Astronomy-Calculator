@@ -246,3 +246,21 @@ img {
 	height: 400px;
 	display: none;
 }
+
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text*/
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltiptext {
+  visibility: visible;
+}
