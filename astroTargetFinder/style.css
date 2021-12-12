@@ -260,6 +260,6 @@ img {
   z-index: 1;
 }
 
-.tooltiptext:hover {
+.advParams:hover .tooltiptext {
   visibility: visible;
 }
