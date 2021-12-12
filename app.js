@@ -35,7 +35,7 @@ if (!home.startsWith('/home/runner')) {
         fileCount = parseInt(html)
     })
 }
-if (ip == '192.168.1.88') { console.log(8000) } else { console.log(443) }
+
 function myServer(req, res) {
     const { method, url } = req;
     if (!testing) {
