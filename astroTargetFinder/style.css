@@ -276,9 +276,10 @@ img {
 }
 
 .advParams:hover .tooltiptext {
-	animation: showtooltip 4s;
+	animation-duration: 4s;
+	animation-name: showtooltip;
 	animation-delay: 4s;
-	visibility: visible;
+	margin-left: 100%;
 }
 
 @keyframes showtooltip {
