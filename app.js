@@ -17,10 +17,10 @@ import child from 'child_process';
 globalThis.child = child
 
 const delimiter = "/";
-//const delimiter = "\\";
+
 let testing = false;
 const home = process.cwd()
-//const home = "C:\\"
+
 const frameworkPath1 = "/MineSweeper/MineSweeperWWW/_framework";
 const frameworkPath2 = "/_framework";
 let fileCount;
@@ -29,7 +29,6 @@ if (!home.startsWith('/home/runner')) {
         fileCount = parseInt(html)
     })
 }
-//const hostname = '10.172.195.3';
 
 function myServer(req, res) {
     const { method, url } = req;
@@ -60,8 +59,7 @@ function myServer(req, res) {
             return
         })
     }
-    //const surl = new URL(url, 'http://10.172.195.3');
-    const surl = new URL(url, 'https://192.168.1.88/');
+    const surl = new URL(url, 'https://10.138.0.3/');
     let date = new Date();
     if (req.socket.remoteAddress == "98.232.109.230") console.log((parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + " Rish visit")
     if (method == 'GET' && surl.pathname == '/app.js' || surl.pathname == '/') {
@@ -317,7 +315,7 @@ function myServer(req, res) {
         let dateToSend = searchParams.get('date')
         if (!home.startsWith('/home/runner/')) {
             fetch(
-                'http://192.168.1.88:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+                'http://10.138.0.3:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
                 { method: 'GET' }
             )
                 .then(response => response.text())
@@ -381,7 +379,7 @@ const server = home.startsWith('/home/runner/') ?
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
         cert: fs.readFileSync(home + delimiter + 'fullchainCert.pem')
-    }, myServer).listen(8000, '192.168.1.88', () => {
+    }, myServer).listen(443, '10.138.0.3', () => {
         console.log(`Server running`);
     });
 
