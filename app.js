@@ -24,6 +24,12 @@ const home = process.cwd()
 const frameworkPath1 = "/MineSweeper/MineSweeperWWW/_framework";
 const frameworkPath2 = "/_framework";
 let fileCount;
+
+let ip = '10.138.0.3';
+if (home.startsWith('/home/pi')) {
+    ip = '192.168.1.88';
+}
+
 if (!home.startsWith('/home/runner')) {
     fs.readFile(home + delimiter + 'Logs' + delimiter + 'fileCount.txt', function (err, html) {
         fileCount = parseInt(html)
@@ -307,11 +313,6 @@ function myServer(req, res) {
             res.end();
         });
         return;
-    }
-    if (home.startsWith('/home/pi')) {
-        let ip = '192.168.1.88';
-    } else {
-        let ip = '10.138.0.3';
     }
     if (method == 'GET' && surl.pathname == '/astro') {
         let searchParams = surl.searchParams
