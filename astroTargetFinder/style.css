@@ -278,9 +278,9 @@ img {
 .advParams:hover .tooltiptext {
 	animation-duration: 4s;
 	animation-name: showtooltip;
-	animation-delay: 4s;
-	margin-left: 30%;
-	margin-bottom: 5%;
+	animation-delay: 2s;
+	margin-left: 25%;
+	margin-bottom: 10%;
 	animation-fill-mode: forwards;
 }
 
