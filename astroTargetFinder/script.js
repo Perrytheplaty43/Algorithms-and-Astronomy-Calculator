@@ -208,7 +208,7 @@ function onSubmit(event) {
 
 function ShowHideDivQuestion(event) {
     let thing = document.getElementsByClassName("tooltiptext")[0];
-    thing.style.display = "block"
+    thing.style.display = event.srcElement.checked ? "block" : "none"
     console.log(event)
 }
 
