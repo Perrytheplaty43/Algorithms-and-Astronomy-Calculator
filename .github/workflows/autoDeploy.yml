@@ -13,7 +13,7 @@ jobs:
         with:
           host: athesto.ddns.net
           username: alexander_i_bakalov
-          key: ${{ secrets.ASTRO_SECRET }}
+          key: ${{ secrets.PRIVKEY_SECRET }}
           port: 22
           script: |
             cd ~/AAC/ 
