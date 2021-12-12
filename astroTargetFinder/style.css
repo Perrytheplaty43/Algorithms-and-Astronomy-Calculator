@@ -269,7 +269,7 @@ img {
 	text-align: center;
 	padding: 5px 0;
 	border-radius: 6px;
-	font-size: 2vw;
+	font-size: 1.5vw;
 	position: absolute;
 	display: none;
 	visibility: hidden;
@@ -287,6 +287,8 @@ img {
 @keyframes showtooltip {
 	from {
 		opacity: 0;
+		display: none;
+		visibility: hidden;
 	}
 
 	to {
