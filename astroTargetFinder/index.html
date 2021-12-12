@@ -33,7 +33,7 @@
                 <div class="inputContainer">
                     <input type="reset" value="Reset" class="resetButton">
                     <button type="submit" class="submitButton" id="scramble_button" name="scramble_button">Enter</button>
-                    <button type="submit" class="submitButton1" id="loc_button" name="scramble_button">Get Current location</button>
+                    <button type="submit" class="submitButton1" id="loc_button" name="scramble_button">Get Current Location</button>
                     <button type="submit" class="submitButton1" id="home_button" name="scramble_button">Home</button>
                     <br>
                 </div>
@@ -103,6 +103,11 @@
                         <input type="number" name="tolerance" id="tolerance" class="form" placeholder="Tolerance" value="70" max=88 min=42>
 
                         <p>Enter Mag Tolerance:</p>
+                        <p class="tooltiptext">
+                            Tolerance: Tolerance in altitude above the horizon (in degrees) that the algorithm will accept.
+                            Mag Tolerance: Tolerance in brightness in magnitudes. The objects dimmer than the enter tolerance will be discarded from the result.
+                            Date: The date that the algorithm will check.
+                        </p>
                         <input type="number" name="toleranceMag" id="toleranceMag" class="form" placeholder="Mag Tolerance" value="10" min=0>
 
                         <p>Enter Date In The Future (optional):</p>

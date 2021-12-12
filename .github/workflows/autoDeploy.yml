@@ -19,4 +19,3 @@ jobs:
             cd ~/AAC/ 
             git pull https://github.com/Perrytheplaty43/Algorithms-and-Astronomy-Calculator.git
             git status
-
