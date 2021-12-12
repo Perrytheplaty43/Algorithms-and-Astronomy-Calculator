@@ -300,6 +300,7 @@ img {
 	right: 0;
 	width: 32px;
 	height: 32px;
+	background-size: auto;
 	background-image: url("question.png");
 }
 
