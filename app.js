@@ -59,10 +59,9 @@ function myServer(req, res) {
             return
         })
     }
+    let surl = new URL(url, 'https://10.138.0.3/');
     if (home.startsWith('/home/pi')) {
-        const surl = new URL(url, 'https://192.168.1.88/');
-    } else {
-        const surl = new URL(url, 'https://10.138.0.3/');
+        surl = new URL(url, 'https://192.168.1.88/');
     }
     let date = new Date();
     if (req.socket.remoteAddress == "98.232.109.230") console.log((parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + " Rish visit")
