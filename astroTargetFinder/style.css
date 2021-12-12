@@ -262,7 +262,7 @@ img {
 }
 
 .tooltiptext {
-	visibility: hidden;
+	opacity: 0;
 	width: 300px;
 	background-color: black;
 	color: #fff;
@@ -279,17 +279,15 @@ img {
 	animation-duration: 4s;
 	animation-name: showtooltip;
 	animation-delay: 4s;
-	margin-left: 10%;
+	margin-left: 25%;
 }
 
 @keyframes showtooltip {
 	from {
-		visibility: hidden;
+		opacity: 0;
 	}
 
 	to {
-		visibility: visible;
-		top: -5px;
-		left: 105%;
+		opacity: 1;
 	}
 }
