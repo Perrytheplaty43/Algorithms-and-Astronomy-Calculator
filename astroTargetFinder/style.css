@@ -234,7 +234,6 @@ label {
 }
 
 img {
-	/* max-height: 1200px; */
 	width: 100%;
 }
 
@@ -261,6 +260,6 @@ img {
   z-index: 1;
 }
 
-.tooltiptext {
+.tooltiptext:hover {
   visibility: visible;
 }
