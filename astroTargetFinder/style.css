@@ -263,12 +263,13 @@ img {
 
 .tooltiptext {
 	opacity: 0;
-	width: 600px;
+	width: 25%;
 	background-color: black;
 	color: #fff;
 	text-align: center;
 	padding: 5px 0;
 	border-radius: 6px;
+	font-size: 0.75vw;
 
 	/* Position the tooltip text*/
 	position: absolute;
