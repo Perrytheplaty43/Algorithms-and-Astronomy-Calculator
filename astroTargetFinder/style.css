@@ -273,7 +273,7 @@ img {
 	visibility: hidden;
 }
 
-.advParams:hover .tooltiptext {
+.question:hover .tooltiptext {
 	animation-duration: 4s;
 	animation-name: showtooltip;
 	animation-delay: 2s;
@@ -292,4 +292,13 @@ img {
 		opacity: 1;
 		visibility: visible;
 	}
+}
+
+.question {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 32px;
+	height: 32px;
+	background-color: #fff;
 }
