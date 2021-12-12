@@ -59,7 +59,10 @@ function myServer(req, res) {
             return
         })
     }
-    const surl = new URL(url, 'https://10.138.0.3/');
+    let surl = new URL(url, 'https://10.138.0.3/');
+    if (home.startsWith('/home/pi')) {
+        surl = new URL(url, 'https://192.168.1.88/');
+    }
     let date = new Date();
     if (req.socket.remoteAddress == "98.232.109.230") console.log((parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + " Rish visit")
     if (method == 'GET' && surl.pathname == '/app.js' || surl.pathname == '/') {
@@ -305,6 +308,11 @@ function myServer(req, res) {
         });
         return;
     }
+    if (home.startsWith('/home/pi')) {
+        let ip = '192.168.1.88';
+    } else {
+        let ip = '10.138.0.3';
+    }
     if (method == 'GET' && surl.pathname == '/astro') {
         let searchParams = surl.searchParams
         let lat = searchParams.get('lat')
@@ -315,7 +323,7 @@ function myServer(req, res) {
         let dateToSend = searchParams.get('date')
         if (!home.startsWith('/home/runner/')) {
             fetch(
-                'http://10.138.0.3:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+                'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
                 { method: 'GET' }
             )
                 .then(response => response.text())
@@ -379,7 +387,7 @@ const server = home.startsWith('/home/runner/') ?
     https.createServer({
         key: fs.readFileSync(home + delimiter + 'privkeyKey.pem'),
         cert: fs.readFileSync(home + delimiter + 'fullchainCert.pem')
-    }, myServer).listen(443, '10.138.0.3', () => {
+    }, myServer).listen(443, ip, () => {
         console.log(`Server running`);
     });
 
