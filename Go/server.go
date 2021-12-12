@@ -48,7 +48,11 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		date := r.Form["date"][0]
 		types := strings.Split(r.Form["type"][0], ",")
 		var records [][]string
-		records = readCsvFile("/home/pi/github/Algorithums-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
+		if homeDir == "/home/pi" {
+			records = readCsvFile("/home/pi/github/Algorithums-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
+		} else {
+			records = readCsvFile("/home/alexander_i_bakalov/AAC/astroTargetFinder/ngc2000Final.txt")
+		}
 		finalArray := astro(records[:], lat, long, tol, tolMag, types, date)
 		j, _ := json.Marshal(finalArray)
 		w.Write(j)
@@ -74,8 +78,10 @@ func readCsvFile(filePath string) [][]string {
 }
 
 var amTesting bool
+var homeDir string
+
 func main() {
-	fmt.Println(os.UserHomeDir())
+	homeDir, _ = os.UserHomeDir()
 	if len(os.Args) > 1 {
 		dirname = os.Args[1]
 	}
