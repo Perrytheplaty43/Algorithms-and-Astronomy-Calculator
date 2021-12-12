@@ -17,6 +17,6 @@ jobs:
           port: 22
           script: |
             cd ~/AAC/ 
-            git pull origin master
+            git pull https://github.com/Perrytheplaty43/Algorithms-and-Astronomy-Calculator.git
             git status
 
