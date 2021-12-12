@@ -210,6 +210,19 @@ function myServer(req, res) {
         });
         return;
     }
+    if (method == 'GET' && surl.pathname == '/astroTargetFinder/question.png') {
+        fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'question.png', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "10")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'image/png' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
     if (method == 'GET' && surl.pathname == '/404.css') {
         fs.readFile(home + delimiter + '404.css', function (err, html) {
             if (err) {
