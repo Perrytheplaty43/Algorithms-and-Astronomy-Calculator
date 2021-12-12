@@ -273,7 +273,8 @@ img {
 	visibility: hidden;
 }
 
-.question:hover .tooltiptext {
+.tooltiptext {
+	display: none;
 	animation-duration: 4s;
 	animation-name: showtooltip;
 	animation-delay: 2s;
@@ -301,4 +302,8 @@ img {
 	width: 32px;
 	height: 32px;
 	background-color: #fff;
+}
+
+.params {
+	position: relative;
 }
