@@ -12,10 +12,10 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: athesto.ddns.net
-          username: pi
-          key: ${{ secrets.ASTRO_SECRET }}
-          port: 2222
+          username: alexander_i_bakalov
+          key: ${{ secrets.PRIVKEY_SECRET }}
+          port: 22
           script: |
-            cd ~/github/Algorithums-and-Astronomy-Calculator/
-            git pull origin master
+            cd ~/AAC/ 
+            git pull https://github.com/Perrytheplaty43/Algorithms-and-Astronomy-Calculator.git
             git status
