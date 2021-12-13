@@ -326,3 +326,7 @@ input[type=checkbox] {
 .cookie {
 	margin-top: 32px;
 }
+
+.checkboxes {
+	margin-left: 32px;
+}
