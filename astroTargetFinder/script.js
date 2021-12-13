@@ -109,6 +109,8 @@ const mapImages = {
 
 if (getCookie("checked") == "true") {
     document.getElementById("cookie").checked = true;
+    document.getElementById("tolerance").value = getCookie("tol")
+    document.getElementById("toleranceMag").value = getCookie("tolMag")
 }
 
 let date = new Date();
@@ -203,8 +205,6 @@ function onSubmit(event) {
             document.cookie = "tol=" + tol + ";"
             document.cookie = "tolMag=" + tolMag + ";"
             document.cookie = "type=" + types + ";"
-            document.getElementById("tolerance").value = getCookie("tol")
-            document.getElementById("toleranceMag").value = getCookie("tolMag")
             console.log(getCookie("type").split(","))
         } else {
             document.cookie = "checked=false;"
