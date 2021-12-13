@@ -298,13 +298,13 @@ label.question {
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 32px;
-	height: 32px;
+	width: 16px;
+	height: 16px;
 	background-color: lightseagreen;
 	border-radius: 50%;
 	color: black;
 	text-align: center;
-	font-size: 27px;
+	font-size: 13px;
 }
 
 input.question {
