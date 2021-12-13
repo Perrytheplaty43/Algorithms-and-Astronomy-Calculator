@@ -307,10 +307,18 @@ label.question {
 	font-size: 13px;
 }
 
+label.question:hover {
+	cursor: pointer;
+}
+
 input.question {
 	display: none;
 }
 
 .params {
 	position: relative;
+}
+
+input[type=checkbox] {
+	cursor: pointer;
 }
