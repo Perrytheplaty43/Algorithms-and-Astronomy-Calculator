@@ -303,6 +303,7 @@ label.question {
 	background-color: lightseagreen;
 	border-radius: 50%;
 	color: black;
+	padding-left: 30px;
 }
 
 input.question {
