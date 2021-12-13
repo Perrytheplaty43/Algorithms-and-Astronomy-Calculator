@@ -275,9 +275,9 @@ img {
 
 .tooltiptext {
 	display: none;
-	animation-duration: 4s;
+	animation-duration: 2s;
 	animation-name: showtooltip;
-	margin-left: 25%;
+	margin-left: 35%;
 	margin-bottom: 10%;
 	animation-fill-mode: forwards;
 }
