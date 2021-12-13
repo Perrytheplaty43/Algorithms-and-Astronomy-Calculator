@@ -113,21 +113,21 @@ if (getCookie("checked") == "true" && document.getElementById("cookie") != null)
     document.getElementById("toleranceMag").value = getCookie("tolMag")
     let cookieTypes = getCookie("type").split(",")
 
-    if (cookieTypes.includes("Gx")) document.getElementById("Gx").checked = true;
-    if (cookieTypes.includes("OC")) document.getElementById("OC").checked = true;
-    if (cookieTypes.includes("Gb")) document.getElementById("Gb").checked = true;
-    if (cookieTypes.includes("Nb")) document.getElementById("Nb").checked = true;
-    if (cookieTypes.includes("Pl")) document.getElementById("Pl").checked = true;
-    if (cookieTypes.includes("CpN")) document.getElementById("CpN").checked = true;
-    if (cookieTypes.includes("Ast")) document.getElementById("Ast").checked = true;
-    if (cookieTypes.includes("Kt")) document.getElementById("Kt").checked = true;
-    if (cookieTypes.includes("TS")) document.getElementById("TS").checked = true;
-    if (cookieTypes.includes("DS")) document.getElementById("DS").checked = true;
-    if (cookieTypes.includes("SS")) document.getElementById("SS").checked = true;
-    if (cookieTypes.includes("Q")) document.getElementById("Q").checked = true;
-    if (cookieTypes.includes("U")) document.getElementById("U").checked = true;
-    if (cookieTypes.includes("D")) document.getElementById("D").checked = true;
-    if (cookieTypes.includes("PD")) document.getElementById("PD").checked = true;
+    if (!cookieTypes.includes("Gx")) document.getElementById("Gx").checked = false;
+    if (!cookieTypes.includes("OC")) document.getElementById("OC").checked = false;
+    if (!cookieTypes.includes("Gb")) document.getElementById("Gb").checked = false;
+    if (!cookieTypes.includes("Nb")) document.getElementById("Nb").checked = false;
+    if (!cookieTypes.includes("Pl")) document.getElementById("Pl").checked = false;
+    if (!cookieTypes.includes("CpN")) document.getElementById("CpN").checked = false;
+    if (!cookieTypes.includes("Ast")) document.getElementById("Ast").checked = false;
+    if (!cookieTypes.includes("Kt")) document.getElementById("Kt").checked = false;
+    if (!cookieTypes.includes("TS")) document.getElementById("TS").checked = false;
+    if (!cookieTypes.includes("DS")) document.getElementById("DS").checked = false;
+    if (!cookieTypes.includes("SS")) document.getElementById("SS").checked = false;
+    if (!cookieTypes.includes("Q")) document.getElementById("Q").checked = false;
+    if (!cookieTypes.includes("U")) document.getElementById("U").checked = false;
+    if (!cookieTypes.includes("D")) document.getElementById("D").checked = false;
+    if (!cookieTypes.includes("PD")) document.getElementById("PD").checked = false;
 }
 
 let date = new Date();
