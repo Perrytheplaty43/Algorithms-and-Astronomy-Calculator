@@ -108,7 +108,7 @@ const mapImages = {
 };
 
 if (getCookie("checked") == "true") {
-    document.getElementById("cookie").checked = true;
+    //document.getElementById("cookie").checked = true;
     document.getElementById("tolerance").value = getCookie("tol")
     document.getElementById("toleranceMag").value = getCookie("tolMag")
 }
