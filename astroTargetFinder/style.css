@@ -300,14 +300,14 @@ label.question {
 	right: 0;
 	width: 32px;
 	height: 32px;
+	background-color: lightseagreen;
+	border-radius: 50%;
+	color: black;
 }
 
 input.question {
 	display: none;
 	font-size: 27px;
-	background-color: lightseagreen;
-	border-radius: 50%;
-	color: black;
 }
 
 .params {
