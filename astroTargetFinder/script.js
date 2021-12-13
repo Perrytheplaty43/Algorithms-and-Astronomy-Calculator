@@ -107,7 +107,7 @@ const mapImages = {
     '2841': './Images/NGC2841.jpg',
 };
 
-if (getCookie("checked") == "true") {
+if (getCookie("checked") == "true" && document.getElementById("cookie") != null) {
     document.getElementById("cookie").checked = true;
     document.getElementById("tolerance").value = getCookie("tol")
     document.getElementById("toleranceMag").value = getCookie("tolMag")
