@@ -282,6 +282,10 @@ img {
 	animation-fill-mode: forwards;
 }
 
+.tooltiptext:hover {
+	cursor: pointer;
+}
+
 @keyframes showtooltip {
 	from {
 		opacity: 0;
