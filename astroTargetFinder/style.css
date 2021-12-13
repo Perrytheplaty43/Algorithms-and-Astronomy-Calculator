@@ -262,7 +262,7 @@ img {
 
 .tooltiptext {
 	opacity: 0;
-	width: 25%;
+	width: 30vw;
 	background-color: black;
 	color: #fff;
 	text-align: center;
@@ -273,12 +273,12 @@ img {
 	visibility: hidden;
 }
 
-.advParams:hover .tooltiptext {
-	animation-duration: 4s;
+.tooltiptext {
+	display: none;
+	top: 0;
+	animation-duration: 2s;
 	animation-name: showtooltip;
-	animation-delay: 2s;
-	margin-left: 25%;
-	margin-bottom: 10%;
+	margin-left: 105%;
 	animation-fill-mode: forwards;
 }
 
@@ -292,4 +292,25 @@ img {
 		opacity: 1;
 		visibility: visible;
 	}
+}
+
+label.question {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 16px;
+	height: 16px;
+	background-color: lightseagreen;
+	border-radius: 50%;
+	color: black;
+	text-align: center;
+	font-size: 13px;
+}
+
+input.question {
+	display: none;
+}
+
+.params {
+	position: relative;
 }

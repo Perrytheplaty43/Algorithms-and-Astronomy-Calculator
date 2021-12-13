@@ -205,6 +205,13 @@ function onSubmit(event) {
     }
     return false;
 }
+
+function ShowHideDivQuestion(event) {
+    let thing = document.getElementsByClassName("tooltiptext")[0];
+    thing.style.display = event.srcElement.checked ? "block" : "none"
+    console.log(event)
+}
+
 function updateUI(final, timer, lat, long) {
     if (final != null) {
         if (final.length == 1) {
