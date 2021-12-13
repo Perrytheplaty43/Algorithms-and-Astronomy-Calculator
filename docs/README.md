@@ -56,9 +56,11 @@ Site is currently being ran at:
 
 ![App Screenshot](https://imgur.com/yvrLuYI.png)
 
-![App Screenshot](https://imgur.com/FG01rcc.png)
+![App Screenshot](https://i.imgur.com/HwupdqN.png)
 
 ![App Screenshot](https://imgur.com/z2qRHF4.png)
+
+![App Screenshot](https://i.imgur.com/sdmUiUq.png)
 
 
 ## Support
