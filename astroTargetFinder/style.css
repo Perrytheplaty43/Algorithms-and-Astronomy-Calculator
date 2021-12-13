@@ -322,3 +322,7 @@ input.question {
 input[type=checkbox] {
 	cursor: pointer;
 }
+
+.cookie {
+	margin-top: 32px;
+}
