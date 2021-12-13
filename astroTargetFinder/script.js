@@ -106,6 +106,9 @@ const mapImages = {
     '2683': './Images/NGC2683.jpg',
     '2841': './Images/NGC2841.jpg',
 };
+if (getCookie("checked") == "true") {
+    document.getElementById("cookie").checked = true;
+}
 let date = new Date();
 function onSubmit(event) {
     if (event.submitter.id == "home_button") {
@@ -202,7 +205,7 @@ function onSubmit(event) {
         }
 
         fetch(
-            'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+            'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + getCookie("tol") + '&tolMag=' + getCookie("tolMag") + '&type=' + getCookie("type") + "&date=" + dateToSend,
             { method: 'GET' }
         )
             .then(response => response.text())
@@ -420,4 +423,20 @@ window.addEventListener('DOMContentLoaded', (event) => {
 function bottomForm(event) {
     event.preventDefault();
     window.location.href = "https://github.com/Perrytheplaty43/Algorithums-and-Astronomy-Calculator";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
