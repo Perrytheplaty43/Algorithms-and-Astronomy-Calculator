@@ -206,6 +206,8 @@ function onSubmit(event) {
             //document.getElementById("tolerance").value = getCookie("tol")
             //document.getElementById("toleranceMag").value = getCookie("tolMag")
             //console.log(getCookie("type").split(","))
+        } else {
+            document.cookie = "checked=false;"
         }
 
         fetch(
