@@ -318,3 +318,7 @@ input.question {
 .params {
 	position: relative;
 }
+
+input[type=checkbox] {
+	cursor: pointer;
+}
