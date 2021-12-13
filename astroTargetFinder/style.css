@@ -282,10 +282,6 @@ img {
 	animation-fill-mode: forwards;
 }
 
-.tooltiptext:hover {
-	cursor: pointer;
-}
-
 @keyframes showtooltip {
 	from {
 		opacity: 0;
@@ -309,6 +305,10 @@ label.question {
 	color: black;
 	text-align: center;
 	font-size: 13px;
+}
+
+label.question:hover {
+	cursor: pointer;
 }
 
 input.question {
