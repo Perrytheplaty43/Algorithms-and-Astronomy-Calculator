@@ -203,9 +203,9 @@ function onSubmit(event) {
             document.cookie = "tol=" + tol + ";"
             document.cookie = "tolMag=" + tolMag + ";"
             document.cookie = "type=" + types + ";"
-            document.getElementById("tolerance").value = getCookie("tol")
-            document.getElementById("toleranceMag").value = getCookie("tolMag")
-            console.log(getCookie("type").split(","))
+            //document.getElementById("tolerance").value = getCookie("tol")
+            //document.getElementById("toleranceMag").value = getCookie("tolMag")
+            //console.log(getCookie("type").split(","))
         }
 
         fetch(
