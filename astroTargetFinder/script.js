@@ -209,7 +209,7 @@ function onSubmit(event) {
         }
 
         fetch(
-            'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + type + "&date=" + dateToSend,
+            'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
             { method: 'GET' }
         )
             .then(response => response.text())
