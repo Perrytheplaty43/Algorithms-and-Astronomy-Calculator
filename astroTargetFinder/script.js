@@ -192,6 +192,15 @@ function onSubmit(event) {
         }
         long = parseFloat(long);
         lat = parseFloat(lat);
+
+        if (document.getElementById("cookie").checked) {
+            document.cookie = "checked=true;"
+            document.cookie = "tol=" + tol + ";"
+            document.cookie = "tolMag=" + tolMag + ";"
+            document.cookie = "type=" + types + ";"
+            console.log(document.cookie)
+        }
+
         fetch(
             'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
             { method: 'GET' }
