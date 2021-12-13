@@ -106,11 +106,10 @@ const mapImages = {
     '2683': './Images/NGC2683.jpg',
     '2841': './Images/NGC2841.jpg',
 };
-document.onload = (() => {
-    if (getCookie("checked") == "true") {
-        document.getElementById("cookie").checked = true;
-    }
-})();
+
+if (getCookie("checked") == "true") {
+    document.getElementById("cookie").checked = true;
+}
 
 let date = new Date();
 function onSubmit(event) {
