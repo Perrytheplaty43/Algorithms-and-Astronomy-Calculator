@@ -304,11 +304,12 @@ label.question {
 	border-radius: 50%;
 	color: black;
 	padding-left: 30px;
+	text-align: center;
+	font-size: 27px;
 }
 
 input.question {
 	display: none;
-	font-size: 27px;
 }
 
 .params {
