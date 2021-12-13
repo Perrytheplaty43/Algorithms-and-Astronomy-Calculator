@@ -203,11 +203,13 @@ function onSubmit(event) {
             document.cookie = "tol=" + tol + ";"
             document.cookie = "tolMag=" + tolMag + ";"
             document.cookie = "type=" + types + ";"
-            console.log(document.cookie)
+            document.getElementById("tolerance").value = getCookie("tol")
+            document.getElementById("toleranceMag").value = getCookie("tolMag")
+            console.log(getCookie("type").split(","))
         }
 
         fetch(
-            'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + getCookie("tol") + '&tolMag=' + getCookie("tolMag") + '&type=' + getCookie("type") + "&date=" + dateToSend,
+            'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + type + "&date=" + dateToSend,
             { method: 'GET' }
         )
             .then(response => response.text())
