@@ -106,9 +106,12 @@ const mapImages = {
     '2683': './Images/NGC2683.jpg',
     '2841': './Images/NGC2841.jpg',
 };
-if (getCookie("checked") == "true") {
-    document.getElementById("cookie").checked = true;
-}
+document.onload = (() => {
+    if (getCookie("checked") == "true") {
+        document.getElementById("cookie").checked = true;
+    }
+})();
+
 let date = new Date();
 function onSubmit(event) {
     if (event.submitter.id == "home_button") {
