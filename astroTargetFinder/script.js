@@ -423,6 +423,11 @@ function ShowHideDiv(chk) {
     let current = history.state || {};
     current[chk.id] = chk.checked;
     history.pushState(current, "", "#" + JSON.stringify(current));
+    if (chk.id + "-container" == "visAdv-container") {
+        if (document.getElementsByClassName("optionContainer").offsetWidth > screen.width * 0.7) {
+            document.getElementsByClassName("tooltiptext").style.margin = "0 0 0 0";
+        }
+    }
 }
 
 window.onpopstate = handleHistroyState;
