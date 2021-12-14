@@ -272,7 +272,7 @@ img {
 	position: absolute;
 	visibility: hidden;
 	z-index: 1;
-	/*overflow-x: hidden;*/
+	overflow-x: hidden;
 }
 
 .tooltiptext {
