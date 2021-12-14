@@ -218,13 +218,13 @@ function onSubmit(event) {
         lat = parseFloat(lat);
 
         if (document.getElementById("cookie").checked) {
-            document.cookie = "checked=true;"
-            document.cookie = "tol=" + tol + ";"
-            document.cookie = "tolMag=" + tolMag + ";"
-            document.cookie = "type=" + types + ";"
-            console.log(getCookie("type").split(","))
+            setCookie("checked", "true", 365)
+            setCookie("tol", tol, 365)
+            setCookie("tolMag", tolMag, 365)
+            setCookie("type", types, 365)
+            setCookie("tol", tol, 365)
         } else {
-            document.cookie = "checked=false;"
+            setCookie("checked", "false", 365)
         }
 
         fetch(
@@ -463,3 +463,10 @@ function getCookie(cname) {
     }
     return "";
 }
+
+function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
