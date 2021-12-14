@@ -106,6 +106,30 @@ const mapImages = {
     '2683': './Images/NGC2683.jpg',
     '2841': './Images/NGC2841.jpg',
 };
+
+if (getCookie("checked") == "true" && document.getElementById("cookie") != null) {
+    document.getElementById("cookie").checked = true;
+    document.getElementById("tolerance").value = getCookie("tol")
+    document.getElementById("toleranceMag").value = getCookie("tolMag")
+    let cookieTypes = getCookie("type").split(",")
+
+    if (!cookieTypes.includes("Gx")) document.getElementById("Gx").checked = false;
+    if (!cookieTypes.includes("OC")) document.getElementById("OC").checked = false;
+    if (!cookieTypes.includes("Gb")) document.getElementById("Gb").checked = false;
+    if (!cookieTypes.includes("Nb")) document.getElementById("Nb").checked = false;
+    if (!cookieTypes.includes("Pl")) document.getElementById("Pl").checked = false;
+    if (!cookieTypes.includes("CpN")) document.getElementById("CpN").checked = false;
+    if (!cookieTypes.includes("Ast")) document.getElementById("Ast").checked = false;
+    if (!cookieTypes.includes("Kt")) document.getElementById("Kt").checked = false;
+    if (!cookieTypes.includes("TS")) document.getElementById("TS").checked = false;
+    if (!cookieTypes.includes("DS")) document.getElementById("DS").checked = false;
+    if (!cookieTypes.includes("SS")) document.getElementById("SS").checked = false;
+    if (!cookieTypes.includes("Q")) document.getElementById("Q").checked = false;
+    if (!cookieTypes.includes("U")) document.getElementById("U").checked = false;
+    if (!cookieTypes.includes("D")) document.getElementById("D").checked = false;
+    if (!cookieTypes.includes("PD")) document.getElementById("PD").checked = false;
+}
+
 let date = new Date();
 function onSubmit(event) {
     if (event.submitter.id == "home_button") {
@@ -192,6 +216,17 @@ function onSubmit(event) {
         }
         long = parseFloat(long);
         lat = parseFloat(lat);
+
+        if (document.getElementById("cookie").checked) {
+            document.cookie = "checked=true;"
+            document.cookie = "tol=" + tol + ";"
+            document.cookie = "tolMag=" + tolMag + ";"
+            document.cookie = "type=" + types + ";"
+            console.log(getCookie("type").split(","))
+        } else {
+            document.cookie = "checked=false;"
+        }
+
         fetch(
             'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
             { method: 'GET' }
@@ -411,4 +446,20 @@ window.addEventListener('DOMContentLoaded', (event) => {
 function bottomForm(event) {
     event.preventDefault();
     window.location.href = "https://github.com/Perrytheplaty43/Algorithums-and-Astronomy-Calculator";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }

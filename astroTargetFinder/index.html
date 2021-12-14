@@ -10,7 +10,7 @@
 
     <title>Astro Target Finder</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="/astroTargetFinder/script.js"></script>
+    <script src="/astroTargetFinder/script.js" defer></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYSZXHZB3R"></script>
     <script>
@@ -112,6 +112,9 @@
 
                         <p>Enter Date In The Future (optional):</p>
                         <input type="date" name="date43" id="date43" class="form" placeholder="Date In The Future">
+                        
+                        <label for="cookie">Remember my preferances</label>
+                        <input type="checkbox" class="cookie" id="cookie">
                     </form>
                     <input type="checkbox" class="question" id="question" onclick="ShowHideDivQuestion(event)"></input>
                     <label for="question" class="question">?</label>
