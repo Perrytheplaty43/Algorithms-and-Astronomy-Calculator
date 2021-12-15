@@ -280,7 +280,6 @@ img {
 	top: 0;
 	animation-duration: 2s;
 	animation-name: showtooltip;
-	margin-left: 105%;
 	animation-fill-mode: forwards;
 }
 
