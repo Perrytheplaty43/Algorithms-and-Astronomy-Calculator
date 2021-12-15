@@ -271,6 +271,8 @@ img {
 	font-size: 1.2vw;
 	position: absolute;
 	visibility: hidden;
+	z-index: 1;
+	overflow-x: hidden;
 }
 
 .tooltiptext {
@@ -278,7 +280,6 @@ img {
 	top: 0;
 	animation-duration: 2s;
 	animation-name: showtooltip;
-	margin-left: 105%;
 	animation-fill-mode: forwards;
 }
 
