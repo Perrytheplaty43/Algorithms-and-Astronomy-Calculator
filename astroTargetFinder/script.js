@@ -424,7 +424,7 @@ function ShowHideDiv(chk) {
     current[chk.id] = chk.checked;
     history.pushState(current, "", "#" + JSON.stringify(current));
     if (chk.id + "-container" == "visAdv-container") {
-        if (document.getElementsByClassName("optionContainer")[0].offsetWidth > screen.width * 0.7) {
+        if (document.getElementsByClassName("checkboxes")[0].offsetWidth + document.getElementsByClassName("params")[0].offsetWidth > screen.width * 0.7) {
             document.getElementsByClassName("tooltiptext")[0].style.marginLeft = "0";
         }
     }
