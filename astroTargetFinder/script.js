@@ -425,7 +425,7 @@ function ShowHideDiv(chk) {
     history.pushState(current, "", "#" + JSON.stringify(current));
     if (chk.id + "-container" == "visAdv-container") {
         if (document.getElementsByClassName("optionContainer")[0].offsetWidth > screen.width * 0.7) {
-            document.getElementsByClassName("tooltiptext").style.marginLeft = "0";
+            document.getElementsByClassName("tooltiptext")[0].style.marginLeft = "0";
         }
     }
 }
