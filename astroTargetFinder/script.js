@@ -244,6 +244,9 @@ function onSubmit(event) {
 function ShowHideDivQuestion(event) {
     let thing = document.getElementsByClassName("tooltiptext")[0];
     thing.style.display = event.srcElement.checked ? "block" : "none"
+    if (document.getElementsByClassName("checkboxes")[0].offsetWidth + document.getElementsByClassName("params")[0].offsetWidth > window.innerWidth * 0.7) {
+        document.getElementsByClassName("tooltiptext")[0].style.marginLeft = "0";
+    }
     console.log(event)
 }
 
@@ -423,11 +426,11 @@ function ShowHideDiv(chk) {
     let current = history.state || {};
     current[chk.id] = chk.checked;
     history.pushState(current, "", "#" + JSON.stringify(current));
-    if (chk.id + "-container" == "visAdv-container") {
-        if (document.getElementsByClassName("checkboxes")[0].offsetWidth + document.getElementsByClassName("params")[0].offsetWidth > window.innerWidth * 0.7) {
-            document.getElementsByClassName("tooltiptext")[0].style.marginLeft = "0";
-        }
-    }
+    // if (chk.id + "-container" == "visAdv-container") {
+    //     if (document.getElementsByClassName("checkboxes")[0].offsetWidth + document.getElementsByClassName("params")[0].offsetWidth > window.innerWidth * 0.7) {
+    //         document.getElementsByClassName("tooltiptext")[0].style.marginLeft = "0";
+    //     }
+    // }
 }
 
 window.onpopstate = handleHistroyState;
@@ -471,7 +474,7 @@ function getCookie(cname) {
 
 function setCookie(cname, cvalue, exdays) {
     const d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    let expires = "expires="+ d.toUTCString();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  }
+}
