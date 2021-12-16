@@ -105,6 +105,7 @@ const mapImages = {
     '5195': './Images/NGC5195.jpg',
     '2683': './Images/NGC2683.jpg',
     '2841': './Images/NGC2841.jpg',
+    '3077': './Images/NGC3077.jpg'
 };
 
 const api = "05a708af99aa6acad00d3324073aa493";
