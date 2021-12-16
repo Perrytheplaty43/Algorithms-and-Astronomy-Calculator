@@ -494,8 +494,8 @@ function isWeatherGood(lat, long, reqDate) {
     let rminutes1 = Math.round(minutes1);
     seting.setHours(rhours1, rminutes1, 0)
 
-    rise.toLocaleString("en-US", {timeZone: "UTC"})
-    seting.toLocaleString("en-US", {timeZone: "UTC"})
+    rise = rise.toLocaleString("en-US", {timeZone: "UTC"})
+    seting = seting.toLocaleString("en-US", {timeZone: "UTC"})
 
     console.log(rise.toString(), seting.toString())
     fetch(
