@@ -480,8 +480,8 @@ function isWeatherGood(lat, long, reqDate) {
     let data;
     let runriseSet = sunsetriseTime(lat, long, reqDate)
     runriseSet = runriseSet.sort();
-    let rise = new Date(reqDate).toLocaleString("en-US", {timeZone: "UTC"})
-    let seting = new Date(reqDate).toLocaleString("en-US", {timeZone: "UTC"})
+    let rise = new Date(reqDate)
+    let seting = new Date(reqDate)
     let hours = (runriseSet[0] / 60);
     let rhours = Math.floor(hours);
     let minutes = (hours - rhours) * 60;
