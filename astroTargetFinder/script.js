@@ -478,7 +478,23 @@ function setCookie(cname, cvalue, exdays) {
 
 function isWeatherGood(lat, long, reqDate) {
     let data;
-    console.log(sunsetriseTime(lat, long, reqDate))
+    let runriseSet = sunsetriseTime(lat, long, reqDate)
+    runriseSet = runriseSet.sort();
+    let rise = new Date(targetDate)
+    let seting = new Date(targetDate)
+    let hours = (runriseSet[0] / 60);
+    let rhours = Math.floor(hours);
+    let minutes = (hours - rhours) * 60;
+    let rminutes = Math.round(minutes);
+    rise.setHours(rhours, rminutes, 0)
+
+    let hours1 = (runriseSet[1] / 60);
+    let rhours1 = Math.floor(hours1);
+    let minutes1 = (hours1 - rhours1) * 60;
+    let rminutes1 = Math.round(minutes1);
+    seting.setHours(rhours1, rminutes1, 0)
+
+    console.log(rise.toString(), seting.toString())
     fetch(
         'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + api,
         { method: 'GET' }
