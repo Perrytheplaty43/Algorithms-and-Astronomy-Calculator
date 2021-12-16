@@ -167,7 +167,7 @@ function onSubmit(event) {
         let U = document.getElementById("U");
         let D = document.getElementById("D");
         let PD = document.getElementById("PD");
-        isWeatherGood();
+        isWeatherGood(lat, long);
         let tol = document.getElementById("tolerance").value;
         let tolMag = document.getElementById("toleranceMag").value;
 
@@ -476,9 +476,9 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-function isWeatherGood(reqDate) {
+function isWeatherGood(lat, long) {
     fetch(
-        'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long +'APPID=' + api,
+        'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + 'APPID=' + api,
         { method: 'GET' }
     )
         .then(response => response.text())
