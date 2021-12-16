@@ -478,7 +478,6 @@ function setCookie(cname, cvalue, exdays) {
 
 function isWeatherGood(lat, long, reqDate) {
     let data;
-    //reqDate = Date.parse(reqDate)
     console.log(sunsetriseTime(lat, long, reqDate))
     fetch(
         'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long.split(" ").join("") + '&APPID=' + api,
@@ -493,7 +492,7 @@ function isWeatherGood(lat, long, reqDate) {
 }
 
 function sunsetriseTime(lat, long, targetDate) {
-    let now = new Date(Date.parse(targetDate))
+    let now = new Date(targetDate)
     let start = new Date(now.getFullYear(), 0, 0);
     let diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
     let oneDay = 1000 * 60 * 60 * 24;
