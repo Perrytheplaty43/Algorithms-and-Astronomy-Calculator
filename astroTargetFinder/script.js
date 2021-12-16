@@ -499,7 +499,7 @@ function sunsetriseTime(lat, long, targetDate) {
     let oneDay = 1000 * 60 * 60 * 24;
     let day = Math.floor(diff / oneDay);
 
-    let y = ((float64(2) * Math.PI) / float64(365)) * (float64(day) - float64(365))
+    let y = ((2 * Math.PI) / 365) * (day - 365)
 
     let eqtime = 229.18 * (0.000075 + 0.001868 * Math.cos(y) - 0.032077 * Math.sin(y) - 0.014615 * Math.cos(2 * y) - 0.040849 * Math.sin(2 * y))
     let decl = 0.006918 - 0.399912 * Math.cos(y) + 0.070257 * Math.sin(y) - 0.006758 * Math.cos(2 * y) + 0.000907 * Math.sin(2 * y) - 0.002697 * Math.cos(3 * y) + 0.00148 * Math.sin(3 * y)
