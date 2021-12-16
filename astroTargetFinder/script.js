@@ -485,6 +485,7 @@ function isWeatherGood(lat, long) {
         .then(response => response.text())
         .then(res => {
             data = JSON.parse(res)
+            console.log(res)
         })
         .catch(error => console.log('error:', error));
 }
