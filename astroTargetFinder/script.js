@@ -497,7 +497,7 @@ function isWeatherGood(lat, long, reqDate) {
     console.log(rise.toString(), seting.toString())
     console.log(rise.getTime() / 1000, seting.getTime() / 1000)
     fetch(
-        'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + api,
+        'https://' + window.location.hostname + '/astroTargetFinder/weatherAPI?lat=' lat + '&lon=' + long,
         { method: 'GET' }
     )
         .then(response => response.text())
