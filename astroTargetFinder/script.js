@@ -480,7 +480,7 @@ function isWeatherGood(lat, long, reqDate) {
     let data;
     console.log(sunsetriseTime(lat, long, reqDate))
     fetch(
-        'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long.split(" ").join("") + '&APPID=' + api,
+        'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + api,
         { method: 'GET' }
     )
         .then(response => response.text())
