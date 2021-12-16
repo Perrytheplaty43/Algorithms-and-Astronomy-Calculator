@@ -477,13 +477,14 @@ function setCookie(cname, cvalue, exdays) {
 }
 
 function isWeatherGood(lat, long) {
+    let data;
     fetch(
         'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long.split(" ").join("") + '&APPID=' + api,
         { method: 'GET' }
     )
         .then(response => response.text())
         .then(res => {
-            console.log(JSON.parse(res))
+            data = JSON.parse(res)
         })
         .catch(error => console.log('error:', error));
 }
