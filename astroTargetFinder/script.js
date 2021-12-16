@@ -150,6 +150,8 @@ function onSubmit(event) {
     } else {
         let timer = new Date();
         let [lat, long] = document.getElementById("Long").value.split(",");
+        long = parseFloat(long);
+        lat = parseFloat(lat);
         let dateToSend = document.getElementById("date43").value
         let types = []
         let Gx = document.getElementById("Gx");
@@ -216,8 +218,6 @@ function onSubmit(event) {
         if (PD.checked) {
             types.push("PD")
         }
-        long = parseFloat(long);
-        lat = parseFloat(lat);
 
         if (document.getElementById("cookie").checked) {
             setCookie("checked", "true", 365)
@@ -509,7 +509,6 @@ function sunsetriseTime(lat, long, targetDate) {
     let haM = -1 * Math.acos(((Math.cos(toRadians(90.833))) / (Math.cos(toRadians(lat)) * Math.cos(decl))) - Math.tan(toRadians(lat)) * Math.tan(decl))
     haM = toDegrees(haM)
 
-    long = parseFloat(long)
     let sunRiseSet1 = 720 - 4 * (long + haP) - eqtime
     let sunRiseSet2 = 720 - 4 * (long + haM) - eqtime
     let output = [sunRiseSet1, sunRiseSet2]
