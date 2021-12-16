@@ -167,7 +167,7 @@ function onSubmit(event) {
         let U = document.getElementById("U");
         let D = document.getElementById("D");
         let PD = document.getElementById("PD");
-        isWeatherGood(lat, long);
+        isWeatherGood(lat, long, dateToSend);
         let tol = document.getElementById("tolerance").value;
         let tolMag = document.getElementById("toleranceMag").value;
 
@@ -476,8 +476,10 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
-function isWeatherGood(lat, long) {
+function isWeatherGood(lat, long, reqDate) {
     let data;
+    reqDate = Date.parse(reqDate)
+    console.log(sunsetriseTime(lat, long, reqDate))
     fetch(
         'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long.split(" ").join("") + '&APPID=' + api,
         { method: 'GET' }
@@ -488,4 +490,36 @@ function isWeatherGood(lat, long) {
             console.log(data);
         })
         .catch(error => console.log('error:', error));
+}
+
+function sunsetriseTime(lat, long, targetDate) {
+    let now = new Date(targetDate);
+    let start = new Date(now.getFullYear(), 0, 0);
+    let diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+    let oneDay = 1000 * 60 * 60 * 24;
+    let day = Math.floor(diff / oneDay);
+
+    let y = ((float64(2) * Math.PI) / float64(365)) * (float64(day) - float64(365))
+
+    let eqtime = 229.18 * (0.000075 + 0.001868 * Math.cos(y) - 0.032077 * Math.sin(y) - 0.014615 * Math.cos(2 * y) - 0.040849 * Math.sin(2 * y))
+    let decl = 0.006918 - 0.399912 * Math.cos(y) + 0.070257 * Math.sin(y) - 0.006758 * Math.cos(2 * y) + 0.000907 * Math.sin(2 * y) - 0.002697 * Math.cos(3 * y) + 0.00148 * Math.sin(3 * y)
+
+    let haP = Math.acos(((Math.cos(toRadians(90.833))) / (Math.cos(toRadians(lat)) * Math.cos(decl))) - math.Tan(toRadians(lat)) * math.Tan(decl))
+    haP = toDegrees(haP)
+
+    let haM = -1 * Math.acos(((Math.cos(toRadians(90.833))) / (Math.cos(toRadians(lat)) * Math.cos(decl))) - math.Tan(toRadians(lat)) * math.Tan(decl))
+    haM = toDegrees(haM)
+
+    let sunRiseSet1 = 720 - 4 * (long + haP) - eqtime
+    let sunRiseSet2 = 720 - 4 * (long + haM) - eqtime
+    let output = [sunRiseSet1, sunRiseSet2]
+    return output
+}
+
+function toRadians(angle) {
+    return angle * (Math.PI / 180)
+}
+
+function toDegrees(angle) {
+    return angle * (180 / Math.PI)
 }
