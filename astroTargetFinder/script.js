@@ -107,6 +107,8 @@ const mapImages = {
     '2841': './Images/NGC2841.jpg',
 };
 
+const api = "05a708af99aa6acad00d3324073aa493";
+
 if (getCookie("checked") == "true" && document.getElementById("cookie") != null) {
     document.getElementById("cookie").checked = true;
     document.getElementById("tolerance").value = getCookie("tol")
@@ -165,7 +167,7 @@ function onSubmit(event) {
         let U = document.getElementById("U");
         let D = document.getElementById("D");
         let PD = document.getElementById("PD");
-
+        isWeatherGood();
         let tol = document.getElementById("tolerance").value;
         let tolMag = document.getElementById("toleranceMag").value;
 
@@ -472,4 +474,17 @@ function setCookie(cname, cvalue, exdays) {
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     let expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function isWeatherGood(reqDate) {
+    fetch(
+        'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long +'APPID=' + api,
+        { method: 'GET' }
+    )
+        .then(response => response.text())
+        .then(res => {
+            JSON.parse(res)
+            console.log(res)
+        })
+        .catch(error => console.log('error:', error));
 }
