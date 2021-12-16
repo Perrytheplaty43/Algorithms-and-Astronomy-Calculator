@@ -478,7 +478,7 @@ function setCookie(cname, cvalue, exdays) {
 
 function isWeatherGood(lat, long) {
     fetch(
-        'http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long.split(" ").join("") + '&APPID=' + api,
+        'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long.split(" ").join("") + '&APPID=' + api,
         { method: 'GET' }
     )
         .then(response => response.text())
