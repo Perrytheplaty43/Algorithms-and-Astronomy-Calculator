@@ -504,12 +504,12 @@ function isWeatherGood(lat, long, reqDate) {
     )
         .then(response => response.text())
         .then(res => {
-            save(res)
+            save(res, timesUNIX)
         })
         .catch(error => console.log('error:', error));
 }
 let theJSON;
-function save(inputs) {
+function save(inputs, timesUNIX) {
     theJSON = inputs
     theJSON = JSON.parse(theJSON)
     for (i = 0; i <= theJSON.list.length - 1; i++) {
