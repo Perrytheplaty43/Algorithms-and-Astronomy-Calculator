@@ -526,15 +526,24 @@ function save(inputs, timesUNIX) {
     if (clouds[clouds.length - 1] < 10) {
         condition = "Perfect"
         document.getElementById("condition").classList.add('p1green')
+        document.getElementById("condition").classList.remove('p1red')
+        document.getElementById("condition").classList.remove('p1yellow')
     } else if (((() => { let turning = 0; for (i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
         condition = "Fair"
         document.getElementById("condition").classList.add('p1yellow')
+        document.getElementById("condition").classList.remove('p1red')
+        document.getElementById("condition").classList.remove('p1green')
     } else if (clouds.length == 0) {
         condition = "Unknown (too far in the future or too near to present time)"
         document.getElementById("condition").classList.add('p1')
+        document.getElementById("condition").classList.remove('p1red')
+        document.getElementById("condition").classList.remove('p1green')
+        document.getElementById("condition").classList.remove('p1yellow')
     } else {
         condition = "Bad"
         document.getElementById("condition").classList.add('p1red')
+        document.getElementById("condition").classList.remove('p1green')
+        document.getElementById("condition").classList.remove('p1yellow')
     }
     document.getElementById("condition").innerHTML = "Weather Contition: " + condition;
 }
