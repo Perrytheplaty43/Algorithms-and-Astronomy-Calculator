@@ -516,7 +516,7 @@ function save(inputs, timesUNIX) {
     for (i = 0; i <= theJSON.list.length - 1; i++) {
         if (timesUNIX[0] <= theJSON.list[i].dt) {
             if (timesUNIX[1] <= theJSON.list[i].dt){
-                return;
+                break;
             }
             clouds.push(theJSON.list[i].clouds.all)
         }
