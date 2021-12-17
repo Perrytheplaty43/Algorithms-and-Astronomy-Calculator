@@ -504,7 +504,7 @@ function isWeatherGood(lat, long, reqDate) {
     )
         .then(response => response.text())
         .then(res => {
-            console.log(save(res, timesUNIX))
+            save(res, timesUNIX)
         })
         .catch(error => console.log('error:', error));
 }
@@ -523,10 +523,10 @@ function save(inputs, timesUNIX) {
     }
     clouds = clouds.sort()
     if (clouds[clouds.length - 1] < 10) {
-        return 0;
+        console.log(0);
     } else if (((() => {for(i = 0; i <= clouds.length - 1; i++){let turning = 0; turning += clouds[i];}return turning})()) / clouds.length < 30){
-        return 1;
-    } else return 2;
+        console.log(1);
+    } else console.log(2);
 }
 
 function sunsetriseTime(lat, long, targetDate) {
