@@ -510,6 +510,7 @@ function isWeatherGood(lat, long, reqDate) {
 let theJSON;
 function save(inputs) {
     theJSON = inputs
+    theJSON = JSON.parse(theJSON)
 }
 
 function sunsetriseTime(lat, long, targetDate) {
