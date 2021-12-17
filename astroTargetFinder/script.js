@@ -105,6 +105,8 @@ const mapImages = {
     '5195': './Images/NGC5195.jpg',
     '2683': './Images/NGC2683.jpg',
     '2841': './Images/NGC2841.jpg',
+    '3077': './Images/NGC3077.jpg'
+    '2366': './Images/NGC2366.jpg'
 };
 
 if (getCookie("checked") == "true" && document.getElementById("cookie") != null) {
@@ -495,7 +497,7 @@ function isWeatherGood(lat, long, reqDate) {
     console.log(rise.toString(), seting.toString())
     console.log(rise.getTime() / 1000, seting.getTime() / 1000)
     fetch(
-        'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + api,
+        'https://' + window.location.hostname + '/astroTargetFinder/weatherAPI?lat=' lat + '&lon=' + long,
         { method: 'GET' }
     )
         .then(response => response.text())
