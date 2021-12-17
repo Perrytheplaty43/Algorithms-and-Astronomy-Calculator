@@ -109,8 +109,6 @@ const mapImages = {
     '2366': './Images/NGC2366.jpg'
 };
 
-const api = "05a708af99aa6acad00d3324073aa493";
-
 if (getCookie("checked") == "true" && document.getElementById("cookie") != null) {
     document.getElementById("cookie").checked = true;
     document.getElementById("tolerance").value = getCookie("tol")
