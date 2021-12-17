@@ -218,6 +218,7 @@ label {
 	font-size: 18px;
 	margin-left: 4px;
 	overflow-wrap: normal;
+	color: lightseagreen;
 }
 
 .p1green {
@@ -267,6 +268,7 @@ label {
 	font-size: 13px;
 	margin-left: 4px;
 	font-family: Arial, Helvetica, sans-serif;
+	color: lightseagreen;
 }
 
 img {
