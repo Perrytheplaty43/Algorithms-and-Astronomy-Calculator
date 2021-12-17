@@ -249,7 +249,6 @@ function ShowHideDivQuestion(event) {
     if (document.getElementsByClassName("checkboxes")[0].offsetWidth + document.getElementsByClassName("params")[0].offsetWidth > window.innerWidth * 0.64) {
         document.getElementsByClassName("tooltiptext")[0].style.marginLeft = "0";
     }
-    console.log(event)
 }
 
 function updateUI(final, timer, lat, long) {
@@ -477,7 +476,6 @@ function setCookie(cname, cvalue, exdays) {
 }
 
 function isWeatherGood(lat, long, reqDate) {
-    console.log(reqDate)
     if (reqDate == "") {
         let curDate = new Date();
         reqDate = (curDate.getMonth() + 1) + "-" + curDate.getDate() + "-" + curDate.getFullYear()
@@ -498,8 +496,6 @@ function isWeatherGood(lat, long, reqDate) {
     let rminutes1 = Math.round(minutes1);
     seting.setHours(rhours1, rminutes1, 0)
 
-    console.log(rise.toString(), seting.toString())
-    console.log(rise.getTime() / 1000, seting.getTime() / 1000)
     let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
     timesUNIX = timesUNIX.sort()
     fetch(
