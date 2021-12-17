@@ -477,7 +477,7 @@ function setCookie(cname, cvalue, exdays) {
 }
 
 function isWeatherGood(lat, long, reqDate) {
-    let data;
+    console.log(reqDate)
     let runriseSet = sunsetriseTime(lat, long, reqDate)
     runriseSet = runriseSet.sort();
     let rise = new Date(reqDate)
@@ -516,7 +516,7 @@ function save(inputs, timesUNIX) {
     let clouds = [];
     for (i = 0; i <= theJSON.list.length - 1; i++) {
         if (timesUNIX[0] <= theJSON.list[i].dt) {
-            if (timesUNIX[1] <= theJSON.list[i].dt){
+            if (timesUNIX[1] <= theJSON.list[i].dt) {
                 break;
             }
             clouds.push(theJSON.list[i].clouds.all)
@@ -525,11 +525,11 @@ function save(inputs, timesUNIX) {
     clouds = clouds.sort()
     if (clouds[clouds.length - 1] < 10) {
         condition = "Perfect"
-    } else if (((() => {let turning = 0; for(i = 0; i <= clouds.length - 1; i++){turning += clouds[i];}return turning})()) / clouds.length < 30){
+    } else if (((() => { let turning = 0; for (i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
         condition = "Fair"
     } else if (clouds.length == 0) {
         condition = "Unknown (too far in the future)"
-    }else condition = "Bad"
+    } else condition = "Bad"
     document.getElementById("condition").innerHTML = "Weather Contition: " + condition;
 }
 
