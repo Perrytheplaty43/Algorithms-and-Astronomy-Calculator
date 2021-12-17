@@ -314,6 +314,23 @@ function myServer(req, res) {
         });
         return;
     }
+    if (method == 'GET' && surl.pathname == '/astroTargetFinder/weatherAPI') {
+        let searchParams = surl.searchParams
+        let lat = searchParams.get('lat')
+        let long = searchParams.get('lon')
+        fetch(
+            'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + process.env.KEY,
+            { method: 'GET' }
+        )
+            .then(response => response.text())
+            .then(data => {
+                res.writeHead(200, { 'Content-Type': 'text/json' });
+                res.write(data);
+                res.end();
+            })
+            .catch(error => console.log('error:', error));
+        return;
+    }
     if (method == 'GET' && surl.pathname == '/astro') {
         let searchParams = surl.searchParams
         let lat = searchParams.get('lat')

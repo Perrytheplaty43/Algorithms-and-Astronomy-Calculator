@@ -4,7 +4,7 @@ body {
 }
 
 p {
-	color: lightseagreen;
+	/* color: lightseagreen; */
 	font-family: 'Courier New', Courier, monospace;
 }
 
@@ -76,6 +76,7 @@ label {
 
 .p4 {
 	font-weight: bold;
+	color: lightseagreen;
 }
 
 .title {
@@ -217,6 +218,28 @@ label {
 	font-size: 18px;
 	margin-left: 4px;
 	overflow-wrap: normal;
+	color: lightseagreen;
+}
+
+.p1green {
+	font-size: 18px;
+	margin-left: 4px;
+	overflow-wrap: normal;
+	color: #00eb1b;
+}
+
+.p1yellow {
+	font-size: 18px;
+	margin-left: 4px;
+	overflow-wrap: normal;
+	color: #e3eb00;
+}
+
+.p1red {
+	font-size: 18px;
+	margin-left: 4px;
+	overflow-wrap: normal;
+	color: #ed0010;
 }
 
 .p2 {
@@ -224,6 +247,11 @@ label {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 28px;
 	margin-left: 4px;
+	color: lightseagreen;
+}
+
+.p6 {
+	color: lightseagreen;
 }
 
 .p11 {
@@ -244,6 +272,7 @@ label {
 	font-size: 13px;
 	margin-left: 4px;
 	font-family: Arial, Helvetica, sans-serif;
+	color: lightseagreen;
 }
 
 img {

@@ -66,4 +66,3 @@ Site is currently being ran at:
 ## Support
 
 For support, join our [discord](https://discord.gg/xVDEdX6ys9).
-
