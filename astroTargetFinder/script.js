@@ -508,7 +508,7 @@ function isWeatherGood(lat, long, reqDate) {
         })
         .catch(error => console.log('error:', error));
     for (i = 0; i <= theJSON.list.length - 1; i++){
-        if (timesUNIX[0] >= theJSON.list[i]) {
+        if (timesUNIX[0] >= theJSON.list[i].dt) {
             console.log(i)
         }
     }
