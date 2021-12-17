@@ -533,9 +533,11 @@ function save(inputs, timesUNIX) {
         document.getElementById("condition").classList.remove('p1')
     } else if (clouds.length == 0) {
         condition = "Unknown (too far in the future)"
+    } else {
+        condition = "Bad"
         document.getElementById("condition").classList.add('p1red')
         document.getElementById("condition").classList.remove('p1')
-    } else condition = "Bad"
+    }
     document.getElementById("condition").innerHTML = "Weather Contition: " + condition;
 }
 
