@@ -478,6 +478,10 @@ function setCookie(cname, cvalue, exdays) {
 
 function isWeatherGood(lat, long, reqDate) {
     console.log(reqDate)
+    if (reqDate == "") {
+        let curDate = new Date();
+        reqDate = (curDate.getMonth() + 1) + "-" + curDate.getDate() + "-" + curDate.getFullYear()
+    }
     let runriseSet = sunsetriseTime(lat, long, reqDate)
     runriseSet = runriseSet.sort();
     let rise = new Date(reqDate)
