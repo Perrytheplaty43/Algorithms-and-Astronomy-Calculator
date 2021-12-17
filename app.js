@@ -324,12 +324,10 @@ function myServer(req, res) {
             { method: 'GET' }
         )
             .then(response => response.text())
-            .then(res => {
-                data = res
-                console.log(data)
-            })
+            .then(data = response)
             .catch(error => console.log('error:', error));
         res.writeHead(200, { 'Content-Type': 'text/json' });
+        console.log(data)
         res.write(data.toString());
         res.end();
         return;
