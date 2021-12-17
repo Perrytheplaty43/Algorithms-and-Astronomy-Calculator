@@ -76,6 +76,7 @@ label {
 
 .p4 {
 	font-weight: bold;
+	color: lightseagreen;
 }
 
 .title {
@@ -245,6 +246,7 @@ label {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 28px;
 	margin-left: 4px;
+	color: lightseagreen;
 }
 
 .p11 {
