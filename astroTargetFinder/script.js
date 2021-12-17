@@ -536,7 +536,7 @@ function save(inputs, timesUNIX) {
     } else {
         condition = "Bad"
         document.getElementById("condition").classList.add('p1red')
-        document.getElementById("condition").classList.remove('p1')
+        //document.getElementById("condition").classList.remove('p1')
     }
     document.getElementById("condition").innerHTML = "Weather Contition: " + condition;
 }
