@@ -219,6 +219,27 @@ label {
 	overflow-wrap: normal;
 }
 
+.p1green {
+	font-size: 18px;
+	margin-left: 4px;
+	overflow-wrap: normal;
+	color: #00eb1b;
+}
+
+.p1yellow {
+	font-size: 18px;
+	margin-left: 4px;
+	overflow-wrap: normal;
+	color: #e3eb00;
+}
+
+.p1red {
+	font-size: 18px;
+	margin-left: 4px;
+	overflow-wrap: normal;
+	color: #ed0010;
+}
+
 .p2 {
 	font-weight: bold;
 	font-family: Arial, Helvetica, sans-serif;

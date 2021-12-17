@@ -525,13 +525,13 @@ function save(inputs, timesUNIX) {
     clouds = clouds.sort()
     if (clouds[clouds.length - 1] < 10) {
         condition = "Perfect"
-        document.getElementById("condition").style.color = "#00eb1b"
+        document.getElementById("condition").classList.add('p1green')
     } else if (((() => { let turning = 0; for (i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
         condition = "Fair"
-        document.getElementById("condition").style.color = "#e3eb00"
+        document.getElementById("condition").classList.add('p1yellow')
     } else if (clouds.length == 0) {
         condition = "Unknown (too far in the future)"
-        document.getElementById("condition").style.color = "#ed0010"
+        document.getElementById("condition").classList.add('p1red')
     } else condition = "Bad"
     document.getElementById("condition").innerHTML = "Weather Contition: " + condition;
 }
