@@ -318,7 +318,6 @@ function myServer(req, res) {
         let searchParams = surl.searchParams
         let lat = searchParams.get('lat')
         let long = searchParams.get('long')
-        let data;
         fetch(
             'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + process.env.KEY,
             { method: 'GET' }
@@ -330,10 +329,6 @@ function myServer(req, res) {
                 res.end();
             })
             .catch(error => console.log('error:', error));
-        res.writeHead(200, { 'Content-Type': 'text/json' });
-        console.log(data)
-        res.write(data.toString());
-        res.end();
         return;
     }
     if (method == 'GET' && surl.pathname == '/astro') {
