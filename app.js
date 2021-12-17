@@ -318,6 +318,7 @@ function myServer(req, res) {
         let searchParams = surl.searchParams
         let lat = searchParams.get('lat')
         let long = searchParams.get('long')
+        console.log('https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + process.env.KEY)
         fetch(
             'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + process.env.KEY,
             { method: 'GET' }
