@@ -329,7 +329,7 @@ function myServer(req, res) {
             })
             .catch(error => console.log('error:', error));
         res.writeHead(200, { 'Content-Type': 'text/json' });
-        res.write(data);
+        res.write(data.toString());
         res.end();
         return;
     }
