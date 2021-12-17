@@ -501,7 +501,7 @@ function isWeatherGood(lat, long, reqDate) {
         { method: 'GET' }
     )
         .then(response => response.text())
-        .then(res = JSON.parse(res))
+        .then(res = JSON.parse(response))
         .catch(error => console.log('error:', error));
     console.log(res.list);
 }
