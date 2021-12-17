@@ -496,6 +496,8 @@ function isWeatherGood(lat, long, reqDate) {
 
     console.log(rise.toString(), seting.toString())
     console.log(rise.getTime() / 1000, seting.getTime() / 1000)
+    let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
+    timesUNIX = timesUNIX.sort()
     fetch(
         'https://' + window.location.hostname + '/astroTargetFinder/weatherAPI?lat=' + lat + '&lon=' + long,
         { method: 'GET' }
@@ -505,7 +507,11 @@ function isWeatherGood(lat, long, reqDate) {
             save(res)
         })
         .catch(error => console.log('error:', error));
-    console.log(theJSON.list);
+    for (i = 0; i <= theJSON.list.length - 1; i++){
+        if (timesUNIX[0] >= theJSON.list[i]) {
+            console.log(i)
+        }
+    }
 }
 let theJSON;
 function save(inputs) {
