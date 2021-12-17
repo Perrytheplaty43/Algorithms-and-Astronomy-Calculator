@@ -513,7 +513,7 @@ function save(inputs, timesUNIX) {
     theJSON = inputs
     theJSON = JSON.parse(theJSON)
     for (i = 0; i <= theJSON.list.length - 1; i++) {
-        if (timesUNIX[0] >= theJSON.list[i].dt) {
+        if (timesUNIX[0] <= theJSON.list[i].dt) {
             console.log(i)
         }
     }
