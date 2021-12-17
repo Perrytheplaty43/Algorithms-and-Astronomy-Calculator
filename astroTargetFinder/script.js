@@ -524,7 +524,7 @@ function save(inputs, timesUNIX) {
     clouds = clouds.sort()
     if (clouds[clouds.length - 1] < 10) {
         console.log(0);
-    } else if (((() => {for(i = 0; i <= clouds.length - 1; i++){let turning = 0; turning += clouds[i];}return turning})()) / clouds.length < 30){
+    } else if (((() => {let turning = 0; for(i = 0; i <= clouds.length - 1; i++){turning += clouds[i];}return turning})()) / clouds.length < 30){
         console.log(1);
     } else console.log(2);
 }
