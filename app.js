@@ -315,6 +315,7 @@ function myServer(req, res) {
         return;
     }
     if (method == 'GET' && surl.pathname == '/astroTargetFinder/weatherAPI') {
+        let searchParams = surl.searchParams
         let lat = searchParams.get('lat')
         let long = searchParams.get('long')
         let data;
