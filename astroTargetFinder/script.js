@@ -527,7 +527,9 @@ function save(inputs, timesUNIX) {
         condition = "Perfect"
     } else if (((() => {let turning = 0; for(i = 0; i <= clouds.length - 1; i++){turning += clouds[i];}return turning})()) / clouds.length < 30){
         condition = "Fair"
-    } else condition = "Bad"
+    } else if (clouds.length == 0) {
+        condition = "Unknown (too far in the future)"
+    }else condition = "Bad"
     document.getElementById("condition").innerHTML = "Weather Contition: " + condition;
 }
 
