@@ -486,7 +486,7 @@ function save(inputs, timesUNIX) {
     console.log(theJSON)
     console.log("________________________________")
     let clouds = [];
-    for (i = 0; i <= theJSON.list.length - 1; i++) {
+    for (let i = 0; i <= theJSON.list.length - 1; i++) {
         if (timesUNIX[0] <= theJSON.list[i].dt) {
             if (timesUNIX[1] <= theJSON.list[i].dt) {
                 break;
@@ -563,6 +563,7 @@ function isWeatherGood(lat, long, reqDate) {
 
     let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
     timesUNIX = timesUNIX.sort()
+    console.log('https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + process.env.KEY)
     fetch(
         'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + process.env.KEY,
         { method: 'GET' }
