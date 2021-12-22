@@ -560,3 +560,11 @@ function sunsetriseTime(lat, long, targetDate) {
     let output = [sunRiseSet1, sunRiseSet2]
     return output
 }
+
+function toRadians(angle) {
+    return angle * (Math.PI / 180)
+}
+
+function toDegrees(angle) {
+    return angle * (180 / Math.PI)
+}
