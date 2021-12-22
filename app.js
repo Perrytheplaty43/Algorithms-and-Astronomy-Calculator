@@ -501,7 +501,7 @@ function isWeatherGood(lat, long, reqDate) {
     let rminutes1 = Math.round(minutes1);
     seting.setHours(rhours1, rminutes1, 0)
 
-    console.log(seting.getTime() / 1000)
+    console.log(seting)
     let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
     timesUNIX = timesUNIX.sort()
     fetch(
