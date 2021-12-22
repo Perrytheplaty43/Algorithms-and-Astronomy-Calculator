@@ -346,7 +346,7 @@ function myServer(req, res) {
             .then(response => response.text())
             .then(finalData => {
                 res.writeHead(200, { 'Content-Type': 'text/json' });
-                res.write(JSON.parse(finalData));
+                res.write(JSON.parse(finalData).toString());
                 res.end();
             })
             .catch(error => console.log('error:', error));
