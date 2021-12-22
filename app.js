@@ -26,7 +26,7 @@ const frameworkPath2 = "/_framework";
 let fileCount;
 
 let KEY = process.env.KEY
-
+console.log(KEY)
 let ip = '10.138.0.3';
 if (home.startsWith('/home/pi')) {
     ip = '192.168.1.88';
