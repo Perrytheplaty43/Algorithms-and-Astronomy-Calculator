@@ -502,6 +502,7 @@ function isWeatherGood(lat, long, reqDate) {
     seting.setHours(rhours1, rminutes1, 0)
 
     let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
+    console.log(timesUNIX)
     timesUNIX = timesUNIX.sort()
     fetch(
         'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + process.env.KEY,
@@ -570,7 +571,6 @@ function sunsetriseTime(lat, long, targetDate) {
     let sunRiseSet1 = 720 - 4 * (long + haP) - eqtime
     let sunRiseSet2 = 720 - 4 * (long + haM) - eqtime
     console.log(720 - 4 * (long + haM) - eqtime)
-    //console.log(long,haM,eqtime)
     let output = [sunRiseSet1, sunRiseSet2]
     return output
 }
