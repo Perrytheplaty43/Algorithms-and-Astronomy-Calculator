@@ -478,40 +478,6 @@ function curlTest(path) {
         return;
     });
 }
-
-function isWeatherGood(lat, long, reqDate) {
-    if (reqDate == "") {
-        let curDate = new Date();
-        reqDate = (curDate.getMonth() + 1) + "-" + curDate.getDate() + "-" + curDate.getFullYear()
-    }
-    let runriseSet = sunsetriseTime(lat, long, reqDate)
-    runriseSet = runriseSet.sort();
-    let rise = new Date(reqDate)
-    let seting = new Date(reqDate)
-    let hours = (runriseSet[0] / 60);
-    let rhours = Math.floor(hours);
-    let minutes = (hours - rhours) * 60;
-    let rminutes = Math.round(minutes);
-    rise.setHours(rhours, rminutes, 0)
-
-    let hours1 = (runriseSet[1] / 60);
-    let rhours1 = Math.floor(hours1);
-    let minutes1 = (hours1 - rhours1) * 60;
-    let rminutes1 = Math.round(minutes1);
-    seting.setHours(rhours1, rminutes1, 0)
-
-    let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
-    timesUNIX = timesUNIX.sort()
-    fetch(
-        'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + process.env.KEY,
-        { method: 'GET' }
-    )
-        .then(response => response.text())
-        .then(res => {
-            return save(res, timesUNIX)
-        })
-        .catch(error => console.log('error:', error));
-}
 let theJSON;
 function save(inputs, timesUNIX) {
     let condition = "unknown";
@@ -573,3 +539,37 @@ function sunsetriseTime(lat, long, targetDate) {
     let output = [sunRiseSet1, sunRiseSet2]
     return output
 }
+function isWeatherGood(lat, long, reqDate) {
+    if (reqDate == "") {
+        let curDate = new Date();
+        reqDate = (curDate.getMonth() + 1) + "-" + curDate.getDate() + "-" + curDate.getFullYear()
+    }
+    let runriseSet = sunsetriseTime(lat, long, reqDate)
+    runriseSet = runriseSet.sort();
+    let rise = new Date(reqDate)
+    let seting = new Date(reqDate)
+    let hours = (runriseSet[0] / 60);
+    let rhours = Math.floor(hours);
+    let minutes = (hours - rhours) * 60;
+    let rminutes = Math.round(minutes);
+    rise.setHours(rhours, rminutes, 0)
+
+    let hours1 = (runriseSet[1] / 60);
+    let rhours1 = Math.floor(hours1);
+    let minutes1 = (hours1 - rhours1) * 60;
+    let rminutes1 = Math.round(minutes1);
+    seting.setHours(rhours1, rminutes1, 0)
+
+    let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
+    timesUNIX = timesUNIX.sort()
+    fetch(
+        'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + process.env.KEY,
+        { method: 'GET' }
+    )
+        .then(response => response.text())
+        .then(res => {
+            return save(res, timesUNIX)
+        })
+        .catch(error => console.log('error:', error));
+}
+
