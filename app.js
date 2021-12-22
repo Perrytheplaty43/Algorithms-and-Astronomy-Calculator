@@ -337,7 +337,6 @@ function myServer(req, res) {
         let long = searchParams.get('lon')
         let date = searchParams.get('date')
         let write = isWeatherGood(lat, long, date);
-        console.log(write)
         res.writeHead(200, { 'Content-Type': 'text/txt' });
         res.write(write);
         res.end();
@@ -519,6 +518,7 @@ function save(inputs, timesUNIX) {
     theJSON = inputs
     theJSON = JSON.parse(theJSON)
     console.log(theJSON)
+    console.log("________________________________")
     let clouds = [];
     for (i = 0; i <= theJSON.list.length - 1; i++) {
         if (timesUNIX[0] <= theJSON.list[i].dt) {
