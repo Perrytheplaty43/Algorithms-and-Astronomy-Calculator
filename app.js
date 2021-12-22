@@ -338,7 +338,7 @@ function myServer(req, res) {
         let date = searchParams.get('date')
         let write = isWeatherGood(lat, long, date);
         res.writeHead(200, { 'Content-Type': 'text/txt' });
-        res.write(write);
+        res.write("write");
         res.end();
         return;
     }
