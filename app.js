@@ -569,8 +569,8 @@ function sunsetriseTime(lat, long, targetDate) {
 
     let sunRiseSet1 = 720 - 4 * (long + haP) - eqtime
     let sunRiseSet2 = 720 - 4 * (long + haM) - eqtime
-    //console.log(720 - 4 * (long + haM) - eqtime)
-    console.log(long,haM,eqtime)
+    console.log(720 - 4 * (long + haM) - eqtime)
+    //console.log(long,haM,eqtime)
     let output = [sunRiseSet1, sunRiseSet2]
     return output
 }
