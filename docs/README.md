@@ -13,6 +13,37 @@ from this repo, a rasberry pi and a GCP vm instance. The pi is auto deploying fr
 [athesto-dev.ddns.net](https://athesto-dev.ddns.net/) and the master branch on the GCP VM instance:
 [athesto.ddns.net](https://athesto.ddns.net/).
 
+# Astronomy Calculator API
+The algorithm used is also being run as a JSON api. `GET` requests should be made with the following
+parameters:
+
+`https://athesto.ddns.net/api/astroTarget?lat=[LATITUDE]&long=[LONGITUDE]&tol=[TOLERANCE]&tolMag=[MAGNITUDE_TOLERANCE]&type=[TYPES]&date=[DATE]`
+
+<br></br>
+**`LATITUDE` & `LONGITUDE`:** Can  be any valid lat long in degrees.
+
+**`TOLERANCE`:** Values between `42`-`88`
+
+**`MAGNITUDE_TOLERANCE`:** Tolerance interms of magnitude (brightness)
+
+**`TYPES`:** Use the bellow key to select preferd types and use the following format `Gx,OC,Gb`
+ - `Gx`: Galaxy
+ - `OC`: Open star cluster
+ - `Gb`: Globular star cluster
+ - `Nb`: Bright emission or reflection nebula
+ - `Pl`: Planetary nebula
+ - `CpN`: Cluster associated with nebulosity
+ - `Ast`: Asterism
+ - `Kt`: Knot or nebulous region in an external galaxy
+ - `TS`: Triple star
+ - `DS`: Double star
+ - `SS`: Single star
+ - `Q`: Uncertain type or may not exist
+ - `U`: Unidentified at the place given, or type unknown
+ - `D`: Object called nonexistent in the RNGC
+ - `PD`: Photographic plate defect
+
+**`DATE`:** Optional, should be provided in the following format: `YEAR-MONTH-DATE`. Example: `2021-12-22`
 
 ## Acknowledgements
 
