@@ -29,7 +29,6 @@ const frameworkPath2 = "/_framework";
 let fileCount;
 
 let KEY = process.env.KEY
-console.log(KEY)
 let ip = '10.138.0.3';
 if (home.startsWith('/home/pi')) {
     ip = '192.168.1.88';
@@ -341,9 +340,9 @@ function myServer(req, res) {
         let lat = searchParams.get('lat')
         let long = searchParams.get('lon')
         let date = searchParams.get('date')
-        let write = isWeatherGood(lat, long, date);
+        isWeatherGood(lat, long, date);
         res.writeHead(200, { 'Content-Type': 'text/txt' });
-        res.write("write");
+        res.write(condition);
         res.end();
         return;
     }
@@ -484,12 +483,10 @@ function curlTest(path) {
     });
 }
 let theJSON;
+let condition = "unknown";
 function save(inputs, timesUNIX) {
-    let condition = "unknown";
     theJSON = inputs
     theJSON = JSON.parse(theJSON)
-    console.log(theJSON)
-    console.log("________________________________")
     let clouds = [];
     for (let i = 0; i <= theJSON.list.length - 1; i++) {
         if (timesUNIX[0] <= theJSON.list[i].dt) {
@@ -501,13 +498,13 @@ function save(inputs, timesUNIX) {
     }
     clouds = clouds.sort()
     if (clouds[clouds.length - 1] < 10) {
-        return "Perfect"
+        condition = "Perfect"
     } else if (((() => { let turning = 0; for (i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
-        return "Fair"
+        condition = "Fair"
     } else if (clouds.length == 0) {
-        return "Unknown"
+        condition = "Unknown"
     } else {
-        return "Bad"
+        condition = "Bad"
     }
 }
 
@@ -578,6 +575,5 @@ function isWeatherGood(lat, long, reqDate) {
             save(res, timesUNIX)
         })
         .catch(error => console.log('error:', error));
-    return out
 }
 

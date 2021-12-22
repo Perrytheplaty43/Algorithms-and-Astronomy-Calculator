@@ -1,3 +1,4 @@
 /fullchainCert.pem
 /privkeyKey.pem
 /Logs
+/.env
