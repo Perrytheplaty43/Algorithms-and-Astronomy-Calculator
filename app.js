@@ -359,8 +359,8 @@ function myServer(req, res) {
             )
                 .then(response => response.text())
                 .then(finalData => {
-                    //console.log(finalData)
                     res.writeHead(200, { 'Content-Type': 'text/json' });
+                    finalData.join(",")
                     res.write(finalData);
                     res.end();
                 })
