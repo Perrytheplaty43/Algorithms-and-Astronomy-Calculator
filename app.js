@@ -336,17 +336,9 @@ function myServer(req, res) {
         let lat = searchParams.get('lat')
         let long = searchParams.get('lon')
         let date = searchParams.get('date')
-        fetch(
-            'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + process.env.KEY,
-            { method: 'GET' }
-        )
-            .then(response => response.text())
-            .then(data => {
-                res.writeHead(200, { 'Content-Type': 'text/json' });
-                res.write(data);
-                res.end();
-            })
-            .catch(error => console.log('error:', error));
+        res.writeHead(200, { 'Content-Type': 'text/txt' });
+        res.write(isWeatherGood(lat, long, date));
+        res.end();
         return;
     }
     if (method == 'GET' && surl.pathname == '/api/astroTarget') {
@@ -510,12 +502,12 @@ function isWeatherGood(lat, long, reqDate) {
     let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
     timesUNIX = timesUNIX.sort()
     fetch(
-        'https://' + window.location.hostname + '/astroTargetFinder/weatherAPI?lat=' + lat + '&lon=' + long,
+        'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + process.env.KEY,
         { method: 'GET' }
     )
         .then(response => response.text())
         .then(res => {
-            save(res, timesUNIX)
+            return save(res, timesUNIX)
         })
         .catch(error => console.log('error:', error));
 }
@@ -535,15 +527,14 @@ function save(inputs, timesUNIX) {
     }
     clouds = clouds.sort()
     if (clouds[clouds.length - 1] < 10) {
-        console.log("Perfect")
+        return "Perfect"
     } else if (((() => { let turning = 0; for (i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
-        console.log("Fair")
+        return "Fair"
     } else if (clouds.length == 0) {
-        console.log("Unknown")
+        return "Unknown"
     } else {
-        console.log("Bad")
+        return "Bad"
     }
-    document.getElementById("condition").innerHTML = "Weather Contition: " + condition;
 }
 
 function sunsetriseTime(lat, long, targetDate) {
