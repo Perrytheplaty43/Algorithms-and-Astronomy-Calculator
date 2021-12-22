@@ -501,9 +501,9 @@ function isWeatherGood(lat, long, reqDate) {
     let rminutes1 = Math.round(minutes1);
     seting.setHours(rhours1, rminutes1, 0)
 
+    console.log(seting.getTime() / 1000)
     let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
     timesUNIX = timesUNIX.sort()
-    console.log(timesUNIX)
     fetch(
         'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + process.env.KEY,
         { method: 'GET' }
