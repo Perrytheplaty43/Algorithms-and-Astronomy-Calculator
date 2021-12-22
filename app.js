@@ -351,7 +351,7 @@ function myServer(req, res) {
                 for (i = 0; i <= data.length - 1; i++) {
                     writing.push({ [i]: { id: data[i][0], alt: data[i][1], mag: data[i][2], type: data[i][3], constellation: data[i][4] } })
                 }
-                res.write(JSON.stringify(writing).toString().replace('}},', '}}'));
+                res.write(JSON.stringify(writing).toString().replace("}},", "}}"));
                 res.end();
             })
             .catch(error => console.log('error:', error));
