@@ -16,6 +16,9 @@ globalThis.path = path
 import child from 'child_process';
 globalThis.child = child
 
+import dotenv from 'dotenv'
+dotenv.config()
+
 const delimiter = "/";
 
 let testing = false;
