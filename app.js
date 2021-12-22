@@ -346,7 +346,12 @@ function myServer(req, res) {
             .then(response => response.text())
             .then(finalData => {
                 res.writeHead(200, { 'Content-Type': 'text/json' });
-                res.write(JSON.parse(finalData).toString());
+                let data = JSON.parse(finalData);
+                let writing = {}
+                for (i = 0; i <= data.length - 1; i++) {
+                    writing = Object.assign(writing, { i: { id: data[i][0], alt: data[i][1], mag: data[i][2], type: data[i][3], constellation: data[i][4] } })
+                }
+                res.write(JSON.stringify(writing));
                 res.end();
             })
             .catch(error => console.log('error:', error));
