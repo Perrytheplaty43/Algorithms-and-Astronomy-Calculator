@@ -518,6 +518,7 @@ function save(inputs, timesUNIX) {
     let condition = "unknown";
     theJSON = inputs
     theJSON = JSON.parse(theJSON)
+    console.log(theJSON)
     let clouds = [];
     for (i = 0; i <= theJSON.list.length - 1; i++) {
         if (timesUNIX[0] <= theJSON.list[i].dt) {
