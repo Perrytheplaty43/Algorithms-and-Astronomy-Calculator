@@ -553,7 +553,6 @@ function sunsetriseTime(lat, long, targetDate) {
     let diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
     let oneDay = 1000 * 60 * 60 * 24;
     let day = Math.floor(diff / oneDay);
-    console.log(day)
 
     let y = ((2 * Math.PI) / 365) * (day - 365)
 
@@ -568,6 +567,7 @@ function sunsetriseTime(lat, long, targetDate) {
 
     let sunRiseSet1 = 720 - 4 * (long + haP) - eqtime
     let sunRiseSet2 = 720 - 4 * (long + haM) - eqtime
+    console.log(720 - 4 * (long + haM) - eqtime)
     let output = [sunRiseSet1, sunRiseSet2]
     return output
 }
