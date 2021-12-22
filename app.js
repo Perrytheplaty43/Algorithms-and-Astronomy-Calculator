@@ -569,7 +569,7 @@ function isWeatherGood(lat, long, reqDate) {
     )
         .then(response => response.text())
         .then(res => {
-            out = save(res, timesUNIX)
+            save(res, timesUNIX)
         })
         .catch(error => console.log('error:', error));
     return out
