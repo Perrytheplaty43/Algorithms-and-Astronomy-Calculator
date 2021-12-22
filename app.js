@@ -537,6 +537,14 @@ function save(inputs, timesUNIX) {
     }
 }
 
+function toRadians(angle) {
+    return angle * (Math.PI / 180)
+}
+
+function toDegrees(angle) {
+    return angle * (180 / Math.PI)
+}
+
 function sunsetriseTime(lat, long, targetDate) {
     let now = new Date(targetDate)
     let start = new Date(now.getFullYear(), 0, 0);
