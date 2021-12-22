@@ -499,7 +499,7 @@ function save(inputs, timesUNIX) {
     clouds = clouds.sort()
     if (clouds[clouds.length - 1] < 10) {
         condition = "Perfect"
-    } else if (((() => { let turning = 0; for (i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
+    } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
         condition = "Fair"
     } else if (clouds.length == 0) {
         condition = "Unknown"
@@ -565,7 +565,6 @@ function isWeatherGood(lat, long, reqDate) {
 
     let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
     timesUNIX = timesUNIX.sort()
-    console.log('https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY)
     fetch(
         'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY,
         { method: 'GET' }
