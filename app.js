@@ -548,6 +548,7 @@ function toDegrees(angle) {
 }
 
 function sunsetriseTime(lat, long, targetDate) {
+    console.log(targetDate)
     let now = new Date(targetDate)
     let start = new Date(now.getFullYear(), 0, 0);
     let diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
@@ -565,7 +566,6 @@ function sunsetriseTime(lat, long, targetDate) {
     let haM = -1 * Math.acos(((Math.cos(toRadians(90.833))) / (Math.cos(toRadians(lat)) * Math.cos(decl))) - Math.tan(toRadians(lat)) * Math.tan(decl))
     haM = toDegrees(haM)
 
-    console.log(now, start, diff, oneDay, day, y, eqtime, decl, haP, haM)
     let sunRiseSet1 = 720 - 4 * (long + haP) - eqtime
     let sunRiseSet2 = 720 - 4 * (long + haM) - eqtime
     let output = [sunRiseSet1, sunRiseSet2]
