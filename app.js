@@ -495,7 +495,6 @@ function isWeatherGood(lat, long, reqDate) {
     let rminutes = Math.round(minutes);
     rise.setHours(rhours, rminutes, 0)
 
-    console.log(runriseSet[1])
     let hours1 = (runriseSet[1] / 60);
     let rhours1 = Math.floor(hours1);
     let minutes1 = (hours1 - rhours1) * 60;
@@ -566,6 +565,7 @@ function sunsetriseTime(lat, long, targetDate) {
     let haM = -1 * Math.acos(((Math.cos(toRadians(90.833))) / (Math.cos(toRadians(lat)) * Math.cos(decl))) - Math.tan(toRadians(lat)) * Math.tan(decl))
     haM = toDegrees(haM)
 
+    console.log(now, start, diff, oneDay, day, y, eqtime, decl, haP, haM)
     let sunRiseSet1 = 720 - 4 * (long + haP) - eqtime
     let sunRiseSet2 = 720 - 4 * (long + haM) - eqtime
     let output = [sunRiseSet1, sunRiseSet2]
