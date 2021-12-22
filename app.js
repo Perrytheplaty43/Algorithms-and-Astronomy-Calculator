@@ -495,13 +495,13 @@ function isWeatherGood(lat, long, reqDate) {
     let rminutes = Math.round(minutes);
     rise.setHours(rhours, rminutes, 0)
 
+    console.log(runriseSet[1])
     let hours1 = (runriseSet[1] / 60);
     let rhours1 = Math.floor(hours1);
     let minutes1 = (hours1 - rhours1) * 60;
     let rminutes1 = Math.round(minutes1);
     seting.setHours(rhours1, rminutes1, 0)
 
-    console.log(seting)
     let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
     timesUNIX = timesUNIX.sort()
     fetch(
