@@ -544,6 +544,7 @@ function isWeatherGood(lat, long, reqDate) {
         let curDate = new Date();
         reqDate = (curDate.getMonth() + 1) + "-" + curDate.getDate() + "-" + curDate.getFullYear()
     }
+    let out;
     let runriseSet = sunsetriseTime(lat, long, reqDate)
     runriseSet = runriseSet.sort();
     let rise = new Date(reqDate)
@@ -568,8 +569,9 @@ function isWeatherGood(lat, long, reqDate) {
     )
         .then(response => response.text())
         .then(res => {
-            return save(res, timesUNIX)
+            out = save(res, timesUNIX)
         })
         .catch(error => console.log('error:', error));
+    return out
 }
 
