@@ -331,6 +331,27 @@ function myServer(req, res) {
             .catch(error => console.log('error:', error));
         return;
     }
+    if (method == 'GET' && surl.pathname == '/api/astroTarget') {
+        let searchParams = surl.searchParams
+        let lat = searchParams.get('lat')
+        let long = searchParams.get('long')
+        let tol = searchParams.get('tol')
+        let tolMag = searchParams.get('tolMag')
+        let types = searchParams.get('type')
+        let dateToSend = searchParams.get('date')
+        fetch(
+            'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+            { method: 'GET' }
+        )
+            .then(response => response.text())
+            .then(finalData => {
+                res.writeHead(200, { 'Content-Type': 'text/json' });
+                res.write(JSON.parse(finalData));
+                res.end();
+            })
+            .catch(error => console.log('error:', error));
+        return;
+    }
     if (method == 'GET' && surl.pathname == '/astro') {
         let searchParams = surl.searchParams
         let lat = searchParams.get('lat')
