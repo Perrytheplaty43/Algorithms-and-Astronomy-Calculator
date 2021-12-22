@@ -345,7 +345,7 @@ function myServer(req, res) {
         )
             .then(response => response.text())
             .then(finalData => {
-                res.writeHead(200, { 'Content-Type': 'text/json' });
+                res.writeHead(200, { 'Content-Type': 'application/json' });
                 let data = JSON.parse(finalData);
                 let writing = []
                 for (i = 0; i <= data.length - 1; i++) {
