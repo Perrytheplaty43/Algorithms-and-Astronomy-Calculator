@@ -548,12 +548,12 @@ function toDegrees(angle) {
 }
 
 function sunsetriseTime(lat, long, targetDate) {
-    console.log(targetDate)
     let now = new Date(targetDate)
     let start = new Date(now.getFullYear(), 0, 0);
     let diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
     let oneDay = 1000 * 60 * 60 * 24;
     let day = Math.floor(diff / oneDay);
+    console.log(day)
 
     let y = ((2 * Math.PI) / 365) * (day - 365)
 
