@@ -349,7 +349,7 @@ function myServer(req, res) {
                 let data = JSON.parse(finalData);
                 let writing = []
                 for (i = 0; i <= data.length - 1; i++) {
-                    writing.push({ [i]: { id: data[i][0], alt: data[i][1], mag: data[i][2], type: data[i][3], constellation: data[i][4], toString: function(){return [this.id,  this.alt, this.mag, this.ityped, this.constellation]} } })
+                    writing.push({ [i]: { id: data[i][0], alt: data[i][1], mag: data[i][2], type: data[i][3], constellation: data[i][4]}, toString: function(){return [this.i.id,  this.alt, this.mag, this.ityped, this.constellation] } })
                 }
                 res.write(JSON.stringify(writing.join("")));
                 res.end();
