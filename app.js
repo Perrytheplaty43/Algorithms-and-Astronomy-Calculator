@@ -340,7 +340,11 @@ function myServer(req, res) {
         let lat = searchParams.get('lat')
         let long = searchParams.get('lon')
         let date = searchParams.get('date')
-        isWeatherGood(lat, long, date)
+        isWeatherGood(lat, long, date);
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.write(JSON.stringify({conditions: condition}));
+        res.end();
+        return;
     }
     if (method == 'GET' && surl.pathname == '/api/astroTarget') {
         let searchParams = surl.searchParams
@@ -360,7 +364,7 @@ function myServer(req, res) {
                 let data = JSON.parse(finalData);
                 let writing = []
                 for (i = 0; i <= data.length - 1; i++) {
-                    writing.push({ id: data[i][0], alt: data[i][1], mag: data[i][2], type: data[i][3], constellation: data[i][4] })
+                    writing.push( { id: data[i][0], alt: data[i][1], mag: data[i][2], type: data[i][3], constellation: data[i][4] } )
                 }
                 res.write(JSON.stringify(writing));
                 res.end();
@@ -478,9 +482,10 @@ function curlTest(path) {
         return;
     });
 }
-
+let theJSON;
+let condition = "unknown";
 function save(inputs, timesUNIX) {
-    let theJSON = inputs
+    theJSON = inputs
     theJSON = JSON.parse(theJSON)
     let clouds = [];
     for (let i = 0; i <= theJSON.list.length - 1; i++) {
@@ -493,25 +498,13 @@ function save(inputs, timesUNIX) {
     }
     clouds = clouds.sort()
     if (clouds[clouds.length - 1] < 10) {
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.write(JSON.stringify({ conditions: "Perfect" }));
-        res.end();
-        return;
+        condition = "Perfect"
     } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.write(JSON.stringify({ conditions: "Fair" }));
-        res.end();
-        return;
+        condition = "Fair"
     } else if (clouds.length == 0) {
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.write(JSON.stringify({ conditions: "Unknown" }));
-        res.end();
-        return;
+        condition = "Unknown"
     } else {
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.write(JSON.stringify({ conditions: "Bad" }));
-        res.end();
-        return;
+        condition = "Bad"
     }
 }
 
@@ -572,14 +565,14 @@ function isWeatherGood(lat, long, reqDate) {
 
     let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
     timesUNIX = timesUNIX.sort()
-    fetch(
+    console.log(fetch(
         'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY,
         { method: 'GET' }
     )
         .then(response => response.text())
         .then(res => {
-            save(res, timesUNIX)
-        })
+            return save(res, timesUNIX)
+        }))
         .catch(error => console.log('error:', error));
 }
 
