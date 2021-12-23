@@ -341,8 +341,8 @@ function myServer(req, res) {
         let long = searchParams.get('lon')
         let date = searchParams.get('date')
         isWeatherGood(lat, long, date);
-        res.writeHead(200, { 'Content-Type': 'text/txt' });
-        res.write(JSON.stringify({ conditions: condition }));
+        res.writeHead(200, { 'Content-Type': 'text/json' });
+        res.write(JSON.stringify({conditions: condition}));
         res.end();
         return;
     }
@@ -360,11 +360,11 @@ function myServer(req, res) {
         )
             .then(response => response.text())
             .then(finalData => {
-                res.writeHead(200, { 'Content-Type': 'text/json' });
+                res.writeHead(200, { 'Content-Type': 'application/json' });
                 let data = JSON.parse(finalData);
                 let writing = []
                 for (i = 0; i <= data.length - 1; i++) {
-                    writing.push({ id: data[i][0], alt: data[i][1], mag: data[i][2], type: data[i][3], constellation: data[i][4] })
+                    writing.push( { id: data[i][0], alt: data[i][1], mag: data[i][2], type: data[i][3], constellation: data[i][4] } )
                 }
                 res.write(JSON.stringify(writing));
                 res.end();
@@ -387,7 +387,7 @@ function myServer(req, res) {
             )
                 .then(response => response.text())
                 .then(finalData => {
-                    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+                    res.writeHead(200, { 'Content-Type': 'text/json' });
                     res.write(finalData);
                     res.end();
                 })
