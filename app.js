@@ -474,6 +474,30 @@ function myServer(req, res) {
             .catch(error => console.log('error:', error));
         return;
     }
+    if (method == 'GET' && surl.pathname == '/api/images') {
+        let searchParams = surl.searchParams
+        let id = searchParams.get('id')
+        if (id.startsWith("I")) {
+            id = id.substring(1)
+            id = "IC" + id
+        } else {
+            id = "NGC" + id
+        }
+        fs.readFile(home + delimiter + 'Images' + delimiter + id + '.jpg', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "11")
+                return;
+            }
+            let date = new Date();
+            let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ":: " + req.socket.remoteAddress + ":" + " " + id;
+            res.writeHead(200, { 'Content-Type': 'image/jpg' });
+            res.write(html);
+            res.end();
+            logging(testing, write)
+        });
+        return;
+    }
     if (method == 'GET' && surl.pathname == '/astro') {
         let searchParams = surl.searchParams
         let lat = searchParams.get('lat')
