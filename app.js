@@ -340,6 +340,7 @@ function myServer(req, res) {
         let lat = searchParams.get('lat')
         let long = searchParams.get('lon')
         let date = searchParams.get('date')
+        console.log("ion")
         isWeatherGood(lat, long, date)
     }
     if (method == 'GET' && surl.pathname == '/api/astroTarget') {
