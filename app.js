@@ -341,8 +341,6 @@ function myServer(req, res) {
         let long = searchParams.get('lon')
         let date = searchParams.get('date')
         isWeatherGood(lat, long, date)
-        res.end();
-        return;
     }
     if (method == 'GET' && surl.pathname == '/api/astroTarget') {
         let searchParams = surl.searchParams
