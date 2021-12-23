@@ -342,8 +342,12 @@ function myServer(req, res) {
         let date = searchParams.get('date')
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         let isWeatherGoodReturn = isWeatherGood(lat, long, date)
-        const writer = isWeatherGoodReturn.then(res.write(JSON.stringify({ conditions: isWeatherGoodReturn })));
-        res.end();
+        setInterval(() => {
+            if (isWeatherGoodReturn.length > 1) {
+                res.write(JSON.stringify({ conditions: isWeatherGoodReturn }));
+                res.end();
+            }
+        }, 100)
         return;
     }
     if (method == 'GET' && surl.pathname == '/api/astroTarget') {
@@ -579,7 +583,7 @@ const isWeatherGood = async (lat, long, reqDate) => {
             return saved
         })
         .catch(error => console.log('error:', error));
-        console.log(condidion)
+    console.log(condidion)
     return condidion;
 }
 
