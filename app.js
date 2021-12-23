@@ -387,7 +387,7 @@ function myServer(req, res) {
             )
                 .then(response => response.text())
                 .then(finalData => {
-                    res.writeHead(200, { 'Content-Type': 'text/json' });
+                    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
                     res.write(finalData);
                     res.end();
                 })
