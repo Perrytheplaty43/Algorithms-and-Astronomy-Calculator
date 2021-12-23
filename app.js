@@ -340,9 +340,9 @@ function myServer(req, res) {
         let lat = searchParams.get('lat')
         let long = searchParams.get('lon')
         let date = searchParams.get('date')
-        isWeatherGood(lat, long, date);
+        console.log(isWeatherGood(lat, long, date));
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.write(JSON.stringify({conditions: condition}));
+        res.write(JSON.stringify({ conditions: condition }));
         res.end();
         return;
     }
@@ -364,7 +364,7 @@ function myServer(req, res) {
                 let data = JSON.parse(finalData);
                 let writing = []
                 for (i = 0; i <= data.length - 1; i++) {
-                    writing.push( { id: data[i][0], alt: data[i][1], mag: data[i][2], type: data[i][3], constellation: data[i][4] } )
+                    writing.push({ id: data[i][0], alt: data[i][1], mag: data[i][2], type: data[i][3], constellation: data[i][4] })
                 }
                 res.write(JSON.stringify(writing));
                 res.end();
@@ -565,14 +565,14 @@ function isWeatherGood(lat, long, reqDate) {
 
     let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
     timesUNIX = timesUNIX.sort()
-    console.log(fetch(
+    fetch(
         'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY,
         { method: 'GET' }
     )
         .then(response => response.text())
         .then(res => {
             return save(res, timesUNIX)
-        }))
+        })
         .catch(error => console.log('error:', error));
 }
 
