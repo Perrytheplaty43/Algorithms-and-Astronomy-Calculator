@@ -340,9 +340,7 @@ function myServer(req, res) {
         let lat = searchParams.get('lat')
         let long = searchParams.get('lon')
         let date = searchParams.get('date')
-        console.log(isWeatherGood(lat, long, date));
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.write(JSON.stringify({ conditions: condition }));
+        isWeatherGood(lat, long, date)
         res.end();
         return;
     }
@@ -483,7 +481,6 @@ function curlTest(path) {
     });
 }
 let theJSON;
-let condition = "unknown";
 function save(inputs, timesUNIX) {
     theJSON = inputs
     theJSON = JSON.parse(theJSON)
@@ -498,13 +495,25 @@ function save(inputs, timesUNIX) {
     }
     clouds = clouds.sort()
     if (clouds[clouds.length - 1] < 10) {
-        condition = "Perfect"
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.write(JSON.stringify({ conditions: "Perfect" }));
+        res.end();
+        return;
     } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
-        condition = "Fair"
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.write(JSON.stringify({ conditions: "Fair" }));
+        res.end();
+        return;
     } else if (clouds.length == 0) {
-        condition = "Unknown"
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.write(JSON.stringify({ conditions: "Unknown" }));
+        res.end();
+        return;
     } else {
-        condition = "Bad"
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.write(JSON.stringify({ conditions: "Bad" }));
+        res.end();
+        return;
     }
 }
 
@@ -571,7 +580,7 @@ function isWeatherGood(lat, long, reqDate) {
     )
         .then(response => response.text())
         .then(res => {
-            return save(res, timesUNIX)
+            save(res, timesUNIX)
         })
         .catch(error => console.log('error:', error));
 }
