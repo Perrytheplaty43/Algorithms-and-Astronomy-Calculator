@@ -546,7 +546,7 @@ function sunsetriseTime(lat, long, targetDate) {
     let output = [sunRiseSet1, sunRiseSet2]
     return output
 }
-const isWeatherGood = async (lat, long, reqDate) => {
+function isWeatherGood(lat, long, reqDate) {
     if (reqDate == "") {
         let curDate = new Date();
         reqDate = (curDate.getMonth() + 1) + "-" + curDate.getDate() + "-" + curDate.getFullYear()
