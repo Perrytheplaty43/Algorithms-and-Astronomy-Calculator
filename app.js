@@ -518,6 +518,7 @@ function myServer(req, res) {
     }
 
     if (!returned) {
+        console.log("iiiii")
         fs.readFile(home + delimiter + 'notfound.html', function (err, html) {
             if (err) {
                 console.log(err);
