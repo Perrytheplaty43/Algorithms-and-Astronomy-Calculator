@@ -343,7 +343,7 @@ function myServer(req, res) {
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         let isWeatherGoodReturn = isWeatherGood(lat, long, date)
         console.log(isWeatherGoodReturn.toString())
-        const returner = isWeatherGoodReturn.then(res.write(JSON.stringify({ conditions: isWeatherGoodReturn })))
+        res.write(JSON.stringify({ conditions: isWeatherGoodReturn }))
         res.end();
         return;
     }
@@ -547,6 +547,7 @@ function sunsetriseTime(lat, long, targetDate) {
     return output
 }
 function isWeatherGood(lat, long, reqDate) {
+    console.log("s")
     if (reqDate == "") {
         let curDate = new Date();
         reqDate = (curDate.getMonth() + 1) + "-" + curDate.getDate() + "-" + curDate.getFullYear()
@@ -580,7 +581,7 @@ function isWeatherGood(lat, long, reqDate) {
             return saved
         })
         .catch(error => console.log('error:', error));
-    //console.log(condidion)
+    console.log(condidion)
     while (true) {
         if (condidion == "Perfect" || condidion == "Fair" || condidion == "Bad" || condidion == "Unknown"){
             console.log(condidion)
