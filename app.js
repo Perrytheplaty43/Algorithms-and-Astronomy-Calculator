@@ -444,7 +444,9 @@ function myServer(req, res) {
             .catch(error => console.log('error:', error));
         return;
     }
+    let no404 = false;
     if (method == 'GET' && surl.pathname == '/api/weather') {
+        no404 = true;
         let searchParams = surl.searchParams
         let lat = searchParams.get('lat')
         let long = searchParams.get('lon')
@@ -516,20 +518,22 @@ function myServer(req, res) {
         }
     }
 
-    fs.readFile(home + delimiter + 'notfound.html', function (err, html) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        let date = new Date();
-        let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + ":" + " 404";
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.statusCode = 404;
-        res.write(html);
-        res.end();
-        logging(testing, write)
-    });
-    return;
+    if (!no404) {
+        fs.readFile(home + delimiter + 'notfound.html', function (err, html) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            let date = new Date();
+            let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + ":" + " 404";
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.statusCode = 404;
+            res.write(html);
+            res.end();
+            logging(testing, write)
+        });
+        return;
+    }
 }
 
 const server = home.startsWith('/home/runner/') ?
