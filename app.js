@@ -422,28 +422,28 @@ function myServer(req, res) {
         }
         clouds = clouds.sort()
         if (clouds[clouds.length - 1] < 10) {
-            returned = true
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.write(JSON.stringify({ conditions: "Perfect" }));
             res.end();
+            returned = true
             return;
         } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
-            returned = true
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.write(JSON.stringify({ conditions: "Fair" }));
             res.end();
+            returned = true
             return;
         } else if (clouds.length == 0) {
-            returned = true
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.write(JSON.stringify({ conditions: "Unknown" }));
             res.end();
+            returned = true
             return;
         } else {
-            returned = true
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.write(JSON.stringify({ conditions: "Unknown" }));
             res.end();
+            returned = true
             return;
         }
     }
