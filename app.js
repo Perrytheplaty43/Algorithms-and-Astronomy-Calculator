@@ -347,6 +347,7 @@ function myServer(req, res) {
             if (isWeatherGoodReturn.length > 1) {
                 res.write(JSON.stringify({ conditions: isWeatherGoodReturn }));
                 res.end();
+                return;
             }
         }, 100)
         return;
