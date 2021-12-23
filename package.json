@@ -1,12 +1,12 @@
 {
   "dependencies": {
+    "dotenv": "^10.0.0",
     "node-fetch": "^3.1.0"
   },
   "name": "unscrambler-main",
   "description": "Nodejs web server that will scramble or unscramble text into a particular pattern.",
   "version": "1.0.0",
   "main": "app.js",
-  "devDependencies": {},
   "scripts": {
     "test": "sudo node app.js"
   },
