@@ -343,6 +343,7 @@ function myServer(req, res) {
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         let isWeatherGoodReturn = isWeatherGood(lat, long, date)
         setInterval(() => {
+            console.log(isWeatherGoodReturn)
             if (isWeatherGoodReturn.length > 1) {
                 res.write(JSON.stringify({ conditions: isWeatherGoodReturn }));
                 res.end();
