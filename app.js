@@ -480,9 +480,9 @@ function curlTest(path) {
         return;
     });
 }
-let theJSON;
+
 function save(inputs, timesUNIX) {
-    theJSON = inputs
+    let theJSON = inputs
     theJSON = JSON.parse(theJSON)
     let clouds = [];
     for (let i = 0; i <= theJSON.list.length - 1; i++) {
