@@ -408,7 +408,6 @@ function myServer(req, res) {
     let theJSON;
     //let condition = "unknown";
     function save(inputs, timesUNIX) {
-        console.log("ion")
         theJSON = inputs
         theJSON = JSON.parse(theJSON)
         let clouds = [];
@@ -422,21 +421,25 @@ function myServer(req, res) {
         }
         clouds = clouds.sort()
         if (clouds[clouds.length - 1] < 10) {
+            console.log("ion")
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.write(JSON.stringify({ conditions: "Perfect" }));
             res.end();
             return;
         } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
+            console.log("ion")
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.write(JSON.stringify({ conditions: "Fair" }));
             res.end();
             return;
         } else if (clouds.length == 0) {
+            console.log("ion")
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.write(JSON.stringify({ conditions: "Unknown" }));
             res.end();
             return;
         } else {
+            console.log("ion")
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.write(JSON.stringify({ conditions: "Unknown" }));
             res.end();
