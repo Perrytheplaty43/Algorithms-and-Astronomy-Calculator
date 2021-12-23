@@ -342,8 +342,7 @@ function myServer(req, res) {
         let date = searchParams.get('date')
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         let isWeatherGoodReturn = isWeatherGood(lat, long, date)
-        console.log(await isWeatherGoodReturn)
-        res.write(JSON.stringify({ conditions: isWeatherGoodReturn }));
+        const writer = isWeatherGoodReturn.then(res.write(JSON.stringify({ conditions: isWeatherGoodReturn })));
         res.end();
         return;
     }
