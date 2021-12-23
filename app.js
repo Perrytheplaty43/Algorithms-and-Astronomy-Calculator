@@ -497,12 +497,16 @@ function save(inputs, timesUNIX) {
     }
     clouds = clouds.sort()
     if (clouds[clouds.length - 1] < 10) {
+        console.log("i")
         return "Perfect";
     } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
+        console.log("i")
         return "Fair";
     } else if (clouds.length == 0) {
+        console.log("i")
         return "Unknown";
     } else {
+        console.log("i")
         return "Bad";
     }
 }
@@ -574,6 +578,7 @@ const isWeatherGood = async (lat, long, reqDate) => {
             return saved
         })
         .catch(error => console.log('error:', error));
+        console.log(condidion)
     return condidion;
 }
 
