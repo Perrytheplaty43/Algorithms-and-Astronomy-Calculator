@@ -341,7 +341,7 @@ function myServer(req, res) {
         let long = searchParams.get('lon')
         let date = searchParams.get('date')
         isWeatherGood(lat, long, date);
-        res.writeHead(200, { 'Content-Type': 'text/json' });
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.write(JSON.stringify({conditions: condition}));
         res.end();
         return;
