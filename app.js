@@ -335,16 +335,12 @@ function myServer(req, res) {
         }
         clouds = clouds.sort()
         if (clouds[clouds.length - 1] < 10) {
-            console.log("i")
             return "Perfect";
         } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
-            console.log("i")
             return "Fair";
         } else if (clouds.length == 0) {
-            console.log("i")
             return "Unknown";
         } else {
-            console.log("i")
             return "Bad";
         }
     }
@@ -406,20 +402,16 @@ function myServer(req, res) {
 
         let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
         timesUNIX = timesUNIX.sort()
-        let start = new Date()
         let condidion = await fetch(
             'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY,
             { method: 'GET' }
         )
             .then(response => response.text())
             .then(res => {
-                let end = (new Date() - start) / 1000
-                console.log(end)
                 let saved = save(res, timesUNIX)
                 return saved
             })
             .catch(error => console.log('error:', error));
-        console.log(condidion)
         while (true) {
             if (condidion == "Perfect" || condidion == "Fair" || condidion == "Bad" || condidion == "Unknown") {
                 res.write(JSON.stringify({ conditions: condidion }))
