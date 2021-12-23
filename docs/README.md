@@ -56,6 +56,15 @@ The algorithm used to classidiy the weather in that night into either "Perfect",
 
 **`DATE`:** Optional, should be provided in the following format: `YEAR-MONTH-DATE`. Example: `2021-12-22` (must be in the future)
 
+# Image Search API
+The algorithm used to get images based of the objects NGC or IC number is also being run as a JSON api. 
+`GET` requests should be made with the following parameters:
+
+`https://athesto.ddns.net/api/Images?id=[ID]`
+
+<br></br>
+**`ID`:** An objects NGC or IC number. Example: `NGC3031` or `IC1369`
+
 ## Acknowledgements
 
  - [Minesweeper](https://github.com/albert-du/BoleroMinesweeper)
