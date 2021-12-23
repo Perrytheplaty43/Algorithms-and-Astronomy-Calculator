@@ -477,12 +477,6 @@ function myServer(req, res) {
     if (method == 'GET' && surl.pathname == '/api/images') {
         let searchParams = surl.searchParams
         let id = searchParams.get('id')
-        if (id.startsWith("I")) {
-            id = id.substring(1)
-            id = "IC" + id
-        } else {
-            id = "NGC" + id
-        }
         fs.readFile(home + delimiter + 'Images' + delimiter + id + '.jpg', function (err, html) {
             if (err) {
                 console.log(err);
