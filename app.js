@@ -540,7 +540,7 @@ function sunsetriseTime(lat, long, targetDate) {
     let output = [sunRiseSet1, sunRiseSet2]
     return output
 }
-function isWeatherGood(lat, long, reqDate) {
+const isWeatherGood = async (lat, long, reqDate) => {
     if (reqDate == "") {
         let curDate = new Date();
         reqDate = (curDate.getMonth() + 1) + "-" + curDate.getDate() + "-" + curDate.getFullYear()
@@ -564,14 +564,16 @@ function isWeatherGood(lat, long, reqDate) {
 
     let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
     timesUNIX = timesUNIX.sort()
-    console.log(fetch(
+    let condidion = await fetch(
         'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY,
         { method: 'GET' }
     )
         .then(response => response.text())
         .then(res => {
-            return save(res, timesUNIX)
+            let saved = await save(res, timesUNIX)
+            return saved
         })
-        .catch(error => console.log('error:', error)));
+        .catch(error => console.log('error:', error));
+    return condidion;
 }
 
