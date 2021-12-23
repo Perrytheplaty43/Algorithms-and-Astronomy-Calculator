@@ -581,6 +581,6 @@ const isWeatherGood = async (lat, long, reqDate) => {
         })
         .catch(error => console.log('error:', error));
     console.log(condidion)
-    return condidion;
+    return await condidion;
 }
 
