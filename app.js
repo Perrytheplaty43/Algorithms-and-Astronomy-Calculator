@@ -570,7 +570,7 @@ const isWeatherGood = async (lat, long, reqDate) => {
     )
         .then(response => response.text())
         .then(res => {
-            let saved = await save(res, timesUNIX)
+            let saved = save(res, timesUNIX)
             return saved
         })
         .catch(error => console.log('error:', error));
