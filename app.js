@@ -419,7 +419,7 @@ function myServer(req, res) {
         console.log(condidion)
         while (true) {
             if (condidion == "Perfect" || condidion == "Fair" || condidion == "Bad" || condidion == "Unknown") {
-                res.write(JSON.stringify({ conditions: isWeatherGoodReturn }))
+                res.write(JSON.stringify({ conditions: condidion }))
                 res.end();
                 return;
             }
