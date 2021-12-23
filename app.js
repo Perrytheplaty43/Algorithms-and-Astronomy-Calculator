@@ -419,7 +419,6 @@ function myServer(req, res) {
                 return;
             }
         }
-        //return await condidion;
     }
 
     if (method == 'GET' && surl.pathname == '/astroTargetFinder/weatherAPI') {
