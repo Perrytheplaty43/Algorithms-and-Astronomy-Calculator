@@ -546,7 +546,7 @@ function sunsetriseTime(lat, long, targetDate) {
     let output = [sunRiseSet1, sunRiseSet2]
     return output
 }
-function isWeatherGood(lat, long, reqDate) {
+const isWeatherGood = async (lat, long, reqDate) => {
     if (reqDate == "") {
         let curDate = new Date();
         reqDate = (curDate.getMonth() + 1) + "-" + curDate.getDate() + "-" + curDate.getFullYear()
@@ -581,6 +581,6 @@ function isWeatherGood(lat, long, reqDate) {
         })
         .catch(error => console.log('error:', error));
     console.log(condidion)
-    return await condidion;
+    //return await condidion;
 }
 
