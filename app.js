@@ -406,6 +406,7 @@ function myServer(req, res) {
         }
     }
     let theJSON;
+    let returned = false;
     //let condition = "unknown";
     function save(inputs, timesUNIX) {
         theJSON = inputs
@@ -421,25 +422,25 @@ function myServer(req, res) {
         }
         clouds = clouds.sort()
         if (clouds[clouds.length - 1] < 10) {
-            console.log("ion")
+            returned = true
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.write(JSON.stringify({ conditions: "Perfect" }));
             res.end();
             return;
         } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
-            console.log("ion")
+            returned = true
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.write(JSON.stringify({ conditions: "Fair" }));
             res.end();
             return;
         } else if (clouds.length == 0) {
-            console.log("ion")
+            returned = true
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.write(JSON.stringify({ conditions: "Unknown" }));
             res.end();
             return;
         } else {
-            console.log("ion")
+            returned = true
             res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
             res.write(JSON.stringify({ conditions: "Unknown" }));
             res.end();
@@ -516,20 +517,22 @@ function myServer(req, res) {
             .catch(error => console.log('error:', error));
     }
 
-    fs.readFile(home + delimiter + 'notfound.html', function (err, html) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        let date = new Date();
-        let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + ":" + " 404";
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.statusCode = 404;
-        res.write(html);
-        res.end();
-        logging(testing, write)
-    });
-    return;
+    if (!returned) {
+        fs.readFile(home + delimiter + 'notfound.html', function (err, html) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            let date = new Date();
+            let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + ":" + " 404";
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.statusCode = 404;
+            res.write(html);
+            res.end();
+            logging(testing, write)
+        });
+        return;
+    }
 }
 
 const server = home.startsWith('/home/runner/') ?
