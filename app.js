@@ -580,7 +580,7 @@ const isWeatherGood = async (lat, long, reqDate) => {
             return saved
         })
         .catch(error => console.log('error:', error));
-    console.log(condidion)
+    //console.log(condidion)
     while (true) {
         if (condidion == "Perfect" || condidion == "Fair" || condidion == "Bad" || condidion == "Unknown"){
             console.log(condidion)
