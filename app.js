@@ -564,7 +564,7 @@ function isWeatherGood(lat, long, reqDate) {
 
     let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
     timesUNIX = timesUNIX.sort()
-    return fetch(
+    console.log(fetch(
         'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY,
         { method: 'GET' }
     )
@@ -572,6 +572,6 @@ function isWeatherGood(lat, long, reqDate) {
         .then(res => {
             return save(res, timesUNIX)
         })
-        .catch(error => console.log('error:', error));
+        .catch(error => console.log('error:', error)));
 }
 
