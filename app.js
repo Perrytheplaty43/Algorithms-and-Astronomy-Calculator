@@ -480,7 +480,6 @@ function myServer(req, res) {
         let date = new Date();
         let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ":: " + req.socket.remoteAddress + ":" + " " + id;
         res.writeHead(302, { 'Location': 'Images/' + id + '.jpg', 'Content-Type': 'image/jpg' });
-        res.write(html);
         res.end();
         logging(testing, write)
         return;
