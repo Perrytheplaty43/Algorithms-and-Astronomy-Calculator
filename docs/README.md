@@ -45,6 +45,17 @@ parameters:
 
 **`DATE`:** Optional, should be provided in the following format: `YEAR-MONTH-DATE`. Example: `2021-12-22`
 
+# Weather API
+The algorithm used to classidiy the weather in that night into either "Perfect", "Fair", or "Bad" is also being run as a JSON api. 
+`GET` requests should be made with the following parameters:
+
+`https://athesto.ddns.net/api/weather?lat=[LATITUDE]&lon=[LONGITUDE]&date=[DATE]`
+
+<br></br>
+**`LATITUDE` & `LONGITUDE`:** Can be any valid lat long in degrees.
+
+**`DATE`:** Optional, should be provided in the following format: `YEAR-MONTH-DATE`. Example: `2021-12-22` (must be in the future)
+
 ## Acknowledgements
 
  - [Minesweeper](https://github.com/albert-du/BoleroMinesweeper)
