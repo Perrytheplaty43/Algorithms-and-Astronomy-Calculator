@@ -318,6 +318,110 @@ function myServer(req, res) {
         });
         return;
     }
+
+    let theJSON;
+    let condition = "unknown";
+    function save(inputs, timesUNIX) {
+        theJSON = inputs
+        theJSON = JSON.parse(theJSON)
+        let clouds = [];
+        for (let i = 0; i <= theJSON.list.length - 1; i++) {
+            if (timesUNIX[0] <= theJSON.list[i].dt) {
+                if (timesUNIX[1] <= theJSON.list[i].dt) {
+                    break;
+                }
+                clouds.push(theJSON.list[i].clouds.all)
+            }
+        }
+        clouds = clouds.sort()
+        if (clouds[clouds.length - 1] < 10) {
+            return "Perfect";
+        } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
+            return "Fair";
+        } else if (clouds.length == 0) {
+            return "Unknown";
+        } else {
+            return "Bad";
+        }
+    }
+
+    function toRadians(angle) {
+        return angle * (Math.PI / 180)
+    }
+
+    function toDegrees(angle) {
+        return angle * (180 / Math.PI)
+    }
+
+    function sunsetriseTime(lat, long, targetDate) {
+        lat = parseFloat(lat)
+        long = parseFloat(long)
+        let now = new Date(targetDate)
+        let start = new Date(now.getFullYear(), 0, 0);
+        let diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+        let oneDay = 1000 * 60 * 60 * 24;
+        let day = Math.floor(diff / oneDay);
+
+        let y = ((2 * Math.PI) / 365) * (day - 365)
+
+        let eqtime = 229.18 * (0.000075 + 0.001868 * Math.cos(y) - 0.032077 * Math.sin(y) - 0.014615 * Math.cos(2 * y) - 0.040849 * Math.sin(2 * y))
+        let decl = 0.006918 - 0.399912 * Math.cos(y) + 0.070257 * Math.sin(y) - 0.006758 * Math.cos(2 * y) + 0.000907 * Math.sin(2 * y) - 0.002697 * Math.cos(3 * y) + 0.00148 * Math.sin(3 * y)
+
+        let haP = Math.acos(((Math.cos(toRadians(90.833))) / (Math.cos(toRadians(lat)) * Math.cos(decl))) - Math.tan(toRadians(lat)) * Math.tan(decl))
+        haP = toDegrees(haP)
+
+        let haM = -1 * Math.acos(((Math.cos(toRadians(90.833))) / (Math.cos(toRadians(lat)) * Math.cos(decl))) - Math.tan(toRadians(lat)) * Math.tan(decl))
+        haM = toDegrees(haM)
+
+        let sunRiseSet1 = 720 - 4 * (long + haP) - eqtime
+        let sunRiseSet2 = 720 - 4 * (long + haM) - eqtime
+        let output = [sunRiseSet1, sunRiseSet2]
+        return output
+    }
+    const isWeatherGood = async (lat, long, reqDate) => {
+        if (reqDate == "") {
+            let curDate = new Date();
+            reqDate = (curDate.getMonth() + 1) + "-" + curDate.getDate() + "-" + curDate.getFullYear()
+        }
+        let out;
+        let runriseSet = sunsetriseTime(lat, long, reqDate)
+        runriseSet = runriseSet.sort();
+        let rise = new Date(reqDate)
+        let seting = new Date(reqDate)
+        let hours = (runriseSet[0] / 60);
+        let rhours = Math.floor(hours);
+        let minutes = (hours - rhours) * 60;
+        let rminutes = Math.round(minutes);
+        rise.setHours(rhours, rminutes, 0)
+
+        let hours1 = (runriseSet[1] / 60);
+        let rhours1 = Math.floor(hours1);
+        let minutes1 = (hours1 - rhours1) * 60;
+        let rminutes1 = Math.round(minutes1);
+        seting.setHours(rhours1, rminutes1, 0)
+
+        let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
+        timesUNIX = timesUNIX.sort()
+        let condidion = await fetch(
+            'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY,
+            { method: 'GET' }
+        )
+            .then(response => response.text())
+            .then(res => {
+                let saved = save(res, timesUNIX)
+                return saved
+            })
+            .catch(error => console.log('error:', error));
+        while (true) {
+            if (condidion == "Perfect" || condidion == "Fair" || condidion == "Bad" || condidion == "Unknown") {
+                res.write(JSON.stringify({ conditions: condidion }))
+                res.end();
+                return;
+            }
+        }
+        //return await condidion;
+    }
+
     if (method == 'GET' && surl.pathname == '/astroTargetFinder/weatherAPI') {
         let searchParams = surl.searchParams
         let lat = searchParams.get('lat')
@@ -335,16 +439,15 @@ function myServer(req, res) {
             .catch(error => console.log('error:', error));
         return;
     }
+    let no404 = false;
     if (method == 'GET' && surl.pathname == '/api/weather') {
+        no404 = true;
         let searchParams = surl.searchParams
         let lat = searchParams.get('lat')
         let long = searchParams.get('lon')
         let date = searchParams.get('date')
-        isWeatherGood(lat, long, date);
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.write(JSON.stringify({conditions: condition}));
-        res.end();
-        return;
+        isWeatherGood(lat, long, date)
     }
     if (method == 'GET' && surl.pathname == '/api/astroTarget') {
         let searchParams = surl.searchParams
@@ -364,7 +467,7 @@ function myServer(req, res) {
                 let data = JSON.parse(finalData);
                 let writing = []
                 for (i = 0; i <= data.length - 1; i++) {
-                    writing.push( { id: data[i][0], alt: data[i][1], mag: data[i][2], type: data[i][3], constellation: data[i][4] } )
+                    writing.push({ id: data[i][0], alt: data[i][1], mag: data[i][2], type: data[i][3], constellation: data[i][4] })
                 }
                 res.write(JSON.stringify(writing));
                 res.end();
@@ -409,20 +512,23 @@ function myServer(req, res) {
             return;
         }
     }
-    fs.readFile(home + delimiter + 'notfound.html', function (err, html) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        let date = new Date();
-        let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + ":" + " 404";
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.statusCode = 404;
-        res.write(html);
-        res.end();
-        logging(testing, write)
-    });
-    return;
+
+    if (!no404) {
+        fs.readFile(home + delimiter + 'notfound.html', function (err, html) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            let date = new Date();
+            let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + ":" + " 404";
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.statusCode = 404;
+            res.write(html);
+            res.end();
+            logging(testing, write)
+        });
+        return;
+    }
 }
 
 const server = home.startsWith('/home/runner/') ?
@@ -482,97 +588,3 @@ function curlTest(path) {
         return;
     });
 }
-let theJSON;
-let condition = "unknown";
-function save(inputs, timesUNIX) {
-    theJSON = inputs
-    theJSON = JSON.parse(theJSON)
-    let clouds = [];
-    for (let i = 0; i <= theJSON.list.length - 1; i++) {
-        if (timesUNIX[0] <= theJSON.list[i].dt) {
-            if (timesUNIX[1] <= theJSON.list[i].dt) {
-                break;
-            }
-            clouds.push(theJSON.list[i].clouds.all)
-        }
-    }
-    clouds = clouds.sort()
-    if (clouds[clouds.length - 1] < 10) {
-        condition = "Perfect"
-    } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
-        condition = "Fair"
-    } else if (clouds.length == 0) {
-        condition = "Unknown"
-    } else {
-        condition = "Bad"
-    }
-}
-
-function toRadians(angle) {
-    return angle * (Math.PI / 180)
-}
-
-function toDegrees(angle) {
-    return angle * (180 / Math.PI)
-}
-
-function sunsetriseTime(lat, long, targetDate) {
-    lat = parseFloat(lat)
-    long = parseFloat(long)
-    let now = new Date(targetDate)
-    let start = new Date(now.getFullYear(), 0, 0);
-    let diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
-    let oneDay = 1000 * 60 * 60 * 24;
-    let day = Math.floor(diff / oneDay);
-
-    let y = ((2 * Math.PI) / 365) * (day - 365)
-
-    let eqtime = 229.18 * (0.000075 + 0.001868 * Math.cos(y) - 0.032077 * Math.sin(y) - 0.014615 * Math.cos(2 * y) - 0.040849 * Math.sin(2 * y))
-    let decl = 0.006918 - 0.399912 * Math.cos(y) + 0.070257 * Math.sin(y) - 0.006758 * Math.cos(2 * y) + 0.000907 * Math.sin(2 * y) - 0.002697 * Math.cos(3 * y) + 0.00148 * Math.sin(3 * y)
-
-    let haP = Math.acos(((Math.cos(toRadians(90.833))) / (Math.cos(toRadians(lat)) * Math.cos(decl))) - Math.tan(toRadians(lat)) * Math.tan(decl))
-    haP = toDegrees(haP)
-
-    let haM = -1 * Math.acos(((Math.cos(toRadians(90.833))) / (Math.cos(toRadians(lat)) * Math.cos(decl))) - Math.tan(toRadians(lat)) * Math.tan(decl))
-    haM = toDegrees(haM)
-
-    let sunRiseSet1 = 720 - 4 * (long + haP) - eqtime
-    let sunRiseSet2 = 720 - 4 * (long + haM) - eqtime
-    let output = [sunRiseSet1, sunRiseSet2]
-    return output
-}
-function isWeatherGood(lat, long, reqDate) {
-    if (reqDate == "") {
-        let curDate = new Date();
-        reqDate = (curDate.getMonth() + 1) + "-" + curDate.getDate() + "-" + curDate.getFullYear()
-    }
-    let out;
-    let runriseSet = sunsetriseTime(lat, long, reqDate)
-    runriseSet = runriseSet.sort();
-    let rise = new Date(reqDate)
-    let seting = new Date(reqDate)
-    let hours = (runriseSet[0] / 60);
-    let rhours = Math.floor(hours);
-    let minutes = (hours - rhours) * 60;
-    let rminutes = Math.round(minutes);
-    rise.setHours(rhours, rminutes, 0)
-
-    let hours1 = (runriseSet[1] / 60);
-    let rhours1 = Math.floor(hours1);
-    let minutes1 = (hours1 - rhours1) * 60;
-    let rminutes1 = Math.round(minutes1);
-    seting.setHours(rhours1, rminutes1, 0)
-
-    let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
-    timesUNIX = timesUNIX.sort()
-    fetch(
-        'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY,
-        { method: 'GET' }
-    )
-        .then(response => response.text())
-        .then(res => {
-            save(res, timesUNIX)
-        })
-        .catch(error => console.log('error:', error));
-}
-
