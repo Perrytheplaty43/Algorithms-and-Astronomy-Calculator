@@ -531,10 +531,10 @@ function myServer(req, res) {
                 return;
             }
             if (JSON.parse(data).text == undefined || JSON.parse(data).text == null) {
-                res.write(JSON.stringify({ error: "input to large" }))
+                res.write(JSON.stringify({ error: "invalid input format" }))
                 res.end();
             } else if (JSON.parse(data).text.length > 500000) {
-                res.write(JSON.stringify({ error: "invalid input format" }))
+                res.write(JSON.stringify({ error: "input to large" }))
                 res.end();
             } else {
                 res.write(JSON.stringify({ text: unscrambler(JSON.parse(data).text) }))
@@ -558,10 +558,10 @@ function myServer(req, res) {
                 return;
             }
             if (JSON.parse(data).text == undefined || JSON.parse(data).text == null) {
-                res.write(JSON.stringify({ error: "input to large" }))
+                res.write(JSON.stringify({ error: "invalid input format" }))
                 res.end();
             } else if (JSON.parse(data).text.length > 500000) {
-                res.write(JSON.stringify({ error: "invalid input format" }))
+                res.write(JSON.stringify({ error: "input to large" }))
                 res.end();
             } else {
                 res.write(JSON.stringify({ text: randomCase(JSON.parse(data).text) }))
