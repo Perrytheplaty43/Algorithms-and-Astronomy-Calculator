@@ -523,7 +523,14 @@ function myServer(req, res) {
     }
 
     if (method == 'POST' && surl.pathname == '/api/scrambler') {
-        console.log(req.body.toString())
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+        })
+        req.on('end', () => {
+            console.log(JSON.parse(data));
+            res.end();
+        })
         return;
     }
 
