@@ -523,7 +523,7 @@ function myServer(req, res) {
     }
 
     if (method == 'GET' && surl.pathname == '/api/scrambler') {
-        console.log(req.body)
+        console.log(req.body.toString())
     }
 
     if (!no404) {
