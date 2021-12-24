@@ -619,7 +619,7 @@ function unscrambler(input) {
     let z = -2;
     while (true) {
         let out = [];
-        for (i = z + 2; i <= tempArr.length - 1; i++) {
+        for (let i = z + 2; i <= tempArr.length - 1; i++) {
             if (tempArr[i] == " ") {
                 break;
             } else {
