@@ -524,13 +524,18 @@ function myServer(req, res) {
 
     if (method == 'GET' && surl.pathname == '/api/scrambler') {
         let data = '';
-        req.on('data', chunk => {
-            data += chunk;
-        })
-        req.on('end', () => {
-            res.write(JSON.stringify({text: unscrambler(JSON.parse(data).text)}))
+        try {
+            req.on('data', chunk => {
+                data += chunk;
+            })
+            req.on('end', () => {
+                res.write(JSON.stringify({ text: unscrambler(JSON.parse(data).text) }))
+                res.end();
+            })
+        } catch (error) {
+            res.write(JSON.stringify({ error: error }))
             res.end();
-        })
+        }
         return;
     }
 
