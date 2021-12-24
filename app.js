@@ -684,7 +684,7 @@ function randomCase(input) {
     let rand = Math.round(Math.random() * 2);
     let inputArry = input.split("");
 
-    for (i = 0; i <= inputArry.length - 1; i++) {
+    for (let i = 0; i <= inputArry.length - 1; i++) {
         if (rand == 1) {
             inputArry[i] = inputArry[i].toUpperCase();
             rand = Math.round(Math.random() * 2);
