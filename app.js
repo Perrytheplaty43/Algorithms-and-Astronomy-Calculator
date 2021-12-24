@@ -642,7 +642,7 @@ function unscrambler(input) {
             }
         }
         if (superFinal.length == tempArr.length + 1) {
-            return superFinal.reverse().join(' ');
+            return superFinal.reverse().join('');
         } else {
             z += out.length + 1;
         }
