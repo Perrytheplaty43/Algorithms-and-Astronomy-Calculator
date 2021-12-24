@@ -528,7 +528,7 @@ function myServer(req, res) {
             data += chunk;
         })
         req.on('end', () => {
-            console.log(JSON.parse(data).todo);
+            console.log(JSON.parse(data));
             res.end();
         })
     }
