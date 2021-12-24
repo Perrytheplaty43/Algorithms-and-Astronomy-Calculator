@@ -531,7 +531,7 @@ function myServer(req, res) {
             try {
                 JSON.parse(data)
             } catch (e) {
-                res.write(JSON.stringify({ error: e }))
+                res.write(JSON.stringify({ error: "Invalid JSON format" }))
                 res.end();
                 return;
             }
