@@ -56,6 +56,19 @@ The algorithm used to classidiy the weather in that night into either "Perfect",
 
 **`DATE`:** Optional, should be provided in the following format: `YEAR-MONTH-DATE`. Example: `2021-12-22` (must be in the future)
 
+# Scrambler/Unscrambler API
+The algorithm used to scramble/unscramble text is also being run as a JSON api. 
+`GET` requests should be made with the following JSON request body to this usl: `https://athesto.ddns.net/api/scrambler`:
+
+```
+'{
+    "text":"[INPUT]"
+}'
+```
+
+<br></br>
+**`INPUT`:** Should be the text you want to be scramble/unscrambled. Exmaple: `The quick brown fox jumps over the lazy dog`
+
 # Image Search API
 The algorithm used to get images based of the objects NGC or IC number is also being run as a JSON api. 
 `GET` requests should be made with the following parameters:
