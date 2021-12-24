@@ -641,14 +641,14 @@ function unscrambler(input) {
             }
         }
         if (superFinal.length == tempArr.length + 1) {
-            return wordtoOrder(superFinal);
+            return superFinal.join('').split(" ").reverse().join(' ');
         } else {
             z += out.length + 1;
         }
     }
 }
-
-function wordtoOrder(inputs) {
-	let working = inputs.join('').split(" ");
-	return working.reverse().join(' ');
-}
+//clean up
+// function wordtoOrder(inputs) {
+// 	let working = inputs.join('').split(" ");
+// 	return working.reverse().join(' ');
+// }
