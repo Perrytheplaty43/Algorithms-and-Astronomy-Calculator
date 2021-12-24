@@ -627,7 +627,7 @@ function unscrambler(input) {
             }
         }
         let finished = [];
-        y = 1
+        let y = 1
         for (i = out.length - 1; i >= 1; i--) {
             finished[y] = out[i]
             y++
