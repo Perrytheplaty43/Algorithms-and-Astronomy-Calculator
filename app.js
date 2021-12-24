@@ -530,8 +530,39 @@ function myServer(req, res) {
                 res.end();
                 return;
             }
-            res.write(JSON.stringify({ text: unscrambler(JSON.parse(data).text) }))
-            res.end();
+            if (JSON.parse(data).text.length > 500000) {
+                res.write(JSON.stringify({ error: "input to large" }))
+            } else if (JSON.parse(data).text == undefined || JSON.parse(data).text == null) {
+                res.write(JSON.stringify({ error: "invalid input format" }))
+            } else {
+                res.write(JSON.stringify({ text: unscrambler(JSON.parse(data).text) }))
+                res.end();
+            }
+        })
+        return;
+    }
+
+    if (method == 'GET' && surl.pathname == '/api/randomcase') {
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+        })
+        req.on('end', () => {
+            try {
+                JSON.parse(data)
+            } catch (e) {
+                res.write(JSON.stringify({ error: "Invalid JSON format" }))
+                res.end();
+                return;
+            }
+            if (JSON.parse(data).text.length > 500000) {
+                res.write(JSON.stringify({ error: "input to large" }))
+            } else if (JSON.parse(data).text == undefined || JSON.parse(data).text == null) {
+                res.write(JSON.stringify({ error: "invalid input format" }))
+            } else {
+                res.write(JSON.stringify({ text: randomCase(JSON.parse(data).text) }))
+                res.end();
+            }
         })
         return;
     }
@@ -647,4 +678,19 @@ function unscrambler(input) {
             z += out.length + 1;
         }
     }
+}
+
+function randomCase(input) {
+    let rand = Math.round(Math.random() * 2);
+    let inputArry = input.split("");
+
+    for (i = 0; i <= inputArry.length - 1; i++) {
+        if (rand == 1) {
+            inputArry[i] = inputArry[i].toUpperCase();
+            rand = Math.round(Math.random() * 2);
+        } else {
+            rand = Math.round(Math.random() * 2);
+        }
+    }
+    return inputArry.join('');
 }
