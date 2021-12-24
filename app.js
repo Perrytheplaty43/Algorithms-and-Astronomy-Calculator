@@ -522,6 +522,17 @@ function myServer(req, res) {
         }
     }
 
+    if (method == 'GET' && surl.pathname == '/api/scrambler') {
+        let data = '';
+        req.on('data', chunk => {
+            data += chunk;
+        })
+        req.on('end', () => {
+            console.log(JSON.parse(data).todo);
+            res.end();
+        })
+    }
+
     if (!no404) {
         fs.readFile(home + delimiter + 'notfound.html', function (err, html) {
             if (err) {
@@ -596,4 +607,42 @@ function curlTest(path) {
         }
         return;
     });
+}
+
+function unscrambler(input) {
+    let superFinal = [];
+    let tempArr = input.trim().split(" ");
+    wordCount = tempArr.length;
+    tempArr = tempArr.join(' ');
+    tempArr = tempArr.split("");
+    let z = -2;
+    while (true) {
+        let out = [];
+        for (i = z + 2; i <= tempArr.length - 1; i++) {
+            if (tempArr[i] == " ") {
+                break;
+            } else {
+                out.push(tempArr[i]);
+            }
+        }
+        let finished = [];
+        y = 1
+        for (i = out.length - 1; i >= 1; i--) {
+            finished[y] = out[i]
+            y++
+        }
+        finished[0] = out[0];
+        for (i = 0; i <= finished.length - 1; i++) {
+            if (i == 0) {
+                superFinal.push(" ", finished[i]);
+            } else {
+                superFinal.push(finished[i])
+            }
+        }
+        if (superFinal.length == tempArr.length + 1) {
+            return wordtoOrder(superFinal);
+        } else {
+            z += out.length + 1;
+        }
+    }
 }
