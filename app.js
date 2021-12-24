@@ -528,7 +528,8 @@ function myServer(req, res) {
             data += chunk;
         })
         req.on('end', () => {
-            console.log(JSON.parse(data));
+            console.log(JSON.parse(data).text);
+            res.write(JSON.stringify({text: unscrambler(JSON.parse(data).text)}))
             res.end();
         })
         return;
