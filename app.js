@@ -647,3 +647,8 @@ function unscrambler(input) {
         }
     }
 }
+
+function wordtoOrder(inputs) {
+	let working = inputs.join('').split(" ");
+	return working.reverse().join(' ');
+}
