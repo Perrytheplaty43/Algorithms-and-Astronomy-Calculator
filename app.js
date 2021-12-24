@@ -522,13 +522,12 @@ function myServer(req, res) {
         }
     }
 
-    if (method == 'POST' || method == 'GET' && surl.pathname == '/api/scrambler') {
+    if (method == 'GET' && surl.pathname == '/api/scrambler') {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
         })
         req.on('end', () => {
-            console.log(JSON.parse(data).text);
             res.write(JSON.stringify({text: unscrambler(JSON.parse(data).text)}))
             res.end();
         })
@@ -647,8 +646,3 @@ function unscrambler(input) {
         }
     }
 }
-//clean up
-// function wordtoOrder(inputs) {
-// 	let working = inputs.join('').split(" ");
-// 	return working.reverse().join(' ');
-// }
