@@ -522,7 +522,7 @@ function myServer(req, res) {
         }
     }
 
-    if (method == 'GET' && surl.pathname == '/api/scrambler') {
+    if (method == 'POST' && surl.pathname == '/api/scrambler') {
         console.log(req.body.toString())
         return;
     }
