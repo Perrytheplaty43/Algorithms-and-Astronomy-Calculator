@@ -402,23 +402,18 @@ function myServer(req, res) {
 
         let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
         timesUNIX = timesUNIX.sort()
-        let condidion = await fetch(
+        await fetch(
             'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY,
             { method: 'GET' }
         )
             .then(response => response.text())
-            .then(res => {
-                let saved = save(res, timesUNIX)
-                return saved
+            .then(r => {
+                let saved = save(r, timesUNIX)
+                res.write(JSON.stringify({ conditions: saved }))
+                res.end();
+                return
             })
             .catch(error => console.log('error:', error));
-        while (true) {
-            if (condidion == "Perfect" || condidion == "Fair" || condidion == "Bad" || condidion == "Unknown") {
-                res.write(JSON.stringify({ conditions: condidion }))
-                res.end();
-                return;
-            }
-        }
     }
 
     if (method == 'GET' && surl.pathname == '/astroTargetFinder/weatherAPI') {
@@ -528,7 +523,14 @@ function myServer(req, res) {
             data += chunk;
         })
         req.on('end', () => {
-            res.write(JSON.stringify({text: unscrambler(JSON.parse(data).text)}))
+            try {
+                JSON.parse(data)
+            } catch (e) {
+                res.write(JSON.stringify({ error: "Invalid JSON format" }))
+                res.end();
+                return;
+            }
+            res.write(JSON.stringify({ text: unscrambler(JSON.parse(data).text) }))
             res.end();
         })
         return;
@@ -640,7 +642,7 @@ function unscrambler(input) {
             }
         }
         if (superFinal.length == tempArr.length + 1) {
-            return superFinal.join('').split(" ").reverse().join(' ');
+            return superFinal.reverse().join('');
         } else {
             z += out.length + 1;
         }
