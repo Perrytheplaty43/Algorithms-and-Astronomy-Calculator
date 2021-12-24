@@ -687,7 +687,6 @@ function unscrambler(input) {
 function randomCase(input) {
     let rand = Math.round(Math.random() * 2);
     let inputArry = input.split("");
-
     for (let i = 0; i <= inputArry.length - 1; i++) {
         if (rand == 1) {
             inputArry[i] = inputArry[i].toUpperCase();
