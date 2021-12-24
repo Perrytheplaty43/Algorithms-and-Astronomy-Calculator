@@ -522,7 +522,7 @@ function myServer(req, res) {
         }
     }
 
-    if (method == 'POST' && surl.pathname == '/api/scrambler') {
+    if (method == 'POST' || method == 'GET' && surl.pathname == '/api/scrambler') {
         let data = '';
         req.on('data', chunk => {
             data += chunk;
