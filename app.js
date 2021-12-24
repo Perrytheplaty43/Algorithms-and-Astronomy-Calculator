@@ -614,7 +614,6 @@ function curlTest(path) {
 function unscrambler(input) {
     let superFinal = [];
     let tempArr = input.trim().split(" ");
-    wordCount = tempArr.length;
     tempArr = tempArr.join(' ');
     tempArr = tempArr.split("");
     let z = -2;
