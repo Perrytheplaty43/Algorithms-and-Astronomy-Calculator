@@ -407,8 +407,8 @@ function myServer(req, res) {
             { method: 'GET' }
         )
             .then(response => response.text())
-            .then(res => {
-                let saved = save(res, timesUNIX)
+            .then(r => {
+                let saved = save(r, timesUNIX)
                 res.write(JSON.stringify({ conditions: saved }))
                 res.end();
                 return
