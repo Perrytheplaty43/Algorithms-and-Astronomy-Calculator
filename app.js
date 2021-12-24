@@ -628,12 +628,12 @@ function unscrambler(input) {
         }
         let finished = [];
         let y = 1
-        for (i = out.length - 1; i >= 1; i--) {
+        for (let i = out.length - 1; i >= 1; i--) {
             finished[y] = out[i]
             y++
         }
         finished[0] = out[0];
-        for (i = 0; i <= finished.length - 1; i++) {
+        for (let i = 0; i <= finished.length - 1; i++) {
             if (i == 0) {
                 superFinal.push(" ", finished[i]);
             } else {
