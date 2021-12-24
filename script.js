@@ -14,6 +14,7 @@ function onSubmit(event) {
 		document.getElementById("p1").innerHTML = theText;
 		document.getElementById("timerLable").innerHTML = time;
 		document.getElementById("word").innerHTML = "Words: " + wordCounter(words);
+		document.getElementById("char").innerHTML = "Characters: " + words.length;
 		return false;
 	} else if (event.submitter.id == "randomCase_button") {
 		let startCase = new Date();
@@ -22,6 +23,7 @@ function onSubmit(event) {
 		let time = "(Computed in:" + " " + (() => { if (((new Date() - startCase) / 1000) == 0) { toFast = true; return "so fast I couldn't count)"; } else { return (new Date() - startCase) / 1000; } })() + (() => { if (!toFast) { return "s)" } else { return "" } })();
 		document.getElementById("timerLable").innerHTML = time;
 		document.getElementById("word").innerHTML = "Words: " + wordCounter(words);
+		document.getElementById("char").innerHTML = "Characters: " + words.length;
 		document.getElementById("p1").innerHTML = theRandomCase;
 		return false;
 	} else if (event.submitter.id == "clear_button") {
