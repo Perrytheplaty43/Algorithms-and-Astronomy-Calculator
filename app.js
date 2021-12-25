@@ -418,14 +418,18 @@ function myServer(req, res) {
 
         let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
         timesUNIX = timesUNIX.sort()
-        console.log("1")
+        console.log("isWeatherGood 1")
         await fetch(
             'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY,
             { method: 'GET' }
         )
-            .then(response => response.text())
+            .then(response => {
+                console.log("isWeatherGood 1.5")
+
+                return response.text();
+            })
             .then(r => {
-                console.log("2")
+                console.log("isWeatherGood 2")
                 let saved = save(r, timesUNIX)
                 res.write(JSON.stringify({ conditions: saved }))
                 res.end();
@@ -504,10 +508,10 @@ function myServer(req, res) {
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
-        console.log(searchDate)
+        console.log("searchDate 1", searchDate)
         await isWeatherGood(lat, long, dateToSend)
-        console.log(searchDate)
-        if (!home.startsWith('/home/runner/')) {
+        console.log("searchDate 2", searchDate)
+       if (!home.startsWith('/home/runner/')) {
             fetch(
                 'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate,
                 { method: 'GET' }
