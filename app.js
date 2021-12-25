@@ -427,8 +427,9 @@ function myServer(req, res) {
             })
             .then(r => {
                 let saved = save(r, timesUNIX)
+                console.log(astro, "  sfsfsfsdfsfsfdfsd")
                 if (!astro) {
-                    console.log("in")
+                    
                     res.write(JSON.stringify({ conditions: saved }))
                     res.end();
                 }
