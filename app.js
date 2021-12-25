@@ -495,15 +495,14 @@ function myServer(req, res) {
         logging(testing, write)
         return;
     }
-    if (method == 'GET' && surl.pathname == '/astro') {
-        let searchParams = surl.searchParams
+    const astro = async (searchParams) => {
         let lat = searchParams.get('lat')
         let long = searchParams.get('long')
         let tol = searchParams.get('tol')
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
-        isWeatherGood(lat, long, dateToSend)
+        await isWeatherGood(lat, long, dateToSend)
         console.log(searchDate)
         if (!home.startsWith('/home/runner/')) {
             fetch(
@@ -532,6 +531,14 @@ function myServer(req, res) {
                 })
                 .catch(error => console.log('error:', error));
             return;
+        }
+    }
+    if (method == 'GET' && surl.pathname == '/astro') {
+        astro(surl.searchParams)
+        while (true) {
+            if (searchDate != undefined) {
+                return;
+            }
         }
     }
 
