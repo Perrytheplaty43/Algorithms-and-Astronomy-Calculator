@@ -467,7 +467,7 @@ function myServer(req, res) {
             .then(response => response.text())
             .then(data => {
                 res.writeHead(200, { 'Content-Type': 'text/json' });
-                res.write(JSON.stringify({ moonrise: JSON.parse(data).location.time[0].moonrise.time, moonset: JSON.parse(data).location.time[0].moonset.time }));
+                res.write(JSON.stringify({ moonrise: JSON.parse(data).location.time[0].moonrise.time, moonset: JSON.parse(data).location.time[0].moonset.time, phase:  JSON.parse(data).location.time[0].moonphase.value}));
                 res.end();
             })
             .catch(error => console.log('error:', error));
@@ -535,13 +535,13 @@ function myServer(req, res) {
                 let riseset = JSON.parse(finalData)
                 let rise = new Date(riseset.moonrise)
                 let set = new Date(riseset.moonset)
-                console.log(rise.getFullYear() + "-" + rise.getMonth() + "-" + rise.getDate())
+                return [(rise.getTime() / 1000).toFixed(0), (set.getTime() / 1000).toFixed(0)]
             })
             .catch(error => console.log('error:', error));
         return isWeatherGood(lat, long, dateToSend, true).then(() => {
             if (!home.startsWith('/home/runner/')) {
                 return fetch(
-                    'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate,
+                    'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate + "&moonrise=" + moon[0] + "&moonset=" + moon[1],
                     { method: 'GET' }
                 )
                     .then(response => response.text())

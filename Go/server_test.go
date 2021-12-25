@@ -25,7 +25,7 @@ func TestAstro(t *testing.T) {
 
 	for _, table := range tables {
 		records := readCsvFile(table.path)
-		output := astro(records[:], table.lat, table.long, table.long, table.tolMag, table.types, table.date, 0)
+		output := astro(records[:], table.lat, table.long, table.long, table.tolMag, table.types, table.date, 0, 0, 0)
 		if len(output) != 1 {
 			t.Errorf("got: %v, want: .", output[:3])
 		}
