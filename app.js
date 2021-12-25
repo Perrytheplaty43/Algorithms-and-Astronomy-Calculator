@@ -346,6 +346,7 @@ function myServer(req, res) {
                 bad = true
             }
         }
+        console.log(bad)
         if (bad) {
             searchDate = goodWeather[Math.floor((goodWeather.length - 1) / 2)]
         } else {
