@@ -423,6 +423,7 @@ function myServer(req, res) {
             'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY,
             { method: 'GET' }
         )
+            .catch(error => console.log('error:', error))
             .then(response => {
                 console.log("isWeatherGood 1.5")
 
@@ -541,12 +542,7 @@ function myServer(req, res) {
         })
     }
     if (method == 'GET' && surl.pathname == '/astro') {
-        astro(surl.searchParams)
-        while (true) {
-            if (searchDate != undefined) {
-                return;
-            }
-        }
+        return astro(surl.searchParams);
     }
 
     if (method == 'GET' && surl.pathname == '/api/scrambler') {
