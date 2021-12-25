@@ -418,17 +418,24 @@ function myServer(req, res) {
 
         let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
         timesUNIX = timesUNIX.sort()
-        console.log("isWeatherGood 1", lat,  '&lon='  , long  , '&APPID='  , KEY)
-        const response =  await fetch(
+        console.log("isWeatherGood 1")
+        return fetch(
             'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY,
             { method: 'GET' }
         )
-        console.log("isWeatherGood 1.5")
-        const r = await response.text();
-        console.log("isWeatherGood 2")
-        let saved = save(r, timesUNIX)
-        res.write(JSON.stringify({ conditions: saved }))
-        res.end();
+            .then(response => {
+                console.log("isWeatherGood 1.5")
+
+                return response.text();
+            })
+            .then(r => {
+                console.log("isWeatherGood 2")
+                let saved = save(r, timesUNIX)
+                res.write(JSON.stringify({ conditions: saved }))
+                res.end();
+                return
+            })
+            .catch(error => console.log('error:', error));
     }
 
     if (method == 'GET' && surl.pathname == '/astroTargetFinder/weatherAPI') {
