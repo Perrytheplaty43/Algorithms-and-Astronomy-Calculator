@@ -53,13 +53,14 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		moonrise, _ := strconv.ParseInt(r.Form["moonrise"][0], 10, 64)
 		moonset, _ := strconv.ParseInt(r.Form["moonset"][0], 10, 64)
 		types := strings.Split(r.Form["type"][0], ",")
+		moonPhase, _ := strconv.ParseFloat(r.Form["phase"][0], 64)
 		var records [][]string
 		if homeDir == "/home/pi" {
 			records = readCsvFile("/home/pi/github/Algorithums-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
 		} else {
 			records = readCsvFile("/home/alexander_i_bakalov/AAC/astroTargetFinder/ngc2000Final.txt")
 		}
-		finalArray := astro(records[:], lat, long, tol, tolMag, types, date, UNIXtime, moonrise, moonset)
+		finalArray := astro(records[:], lat, long, tol, tolMag, types, date, UNIXtime, moonrise, moonset, moonPhase)
 		j, _ := json.Marshal(finalArray)
 		w.Write(j)
 	default:
@@ -95,7 +96,7 @@ func main() {
 		amTesting = true
 		records := readCsvFile("/home/runner/work/Algorithms-and-Astronomy-Calculator/Algorithms-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
 		var types []string = []string{"Gx", "OC", "Gb", "Nb", "Pl", "CpN", "Ast", "Kt", "TS", "DS", "SS", "Q", "U", "D", "PD"}
-		fmt.Print(astro(records[:], 47.740372, -122.222695, 70, 10, types, "2100-10-16", 0, 0, 0))
+		fmt.Print(astro(records[:], 47.740372, -122.222695, 70, 10, types, "2100-10-16", 0, 0, 0, 99))
 	} else {
 		http.HandleFunc("/astro", astroHandler)
 		sample = append(sample, *star, *star, *star)
@@ -104,7 +105,7 @@ func main() {
 	}
 }
 
-func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string, date string, UNIXtime int64, moonrise int64, moonset int64) [][]interface{} {
+func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string, date string, UNIXtime int64, moonrise int64, moonset int64, moonPhase float64) [][]interface{} {
 	var avgALTArray [][]interface{}
 	var ALT2 float64
 	var noon float64
@@ -123,16 +124,14 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 		searchTimeOut := (searchTime.Hour() * 60) + searchTime.Minute()
 		noon = float64(searchTimeOut / 60)
 	} else {
-		
-		times := sunsetriseTime(lat, long, targetDate)
-
-		daysSinceJ2000 = (diff.Hours() / 24)
-
-		noon = (times[2] / 60) - 12
+		if moonPhase < 40 || moonPhase > 50 || moonPhase != 0 || moonrise != 0 || moonset != 0{
+			noon = float64(((moonset - moonrise) / 2) + moonrise)
+		} else {
+			times := sunsetriseTime(lat, long, targetDate)
+			noon = (times[2] / 60) - 12
+		}
 	}
-	if moonrise !=0 || moonset != 0 {
-		
-	} 
+	daysSinceJ2000 = (diff.Hours() / 24)
 	if noon < 0 {
 		noon += 24
 	}
