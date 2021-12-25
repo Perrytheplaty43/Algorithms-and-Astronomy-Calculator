@@ -428,6 +428,7 @@ function myServer(req, res) {
             .then(r => {
                 let saved = save(r, timesUNIX)
                 if (!astro) {
+                    console.log("in")
                     res.write(JSON.stringify({ conditions: saved }))
                     res.end();
                 }
