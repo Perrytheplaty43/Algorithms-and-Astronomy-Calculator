@@ -418,7 +418,7 @@ function myServer(req, res) {
 
         let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
         timesUNIX = timesUNIX.sort()
-        console.log("isWeatherGood 1")
+        console.log("isWeatherGood 1", lat,  '&lon='  , long  , '&APPID='  , KEY)
         const response =  await fetch(
             'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY,
             { method: 'GET' }
