@@ -117,7 +117,6 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 
 	diff := targetDate.Sub(janFirst)
 	if UNIXtime != 0 {
-		fmt.Println("!+=============================")
 		searchTime := time.Unix(UNIXtime, 0)
 		searchTimeOut := (searchTime.Hour() * 60) + searchTime.Minute()
 		noon = float64(searchTimeOut / 60)
@@ -133,7 +132,6 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 		noon += 24
 	}
 	LST := findLST(noon, daysSinceJ2000, long)
-	fmt.Println(LST)
 	for i := 0; i <= len(data)-1; i++ {
 		RAhour, _ := strconv.ParseFloat(data[i][2], 64)
 		RAMin, _ := strconv.ParseFloat(data[i][3], 64)
