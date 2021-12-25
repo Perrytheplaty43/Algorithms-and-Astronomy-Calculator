@@ -323,6 +323,7 @@ function myServer(req, res) {
     let condition = "unknown";
     let searchDate;
     function save(inputs, timesUNIX) {
+        console.log("indi")
         theJSON = inputs
         theJSON = JSON.parse(theJSON)
         let clouds = [];
@@ -399,7 +400,6 @@ function myServer(req, res) {
             let curDate = new Date();
             reqDate = (curDate.getMonth() + 1) + "-" + curDate.getDate() + "-" + curDate.getFullYear()
         }
-        let out;
         let runriseSet = sunsetriseTime(lat, long, reqDate)
         runriseSet = runriseSet.sort();
         let rise = new Date(reqDate)
