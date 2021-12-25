@@ -321,10 +321,11 @@ function myServer(req, res) {
 
     let theJSON;
     let condition = "unknown";
-    let searchDate;
-    function save(inputs, timesUNIX) {
+    let;
+    function save(inputs, timesUNIX, searchDate) {
         theJSON = inputs
         theJSON = JSON.parse(theJSON)
+        let toReturn = []
         let clouds = [];
         for (let i = 0; i <= theJSON.list.length - 1; i++) {
             if (timesUNIX[0] <= theJSON.list[i].dt) {
@@ -348,19 +349,20 @@ function myServer(req, res) {
         // console.log(goodWeather)
         // console.log(Math.floor((goodWeather.length - 1) / 2))
         if (!bad) {
-            searchDate = goodWeather[Math.floor((goodWeather.length - 1) / 2)]
+            toReturn.push(goodWeather[Math.floor((goodWeather.length - 1) / 2)])
         } else {
-            searchDate = 0
+            toReturn.push(0)
         }
         if (clouds[clouds.length - 1][1] < 10) {
-            return "Perfect";
+            toReturn.push("Perfect");
         } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length < 30) {
-            return "Fair";
+            toReturn.push("Fair");
         } else if (clouds.length == 0) {
-            return "Unknown";
+            toReturn.push("Unknown");
         } else {
-            return "Bad";
+            toReturn.push("Bad");
         }
+        return toReturn;
     }
 
     function toRadians(angle) {
@@ -429,9 +431,9 @@ function myServer(req, res) {
             })
             .then(r => {
                 let saved = save(r, timesUNIX)
-                res.write(JSON.stringify({ conditions: saved }))
+                res.write(JSON.stringify({ conditions: saved[1] }))
                 res.end();
-                return
+                return saved[0]
             })
             .catch(error => console.log('error:', error));
     }
@@ -506,36 +508,39 @@ function myServer(req, res) {
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
-        return isWeatherGood(lat, long, dateToSend).then(() => {
-            if (!home.startsWith('/home/runner/')) {
-                console.log('http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate)
-                return fetch(
-                    'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate,
-                    { method: 'GET' }
-                )
-                    .then(response => response.text())
-                    .then(finalData => {
-                        res.writeHead(200, { 'Content-Type': 'text/json' });
-                        console.log(finalData)
-                        res.write(finalData);
-                        res.end();
-                    })
-                    .catch(error => console.log('error:', error));
-            } else {
-                return fetch(
-                    'http://127.0.0.1:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
-                    { method: 'GET' }
-                )
-                    .then(response => response.text())
-                    .then(finalData => {
-                        res.writeHead(200, { 'Content-Type': 'text/json' });
-                        finalData.join(",")
-                        res.write(finalData);
-                        res.end();
-                    })
-                    .catch(error => console.log('error:', error));
+        let times = isWeatherGood(lat, long, dateToSend).then(() => {
+            console.log(times, "______________")
+            return isWeatherGood(lat, long, dateToSend).then(() => {
+                if (!home.startsWith('/home/runner/')) {
+                    console.log('http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + times[0])
+                    return fetch(
+                        'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate,
+                        { method: 'GET' }
+                    )
+                        .then(response => response.text())
+                        .then(finalData => {
+                            res.writeHead(200, { 'Content-Type': 'text/json' });
+                            console.log(finalData)
+                            res.write(finalData);
+                            res.end();
+                        })
+                        .catch(error => console.log('error:', error));
+                } else {
+                    return fetch(
+                        'http://127.0.0.1:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+                        { method: 'GET' }
+                    )
+                        .then(response => response.text())
+                        .then(finalData => {
+                            res.writeHead(200, { 'Content-Type': 'text/json' });
+                            finalData.join(",")
+                            res.write(finalData);
+                            res.end();
+                        })
+                        .catch(error => console.log('error:', error));
 
-            }
+                }
+            })
         })
     }
     if (method == 'GET' && surl.pathname == '/astro') {
