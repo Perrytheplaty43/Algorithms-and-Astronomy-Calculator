@@ -96,7 +96,7 @@ func main() {
 		amTesting = true
 		records := readCsvFile("/home/runner/work/Algorithms-and-Astronomy-Calculator/Algorithms-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
 		var types []string = []string{"Gx", "OC", "Gb", "Nb", "Pl", "CpN", "Ast", "Kt", "TS", "DS", "SS", "Q", "U", "D", "PD"}
-		fmt.Print(astro(records[:], 47.740372, -122.222695, 70, 10, types, "2100-10-16", 0, 0, 0, 99))
+		fmt.Print(astro(records[:], 47.740372, -122.222695, 70, 10, types, "2100-10-16", 0, 0, 0, 0))
 	} else {
 		http.HandleFunc("/astro", astroHandler)
 		sample = append(sample, *star, *star, *star)
@@ -124,7 +124,7 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 		searchTimeOut := (searchTime.Hour() * 60) + searchTime.Minute()
 		noon = float64(searchTimeOut / 60)
 	} else {
-		if moonPhase < 40 || moonPhase > 50 || moonPhase != 0 || moonrise != 0 || moonset != 0{
+		if moonPhase < 40 && moonPhase > 50 && moonPhase != 0 && moonrise != 0 && moonset != 0{
 			noon = float64(((moonset - moonrise) / 2) + moonrise)
 		} else {
 			times := sunsetriseTime(lat, long, targetDate)
