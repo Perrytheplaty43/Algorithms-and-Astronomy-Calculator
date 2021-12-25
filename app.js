@@ -545,7 +545,8 @@ function myServer(req, res) {
         })
     }
     if (method == 'GET' && surl.pathname == '/astro') {
-        return astro(surl.searchParams);
+        astro(surl.searchParams);
+        return;
     }
 
     if (method == 'GET' && surl.pathname == '/api/scrambler') {
