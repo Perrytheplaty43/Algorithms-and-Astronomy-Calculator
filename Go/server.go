@@ -117,6 +117,7 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 
 	diff := targetDate.Sub(janFirst)
 	if UNIXtime != 0 {
+		fmt.Println("!+=============================")
 		searchTime := time.Unix(UNIXtime, 0)
 		searchTimeOut := (searchTime.Hour() * 60) + searchTime.Minute()
 		noon = float64(searchTimeOut / 60)
@@ -155,6 +156,7 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 		}
 		toPush := []interface{}{data[i][0], ALT2}
 		avgALTArray = append(avgALTArray, toPush)
+		fmt.Println(avgALTArray)
 	}
 	sort.Slice(avgALTArray[:], func(i, j int) bool {
 		return avgALTArray[i][1].(float64) > avgALTArray[j][1].(float64)
