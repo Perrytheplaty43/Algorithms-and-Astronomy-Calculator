@@ -397,7 +397,7 @@ function myServer(req, res) {
         let output = [sunRiseSet1, sunRiseSet2]
         return output
     }
-    const isWeatherGood = async (lat, long, reqDate) => {
+    const isWeatherGood = async (lat, long, reqDate, astro) => {
         if (reqDate == "") {
             let curDate = new Date();
             reqDate = (curDate.getMonth() + 1) + "-" + curDate.getDate() + "-" + curDate.getFullYear()
@@ -434,8 +434,10 @@ function myServer(req, res) {
             .then(r => {
                 console.log("isWeatherGood 2")
                 let saved = save(r, timesUNIX)
-                res.write(JSON.stringify({ conditions: saved }))
-                res.end();
+                if (!astro) {
+                    res.write(JSON.stringify({ conditions: saved }))
+                    res.end();
+                }
                 return
             })
             .catch(error => console.log('error:', error));
@@ -466,7 +468,7 @@ function myServer(req, res) {
         let long = searchParams.get('lon')
         let date = searchParams.get('date')
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        isWeatherGood(lat, long, date)
+        isWeatherGood(lat, long, date, false)
     }
     if (method == 'GET' && surl.pathname == '/api/astroTarget') {
         let searchParams = surl.searchParams
@@ -512,7 +514,7 @@ function myServer(req, res) {
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
         console.log("searchDate 1", searchDate)
-        isWeatherGood(lat, long, dateToSend).then(() => {
+        return isWeatherGood(lat, long, dateToSend, true).then(() => {
             console.log("searchDate 2", searchDate)
             if (!home.startsWith('/home/runner/')) {
                 return fetch(
@@ -545,8 +547,7 @@ function myServer(req, res) {
         })
     }
     if (method == 'GET' && surl.pathname == '/astro') {
-        astro(surl.searchParams);
-        return;
+        return astro(surl.searchParams);
     }
 
     if (method == 'GET' && surl.pathname == '/api/scrambler') {
