@@ -512,7 +512,7 @@ function myServer(req, res) {
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
         console.log("searchDate 1", searchDate)
-        return isWeatherGood(lat, long, dateToSend).then(() => {
+        isWeatherGood(lat, long, dateToSend).then(() => {
             console.log("searchDate 2", searchDate)
             if (!home.startsWith('/home/runner/')) {
                 return fetch(
