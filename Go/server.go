@@ -160,7 +160,6 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 	sort.Slice(avgALTArray[:], func(i, j int) bool {
 		return avgALTArray[i][1].(float64) > avgALTArray[j][1].(float64)
 	})
-	fmt.Println(data, tol, tolMag, types)
 	return formOutput(avgALTArray, data, tol, tolMag, types)
 }
 func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, tolMag float64, types []string) [][]interface{} {

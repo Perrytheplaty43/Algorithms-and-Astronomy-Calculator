@@ -522,6 +522,7 @@ function myServer(req, res) {
                     .then(response => response.text())
                     .then(finalData => {
                         res.writeHead(200, { 'Content-Type': 'text/json' });
+                        console.log(finalData)
                         res.write(finalData);
                         res.end();
                     })
