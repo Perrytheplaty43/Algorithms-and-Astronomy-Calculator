@@ -418,12 +418,14 @@ function myServer(req, res) {
 
         let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
         timesUNIX = timesUNIX.sort()
+        console.log("1")
         await fetch(
             'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY,
             { method: 'GET' }
         )
             .then(response => response.text())
             .then(r => {
+                console.log("2")
                 let saved = save(r, timesUNIX)
                 res.write(JSON.stringify({ conditions: saved }))
                 res.end();
