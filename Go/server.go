@@ -46,9 +46,7 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		tol, _ := strconv.ParseFloat(r.Form["tol"][0], 64)
 		tolMag, _ := strconv.ParseFloat(r.Form["tolMag"][0], 64)
 		UNIXtime, _ := strconv.ParseInt(r.Form["weatherTime"][0], 10, 64)
-		fmt.Println(UNIXtime)
 		if len(r.Form["weatherTime"][0]) <= 0 {
-			fmt.Println(UNIXtime)
 			UNIXtime = 0
 		}
 		date := r.Form["date"][0]
@@ -123,6 +121,7 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 		searchTimeOut := (searchTime.Hour() * 60) + searchTime.Minute()
 		noon = float64(searchTimeOut / 60)
 	} else {
+		fmt.Println(UNIXtime)
 		times := sunsetriseTime(lat, long, targetDate)
 
 		daysSinceJ2000 = (diff.Hours() / 24)

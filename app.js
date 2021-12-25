@@ -429,7 +429,6 @@ function myServer(req, res) {
                 return response.text();
             })
             .then(r => {
-                console.log("isWeatherGood 2")
                 let saved = save(r, timesUNIX)
                 res.write(JSON.stringify({ conditions: saved }))
                 res.end();
@@ -473,7 +472,6 @@ function myServer(req, res) {
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
-        console.log('http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend)
         fetch(
             'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
             { method: 'GET' }
@@ -511,6 +509,7 @@ function myServer(req, res) {
         let dateToSend = searchParams.get('date')
         return isWeatherGood(lat, long, dateToSend).then(() => {
             if (!home.startsWith('/home/runner/')) {
+                console.log('http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend)
                 return fetch(
                     'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate,
                     { method: 'GET' }
