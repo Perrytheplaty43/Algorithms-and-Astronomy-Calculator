@@ -33,7 +33,7 @@ let ip = '10.138.0.3';
 let addr = "athesto.ddns.net"
 if (home.startsWith('/home/pi')) {
     ip = '192.168.1.88';
-    addr = "athesto-dev.net"
+    addr = "athesto-dev.ddns.net"
 }
 
 if (!home.startsWith('/home/runner')) {
