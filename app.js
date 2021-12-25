@@ -541,7 +541,7 @@ function myServer(req, res) {
         }
     }
     if (method == 'GET' && surl.pathname == '/astro') {
-        astro(surl.searchParams)
+        await astro(surl.searchParams)
         while (true) {
             if (searchDate != undefined) {
                 return;
