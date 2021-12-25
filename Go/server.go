@@ -45,8 +45,8 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		long, _ := strconv.ParseFloat(r.Form["long"][0], 64)
 		tol, _ := strconv.ParseFloat(r.Form["tol"][0], 64)
 		tolMag, _ := strconv.ParseFloat(r.Form["tolMag"][0], 64)
-		UNIXtime, _ := strconv.ParseInt(r.Form["searchTime"][0], 10, 64)
-		if len(r.Form["searchTime"][0]) <= 0 {
+		UNIXtime, _ := strconv.ParseInt(r.Form["weatherTime"][0], 10, 64)
+		if len(r.Form["weatherTime"][0]) <= 0 {
 			UNIXtime = 0
 		}
 		date := r.Form["date"][0]
