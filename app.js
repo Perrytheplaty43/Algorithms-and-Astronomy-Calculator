@@ -30,8 +30,10 @@ let fileCount;
 
 let KEY = process.env.KEY
 let ip = '10.138.0.3';
+let addr = "athesto.ddns.net"
 if (home.startsWith('/home/pi')) {
     ip = '192.168.1.88';
+    addr = "athesto-dev.net"
 }
 
 if (!home.startsWith('/home/runner')) {
@@ -525,7 +527,7 @@ function myServer(req, res) {
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
         let moon = fetch(
-            'https://' + ip + ':8001/api/moon?lat=' + lat + '&lon=' + long + "&date=" + dateToSend,
+            'https://' + addr + '/api/moon?lat=' + lat + '&lon=' + long + "&date=" + dateToSend,
             { method: 'GET' }
         )
             .then(response => response.text())
