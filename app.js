@@ -496,7 +496,6 @@ function myServer(req, res) {
         return;
     }
     if (method == 'GET' && surl.pathname == '/astro') {
-        isWeatherGood(lat, long, dateToSend)
         let searchParams = surl.searchParams
         let lat = searchParams.get('lat')
         let long = searchParams.get('long')
@@ -504,6 +503,7 @@ function myServer(req, res) {
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
+        isWeatherGood(lat, long, dateToSend)
         console.log(searchDate)
         if (!home.startsWith('/home/runner/')) {
             fetch(
