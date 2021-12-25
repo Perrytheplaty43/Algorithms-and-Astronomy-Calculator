@@ -419,23 +419,16 @@ function myServer(req, res) {
         let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
         timesUNIX = timesUNIX.sort()
         console.log("isWeatherGood 1")
-        return await fetch(
+        const response =  await fetch(
             'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY,
             { method: 'GET' }
         )
-            .then(response => {
-                console.log("isWeatherGood 1.5")
-
-                return response.text();
-            })
-            .then(r => {
-                console.log("isWeatherGood 2")
-                let saved = save(r, timesUNIX)
-                res.write(JSON.stringify({ conditions: saved }))
-                res.end();
-                return
-            })
-            .catch(error => console.log('error:', error));
+        console.log("isWeatherGood 1.5")
+        const r = await response.text();
+        console.log("isWeatherGood 2")
+        let saved = save(r, timesUNIX)
+        res.write(JSON.stringify({ conditions: saved }))
+        res.end();
     }
 
     if (method == 'GET' && surl.pathname == '/astroTargetFinder/weatherAPI') {
@@ -541,7 +534,7 @@ function myServer(req, res) {
         }
     }
     if (method == 'GET' && surl.pathname == '/astro') {
-        await astro(surl.searchParams)
+        astro(surl.searchParams)
         while (true) {
             if (searchDate != undefined) {
                 return;
