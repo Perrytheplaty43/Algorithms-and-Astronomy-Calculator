@@ -323,7 +323,6 @@ function myServer(req, res) {
     let condition = "unknown";
     let searchDate;
     function save(inputs, timesUNIX) {
-        console.log("indi")
         theJSON = inputs
         theJSON = JSON.parse(theJSON)
         let clouds = [];
@@ -339,21 +338,19 @@ function myServer(req, res) {
         let goodWeather = []
         let bad = false
         for (let i = 0; i <= clouds.length - 1; i++) {
-            if (clouds[clouds.length - 1][1] < 10) {
+            if (clouds[i][1] < 10) {
                 goodWeather.push(clouds[i])
             }
             if (clouds[clouds.length - 1][1] > 10 || ((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length > 30) {
                 bad = true
             }
         }
-        // console.log(goodWeather)
-        // console.log(Math.floor((goodWeather.length - 1) / 2))
         if (!bad) {
             searchDate = goodWeather[Math.floor((goodWeather.length - 1) / 2)]
         } else {
             searchDate = 0
         }
-        if (clouds[clouds.length - 1][1] < 10) {
+        if (((() => {for(let i = 0; i <= clouds.length - 1; i++){if(clouds[i][1] > 10){return true}}return false})())) {
             return "Perfect";
         } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length < 30) {
             return "Fair";
@@ -420,19 +417,15 @@ function myServer(req, res) {
 
         let timesUNIX = [rise.getTime() / 1000, seting.getTime() / 1000];
         timesUNIX = timesUNIX.sort()
-        console.log("isWeatherGood 1")
         return fetch(
             'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&APPID=' + KEY,
             { method: 'GET' }
         )
             .catch(error => console.log('error:', error))
             .then(response => {
-                console.log("isWeatherGood 1.5")
-
                 return response.text();
             })
             .then(r => {
-                console.log("isWeatherGood 2")
                 let saved = save(r, timesUNIX)
                 if (!astro) {
                     res.write(JSON.stringify({ conditions: saved }))
@@ -513,9 +506,7 @@ function myServer(req, res) {
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
-        console.log("searchDate 1", searchDate)
         return isWeatherGood(lat, long, dateToSend, true).then(() => {
-            console.log("searchDate 2", searchDate)
             if (!home.startsWith('/home/runner/')) {
                 return fetch(
                     'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate,
@@ -524,7 +515,6 @@ function myServer(req, res) {
                     .then(response => response.text())
                     .then(finalData => {
                         res.writeHead(200, { 'Content-Type': 'text/json' });
-                        console.log(finalData)
                         res.write(finalData);
                         res.end();
                     })
