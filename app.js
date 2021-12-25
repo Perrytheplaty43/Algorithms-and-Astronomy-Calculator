@@ -453,6 +453,25 @@ function myServer(req, res) {
             .catch(error => console.log('error:', error));
         return;
     }
+    if (method == 'GET' && surl.pathname == '/api/moon') {
+        let searchParams = surl.searchParams
+        let lat = searchParams.get('lat')
+        let long = searchParams.get('lon')
+        let date = searchParams.get('date')
+        fetch(
+            'https://api.met.no/weatherapi/sunrise/2.0/.json?lat=' + lat +'&lon=' + long + '&date=' + date + '&offset=-00:00',
+            { method: 'GET' }
+        )
+            .then(response => response.text())
+            .then(data => {
+                res.writeHead(200, { 'Content-Type': 'text/json' });
+                console.log(JSON.parse(data))
+                res.write(JSON.parse(data).location.time[0].moonrise.time);
+                res.end();
+            })
+            .catch(error => console.log('error:', error));
+        return;
+    }
     let no404 = false;
     if (method == 'GET' && surl.pathname == '/api/weather') {
         no404 = true;
