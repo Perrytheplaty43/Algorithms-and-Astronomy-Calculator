@@ -502,6 +502,7 @@ function myServer(req, res) {
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
+        console.log(searchDate)
         await isWeatherGood(lat, long, dateToSend)
         console.log(searchDate)
         if (!home.startsWith('/home/runner/')) {
