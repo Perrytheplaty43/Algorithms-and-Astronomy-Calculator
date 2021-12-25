@@ -321,7 +321,6 @@ function myServer(req, res) {
 
     let theJSON;
     let condition = "unknown";
-    let;
     function save(inputs, timesUNIX, searchDate) {
         theJSON = inputs
         theJSON = JSON.parse(theJSON)
