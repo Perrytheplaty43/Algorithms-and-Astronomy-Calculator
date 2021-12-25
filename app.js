@@ -323,7 +323,6 @@ function myServer(req, res) {
     let condition = "unknown";
     let searchDate;
     function save(inputs, timesUNIX) {
-        console.log("indi")
         theJSON = inputs
         theJSON = JSON.parse(theJSON)
         let clouds = [];
@@ -509,7 +508,7 @@ function myServer(req, res) {
         let dateToSend = searchParams.get('date')
         return isWeatherGood(lat, long, dateToSend).then(() => {
             if (!home.startsWith('/home/runner/')) {
-                console.log('http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend)
+                console.log('http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate)
                 return fetch(
                     'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate,
                     { method: 'GET' }
