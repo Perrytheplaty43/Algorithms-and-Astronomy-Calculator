@@ -501,7 +501,7 @@ function myServer(req, res) {
         logging(testing, write)
         return;
     }
-    const astro =  (searchParams) => {
+    const astro = (searchParams) => {
         let lat = searchParams.get('lat')
         let long = searchParams.get('long')
         let tol = searchParams.get('tol')
@@ -512,7 +512,7 @@ function myServer(req, res) {
         return isWeatherGood(lat, long, dateToSend).then(() => {
             console.log("searchDate 2", searchDate)
             if (!home.startsWith('/home/runner/')) {
-                fetch(
+                return fetch(
                     'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate,
                     { method: 'GET' }
                 )
@@ -523,9 +523,8 @@ function myServer(req, res) {
                         res.end();
                     })
                     .catch(error => console.log('error:', error));
-                return;
             } else {
-                fetch(
+                return fetch(
                     'http://127.0.0.1:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
                     { method: 'GET' }
                 )
@@ -537,7 +536,7 @@ function myServer(req, res) {
                         res.end();
                     })
                     .catch(error => console.log('error:', error));
-                return;
+
             }
         })
     }
