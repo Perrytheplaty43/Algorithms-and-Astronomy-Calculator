@@ -466,7 +466,7 @@ function myServer(req, res) {
             .then(data => {
                 res.writeHead(200, { 'Content-Type': 'text/json' });
                 console.log(JSON.parse(data))
-                res.write(JSON.parse(data).location.time[0].moonrise.time);
+                res.write(JSON.stringify({moonrise: JSON.parse(data).location.time[0].moonrise.time, moonset: JSON.parse(data).location.time[0].moonset.time}));
                 res.end();
             })
             .catch(error => console.log('error:', error));
