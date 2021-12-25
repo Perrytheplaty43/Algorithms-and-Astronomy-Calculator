@@ -525,12 +525,11 @@ function myServer(req, res) {
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
         let moon = fetch(
-            'http://' + ip + ':8001/api/moon?lat=' + lat + '&lon=' + long + "&date=" + dateToSend,
+            'https://' + ip + ':8001/api/moon?lat=' + lat + '&lon=' + long + "&date=" + dateToSend,
             { method: 'GET' }
         )
             .then(response => response.text())
             .then(finalData => {
-                console.log(finalData)
                 let riseset = JSON.parse(finalData)
                 let rise = new Date(riseset.moonrise)
                 let set = new Date(riseset.moonset)
