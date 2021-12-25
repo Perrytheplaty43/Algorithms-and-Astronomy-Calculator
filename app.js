@@ -350,7 +350,7 @@ function myServer(req, res) {
         } else {
             searchDate = 0
         }
-        if (((() => {for(let i = 0; i <= clouds.length - 1; i++){if(clouds[i][1] > 10){return true}}return false})())) {
+        if (((() => { for (let i = 0; i <= clouds.length - 1; i++) { if (clouds[i][1] > 10) { return true } } return false })())) {
             return "Perfect";
         } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length < 30) {
             return "Fair";
@@ -459,13 +459,13 @@ function myServer(req, res) {
         let long = searchParams.get('lon')
         let date = searchParams.get('date')
         fetch(
-            'https://api.met.no/weatherapi/sunrise/2.0/.json?lat=' + lat +'&lon=' + long + '&date=' + date + '&offset=-00:00',
+            'https://api.met.no/weatherapi/sunrise/2.0/.json?lat=' + lat + '&lon=' + long + '&date=' + date + '&offset=-00:00',
             { method: 'GET' }
         )
             .then(response => response.text())
             .then(data => {
                 res.writeHead(200, { 'Content-Type': 'text/json' });
-                res.write(JSON.stringify({moonrise: JSON.parse(data).location.time[0].moonrise.time, moonset: JSON.parse(data).location.time[0].moonset.time}));
+                res.write(JSON.stringify({ moonrise: JSON.parse(data).location.time[0].moonrise.time, moonset: JSON.parse(data).location.time[0].moonset.time }));
                 res.end();
             })
             .catch(error => console.log('error:', error));
@@ -524,6 +524,18 @@ function myServer(req, res) {
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
+        let moon = fetch(
+            'http://' + ip + ':8001/api/moon?lat=' + lat + '&lon=' + long + "&date=" + dateToSend,
+            { method: 'GET' }
+        )
+            .then(response => response.text())
+            .then(finalData => {
+                let riseset = JSON.parse(finalData)
+                let rise = new Date(riseset.moonrise)
+                let set = new Date(riseset.moonset)
+                console.log(rise.getFullYear() + "-" + rise.getMonth() + "-" + rise.getDate())
+            })
+            .catch(error => console.log('error:', error));
         return isWeatherGood(lat, long, dateToSend, true).then(() => {
             if (!home.startsWith('/home/runner/')) {
                 return fetch(
