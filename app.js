@@ -501,7 +501,7 @@ function myServer(req, res) {
         logging(testing, write)
         return;
     }
-    const astro = async (searchParams) => {
+    const astro =  (searchParams) => {
         let lat = searchParams.get('lat')
         let long = searchParams.get('long')
         let tol = searchParams.get('tol')
@@ -509,36 +509,37 @@ function myServer(req, res) {
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
         console.log("searchDate 1", searchDate)
-        await isWeatherGood(lat, long, dateToSend)
-        console.log("searchDate 2", searchDate)
-       if (!home.startsWith('/home/runner/')) {
-            fetch(
-                'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate,
-                { method: 'GET' }
-            )
-                .then(response => response.text())
-                .then(finalData => {
-                    res.writeHead(200, { 'Content-Type': 'text/json' });
-                    res.write(finalData);
-                    res.end();
-                })
-                .catch(error => console.log('error:', error));
-            return;
-        } else {
-            fetch(
-                'http://127.0.0.1:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
-                { method: 'GET' }
-            )
-                .then(response => response.text())
-                .then(finalData => {
-                    res.writeHead(200, { 'Content-Type': 'text/json' });
-                    finalData.join(",")
-                    res.write(finalData);
-                    res.end();
-                })
-                .catch(error => console.log('error:', error));
-            return;
-        }
+        return isWeatherGood(lat, long, dateToSend).then(() => {
+            console.log("searchDate 2", searchDate)
+            if (!home.startsWith('/home/runner/')) {
+                fetch(
+                    'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate,
+                    { method: 'GET' }
+                )
+                    .then(response => response.text())
+                    .then(finalData => {
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(finalData);
+                        res.end();
+                    })
+                    .catch(error => console.log('error:', error));
+                return;
+            } else {
+                fetch(
+                    'http://127.0.0.1:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+                    { method: 'GET' }
+                )
+                    .then(response => response.text())
+                    .then(finalData => {
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        finalData.join(",")
+                        res.write(finalData);
+                        res.end();
+                    })
+                    .catch(error => console.log('error:', error));
+                return;
+            }
+        })
     }
     if (method == 'GET' && surl.pathname == '/astro') {
         astro(surl.searchParams)
