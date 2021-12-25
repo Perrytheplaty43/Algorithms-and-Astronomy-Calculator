@@ -45,6 +45,10 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		long, _ := strconv.ParseFloat(r.Form["long"][0], 64)
 		tol, _ := strconv.ParseFloat(r.Form["tol"][0], 64)
 		tolMag, _ := strconv.ParseFloat(r.Form["tolMag"][0], 64)
+		UNIXtime, _ := strconv.ParseInt(r.Form["searchTime"][0], 10, 64)
+		if len(r.Form["searchTime"][0]) <= 0 {
+			UNIXtime = 0
+		}
 		date := r.Form["date"][0]
 		types := strings.Split(r.Form["type"][0], ",")
 		var records [][]string
@@ -53,7 +57,7 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		} else {
 			records = readCsvFile("/home/alexander_i_bakalov/AAC/astroTargetFinder/ngc2000Final.txt")
 		}
-		finalArray := astro(records[:], lat, long, tol, tolMag, types, date)
+		finalArray := astro(records[:], lat, long, tol, tolMag, types, date, UNIXtime)
 		j, _ := json.Marshal(finalArray)
 		w.Write(j)
 	default:
@@ -89,7 +93,7 @@ func main() {
 		amTesting = true
 		records := readCsvFile("/home/runner/work/Algorithms-and-Astronomy-Calculator/Algorithms-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
 		var types []string = []string{"Gx", "OC", "Gb", "Nb", "Pl", "CpN", "Ast", "Kt", "TS", "DS", "SS", "Q", "U", "D", "PD"}
-		fmt.Print(astro(records[:], 47.740372, -122.222695, 70, 10, types, "2100-10-16"))
+		fmt.Print(astro(records[:], 47.740372, -122.222695, 70, 10, types, "2100-10-16", 0))
 	} else {
 		http.HandleFunc("/astro", astroHandler)
 		sample = append(sample, *star, *star, *star)
@@ -98,9 +102,11 @@ func main() {
 	}
 }
 
-func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string, date string) [][]interface{} {
+func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string, date string, UNIXtime int64) [][]interface{} {
 	var avgALTArray [][]interface{}
 	var ALT2 float64
+	var noon float64
+	var daysSinceJ2000 float64
 
 	janFirst, _ := time.Parse(time.RFC3339, "2000-01-01T00:00:00Z")
 	targetDate := time.Now()
@@ -110,11 +116,17 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 	}
 
 	diff := targetDate.Sub(janFirst)
-	times := sunsetriseTime(lat, long, targetDate)
+	if UNIXtime != 0 {
+		searchTime := time.Unix(UNIXtime, 0)
+		searchTimeOut := (searchTime.Hour() * 60) + searchTime.Minute()
+		noon = float64(searchTimeOut / 60)
+	} else {
+		times := sunsetriseTime(lat, long, targetDate)
 
-	daysSinceJ2000 := (diff.Hours() / 24)
+		daysSinceJ2000 = (diff.Hours() / 24)
 
-	noon := (times[2] / 60) - 12
+		noon = (times[2] / 60) - 12
+	}
 	if noon < 0 {
 		noon += 24
 	}

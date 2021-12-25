@@ -321,6 +321,7 @@ function myServer(req, res) {
 
     let theJSON;
     let condition = "unknown";
+    let searchDate;
     function save(inputs, timesUNIX) {
         theJSON = inputs
         theJSON = JSON.parse(theJSON)
@@ -330,13 +331,28 @@ function myServer(req, res) {
                 if (timesUNIX[1] <= theJSON.list[i].dt) {
                     break;
                 }
-                clouds.push(theJSON.list[i].clouds.all)
+                clouds.push([theJSON.list[i].dt, theJSON.list[i].clouds.all])
             }
         }
-        clouds = clouds.sort()
-        if (clouds[clouds.length - 1] < 10) {
+        clouds = clouds.sort(compareSecondColumn)
+        let goodWeather = []
+        let bad = false
+        for (let i = 0; i <= clouds.length - 1; i++) {
+            if (clouds[clouds.length - 1][1] < 10) {
+                goodWeather.push(clouds[i])
+            }
+            if (clouds[clouds.length - 1][1] > 10 || ((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length > 30) {
+                bad = true
+            }
+        }
+        if (bad) {
+            searchDate = goodWeather[Math.floor((goodWeather.length - 1) / 2)]
+        } else {
+            searchDate = 0
+        }
+        if (clouds[clouds.length - 1][1] < 10) {
             return "Perfect";
-        } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i]; } return turning })()) / clouds.length < 30) {
+        } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length < 30) {
             return "Fair";
         } else if (clouds.length == 0) {
             return "Unknown";
@@ -487,9 +503,10 @@ function myServer(req, res) {
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
+        await isWeatherGood(lat, long, dateToSend)
         if (!home.startsWith('/home/runner/')) {
             fetch(
-                'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+                'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate,
                 { method: 'GET' }
             )
                 .then(response => response.text())
@@ -696,4 +713,13 @@ function randomCase(input) {
         }
     }
     return inputArry.join('');
+}
+
+function compareSecondColumn(a, b) {
+    if (a[1] === b[1]) {
+        return 0;
+    }
+    else {
+        return (a[1] < b[1]) ? -1 : 1;
+    }
 }
