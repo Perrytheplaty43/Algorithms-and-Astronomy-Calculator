@@ -142,8 +142,10 @@ label {
 }
 
 .suc {
-    background-color: lightgreen;
+    text-align: center;
+    background-color: #008d00;
     width: 25%;
+    border-radius: 10px;
 }
 
 .sucText {
@@ -151,8 +153,10 @@ label {
 }
 
 .same {
-    background-color: rgb(255, 97, 97);
+    background-color: rgb(100 0 0);
     width: 25%;
+    text-align: center;
+    border-radius: 10px;
 }
 
 .sameText {
