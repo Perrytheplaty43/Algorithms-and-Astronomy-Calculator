@@ -605,6 +605,7 @@ function myServer(req, res) {
     let none = true
     let theLoginRes;
     const login = async (user, pass, only) => {
+        console.log("fav? :", only)
         const snapshot = await db.collection('users').get();
         return await snapshot.forEach(async (doc) => {
             if (doc.id == user) {
