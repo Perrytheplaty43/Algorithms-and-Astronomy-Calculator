@@ -47,10 +47,11 @@ if (!home.startsWith('/home/runner')) {
     })
 }
 
-import serviceAccount from './regal-campaign-334804-b6bd7af56930.json';
+import serviceAccount from './regal-campaign-334804-firebase-adminsdk-diw5x-9e37631f62.json';
+import admin from 'firebase-admin'
 
 initializeApp({
-    credential: cert(serviceAccount),
+    credential: admin.credential.cert(serviceAccount),
     databaseURL: 'https://regal-campaign-334804-default-rtdb.firebaseio.com/'
 });
 
