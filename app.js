@@ -523,13 +523,6 @@ function myServer(req, res) {
             .catch(error => console.log('error:', error));
         return;
     }
-    if (method == 'POST' && surl.pathname == '/api/login') {
-        let searchParams = surl.searchParams
-        let user = searchParams.get('user')
-        let pass = searchParams.get('pass')
-
-        return login(user, pass)
-    }
     const login = (user, pass) => {
         let salt = await bcrypt.genSalt()
         let hashedPass = await bcrypt.hash(pass, salt)
@@ -542,6 +535,14 @@ function myServer(req, res) {
             salt: salt
         });
     }
+    if (method == 'POST' && surl.pathname == '/api/login') {
+        let searchParams = surl.searchParams
+        let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
+
+        return login(user, pass)
+    }
+
     if (method == 'GET' && surl.pathname == '/api/moon') {
         let searchParams = surl.searchParams
         let lat = searchParams.get('lat')
