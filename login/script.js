@@ -8,7 +8,9 @@ function onSubmit(event) {
             .then(response => response.text())
             .then(data => {
                 if (JSON.parse(data).res == "same") {
-                    alert("Duplicate username")
+                    document.getElementById("same").style.display = "block"
+                } else if (JSON.parse(data).res == "sec") {
+                    document.getElementById("suc").style.display = "block"
                 }
             })
             .then(alert("suc"))
