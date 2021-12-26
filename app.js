@@ -525,6 +525,16 @@ function myServer(req, res) {
         return;
     }
     const signup = async (user, pass) => {
+        const snapshot = await db.collection('users').get();
+
+        snapshot.forEach((doc) => {
+            if (doc.id == user) {
+                res.writeHead(200, { 'Content-Type': 'text/json' });
+                res.write(JSON.stringify({ res: "same" }));
+                res.end();
+                return
+            }
+        })
         let salt = await bcrypt.genSalt()
         let hashedPass = await bcrypt.hash(pass, salt)
 
