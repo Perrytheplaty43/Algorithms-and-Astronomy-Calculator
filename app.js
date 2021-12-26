@@ -19,8 +19,8 @@ globalThis.child = child
 import dotenv from 'dotenv'
 dotenv.config()
 
-const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
-const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+import { initializeApp, applicationDefault, cert } from 'firebase-admin/app';
+import { getFirestore, Timestamp, FieldValue } from 'firebase-admin/firestore';
 
 const delimiter = "/";
 
