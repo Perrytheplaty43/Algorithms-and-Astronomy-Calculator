@@ -45,7 +45,7 @@ if (!home.startsWith('/home/runner')) {
     })
 }
 
-const serviceAccount = require('./regal-campaign-334804-b6bd7af56930.json');
+import serviceAccount from './regal-campaign-334804-b6bd7af56930.json';
 
 initializeApp({
     credential: cert(serviceAccount)
