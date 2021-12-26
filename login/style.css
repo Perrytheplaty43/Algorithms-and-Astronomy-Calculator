@@ -129,6 +129,30 @@ label {
 	margin-bottom: 2.25vw;
 }
 
+.container3 {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.suc {
+    background-color: lightgreen;
+    width: 25%;
+}
+
+.sucText {
+    color: lime;
+}
+
+.same {
+    background-color: rgb(255, 97, 97);
+    width: 25%;
+}
+
+.sameText {
+    color: red;
+}
+
 .container6 {
 	display: none;
 }
