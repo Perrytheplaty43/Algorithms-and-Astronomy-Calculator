@@ -684,12 +684,14 @@ function myServer(req, res) {
                 }, 500);
             })
             .then(() => {
-                console.log(theLoginRes)
-                if (theLoginRes == "suc") {
-                    return addFav(id, user)
-                } else {
+                setTimeout(() => {
+                    console.log(theLoginRes)
+                    if (theLoginRes == "suc") {
+                        return addFav(id, user)
+                    } else {
 
-                }
+                    }
+                }, 1000)
             })
     }
 
