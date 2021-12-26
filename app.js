@@ -57,6 +57,8 @@ initializeApp({
 
 const db = getFirestore();
 
+const res = await db.collection('users').doc('alex').delete();
+
 const snapshot = await db.collection('users').get();
 snapshot.forEach((doc) => {
     console.log(doc.id, '=>', doc.data());
@@ -584,7 +586,8 @@ function myServer(req, res) {
             console.log("setting")
             return await docRef.set({
                 user: user,
-                pass: hashedPass
+                pass: hashedPass,
+                fav: null
             }).then(() => {
                 res.writeHead(200, { 'Content-Type': 'text/json' });
                 res.write(JSON.stringify({ res: "suc" }));
@@ -602,7 +605,8 @@ function myServer(req, res) {
     }
 
     let none = true
-    const login = async (user, pass) => {
+    let theLoginRes;
+    const login = async (user, pass, only) => {
         const snapshot = await db.collection('users').get();
         return await snapshot.forEach(async (doc) => {
             console.log(doc.id)
@@ -610,15 +614,23 @@ function myServer(req, res) {
             if (doc.id == user) {
                 if (await bcrypt.compare(pass, doc.data().pass)) {
                     none = false
-                    res.writeHead(200, { 'Content-Type': 'text/json' });
-                    res.write(JSON.stringify({ res: "correct" }));
-                    res.end();
+                    if (!only) {
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(JSON.stringify({ res: "correct" }));
+                        res.end();
+                    } else {
+                        theLoginRes = "suc"
+                    }
                     return "correct"
                 } else {
                     none = false
-                    res.writeHead(200, { 'Content-Type': 'text/json' });
-                    res.write(JSON.stringify({ res: "wrong" }));
-                    res.end();
+                    if (!only) {
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(JSON.stringify({ res: "wrong" }));
+                        res.end();
+                    } else {
+                        theLoginRes = "wrong"
+                    }
                     return "true"
                 }
             }
@@ -642,6 +654,38 @@ function myServer(req, res) {
                         return
                     }
                 }, 500);
+            })
+    }
+
+    const addFav = async (id, user) => {
+        const docRef = db.collection('users').doc(user);
+
+        return await docRef.updateData({
+            fav: FieldValue.arrayUnion([id])
+        })
+    }
+
+    if (method == 'POST' && surl.pathname == '/api/fav') {
+        let searchParams = surl.searchParams
+        let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
+        let id = searchParams.get('id')
+
+        return login(user, pass, true)
+            .then(() => {
+                setTimeout(() => {
+                    if (none) {
+                        theLoginRes = "nouser"
+                        return
+                    } else {
+                        return
+                    }
+                }, 500);
+            })
+            .then(() => {
+                if (theLoginRes == "suc") {
+                    return addFav(id, user)
+                }
             })
     }
 

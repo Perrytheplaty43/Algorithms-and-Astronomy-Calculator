@@ -27,10 +27,13 @@ function onSubmit(event) {
                 }
             })
             .catch(error => console.log('error:', error));
+    } else if (event.submitter.id == "submit1") {
+        
     }
     return false
 }
 
 function updateUI() {
     document.getElementById("indicator").innerHTML += user
+    document.getElementById("condition").classList.add('p1green')
 }
