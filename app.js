@@ -672,19 +672,6 @@ function myServer(req, res) {
         return login(user, pass, true)
             .then(() => {
                 setTimeout(() => {
-                    if (none) {
-                        theLoginRes = "nouser"
-                        return
-                    } else {
-                        res.writeHead(200, { 'Content-Type': 'text/json' });
-                        res.write(JSON.stringify({ res: "error" }));
-                        res.end();
-                        return
-                    }
-                }, 500);
-            })
-            .then(() => {
-                setTimeout(() => {
                     console.log(theLoginRes)
                     if (theLoginRes == "suc") {
                         return addFav(id, user)
