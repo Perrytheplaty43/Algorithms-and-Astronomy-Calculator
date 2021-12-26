@@ -22,6 +22,8 @@ dotenv.config()
 import { initializeApp, applicationDefault, cert } from 'firebase-admin/app';
 import { getFirestore, Timestamp, FieldValue } from 'firebase-admin/firestore';
 
+import bcrypt from 'bcrypt'
+
 const delimiter = "/";
 
 let testing = false;
@@ -54,17 +56,9 @@ initializeApp({
 
 const db = getFirestore();
 
-// const docRef = db.collection('users').doc('alovelace');
-
-// await docRef.set({
-//     first: 'Ada',
-//     last: 'Lovelace',
-//     born: 1815
-// });
-
 const snapshot = await db.collection('users').get();
 snapshot.forEach((doc) => {
-  console.log(doc.id, '=>', doc.data());
+    console.log(doc.id, '=>', doc.data());
 });
 
 function myServer(req, res) {
@@ -155,6 +149,45 @@ function myServer(req, res) {
                 return;
             }
             res.writeHead(200, { 'Content-Type': 'text/js' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/login/style.css') {
+        fs.readFile(home + delimiter + 'login' + delimiter + 'style.css', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/css' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/login/script.js') {
+        fs.readFile(home + delimiter + 'login' + delimiter + 'script.js', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/js' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/login/') {
+        fs.readFile(home + delimiter + 'login' + delimiter + 'index.html', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/html' });
             res.write(html);
             res.end();
         });
@@ -489,6 +522,22 @@ function myServer(req, res) {
             })
             .catch(error => console.log('error:', error));
         return;
+    }
+    if (method == 'POST' && surl.pathname == '/api/login') {
+        let searchParams = surl.searchParams
+        let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
+
+        let salt = await bcrypt.genSalt()
+        let hashedPass = await bcrypt.hash(pass, salt)
+
+        const docRef = db.collection('users').doc('login');
+
+        await docRef.set({
+            user: user,
+            pass: hashedPass,
+            salt: salt
+        });
     }
     if (method == 'GET' && surl.pathname == '/api/moon') {
         let searchParams = surl.searchParams
