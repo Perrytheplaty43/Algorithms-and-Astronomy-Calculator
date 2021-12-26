@@ -541,7 +541,7 @@ function myServer(req, res) {
         if (dateMoon == "") {
             console.log(dateMoon, 'in')
             let now = new Date()
-            dateMoon = (now.getFullYear() + "-" + now.getMonth() + 1) + "-" + now.getDate()
+            dateMoon = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()
         }
         console.log(dateMoon, 'after')
         return fetch(
