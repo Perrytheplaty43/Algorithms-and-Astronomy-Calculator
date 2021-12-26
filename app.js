@@ -550,32 +550,29 @@ function myServer(req, res) {
         }
     }
     let none = true
-    const checker = async (doc, user, pass) => {
-        console.log(doc.id)
-
-        if (doc.id == user) {
-            console.log(doc.data().pass)
-            if (await bcrypt.compare(pass, doc.data().pass)) {
-                console.log("correct")
-                none = false
-                res.writeHead(200, { 'Content-Type': 'text/json' });
-                res.write(JSON.stringify({ res: "correct" }));
-                res.end();
-                return "correct"
-            } else {
-                console.log("wrong")
-                none = false
-                res.writeHead(200, { 'Content-Type': 'text/json' });
-                res.write(JSON.stringify({ res: "wrong" }));
-                res.end();
-                return "true"
-            }
-        }
-    }
     const login = async (user, pass) => {
         const snapshot = await db.collection('users').get();
         return await asyncForEach(snapshot, async (doc) => {
-            await checker(doc, user, pass)
+            console.log(doc.id)
+
+            if (doc.id == user) {
+                console.log(doc.data().pass)
+                if (await bcrypt.compare(pass, doc.data().pass)) {
+                    console.log("correct")
+                    none = false
+                    res.writeHead(200, { 'Content-Type': 'text/json' });
+                    res.write(JSON.stringify({ res: "correct" }));
+                    res.end();
+                    return "correct"
+                } else {
+                    console.log("wrong")
+                    none = false
+                    res.writeHead(200, { 'Content-Type': 'text/json' });
+                    res.write(JSON.stringify({ res: "wrong" }));
+                    res.end();
+                    return "true"
+                }
+            }
             console.log("none: " + none)
         });
     }
