@@ -570,7 +570,7 @@ function myServer(req, res) {
     const login = async (user, pass) => {
         const snapshot = await db.collection('users').get();
         return snapshot.forEach((doc) => {
-            checker(doc, user, pass)
+            await checker(doc, user, pass)
             console.log("none: " + none)
         });
     }
