@@ -571,6 +571,7 @@ function myServer(req, res) {
         const snapshot = await db.collection('users').get();
         return snapshot.forEach((doc) => {
             checker(doc, user, pass)
+            console.log("none: " + none)
         });
     }
     if (method == 'GET' && surl.pathname == '/api/login') {
@@ -581,10 +582,12 @@ function myServer(req, res) {
         return login(user, pass)
             .then(() => {
                 if (none) {
-                    console.log("no user")
+                    console.log("no user--------")
                     res.writeHead(200, { 'Content-Type': 'text/json' });
                     res.write(JSON.stringify({ res: "nouser" }));
                     res.end();
+                    return
+                } else{
                     return
                 }
             })
