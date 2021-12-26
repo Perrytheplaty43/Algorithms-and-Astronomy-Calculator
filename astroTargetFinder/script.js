@@ -107,6 +107,21 @@ const mapImages = {
     '2841': './Images/NGC2841.jpg',
     '3077': './Images/NGC3077.jpg',
     '2366': './Images/NGC2366.jpg',
+    '1569': './Images/NGC1569.jpg',
+    '2273': './Images/NGC2273.jpg',
+    '2128': './Images/NGC2128.jpg',
+    '2344': './Images/NGC2344.jpg',
+    '1501': './Images/NGC1501.jpg',
+    '3587': './Images/NGC3587.jpg',
+    '40': './Images/NGC40.jpg',
+    '2232': './Images/NGC2232.jpg',
+    '1981': './Images/NGC1981.jpg',
+    '2287': './Images/NGC2287.jpg',
+    '2422': './Images/NGC2422.jpg',
+    '1976': './Images/NGC1976.jpg',
+    '2537': './Images/NGC2537.jpg',
+    '2460': './Images/NGC2460.jpg',
+    '2541': './Images/NGC2541.jpg',
 };
 
 if (getCookie("checked") == "true" && document.getElementById("cookie") != null) {
