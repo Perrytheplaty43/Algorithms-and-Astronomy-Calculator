@@ -9,11 +9,10 @@ function onSubmit(event) {
             .then(data => {
                 if (JSON.parse(data).res == "same") {
                     document.getElementById("same").style.display = "block"
-                } else if (JSON.parse(data).res == "sec") {
+                } else if (JSON.parse(data).res == "suc") {
                     document.getElementById("suc").style.display = "block"
                 }
             })
-            .then(alert("suc"))
             .catch(error => console.log('error:', error));
     }
     return false
