@@ -562,7 +562,7 @@ function myServer(req, res) {
         let toReturn = []
         return snapshot.forEach((doc) => {
             toReturn.push(checker(doc, user, pass))
-        }).then(date => { return toReturn });
+        }).then(() => { return toReturn });
     }
     if (method == 'GET' && surl.pathname == '/api/login') {
         let searchParams = surl.searchParams
