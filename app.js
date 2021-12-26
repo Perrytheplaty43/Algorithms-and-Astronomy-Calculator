@@ -552,7 +552,7 @@ function myServer(req, res) {
     let none = true
     const login = async (user, pass) => {
         const snapshot = await db.collection('users').get();
-        return await asyncForEach(snapshot, async (doc) => {
+        return asyncForEach(snapshot, async (doc) => {
             console.log(doc.id)
 
             if (doc.id == user) {
