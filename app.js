@@ -546,26 +546,31 @@ function myServer(req, res) {
     }
     const checker = async (doc, user, pass) => {
         console.log(doc.id)
+        let none = true
         if (doc.id == user) {
             console.log(doc.data().pass)
             if (await bcrypt.compare(pass, doc.data().pass)) {
                 console.log("correct")
+                none = false
                 res.writeHead(200, { 'Content-Type': 'text/json' });
                 res.write(JSON.stringify({ res: "correct" }));
                 res.end();
                 return
             } else {
                 console.log("wrong")
+                none = false
                 res.writeHead(200, { 'Content-Type': 'text/json' });
                 res.write(JSON.stringify({ res: "wrong" }));
                 res.end();
                 return
             }
         }
-        console.log("no user")
-        res.writeHead(200, { 'Content-Type': 'text/json' });
-        res.write(JSON.stringify({ res: "nouser" }));
-        res.end();
+        if (none) {
+            console.log("no user")
+            res.writeHead(200, { 'Content-Type': 'text/json' });
+            res.write(JSON.stringify({ res: "nouser" }));
+            res.end();
+        }
         return
     }
     const login = async (user, pass) => {
