@@ -544,27 +544,30 @@ function myServer(req, res) {
 
         return signup(user, pass)
     }
+    const checker = async (doc) => {
+        if (doc.id == user) {
+            console.log(doc.data().pass)
+            if (await bcrypt.compare(pass, doc.data().pass)) {
+                res.writeHead(200, { 'Content-Type': 'text/json' });
+                res.write(JSON.stringify({ res: "correct" }));
+                res.end();
+                return
+            } else {
+                res.writeHead(200, { 'Content-Type': 'text/json' });
+                res.write(JSON.stringify({ res: "wrong" }));
+                res.end();
+                return
+            }
+        }
+        res.writeHead(200, { 'Content-Type': 'text/json' });
+        res.write(JSON.stringify({ res: "nouser" }));
+        res.end();
+        return
+    }
     const login = async (user, pass) => {
         const snapshot = await db.collection('users').get();
         return snapshot.forEach((doc) => {
-            if (doc.id == user) {
-                console.log(doc.data().pass)
-                if (await bcrypt.compare(pass, doc.data().pass)) {
-                    res.writeHead(200, { 'Content-Type': 'text/json' });
-                    res.write(JSON.stringify({ res: "correct" }));
-                    res.end();
-                    return
-                } else {
-                    res.writeHead(200, { 'Content-Type': 'text/json' });
-                    res.write(JSON.stringify({ res: "wrong" }));
-                    res.end();
-                    return
-                }
-            }
-            res.writeHead(200, { 'Content-Type': 'text/json' });
-            res.write(JSON.stringify({ res: "nouser" }));
-            res.end();
-            return
+            await checker(doc)
         });
     }
     if (method == 'GET' && surl.pathname == '/api/login') {
