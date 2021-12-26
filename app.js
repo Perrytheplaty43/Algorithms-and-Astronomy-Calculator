@@ -548,17 +548,20 @@ function myServer(req, res) {
         if (doc.id == user) {
             console.log(doc.data().pass)
             if (await bcrypt.compare(pass, doc.data().pass)) {
+                console.log("correct")
                 res.writeHead(200, { 'Content-Type': 'text/json' });
                 res.write(JSON.stringify({ res: "correct" }));
                 res.end();
                 return
             } else {
+                console.log("wrong")
                 res.writeHead(200, { 'Content-Type': 'text/json' });
                 res.write(JSON.stringify({ res: "wrong" }));
                 res.end();
                 return
             }
         }
+        console.log("no user")
         res.writeHead(200, { 'Content-Type': 'text/json' });
         res.write(JSON.stringify({ res: "nouser" }));
         res.end();
