@@ -19,7 +19,3 @@ function onSubmit(event) {
     }
     return false
 }
-
-function updateUI() {
-    document.getElementById("indicator").innerHTML += user
-}

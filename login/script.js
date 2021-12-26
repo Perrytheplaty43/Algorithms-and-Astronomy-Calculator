@@ -13,6 +13,7 @@ function onSubmit(event) {
                     document.getElementById("suc").style.display = "block"
                     document.getElementById("wrong").style.display = "none"
                     document.getElementById("nouser").style.display = "none"
+                    updateUI()
                 } else if (JSON.parse(data).res == "wrong") {
                     document.getElementById("suc").style.display = "none"
                     document.getElementById("wrong").style.display = "block"
@@ -28,4 +29,8 @@ function onSubmit(event) {
             .catch(error => console.log('error:', error));
     }
     return false
+}
+
+function updateUI() {
+    document.getElementById("indicator").innerHTML += user
 }
