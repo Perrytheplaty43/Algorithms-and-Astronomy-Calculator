@@ -537,13 +537,10 @@ function myServer(req, res) {
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
         let dateMoon = dateToSend
-        console.log(dateMoon)
         if (dateMoon == "") {
-            console.log(dateMoon, 'in')
             let now = new Date()
             dateMoon = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()
         }
-        console.log(dateMoon, 'after')
         return fetch(
             'https://' + addr + '/api/moon?lat=' + lat + '&lon=' + long + "&date=" + dateMoon,
             { method: 'GET' }
