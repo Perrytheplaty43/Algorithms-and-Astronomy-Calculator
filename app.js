@@ -19,6 +19,9 @@ globalThis.child = child
 import dotenv from 'dotenv'
 dotenv.config()
 
+const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
+const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+
 const delimiter = "/";
 
 let testing = false;
@@ -41,6 +44,14 @@ if (!home.startsWith('/home/runner')) {
         fileCount = parseInt(html)
     })
 }
+
+const serviceAccount = require('./regal-campaign-334804-b6bd7af56930.json');
+
+initializeApp({
+    credential: cert(serviceAccount)
+});
+
+const db = getFirestore();
 
 function myServer(req, res) {
     const { method, url } = req;
