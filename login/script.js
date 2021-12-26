@@ -46,5 +46,5 @@ function onSubmit(event) {
 
 function updateUI() {
     document.getElementById("indicator").innerHTML += user
-    document.getElementById("condition").classList.add('p1green')
+    document.getElementById("indicator").classList.add('p1green')
 }
