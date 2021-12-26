@@ -546,38 +546,23 @@ function myServer(req, res) {
     }
     const checker = async (doc, user, pass) => {
         console.log(doc.id)
-        let none = true
         if (doc.id == user) {
             console.log(doc.data().pass)
             if (await bcrypt.compare(pass, doc.data().pass)) {
                 console.log("correct")
-                none = false
-                res.writeHead(200, { 'Content-Type': 'text/json' });
-                res.write(JSON.stringify({ res: "correct" }));
-                res.end();
-                return
+                return "correct"
             } else {
                 console.log("wrong")
-                none = false
-                res.writeHead(200, { 'Content-Type': 'text/json' });
-                res.write(JSON.stringify({ res: "wrong" }));
-                res.end();
-                return
+                return "wrong"
             }
         }
-        if (none) {
-            console.log("no user")
-            res.writeHead(200, { 'Content-Type': 'text/json' });
-            res.write(JSON.stringify({ res: "nouser" }));
-            res.end();
-        }
-        return
     }
     const login = async (user, pass) => {
         const snapshot = await db.collection('users').get();
+        let toReturn = []
         return snapshot.forEach((doc) => {
-            checker(doc, user, pass)
-        });
+            toReturn.push(checker(doc, user, pass))
+        }).then(date => { return toReturn });
     }
     if (method == 'GET' && surl.pathname == '/api/login') {
         let searchParams = surl.searchParams
@@ -585,6 +570,21 @@ function myServer(req, res) {
         let pass = searchParams.get('pass')
 
         return login(user, pass)
+            .then(arr => {
+                if (arr.includes("correct")) {
+                    res.writeHead(200, { 'Content-Type': 'text/json' });
+                    res.write(JSON.stringify({ res: "correct" }));
+                    res.end();
+                } else if (arr.includes("wrong")) {
+                    res.writeHead(200, { 'Content-Type': 'text/json' });
+                    res.write(JSON.stringify({ res: "wrong" }));
+                    res.end();
+                } else {
+                    res.writeHead(200, { 'Content-Type': 'text/json' });
+                    res.write(JSON.stringify({ res: "nouser" }));
+                    res.end();
+                }
+            })
     }
 
     if (method == 'GET' && surl.pathname == '/api/moon') {
