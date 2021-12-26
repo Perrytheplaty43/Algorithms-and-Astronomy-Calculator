@@ -570,7 +570,6 @@ function myServer(req, res) {
         let same = false
         await snapshot.forEach((doc) => {
             if (doc.id == user) {
-                console.log("same")
                 res.writeHead(200, { 'Content-Type': 'text/json' });
                 res.write(JSON.stringify({ res: "same" }));
                 res.end();
@@ -583,7 +582,6 @@ function myServer(req, res) {
 
         const docRef = db.collection('users').doc(user);
         if (!same) {
-            console.log("setting")
             return await docRef.set({
                 user: user,
                 pass: hashedPass,
@@ -609,8 +607,6 @@ function myServer(req, res) {
     const login = async (user, pass, only) => {
         const snapshot = await db.collection('users').get();
         return await snapshot.forEach(async (doc) => {
-            console.log(doc.id)
-
             if (doc.id == user) {
                 if (await bcrypt.compare(pass, doc.data().pass)) {
                     none = false
@@ -634,7 +630,6 @@ function myServer(req, res) {
                     return "true"
                 }
             }
-            console.log("none: " + none)
         });
     }
     if (method == 'GET' && surl.pathname == '/api/login') {
@@ -686,6 +681,7 @@ function myServer(req, res) {
                 }, 500);
             })
             .then(() => {
+                console.log(theLoginRes)
                 if (theLoginRes == "suc") {
                     return addFav(id, user)
                 } else {
