@@ -11,12 +11,12 @@
 </head>
 
 <body>
-  <form>
+  <form onsubmit="return submit(event)">
     <label for="user">Username:</label><br>
     <input type="text" id="user" name="user"><br>
     <label for="pass">Password:</label><br>
     <input type="text" id="pass" name="pass">
-    <button onclick="return submit(event)" id="submit">Submit</button>
+    <button type="submit" id="submit">Submit</button>
   </form>
 </body>
 
