@@ -560,9 +560,17 @@ function myServer(req, res) {
     const login = async (user, pass) => {
         const snapshot = await db.collection('users').get();
         let toReturn = []
-        return snapshot.forEach((doc) => {
+        let waiting = 0;
+        snapshot.forEach((doc) => {
             toReturn.push(checker(doc, user, pass))
-        }).then(() => { return toReturn });
+            waiting++;
+        })
+        while (true) {
+            if (waiting >= snapshot.length) {
+                break;
+            }
+        }
+        return toReturn
     }
     if (method == 'GET' && surl.pathname == '/api/login') {
         let searchParams = surl.searchParams
