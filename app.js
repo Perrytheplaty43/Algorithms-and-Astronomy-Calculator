@@ -659,7 +659,7 @@ function myServer(req, res) {
         const docRef = db.collection('users').doc(user);
 
         return await docRef.update({
-            fav: FieldValue.arrayUnion([id])
+            fav: id
         })
     }
 
