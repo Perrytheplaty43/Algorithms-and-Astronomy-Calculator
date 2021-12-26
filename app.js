@@ -544,7 +544,7 @@ function myServer(req, res) {
 
         return signup(user, pass)
     }
-    const checker = async (doc) => {
+    const checker = async (doc, user, pass) => {
         if (doc.id == user) {
             console.log(doc.data().pass)
             if (await bcrypt.compare(pass, doc.data().pass)) {
@@ -567,7 +567,7 @@ function myServer(req, res) {
     const login = async (user, pass) => {
         const snapshot = await db.collection('users').get();
         return snapshot.forEach((doc) => {
-            checker(doc)
+            checker(doc, user, pass)
         });
     }
     if (method == 'GET' && surl.pathname == '/api/login') {
