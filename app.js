@@ -617,6 +617,7 @@ function myServer(req, res) {
                         res.end();
                     } else {
                         theLoginRes = "suc"
+                        console.log(theLoginRes)
                     }
                     return "correct"
                 } else {
@@ -627,6 +628,7 @@ function myServer(req, res) {
                         res.end();
                     } else {
                         theLoginRes = "wrong"
+                        console.log(theLoginRes)
                     }
                     return "true"
                 }
