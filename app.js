@@ -48,10 +48,19 @@ if (!home.startsWith('/home/runner')) {
 import serviceAccount from './regal-campaign-334804-b6bd7af56930.json';
 
 initializeApp({
-    credential: cert(serviceAccount)
+    credential: cert(serviceAccount),
+    databaseURL: 'https://regal-campaign-334804-default-rtdb.firebaseio.com/'
 });
 
 const db = getFirestore();
+
+const docRef = db.collection('users').doc('alovelace');
+
+await docRef.set({
+    first: 'Ada',
+    last: 'Lovelace',
+    born: 1815
+});
 
 function myServer(req, res) {
     const { method, url } = req;
