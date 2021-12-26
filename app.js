@@ -659,7 +659,7 @@ function myServer(req, res) {
         const docRef = db.collection('users').doc(user);
 
         //.get()
-        console.log(await docRef.get().fav, "___________________________")
+        console.log(await docRef.get(), "___________________________")
         return await docRef.update({
             fav: id
         })
