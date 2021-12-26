@@ -567,7 +567,7 @@ function myServer(req, res) {
     const login = async (user, pass) => {
         const snapshot = await db.collection('users').get();
         return snapshot.forEach((doc) => {
-            await checker(doc)
+            checker(doc)
         });
     }
     if (method == 'GET' && surl.pathname == '/api/login') {
