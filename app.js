@@ -574,7 +574,7 @@ function myServer(req, res) {
     }
     const login = async (user, pass) => {
         const snapshot = await db.collection('users').get();
-        return await asyncForEach(snapshot, (doc) => {
+        return await asyncForEach(snapshot, async (doc) => {
             await checker(doc, user, pass)
             console.log("none: " + none)
         });
