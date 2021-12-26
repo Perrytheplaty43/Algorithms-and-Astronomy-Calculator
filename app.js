@@ -525,7 +525,7 @@ function myServer(req, res) {
             .catch(error => console.log('error:', error));
         return;
     }
-    const login = async (user, pass) => {
+    const signup = async (user, pass) => {
         let salt = await bcrypt.genSalt()
         let hashedPass = await bcrypt.hash(pass, salt)
 
@@ -537,7 +537,18 @@ function myServer(req, res) {
             salt: salt
         });
     }
-    if (method == 'POST' && surl.pathname == '/api/login') {
+    if (method == 'POST' && surl.pathname == '/api/signup') {
+        let searchParams = surl.searchParams
+        let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
+
+        return signup(user, pass)
+    }
+    const login = async (user, pass) => {
+        const snapshot = await db.collection('users').get();
+        console.log(snapshot)
+    }
+    if (method == 'GET' && surl.pathname == '/api/login') {
         let searchParams = surl.searchParams
         let user = searchParams.get('user')
         let pass = searchParams.get('pass')
