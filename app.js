@@ -565,12 +565,6 @@ function myServer(req, res) {
             toReturn.push(checker(doc, user, pass))
             waiting++;
         })
-        console.log(snapshot.length)
-        while (true) {
-            if (waiting >= snapshot.length) {
-                break;
-            }
-        }
         return toReturn
     }
     if (method == 'GET' && surl.pathname == '/api/login') {
