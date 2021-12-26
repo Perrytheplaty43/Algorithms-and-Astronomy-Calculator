@@ -519,7 +519,6 @@ function myServer(req, res) {
             .catch(error => console.log('error:', error));
         return;
     }
-    console.log("test")
     if (method == 'GET' && surl.pathname == '/api/images') {
         let searchParams = surl.searchParams
         let id = searchParams.get('id')
@@ -538,10 +537,13 @@ function myServer(req, res) {
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
         let dateMoon = dateToSend
+        console.log(dateMoon)
         if (dateMoon == "") {
+            console.log(dateMoon, 'in')
             let now = new Date()
             dateMoon = (now.getMonth() + 1) + "-" + now.getDate() + "-" + now.getFullYear()
         }
+        console.log(dateMoon, 'after')
         return fetch(
             'https://' + addr + '/api/moon?lat=' + lat + '&lon=' + long + "&date=" + dateMoon,
             { method: 'GET' }
