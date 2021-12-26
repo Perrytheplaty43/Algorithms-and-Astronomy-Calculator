@@ -589,7 +589,7 @@ function myServer(req, res) {
                     } else {
                         return
                     }
-                }, 2000);
+                }, 500);
             })
     }
 
