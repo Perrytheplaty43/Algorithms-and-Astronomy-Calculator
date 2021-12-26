@@ -579,16 +579,17 @@ function myServer(req, res) {
 
         return login(user, pass)
             .then(() => {
-                setTimeout(() => { console.log("waiting") }, 2000);
-                if (none) {
-                    console.log("no user--------")
-                    res.writeHead(200, { 'Content-Type': 'text/json' });
-                    res.write(JSON.stringify({ res: "nouser" }));
-                    res.end();
-                    return
-                } else {
-                    return
-                }
+                setTimeout(() => {
+                    if (none) {
+                        console.log("no user--------")
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(JSON.stringify({ res: "nouser" }));
+                        res.end();
+                        return
+                    } else {
+                        return
+                    }
+                }, 2000);
             })
     }
 
