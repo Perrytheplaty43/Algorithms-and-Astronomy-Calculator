@@ -658,6 +658,7 @@ function myServer(req, res) {
     const addFav = async (id, user) => {
         const docRef = db.collection('users').doc(user);
 
+        console.log(docRef.get().fav)
         return await docRef.update({
             fav: id
         })
