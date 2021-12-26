@@ -678,6 +678,9 @@ function myServer(req, res) {
                         theLoginRes = "nouser"
                         return
                     } else {
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(JSON.stringify({ res: "error" }));
+                        res.end();
                         return
                     }
                 }, 500);
@@ -685,6 +688,8 @@ function myServer(req, res) {
             .then(() => {
                 if (theLoginRes == "suc") {
                     return addFav(id, user)
+                } else {
+
                 }
             })
     }

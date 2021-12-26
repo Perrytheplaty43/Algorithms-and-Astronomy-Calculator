@@ -1,8 +1,10 @@
 let user;
+let pass;
 function onSubmit(event) {
     if (event.submitter.id == "submit") {
         event.preventDefault();
         user = document.getElementById("user").value;
+        pass = document.getElementById("pass").value;
         fetch(
             'https://' + window.location.hostname + '/api/login?user=' + document.getElementById("user").value + '&pass=' + document.getElementById("pass").value,
             { method: 'GET' }
@@ -28,7 +30,16 @@ function onSubmit(event) {
             })
             .catch(error => console.log('error:', error));
     } else if (event.submitter.id == "submit1") {
-        
+        fetch(
+            'https://' + window.location.hostname + '/api/fav?user=' + user + '&pass=' + pass + '&id=' + document.getElementById("object").value,
+            { method: 'POST' }
+        )
+            .then(response => response.text())
+            .then(res => {
+                if (JSON.parse(res).res == "error") {
+                    alert("error")
+                }
+            })
     }
     return false
 }
