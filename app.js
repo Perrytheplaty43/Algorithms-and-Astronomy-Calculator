@@ -57,6 +57,9 @@ initializeApp({
 const db = getFirestore();
 
 const res = await db.collection('users').doc('alovelace').delete();
+const res1 = await db.collection('users').doc('login').delete();
+const res2= await db.collection('users').doc('theusernm').delete();
+const res3 = await db.collection('users').doc('theusernm1').delete();
 
 const snapshot = await db.collection('users').get();
 snapshot.forEach((doc) => {
@@ -533,8 +536,7 @@ function myServer(req, res) {
 
         return await docRef.set({
             user: user,
-            pass: hashedPass,
-            salt: salt
+            pass: hashedPass
         });
     }
     if (method == 'POST' && surl.pathname == '/api/signup') {
