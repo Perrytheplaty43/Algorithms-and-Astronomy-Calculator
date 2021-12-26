@@ -529,6 +529,7 @@ function myServer(req, res) {
 
         await snapshot.forEach((doc) => {
             if (doc.id == user) {
+                console.log("same")
                 res.writeHead(200, { 'Content-Type': 'text/json' });
                 res.write(JSON.stringify({ res: "same" }));
                 res.end();
@@ -539,7 +540,7 @@ function myServer(req, res) {
         let hashedPass = await bcrypt.hash(pass, salt)
 
         const docRef = db.collection('users').doc(user);
-
+        console.log("setting")
         return await docRef.set({
             user: user,
             pass: hashedPass
