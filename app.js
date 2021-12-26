@@ -30,8 +30,10 @@ let fileCount;
 
 let KEY = process.env.KEY
 let ip = '10.138.0.3';
+let addr = "athesto.ddns.net"
 if (home.startsWith('/home/pi')) {
     ip = '192.168.1.88';
+    addr = "athesto-dev.ddns.net"
 }
 
 if (!home.startsWith('/home/runner')) {
@@ -322,9 +324,17 @@ function myServer(req, res) {
     let theJSON;
     let condition = "unknown";
     let searchDate;
-    function save(inputs, timesUNIX) {
+    function save(inputs, timesUNIX, moon) {
         theJSON = inputs
         theJSON = JSON.parse(theJSON)
+        if (moon[2] < 45 || moon[2] > 55) {
+            if (timesUNIX[1] > moon[0]) {
+                timesUNIX[1] = moon[0]
+            }
+            if (moon[0] < timesUNIX[0] && moon[1] < timesUNIX[1]) {
+                timesUNIX[0] = moon[1]
+            }
+        }
         let clouds = [];
         for (let i = 0; i <= theJSON.list.length - 1; i++) {
             if (timesUNIX[0] <= theJSON.list[i].dt) {
@@ -337,20 +347,22 @@ function myServer(req, res) {
         clouds = clouds.sort(compareSecondColumn)
         let goodWeather = []
         let bad = false
+        let oneGood = false
         for (let i = 0; i <= clouds.length - 1; i++) {
             if (clouds[i][1] < 10) {
                 goodWeather.push(clouds[i])
+                oneGood = true
             }
             if (clouds[clouds.length - 1][1] > 10 || ((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length > 30) {
                 bad = true
             }
         }
-        if (!bad) {
+        if (bad && oneGood) {
             searchDate = goodWeather[Math.floor((goodWeather.length - 1) / 2)]
         } else {
             searchDate = 0
         }
-        if (((() => {for(let i = 0; i <= clouds.length - 1; i++){if(clouds[i][1] > 10){return true}}return false})())) {
+        if (((() => { for (let i = 0; i <= clouds.length - 1; i++) { if (clouds[i][1] > 10) { return true } } return false })())) {
             return "Perfect";
         } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length < 30) {
             return "Fair";
@@ -394,7 +406,7 @@ function myServer(req, res) {
         let output = [sunRiseSet1, sunRiseSet2]
         return output
     }
-    const isWeatherGood = async (lat, long, reqDate, astro) => {
+    const isWeatherGood = async (lat, long, reqDate, astro, moon) => {
         if (reqDate == "") {
             let curDate = new Date();
             reqDate = (curDate.getMonth() + 1) + "-" + curDate.getDate() + "-" + curDate.getFullYear()
@@ -426,7 +438,7 @@ function myServer(req, res) {
                 return response.text();
             })
             .then(r => {
-                let saved = save(r, timesUNIX)
+                let saved = save(r, timesUNIX, moon)
                 if (!astro) {
                     res.write(JSON.stringify({ conditions: saved }))
                     res.end();
@@ -459,13 +471,13 @@ function myServer(req, res) {
         let long = searchParams.get('lon')
         let date = searchParams.get('date')
         fetch(
-            'https://api.met.no/weatherapi/sunrise/2.0/.json?lat=' + lat +'&lon=' + long + '&date=' + date + '&offset=-00:00',
+            'https://api.met.no/weatherapi/sunrise/2.0/.json?lat=' + lat + '&lon=' + long + '&date=' + date + '&offset=-00:00',
             { method: 'GET' }
         )
             .then(response => response.text())
             .then(data => {
                 res.writeHead(200, { 'Content-Type': 'text/json' });
-                res.write(JSON.stringify({moonrise: JSON.parse(data).location.time[0].moonrise.time, moonset: JSON.parse(data).location.time[0].moonset.time}));
+                res.write(JSON.stringify({ moonrise: JSON.parse(data).location.time[0].moonrise.time, moonset: JSON.parse(data).location.time[0].moonset.time, phase: JSON.parse(data).location.time[0].moonphase.value }));
                 res.end();
             })
             .catch(error => console.log('error:', error));
@@ -524,35 +536,50 @@ function myServer(req, res) {
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
-        return isWeatherGood(lat, long, dateToSend, true).then(() => {
-            if (!home.startsWith('/home/runner/')) {
-                return fetch(
-                    'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate,
-                    { method: 'GET' }
-                )
-                    .then(response => response.text())
-                    .then(finalData => {
-                        res.writeHead(200, { 'Content-Type': 'text/json' });
-                        res.write(finalData);
-                        res.end();
-                    })
-                    .catch(error => console.log('error:', error));
-            } else {
-                return fetch(
-                    'http://127.0.0.1:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
-                    { method: 'GET' }
-                )
-                    .then(response => response.text())
-                    .then(finalData => {
-                        res.writeHead(200, { 'Content-Type': 'text/json' });
-                        finalData.join(",")
-                        res.write(finalData);
-                        res.end();
-                    })
-                    .catch(error => console.log('error:', error));
+        return fetch(
+            'https://' + addr + '/api/moon?lat=' + lat + '&lon=' + long + "&date=" + dateToSend,
+            { method: 'GET' }
+        )
+            .then(response => response.text())
+            .then(finalData => {
+                let riseset = JSON.parse(finalData)
+                let rise = new Date(riseset.moonrise)
+                let set = new Date(riseset.moonset)
+                return [(rise.getTime() / 1000).toFixed(0), (set.getTime() / 1000).toFixed(0), riseset.phase]
+            })
+            .catch(error => console.log('error:', error))
+            .then(moon => {
+                return isWeatherGood(lat, long, dateToSend, true, moon).then(() => {
+                    if (!home.startsWith('/home/runner/')) {
+                        return fetch(
+                            'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate + "&moonrise=" + moon[0] + "&moonset=" + moon[1] + "&phase=" + moon[2],
+                            { method: 'GET' }
+                        )
+                            .then(response => response.text())
+                            .then(finalData => {
+                                res.writeHead(200, { 'Content-Type': 'text/json' });
+                                res.write(finalData);
+                                res.end();
+                            })
+                            .catch(error => console.log('error:', error));
+                    } else {
+                        return fetch(
+                            'http://127.0.0.1:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+                            { method: 'GET' }
+                        )
+                            .then(response => response.text())
+                            .then(finalData => {
+                                res.writeHead(200, { 'Content-Type': 'text/json' });
+                                finalData.join(",")
+                                res.write(finalData);
+                                res.end();
+                            })
+                            .catch(error => console.log('error:', error));
 
-            }
-        })
+                    }
+                });
+            })
+
     }
     if (method == 'GET' && surl.pathname == '/astro') {
         return astro(surl.searchParams);
