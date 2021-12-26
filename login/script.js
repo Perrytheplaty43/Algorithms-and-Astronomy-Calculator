@@ -1,6 +1,8 @@
+let user;
 function onSubmit(event) {
     if (event.submitter.id == "submit") {
         event.preventDefault();
+        user = document.getElementById("user").value;
         fetch(
             'https://' + window.location.hostname + '/api/login?user=' + document.getElementById("user").value + '&pass=' + document.getElementById("pass").value,
             { method: 'GET' }
