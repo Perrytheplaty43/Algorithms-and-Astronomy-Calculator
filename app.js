@@ -546,7 +546,7 @@ function myServer(req, res) {
     }
     const login = async (user, pass) => {
         const snapshot = await db.collection('users').get();
-        snapshot.forEach((doc) => {
+        return snapshot.forEach((doc) => {
             if (doc.id == user) {
                 console.log(doc.data().pass)
                 if (await bcrypt.compare(pass, doc.data().pass)) {
