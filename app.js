@@ -544,6 +544,11 @@ function myServer(req, res) {
 
         return signup(user, pass)
     }
+    async function asyncForEach(array, callback) {
+        for (let index = 0; index < array.length; index++) {
+            await callback(array[index], index, array);
+        }
+    }
     let none = true
     const checker = async (doc, user, pass) => {
         console.log(doc.id)
@@ -569,7 +574,7 @@ function myServer(req, res) {
     }
     const login = async (user, pass) => {
         const snapshot = await db.collection('users').get();
-        return snapshot.forEach((doc) => {
+        return asyncForEach(snapshot, (doc) => {
             await checker(doc, user, pass)
             console.log("none: " + none)
         });
@@ -587,7 +592,7 @@ function myServer(req, res) {
                     res.write(JSON.stringify({ res: "nouser" }));
                     res.end();
                     return
-                } else{
+                } else {
                     return
                 }
             })
