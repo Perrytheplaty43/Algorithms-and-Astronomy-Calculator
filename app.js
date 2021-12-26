@@ -544,28 +544,34 @@ function myServer(req, res) {
 
         return signup(user, pass)
     }
+    let none = true
     const checker = async (doc, user, pass) => {
         console.log(doc.id)
+
         if (doc.id == user) {
             console.log(doc.data().pass)
             if (await bcrypt.compare(pass, doc.data().pass)) {
                 console.log("correct")
+                none = false
+                res.writeHead(200, { 'Content-Type': 'text/json' });
+                res.write(JSON.stringify({ res: "correct" }));
+                res.end();
                 return "correct"
             } else {
                 console.log("wrong")
-                return "wrong"
+                none = false
+                res.writeHead(200, { 'Content-Type': 'text/json' });
+                res.write(JSON.stringify({ res: "wrong" }));
+                res.end();
+                return "true"
             }
         }
     }
     const login = async (user, pass) => {
         const snapshot = await db.collection('users').get();
-        let toReturn = []
-        let waiting = 0;
-        snapshot.forEach((doc) => {
-            toReturn.push(checker(doc, user, pass))
-            waiting++;
-        })
-        return toReturn
+        return snapshot.forEach((doc) => {
+            checker(doc, user, pass)
+        });
     }
     if (method == 'GET' && surl.pathname == '/api/login') {
         let searchParams = surl.searchParams
@@ -573,19 +579,13 @@ function myServer(req, res) {
         let pass = searchParams.get('pass')
 
         return login(user, pass)
-            .then(arr => {
-                if (arr.includes("correct")) {
-                    res.writeHead(200, { 'Content-Type': 'text/json' });
-                    res.write(JSON.stringify({ res: "correct" }));
-                    res.end();
-                } else if (arr.includes("wrong")) {
-                    res.writeHead(200, { 'Content-Type': 'text/json' });
-                    res.write(JSON.stringify({ res: "wrong" }));
-                    res.end();
-                } else {
+            .then(() => {
+                if (none) {
+                    console.log("no user")
                     res.writeHead(200, { 'Content-Type': 'text/json' });
                     res.write(JSON.stringify({ res: "nouser" }));
                     res.end();
+                    return
                 }
             })
     }
