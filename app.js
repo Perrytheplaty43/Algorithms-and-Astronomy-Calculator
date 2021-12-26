@@ -659,7 +659,7 @@ function myServer(req, res) {
         const docRef = db.collection('users').doc(user);
         let doc = await docRef.get()
 
-        console.log(doc.QueryDocumentSnapshot, "___________________________")
+        console.log(JSON.stringify(doc), "___________________________")
         return await docRef.update({
             fav: id
         })
