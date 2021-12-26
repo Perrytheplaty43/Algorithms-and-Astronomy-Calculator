@@ -537,8 +537,13 @@ function myServer(req, res) {
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
+        let dateMoon = dateToSend
+        if (dateMoon == "") {
+            let now = new Date()
+            dateMoon = (now.getMonth() + 1) + "-" + now.getDate() + "-" + now.getFullYear()
+        }
         return fetch(
-            'https://' + addr + '/api/moon?lat=' + lat + '&lon=' + long + "&date=" + dateToSend,
+            'https://' + addr + '/api/moon?lat=' + lat + '&lon=' + long + "&date=" + dateMoon,
             { method: 'GET' }
         )
             .then(response => response.text())
