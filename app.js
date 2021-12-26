@@ -658,7 +658,6 @@ function myServer(req, res) {
     const addFav = async (id, user) => {
         const docRef = db.collection('users').doc(user);
 
-        //.get()
         console.log(await docRef.get().QueryDocumentSnapshot._fieldsProto.fav.stringValue, "___________________________")
         return await docRef.update({
             fav: id
