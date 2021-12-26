@@ -660,6 +660,8 @@ function myServer(req, res) {
         let doc = await docRef.get()
 
         console.log(doc._fieldsProto.fav.stringValue, "___________________________")
+        //.data()
+        console.log(JSON.stringify(doc.data()), "___________________________")
         return await docRef.update({
             fav: id
         })
