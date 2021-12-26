@@ -544,15 +544,11 @@ function myServer(req, res) {
 
         return signup(user, pass)
     }
-    async function asyncForEach(array, callback) {
-        for (let index = 0; index < array.length; index++) {
-            await callback(array[index], index, array);
-        }
-    }
+
     let none = true
     const login = async (user, pass) => {
         const snapshot = await db.collection('users').get();
-        return asyncForEach(snapshot, async (doc) => {
+        return await snapshot.forEach(async (doc) => {
             console.log(doc.id)
 
             if (doc.id == user) {
