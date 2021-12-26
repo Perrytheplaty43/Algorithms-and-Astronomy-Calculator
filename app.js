@@ -155,7 +155,7 @@ function myServer(req, res) {
         });
         return;
     }
-    if (method == 'GET' && surl.pathname == '/login/style.css') {
+    if (method == 'GET' && surl.pathname == '/signup/style.css') {
         fs.readFile(home + delimiter + 'login' + delimiter + 'style.css', function (err, html) {
             if (err) {
                 console.log(err);
@@ -168,7 +168,7 @@ function myServer(req, res) {
         });
         return;
     }
-    if (method == 'GET' && surl.pathname == '/login/script.js') {
+    if (method == 'GET' && surl.pathname == '/signup/script.js') {
         fs.readFile(home + delimiter + 'login' + delimiter + 'script.js', function (err, html) {
             if (err) {
                 console.log(err);
