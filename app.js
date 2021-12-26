@@ -54,13 +54,13 @@ initializeApp({
 
 const db = getFirestore();
 
-const docRef = db.collection('users').doc('alovelace');
+// const docRef = db.collection('users').doc('alovelace');
 
-await docRef.set({
-    first: 'Ada',
-    last: 'Lovelace',
-    born: 1815
-});
+// await docRef.set({
+//     first: 'Ada',
+//     last: 'Lovelace',
+//     born: 1815
+// });
 
 const snapshot = await db.collection('users').get();
 snapshot.forEach((doc) => {
