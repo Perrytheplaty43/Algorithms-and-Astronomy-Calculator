@@ -56,7 +56,7 @@ initializeApp({
 
 const db = getFirestore();
 
-const res = await db.collection('cities').doc('alovelace').delete();
+const res = await db.collection('users').doc('alovelace').delete();
 
 const snapshot = await db.collection('users').get();
 snapshot.forEach((doc) => {
