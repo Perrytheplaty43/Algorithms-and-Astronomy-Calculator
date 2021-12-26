@@ -519,6 +519,7 @@ function myServer(req, res) {
             .catch(error => console.log('error:', error));
         return;
     }
+    
     if (method == 'GET' && surl.pathname == '/api/images') {
         let searchParams = surl.searchParams
         let id = searchParams.get('id')
