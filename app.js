@@ -181,7 +181,7 @@ function myServer(req, res) {
         });
         return;
     }
-    if (method == 'GET' && surl.pathname == '/login/') {
+    if (method == 'GET' && surl.pathname == '/signup/') {
         fs.readFile(home + delimiter + 'login' + delimiter + 'index.html', function (err, html) {
             if (err) {
                 console.log(err);

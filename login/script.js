@@ -9,8 +9,10 @@ function onSubmit(event) {
             .then(data => {
                 if (JSON.parse(data).res == "same") {
                     document.getElementById("same").style.display = "block"
+                    document.getElementById("suc").style.display = "none"
                 } else if (JSON.parse(data).res == "suc") {
                     document.getElementById("suc").style.display = "block"
+                    document.getElementById("same").style.display = "none"
                 }
             })
             .catch(error => console.log('error:', error));
