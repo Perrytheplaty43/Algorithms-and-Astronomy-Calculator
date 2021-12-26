@@ -523,7 +523,7 @@ function myServer(req, res) {
             .catch(error => console.log('error:', error));
         return;
     }
-    const login = (user, pass) => {
+    const login = async (user, pass) => {
         let salt = await bcrypt.genSalt()
         let hashedPass = await bcrypt.hash(pass, salt)
 
