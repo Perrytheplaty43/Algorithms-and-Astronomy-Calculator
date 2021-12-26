@@ -29,7 +29,7 @@ function onSubmit(event) {
                 }
             })
             .catch(error => console.log('error:', error));
-    } else if (event.submitter.id == "submit1") {
+    } else if (event.submitter.id == "submitObj") {
         fetch(
             'https://' + window.location.hostname + '/api/fav?user=' + user + '&pass=' + pass + '&id=' + document.getElementById("object").value,
             { method: 'POST' }
