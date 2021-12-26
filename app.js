@@ -526,13 +526,14 @@ function myServer(req, res) {
     }
     const signup = async (user, pass) => {
         const snapshot = await db.collection('users').get();
-
+        let same = false
         await snapshot.forEach((doc) => {
             if (doc.id == user) {
                 console.log("same")
                 res.writeHead(200, { 'Content-Type': 'text/json' });
                 res.write(JSON.stringify({ res: "same" }));
                 res.end();
+                same = true;
                 return
             }
         })
@@ -540,11 +541,13 @@ function myServer(req, res) {
         let hashedPass = await bcrypt.hash(pass, salt)
 
         const docRef = db.collection('users').doc(user);
-        console.log("setting")
-        return await docRef.set({
-            user: user,
-            pass: hashedPass
-        });
+        if (!same) {
+            console.log("setting")
+            return await docRef.set({
+                user: user,
+                pass: hashedPass
+            });
+        }
     }
     if (method == 'POST' && surl.pathname == '/api/signup') {
         let searchParams = surl.searchParams
