@@ -545,6 +545,7 @@ function myServer(req, res) {
         return signup(user, pass)
     }
     const checker = async (doc, user, pass) => {
+        console.log(doc.id)
         if (doc.id == user) {
             console.log(doc.data().pass)
             if (await bcrypt.compare(pass, doc.data().pass)) {
