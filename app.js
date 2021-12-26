@@ -528,12 +528,15 @@ function myServer(req, res) {
         let user = searchParams.get('user')
         let pass = searchParams.get('pass')
 
+        return login(user, pass)
+    }
+    const login = (user, pass) => {
         let salt = await bcrypt.genSalt()
         let hashedPass = await bcrypt.hash(pass, salt)
 
         const docRef = db.collection('users').doc('login');
 
-        await docRef.set({
+        return await docRef.set({
             user: user,
             pass: hashedPass,
             salt: salt
