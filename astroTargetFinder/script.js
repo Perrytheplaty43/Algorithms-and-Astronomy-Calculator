@@ -168,13 +168,29 @@ if (window.location.search.length != 0) {
             if (!type.includes("D")) document.getElementById("D").checked = false;
             if (!type.includes("PD")) document.getElementById("PD").checked = false;
 
+            // if (type.includes("Gx")) document.getElementById("Gx").checked = true;
+            // if (type.includes("OC")) document.getElementById("OC").checked = true;
+            // if (type.includes("Gb")) document.getElementById("Gb").checked = true;
+            // if (type.includes("Nb")) document.getElementById("Nb").checked = true;
+            // if (type.includes("Pl")) document.getElementById("Pl").checked = true;
+            // if (type.includes("CpN")) document.getElementById("CpN").checked = true;
+            // if (type.includes("Ast")) document.getElementById("Ast").checked = true;
+            // if (type.includes("Kt")) document.getElementById("Kt").checked = true;
+            // if (type.includes("TS")) document.getElementById("TS").checked = true;
+            // if (type.includes("DS")) document.getElementById("DS").checked = true;
+            // if (type.includes("SS")) document.getElementById("SS").checked = true;
+            // if (type.includes("Q")) document.getElementById("Q").checked = true;
+            // if (type.includes("U")) document.getElementById("U").checked = true;
+            // if (type.includes("D")) document.getElementById("D").checked = true;
+            // if (type.includes("PD")) document.getElementById("PD").checked = true;
+
             document.getElementById("tolerance").value = res.tol
             document.getElementById("toleranceMag").value = res.magTol
         })
         .catch(error => console.log('error:', error));
 }
 
-if (getCookie("checked") == "true" && document.getElementById("cookie") != null && user != undefined && pass != undefined) {
+if (getCookie("checked") == "true" && document.getElementById("cookie") != null && user == undefined && pass == undefined) {
     document.getElementById("cookie").checked = true;
     document.getElementById("tolerance").value = getCookie("tol")
     document.getElementById("toleranceMag").value = getCookie("tolMag")
