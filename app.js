@@ -766,7 +766,7 @@ function myServer(req, res) {
 
         if (userReq != undefined && userReq != undefined) {
             correct = fetch(
-                'https://' + ip + '/api/login?user=' + userReq + '&pass=' + passReq,
+                'http://' + ip + ':8000/api/login?user=' + userReq + '&pass=' + passReq,
                 { method: 'GET' }
             )
                 .then(response => response.text())
