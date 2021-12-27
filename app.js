@@ -863,9 +863,9 @@ function myServer(req, res) {
                             .then(response => response.text())
                             .then(async finalData => {
                                 res.writeHead(200, { 'Content-Type': 'text/json' });
-                                if (theLoginRes == "suc") {
-                                    const docRef = db.collection('users').doc(userReq);
-                                    let doc = await docRef.get()
+                                const docRef = db.collection('users').doc(userReq);
+                                let doc = await docRef.get()
+                                if (theLoginRes == "suc" && doc.data().fav != null) {
                                     let raw = JSON.parse(finalData)
                                     let theFinal = []
                                     let favArr = doc.data().fav.split(",")
