@@ -823,7 +823,7 @@ function myServer(req, res) {
                                                 faveArr[i] = favArr2.join('')
                                             }
                                         } else {
-                                            favArr[i] = "NGC" + favArr[i]
+                                            favArr[i] = favArr[i].substring(3)
                                         }
                                     }
                                     console.log(favArr)
