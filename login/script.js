@@ -76,3 +76,84 @@ function ShowHideDivQuestion(event) {
         document.getElementsByClassName("tooltiptext")[0].style.marginLeft = "0";
     }
 }
+
+function submitParams() {
+    let types = []
+    let Gx = document.getElementById("Gx");
+    let OC = document.getElementById("OC");
+    let Gb = document.getElementById("Gb");
+    let Nb = document.getElementById("Nb");
+    let Pl = document.getElementById("Pl");
+    let CpN = document.getElementById("CpN");
+    let Ast = document.getElementById("Ast");
+    let Kt = document.getElementById("Kt");
+    let TS = document.getElementById("TS");
+    let DS = document.getElementById("DS");
+    let SS = document.getElementById("SS");
+    let Q = document.getElementById("Q");
+    let U = document.getElementById("U");
+    let D = document.getElementById("D");
+    let PD = document.getElementById("PD");
+    let tol = document.getElementById("tolerance").value;
+    let tolMag = document.getElementById("toleranceMag").value;
+
+    if (Gx.checked) {
+        types.push("Gx")
+    }
+    if (OC.checked) {
+        types.push("OC")
+    }
+    if (Gb.checked) {
+        types.push("Gb")
+    }
+    if (Nb.checked) {
+        types.push("Nb")
+    }
+    if (Pl.checked) {
+        types.push("Pl")
+    }
+    if (CpN.checked) {
+        types.push("CpN")
+    }
+    if (Ast.checked) {
+        types.push("Ast")
+    }
+    if (Kt.checked) {
+        types.push("Kt")
+    }
+    if (TS.checked) {
+        types.push("TS")
+    }
+    if (DS.checked) {
+        types.push("DS")
+    }
+    if (SS.checked) {
+        types.push("SS")
+    }
+    if (Q.checked) {
+        types.push("Q")
+    }
+    if (U.checked) {
+        types.push("U")
+    }
+    if (D.checked) {
+        types.push("D")
+    }
+    if (PD.checked) {
+        types.push("PD")
+    }
+
+    if (user != undefined && pass != undefined) {
+        fetch(
+            'https://' + window.location.hostname + '/api/params?tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&user=" + user + "&pass=" + pass,
+            { method: 'GET' }
+        )
+            .then(response => response.text())
+            .then(res => {
+                if (JSON.parse(res).res != "done") {
+                    alert("error")
+                }
+            })
+            .catch(error => console.log('error:', error));
+    }
+}

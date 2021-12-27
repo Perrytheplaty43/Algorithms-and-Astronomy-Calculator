@@ -585,7 +585,10 @@ function myServer(req, res) {
             return await docRef.set({
                 user: user,
                 pass: hashedPass,
-                fav: null
+                fav: null,
+                type: null,
+                tol: null,
+                magTol: null
             }).then(() => {
                 res.writeHead(200, { 'Content-Type': 'text/json' });
                 res.write(JSON.stringify({ res: "suc" }));
@@ -681,6 +684,40 @@ function myServer(req, res) {
                         res.write(JSON.stringify({ res: "done" }));
                         res.end();
                         return addFav(id, user)
+                    } else {
+
+                    }
+                }, 1000)
+            })
+    }
+
+    const addParam = async (type, tol, magTol, user) => {
+        const docRef = db.collection('users').doc(user);
+        let doc = await docRef.get()
+
+        return await docRef.update({
+            type: ((() => { if (doc.data().type != null) { return doc.data().type + type + "," } else { return type + "," } })()),
+            tol: ((() => { if (doc.data().tol != null) { return doc.data().tol + tol + "," } else { return tol + "," } })()),
+            magTol: ((() => { if (doc.data().magTol != null) { return doc.data().magTol + magTol + "," } else { return magTol + "," } })())
+        })
+    }
+
+    if (method == 'POST' && surl.pathname == '/api/params') {
+        let searchParams = surl.searchParams
+        let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
+        let type = searchParams.get('type')
+        let tol = searchParams.get('tol')
+        let magTol = searchParams.get('magTol')
+
+        return login(user, pass, true)
+            .then(() => {
+                setTimeout(() => {
+                    if (theLoginRes == "suc") {
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(JSON.stringify({ res: "done" }));
+                        res.end();
+                        return addParam(type, tol, magTol, user)
                     } else {
 
                     }
