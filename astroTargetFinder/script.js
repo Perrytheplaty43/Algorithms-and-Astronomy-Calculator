@@ -142,9 +142,39 @@ if (window.location.search.length != 0) {
     document.getElementById("favs").style.display = "block"
     document.getElementById("indicator2").innerHTML = "Logged in as: " + user
     document.getElementById("indicator").style.display = "block"
+
+    fetch(
+        'https://' + window.location.hostname + '/api/params?user=' + user + '&pass=' + pass,
+        { method: 'GET' }
+    )
+        .then(response => response.text())
+        .then(res => {
+            res = JSON.parse(res)
+            let type = res.type.split(",")
+
+            if (!type.includes("Gx")) document.getElementById("Gx").checked = false;
+            if (!type.includes("OC")) document.getElementById("OC").checked = false;
+            if (!type.includes("Gb")) document.getElementById("Gb").checked = false;
+            if (!type.includes("Nb")) document.getElementById("Nb").checked = false;
+            if (!type.includes("Pl")) document.getElementById("Pl").checked = false;
+            if (!type.includes("CpN")) document.getElementById("CpN").checked = false;
+            if (!type.includes("Ast")) document.getElementById("Ast").checked = false;
+            if (!type.includes("Kt")) document.getElementById("Kt").checked = false;
+            if (!type.includes("TS")) document.getElementById("TS").checked = false;
+            if (!type.includes("DS")) document.getElementById("DS").checked = false;
+            if (!type.includes("SS")) document.getElementById("SS").checked = false;
+            if (!type.includes("Q")) document.getElementById("Q").checked = false;
+            if (!type.includes("U")) document.getElementById("U").checked = false;
+            if (!type.includes("D")) document.getElementById("D").checked = false;
+            if (!type.includes("PD")) document.getElementById("PD").checked = false;
+
+            document.getElementById("tolerance").value = res.tol
+            document.getElementById("toleranceMag").value = res.magTol
+        })
+        .catch(error => console.log('error:', error));
 }
 
-if (getCookie("checked") == "true" && document.getElementById("cookie") != null) {
+if (getCookie("checked") == "true" && document.getElementById("cookie") != null && user != undefined && pass != undefined) {
     document.getElementById("cookie").checked = true;
     document.getElementById("tolerance").value = getCookie("tol")
     document.getElementById("toleranceMag").value = getCookie("tolMag")
