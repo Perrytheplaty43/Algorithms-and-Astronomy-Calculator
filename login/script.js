@@ -146,7 +146,7 @@ function submitParams() {
     if (user != undefined && pass != undefined) {
         fetch(
             'https://' + window.location.hostname + '/api/params?tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&user=" + user + "&pass=" + pass,
-            { method: 'GET' }
+            { method: 'POST' }
         )
             .then(response => response.text())
             .then(res => {
