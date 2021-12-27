@@ -661,7 +661,7 @@ function myServer(req, res) {
                 fav: doc.data().fav + id + ","
             })
         } else if (id == "NGC0000") {
-            return await docRef.set({
+            return await docRef.update({
                 fav: ""
             })
         }
