@@ -280,6 +280,8 @@ label {
 	overflow-wrap: normal;
 	color: lightseagreen;
 	text-decoration: underline;
+	cursor: pointer;
+	
 }
 
 button {
