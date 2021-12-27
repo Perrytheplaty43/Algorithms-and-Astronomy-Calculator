@@ -59,3 +59,8 @@ function updateUI() {
     document.getElementById("indicator").innerHTML = "Loged in as: " + user
     document.getElementById("indicator").classList.add('p1green2')
 }
+
+function bottomForm(event) {
+    event.preventDefault();
+    window.location.href = "https://" + window.location.hostname + "/astroTargetFinder/?user=" + user + "&pass=" + pass;
+}

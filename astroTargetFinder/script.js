@@ -250,7 +250,9 @@ function onSubmit(event) {
         )
             .then(response => response.text())
             .then(finalData => {
-                updateUI(JSON.parse(finalData), timer, lat, long)
+                console.log(finalData)
+                console.log(finalData[1])
+                updateUI(JSON.parse(finalData[0]), timer, lat, long)
             })
             .catch(error => console.log('error:', error));
         event.preventDefault();

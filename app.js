@@ -759,6 +759,23 @@ function myServer(req, res) {
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
+
+        let userReq = searchParams.get('user')
+        let passReq = searchParams.get('pass')
+        let isCorrect = await fetch(
+            'https://' + ip + '/api/login?user=' + userReq + '&pass=' + passReq,
+            { method: 'GET' }
+        )
+            .then(response => response.text())
+            .then(finalData => {
+                if (JSON.parse(finalData).res == "correct") {
+                    return true
+                } else {
+                    return false
+                }
+            })
+            .catch(error => console.log('error:', error));
+
         let dateMoon = dateToSend
         if (dateMoon == "") {
             let now = new Date()
@@ -786,7 +803,24 @@ function myServer(req, res) {
                             .then(response => response.text())
                             .then(finalData => {
                                 res.writeHead(200, { 'Content-Type': 'text/json' });
-                                res.write(finalData);
+                                if (isCorrect) {
+                                    const docRef = db.collection('users').doc(userReq);
+                                    let origin = JSON.parse(finalData)
+                                    let doc = await docRef.get()
+                                    let favArr = doc.fav.split(",")
+                                    let finalFavArr = [];
+                                    for (let i = 0; i <= origin.length - 1; i++) {
+                                        for(let y = 0; y <= favArr.length - 1; y++) {
+                                            if(favArr[y] == origin[i][0]) {
+                                                finalFavArr.push(origin[i])
+                                            }
+                                        }
+                                    }
+                                    if(finalFavArr.length <= 0) {
+                                        finalFavArr.push("none")
+                                    }
+                                }
+                                res.write([finalData, finalFavArr]);
                                 res.end();
                             })
                             .catch(error => console.log('error:', error));
