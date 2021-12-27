@@ -658,7 +658,7 @@ function myServer(req, res) {
 
         if (id != "NGC0000") {
             return await docRef.update({
-                fav: doc.data().fav + id + ","
+                fav: ((() => { if (doc.data().fav != null) { return doc.data().fav + id + "," } else { return id + "," } })())
             })
         } else if (id == "NGC0000") {
             return await docRef.update({
