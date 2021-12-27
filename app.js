@@ -805,7 +805,6 @@ function myServer(req, res) {
                             .then(async finalData => {
                                 res.writeHead(200, { 'Content-Type': 'text/json' });
                                 if (theLoginRes == "suc") {
-                                    console.log("good so far")
                                     const docRef = db.collection('users').doc(userReq);
                                     let doc = await docRef.get()
                                     let raw = JSON.parse(finalData)
@@ -827,7 +826,6 @@ function myServer(req, res) {
                                             favArr[i] = favArr[i].substring(3)
                                         }
                                     }
-                                    console.log(favArr)
                                     for (let i = 0; i <= raw.length - 1; i++) {
                                         for (let y = 0; y <= favArr.length - 1; y++) {
                                             if (raw[i][0] == favArr[y]) {
@@ -835,7 +833,6 @@ function myServer(req, res) {
                                             }
                                         }
                                     }
-                                    console.log(theFinal)
                                     res.write(JSON.stringify([finalData, theFinal]));
                                     res.end();
                                 } else {
