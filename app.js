@@ -765,19 +765,16 @@ function myServer(req, res) {
         let passReq = searchParams.get('pass')
 
         if (userReq != undefined && userReq != undefined) {
-            correct = fetch(
-                'http://' + ip + ':8000/api/login?user=' + userReq + '&pass=' + passReq,
-                { method: 'GET' }
-            )
-                .then(response => response.text())
-                .then(finalData => {
-                    if (JSON.parse(finalData).res == "correct") {
-                        return true
-                    } else {
-                        return false
-                    }
+            correct = login(user, pass, true)
+                .then(() => {
+                    setTimeout(() => {
+                        if (none) {
+                            return false
+                        } else {
+                            return
+                        }
+                    }, 500);
                 })
-                .catch(error => console.log('error:', error));
         }
 
         let dateMoon = dateToSend
@@ -807,7 +804,7 @@ function myServer(req, res) {
                             .then(response => response.text())
                             .then(finalData => {
                                 res.writeHead(200, { 'Content-Type': 'text/json' });
-                                if (correct) {
+                                if (theLoginRes == "suc") {
                                     console.log("good so far")
                                 }
                                 res.write(finalData);
