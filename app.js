@@ -802,7 +802,7 @@ function myServer(req, res) {
                             { method: 'GET' }
                         )
                             .then(response => response.text())
-                            .then(finalData => {
+                            .then(async finalData => {
                                 res.writeHead(200, { 'Content-Type': 'text/json' });
                                 if (theLoginRes == "suc") {
                                     console.log("good so far")
