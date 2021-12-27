@@ -254,7 +254,6 @@ function myServer(req, res) {
         let searchParams = surl.searchParams;
         userReq = searchParams.get('user')
         passReq = searchParams.get('pass')
-        optional(userReq, passReq)
         fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'index.html', function (err, html) {
             if (err) {
                 console.log(err);
