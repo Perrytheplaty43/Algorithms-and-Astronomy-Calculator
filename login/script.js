@@ -66,5 +66,5 @@ function bottomForm(event) {
 }
 
 function SignOutRe() {
-    alert("it works")
+    window.location.href = "https://" + window.location.hostname + "/signup/";
 }

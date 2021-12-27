@@ -274,6 +274,18 @@ label {
 	color: lightseagreen;
 }
 
+.p13 {
+	font-size: 18px;
+	margin-left: 4px;
+	overflow-wrap: normal;
+	color: lightseagreen;
+	text-decoration: underline;
+}
+
+button {
+	cursor: pointer;
+}
+
 .container9 {
 	margin-left: 10px;
 }
