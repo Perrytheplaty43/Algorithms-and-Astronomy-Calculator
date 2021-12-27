@@ -836,7 +836,7 @@ function myServer(req, res) {
                                         }
                                     }
                                     console.log(theFinal)
-                                    res.write([finalData, theFinal]);
+                                    res.write(JSON.stringify([finalData, theFinal]));
                                     res.end();
                                 } else {
                                     res.write([finalData, []]);
