@@ -322,7 +322,7 @@ function updateUI(final, timer, lat, long, final2) {
     } else {
         document.getElementById("p1").innerHTML = "No targets found for the search params, try widening the search."
     }
-    if (final2 != null) {
+    if (final2.length != 0) {
         if (final2.length == 1) {
             document.getElementById("p2").innerHTML = "Favorites: <br /> <br /> Best target: " + (() => { let firstChar = final2[0][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final2[0][0].split(""); if (firstChar[0] == "I") { return final2[0][0].substring(1) } else { return final2[0][0] } })() + ", Magnitude: " + final2[0][2] + ", Type: " + final2[0][3] + ", Constellation: " + final2[0][4] + "<br />";
         } else if (final2.length == 2) {
