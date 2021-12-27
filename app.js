@@ -248,7 +248,13 @@ function myServer(req, res) {
         });
         return;
     }
+    let userReq;
+    let passReq;
     if (method == 'GET' && surl.pathname == '/astroTargetFinder') {
+        let searchParams = surl.searchParams;
+        userReq = searchParams.get('user')
+        passReq = searchParams.get('pass')
+        optional(userReq, passReq)
         fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'index.html', function (err, html) {
             if (err) {
                 console.log(err);
@@ -752,7 +758,7 @@ function myServer(req, res) {
         logging(testing, write)
         return;
     }
-    const astro = async (searchParams) => {
+    const astro = (searchParams) => {
         let lat = searchParams.get('lat')
         let long = searchParams.get('long')
         let tol = searchParams.get('tol')
@@ -762,19 +768,22 @@ function myServer(req, res) {
 
         let userReq = searchParams.get('user')
         let passReq = searchParams.get('pass')
-        let isCorrect = await fetch(
-            'https://' + ip + '/api/login?user=' + userReq + '&pass=' + passReq,
-            { method: 'GET' }
-        )
-            .then(response => response.text())
-            .then(finalData => {
-                if (JSON.parse(finalData).res == "correct") {
-                    return true
-                } else {
-                    return false
-                }
-            })
-            .catch(error => console.log('error:', error));
+
+        if (user != undefined && pass != undefined) {
+            let correct = fetch(
+                'https://' + ip + '/api/login?user=' + userReq + '&pass=' + passReq,
+                { method: 'GET' }
+            )
+                .then(response => response.text())
+                .then(finalData => {
+                    if (JSON.parse(finalData).res == "correct") {
+                        return true
+                    } else {
+                        return false
+                    }
+                })
+                .catch(error => console.log('error:', error));
+        }
 
         let dateMoon = dateToSend
         if (dateMoon == "") {
@@ -801,26 +810,12 @@ function myServer(req, res) {
                             { method: 'GET' }
                         )
                             .then(response => response.text())
-                            .then(async finalData => {
+                            .then(finalData => {
                                 res.writeHead(200, { 'Content-Type': 'text/json' });
-                                if (isCorrect) {
-                                    const docRef = db.collection('users').doc(userReq);
-                                    let origin = JSON.parse(finalData)
-                                    let doc = await docRef.get()
-                                    let favArr = doc.fav.split(",")
-                                    let finalFavArr = [];
-                                    for (let i = 0; i <= origin.length - 1; i++) {
-                                        for(let y = 0; y <= favArr.length - 1; y++) {
-                                            if(favArr[y] == origin[i][0]) {
-                                                finalFavArr.push(origin[i])
-                                            }
-                                        }
-                                    }
-                                    if(finalFavArr.length <= 0) {
-                                        finalFavArr.push("none")
-                                    }
+                                if (correct) {
+                                    console.log("good so far")
                                 }
-                                res.write([finalData, finalFavArr]);
+                                res.write(finalData);
                                 res.end();
                             })
                             .catch(error => console.log('error:', error));
@@ -844,7 +839,7 @@ function myServer(req, res) {
 
     }
     if (method == 'GET' && surl.pathname == '/astro') {
-        return astro(surl.searchParams);
+        return astro(surl.searchParams)
     }
 
     if (method == 'GET' && surl.pathname == '/api/scrambler') {

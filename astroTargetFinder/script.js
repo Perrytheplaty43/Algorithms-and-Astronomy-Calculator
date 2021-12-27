@@ -124,6 +124,18 @@ const mapImages = {
     '2541': './Images/NGC2541.jpg',
 };
 
+let user;
+let pass;
+
+if (window.location.search.length != 0) {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    user = params.user
+    pass = params.pass
+
+    window.history.pushState("", "", "/astroTargetFinder");
+}
+
 if (getCookie("checked") == "true" && document.getElementById("cookie") != null) {
     document.getElementById("cookie").checked = true;
     document.getElementById("tolerance").value = getCookie("tol")
@@ -244,17 +256,27 @@ function onSubmit(event) {
             setCookie("checked", "false", 365)
         }
 
-        fetch(
-            'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
-            { method: 'GET' }
-        )
-            .then(response => response.text())
-            .then(finalData => {
-                console.log(finalData)
-                console.log(finalData[1])
-                updateUI(JSON.parse(finalData[0]), timer, lat, long)
-            })
-            .catch(error => console.log('error:', error));
+        if (user == undefined && pass == undefined) {
+            fetch(
+                'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+                { method: 'GET' }
+            )
+                .then(response => response.text())
+                .then(finalData => {
+                    updateUI(JSON.parse(finalData), timer, lat, long)
+                })
+                .catch(error => console.log('error:', error));
+        } else if (user != undefined && pass != undefined) {
+            fetch(
+                'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&user=" + user + "&pass=" + pass,
+                { method: 'GET' }
+            )
+                .then(response => response.text())
+                .then(finalData => {
+                    updateUI(JSON.parse(finalData), timer, lat, long)
+                })
+                .catch(error => console.log('error:', error));
+        }
         event.preventDefault();
     }
     return false;

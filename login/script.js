@@ -62,5 +62,5 @@ function updateUI() {
 
 function bottomForm(event) {
     event.preventDefault();
-    window.location.href = "https://" + window.location.hostname + "/astroTargetFinder/?user=" + user + "&pass=" + pass;
+    window.location.href = "https://" + window.location.hostname + "/astroTargetFinder?user=" + user + "&pass=" + pass;
 }
