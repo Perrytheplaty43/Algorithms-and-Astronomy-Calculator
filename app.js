@@ -806,6 +806,30 @@ function myServer(req, res) {
                                 res.writeHead(200, { 'Content-Type': 'text/json' });
                                 if (theLoginRes == "suc") {
                                     console.log("good so far")
+                                    const docRef = db.collection('users').doc(userReq);
+                                    let doc = await docRef.get()
+                                    let raw = JSON.parse(finalData)
+                                    let favArr = doc.fav.split(",")
+                                    favArr.splice(favArr.length - 1, 1)
+                                    for (let i = 0; i <= favArr.length - 1; i++) {
+                                        let favArr2 = favArr[i].split()
+                                        if (favArr2.includes("I")) {
+                                            let favArr2 = favArr2.join('').split("IC")
+                                            if (favArr2[1].length > 3) {
+                                                favArr2[0] = "I"
+                                                faveArr[i] = favArr2.join('')
+                                            } else {
+                                                favArr2[0] = "I "
+                                                faveArr[i] = favArr2.join('')
+                                            }
+                                        } else {
+                                            favArr[i] = "NGC" + favArr[i]
+                                        }
+                                    }
+                                    console.log(favArr)
+                                    for (let i = 0; i <= raw.length - 1; i++) {
+
+                                    }
                                 }
                                 res.write(finalData);
                                 res.end();
