@@ -817,10 +817,10 @@ function myServer(req, res) {
                                             favArr2 = favArr2.join('').split("IC")
                                             if (favArr2[1].length > 3) {
                                                 favArr2[0] = "I"
-                                                faveArr[i] = favArr2.join('')
+                                                favArr[i] = favArr2.join('')
                                             } else {
                                                 favArr2[0] = "I "
-                                                faveArr[i] = favArr2.join('')
+                                                favArr[i] = favArr2.join('')
                                             }
                                         } else {
                                             favArr[i] = favArr[i].substring(3)
