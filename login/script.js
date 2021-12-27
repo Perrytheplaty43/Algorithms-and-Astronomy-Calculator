@@ -68,3 +68,11 @@ function bottomForm(event) {
 function SignOutRe() {
     window.location.href = "https://" + window.location.hostname + "/signup/";
 }
+
+function ShowHideDivQuestion(event) {
+    let thing = document.getElementsByClassName("tooltiptext")[0];
+    thing.style.display = event.srcElement.checked ? "block" : "none"
+    if (document.getElementsByClassName("checkboxes")[0].offsetWidth + document.getElementsByClassName("params")[0].offsetWidth > window.innerWidth * 0.64) {
+        document.getElementsByClassName("tooltiptext")[0].style.marginLeft = "0";
+    }
+}
