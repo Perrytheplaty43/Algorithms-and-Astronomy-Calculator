@@ -809,7 +809,7 @@ function myServer(req, res) {
                                     const docRef = db.collection('users').doc(userReq);
                                     let doc = await docRef.get()
                                     let raw = JSON.parse(finalData)
-                                    let favArr = doc.fav.split(",")
+                                    let favArr = doc.data().fav.split(",")
                                     favArr.splice(favArr.length - 1, 1)
                                     for (let i = 0; i <= favArr.length - 1; i++) {
                                         let favArr2 = favArr[i].split()
