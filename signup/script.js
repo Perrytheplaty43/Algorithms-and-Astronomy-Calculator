@@ -13,9 +13,15 @@ function onSubmit(event) {
                 } else if (JSON.parse(data).res == "suc") {
                     document.getElementById("suc").style.display = "block"
                     document.getElementById("same").style.display = "none"
+                    
                 }
             })
             .catch(error => console.log('error:', error));
+        
     }
     return false
+}
+
+function SignInRe() {
+    window.location.href = "https://" + window.location.hostname + "/login/";
 }

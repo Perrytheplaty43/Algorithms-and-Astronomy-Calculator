@@ -259,6 +259,26 @@ label {
 	color: lightseagreen;
 }
 
+.p13 {
+	font-size: 18px;
+	margin-left: 4px;
+	overflow-wrap: normal;
+	color: lightseagreen;
+	text-decoration: underline;
+	cursor: pointer;
+	
+}
+
+.p132 {
+	font-size: 18px;
+	margin-left: 4px;
+	overflow-wrap: normal;
+	color: lime;
+	text-decoration: underline;
+	cursor: pointer;
+	
+}
+
 .p1green {
 	font-size: 18px;
 	margin-left: 4px;
