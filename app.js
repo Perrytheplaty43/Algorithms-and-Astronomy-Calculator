@@ -248,12 +248,7 @@ function myServer(req, res) {
         });
         return;
     }
-    let userReq;
-    let passReq;
     if (method == 'GET' && surl.pathname == '/astroTargetFinder') {
-        let searchParams = surl.searchParams;
-        userReq = searchParams.get('user')
-        passReq = searchParams.get('pass')
         fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'index.html', function (err, html) {
             if (err) {
                 console.log(err);
@@ -764,7 +759,10 @@ function myServer(req, res) {
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
+
         let correct;
+        let userReq = searchParams.get('user')
+        let passReq = searchParams.get('pass')
 
         if (userReq != undefined && userReq != undefined) {
             correct = fetch(
