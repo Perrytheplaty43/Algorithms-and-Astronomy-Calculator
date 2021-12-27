@@ -752,7 +752,7 @@ function myServer(req, res) {
         logging(testing, write)
         return;
     }
-    const astro = (searchParams) => {
+    const astro = async (searchParams) => {
         let lat = searchParams.get('lat')
         let long = searchParams.get('long')
         let tol = searchParams.get('tol')
