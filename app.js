@@ -812,8 +812,7 @@ function myServer(req, res) {
                                     let favArr = doc.data().fav.split(",")
                                     favArr.splice(favArr.length - 1, 1)
                                     for (let i = 0; i <= favArr.length - 1; i++) {
-                                        let favArr2 = favArr[i].split()
-                                        console.log(favArr2)
+                                        let favArr2 = favArr[i].split('')
                                         if (favArr2.includes("I")) {
                                             let favArr2 = favArr2.join('').split("IC")
                                             if (favArr2[1].length > 3) {
