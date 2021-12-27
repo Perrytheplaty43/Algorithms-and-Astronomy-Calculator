@@ -731,7 +731,7 @@ function myServer(req, res) {
 
         return login(user, pass, true)
             .then(() => {
-                setTimeout(() => {
+                setTimeout(async () => {
                     if (theLoginRes == "suc") {
                         const docRef = db.collection('users').doc(user);
                         let doc = await docRef.get()
