@@ -19,6 +19,11 @@ globalThis.child = child
 import dotenv from 'dotenv'
 dotenv.config()
 
+import { initializeApp, applicationDefault, cert } from 'firebase-admin/app';
+import { getFirestore, Timestamp, FieldValue } from 'firebase-admin/firestore';
+
+import bcrypt from 'bcrypt'
+
 const delimiter = "/";
 
 let testing = false;
@@ -41,6 +46,23 @@ if (!home.startsWith('/home/runner')) {
         fileCount = parseInt(html)
     })
 }
+
+import serviceAccount from './regal-campaign-334804-firebase-adminsdk-diw5x-9e37631f62.json';
+import admin from 'firebase-admin'
+
+initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: 'https://regal-campaign-334804-default-rtdb.firebaseio.com/'
+});
+
+const db = getFirestore();
+
+const res = await db.collection('users').doc('adim').delete();
+
+const snapshot = await db.collection('users').get();
+snapshot.forEach((doc) => {
+    console.log(doc.id, '=>', doc.data());
+});
 
 function myServer(req, res) {
     const { method, url } = req;
@@ -130,6 +152,84 @@ function myServer(req, res) {
                 return;
             }
             res.writeHead(200, { 'Content-Type': 'text/js' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/signup/style.css') {
+        fs.readFile(home + delimiter + 'signup' + delimiter + 'style.css', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/css' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/signup/script.js') {
+        fs.readFile(home + delimiter + 'signup' + delimiter + 'script.js', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/js' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/signup/') {
+        fs.readFile(home + delimiter + 'signup' + delimiter + 'index.html', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/login/style.css') {
+        fs.readFile(home + delimiter + 'login' + delimiter + 'style.css', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/css' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/login/script.js') {
+        fs.readFile(home + delimiter + 'login' + delimiter + 'script.js', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/js' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/login/') {
+        fs.readFile(home + delimiter + 'login' + delimiter + 'index.html', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/html' });
             res.write(html);
             res.end();
         });
@@ -465,6 +565,129 @@ function myServer(req, res) {
             .catch(error => console.log('error:', error));
         return;
     }
+    const signup = async (user, pass) => {
+        const snapshot = await db.collection('users').get();
+        let same = false
+        await snapshot.forEach((doc) => {
+            if (doc.id == user) {
+                res.writeHead(200, { 'Content-Type': 'text/json' });
+                res.write(JSON.stringify({ res: "same" }));
+                res.end();
+                same = true;
+                return
+            }
+        })
+        let salt = await bcrypt.genSalt()
+        let hashedPass = await bcrypt.hash(pass, salt)
+
+        const docRef = db.collection('users').doc(user);
+        if (!same) {
+            return await docRef.set({
+                user: user,
+                pass: hashedPass,
+                fav: null
+            }).then(() => {
+                res.writeHead(200, { 'Content-Type': 'text/json' });
+                res.write(JSON.stringify({ res: "suc" }));
+                res.end();
+                return
+            });
+        }
+    }
+    if (method == 'POST' && surl.pathname == '/api/signup') {
+        let searchParams = surl.searchParams
+        let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
+
+        return signup(user, pass)
+    }
+
+    let none = true
+    let theLoginRes;
+    const login = async (user, pass, only) => {
+        const snapshot = await db.collection('users').get();
+        return await snapshot.forEach(async (doc) => {
+            if (doc.id == user) {
+                if (await bcrypt.compare(pass, doc.data().pass)) {
+                    none = false
+                    if (!only) {
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(JSON.stringify({ res: "correct" }));
+                        res.end();
+                    } else {
+                        theLoginRes = "suc"
+                    }
+                    return "correct"
+                } else {
+                    none = false
+                    if (!only) {
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(JSON.stringify({ res: "wrong" }));
+                        res.end();
+                    } else {
+                        theLoginRes = "wrong"
+                    }
+                    return "true"
+                }
+            }
+        });
+    }
+    if (method == 'GET' && surl.pathname == '/api/login') {
+        let searchParams = surl.searchParams
+        let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
+
+        return login(user, pass)
+            .then(() => {
+                setTimeout(() => {
+                    if (none) {
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(JSON.stringify({ res: "nouser" }));
+                        res.end();
+                        return
+                    } else {
+                        return
+                    }
+                }, 500);
+            })
+    }
+
+    const addFav = async (id, user) => {
+        const docRef = db.collection('users').doc(user);
+        let doc = await docRef.get()
+
+        if (id != "NGC0000") {
+            return await docRef.update({
+                fav: ((() => { if (doc.data().fav != null) { return doc.data().fav + id + "," } else { return id + "," } })())
+            })
+        } else if (id == "NGC0000") {
+            return await docRef.update({
+                fav: ""
+            })
+        }
+    }
+
+    if (method == 'POST' && surl.pathname == '/api/fav') {
+        let searchParams = surl.searchParams
+        let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
+        let id = searchParams.get('id')
+
+        return login(user, pass, true)
+            .then(() => {
+                setTimeout(() => {
+                    if (theLoginRes == "suc") {
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(JSON.stringify({ res: "done" }));
+                        res.end();
+                        return addFav(id, user)
+                    } else {
+
+                    }
+                }, 1000)
+            })
+    }
+
     if (method == 'GET' && surl.pathname == '/api/moon') {
         let searchParams = surl.searchParams
         let lat = searchParams.get('lat')
@@ -536,6 +759,24 @@ function myServer(req, res) {
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
+
+        let correct;
+        let userReq = searchParams.get('user')
+        let passReq = searchParams.get('pass')
+
+        if (userReq != undefined && userReq != undefined) {
+            correct = login(userReq, passReq, true)
+                .then(() => {
+                    setTimeout(() => {
+                        if (none) {
+                            return false
+                        } else {
+                            return
+                        }
+                    }, 500);
+                })
+        }
+
         let dateMoon = dateToSend
         if (dateMoon == "") {
             let now = new Date()
@@ -561,10 +802,43 @@ function myServer(req, res) {
                             { method: 'GET' }
                         )
                             .then(response => response.text())
-                            .then(finalData => {
+                            .then(async finalData => {
                                 res.writeHead(200, { 'Content-Type': 'text/json' });
-                                res.write(finalData);
-                                res.end();
+                                if (theLoginRes == "suc") {
+                                    const docRef = db.collection('users').doc(userReq);
+                                    let doc = await docRef.get()
+                                    let raw = JSON.parse(finalData)
+                                    let theFinal = []
+                                    let favArr = doc.data().fav.split(",")
+                                    favArr.splice(favArr.length - 1, 1)
+                                    for (let i = 0; i <= favArr.length - 1; i++) {
+                                        let favArr2 = favArr[i].split('')
+                                        if (favArr2.includes("I")) {
+                                            favArr2 = favArr2.join('').split("IC")
+                                            if (favArr2[1].length > 3) {
+                                                favArr2[0] = "I"
+                                                favArr[i] = favArr2.join('')
+                                            } else {
+                                                favArr2[0] = "I "
+                                                favArr[i] = favArr2.join('')
+                                            }
+                                        } else {
+                                            favArr[i] = favArr[i].substring(3)
+                                        }
+                                    }
+                                    for (let i = 0; i <= raw.length - 1; i++) {
+                                        for (let y = 0; y <= favArr.length - 1; y++) {
+                                            if (raw[i][0] == favArr[y]) {
+                                                theFinal.push(raw[i])
+                                            }
+                                        }
+                                    }
+                                    res.write(JSON.stringify([finalData, theFinal]));
+                                    res.end();
+                                } else {
+                                    res.write([finalData, []]);
+                                    res.end();
+                                }
                             })
                             .catch(error => console.log('error:', error));
                     } else {
@@ -587,7 +861,7 @@ function myServer(req, res) {
 
     }
     if (method == 'GET' && surl.pathname == '/astro') {
-        return astro(surl.searchParams);
+        return astro(surl.searchParams)
     }
 
     if (method == 'GET' && surl.pathname == '/api/scrambler') {

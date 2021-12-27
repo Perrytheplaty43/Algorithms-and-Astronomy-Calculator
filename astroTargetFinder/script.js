@@ -124,6 +124,21 @@ const mapImages = {
     '2541': './Images/NGC2541.jpg',
 };
 
+let user;
+let pass;
+
+if (window.location.search.length != 0) {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = Object.fromEntries(urlSearchParams.entries());
+    user = params.user
+    pass = params.pass
+
+    window.history.pushState("", "", "/astroTargetFinder");
+    document.getElementById("favs").style.display = "block"
+    document.getElementById("indicator2").innerHTML = "Logged in as: " + user
+    document.getElementById("indicator").style.display = "block"
+}
+
 if (getCookie("checked") == "true" && document.getElementById("cookie") != null) {
     document.getElementById("cookie").checked = true;
     document.getElementById("tolerance").value = getCookie("tol")
@@ -152,6 +167,9 @@ function onSubmit(event) {
     if (event.submitter.id == "home_button") {
         event.preventDefault();
         window.location.href = "./";
+    } else if (event.submitter.id == "login_button") {
+        event.preventDefault();
+        window.location.href = "./login/";
     } else if (event.submitter.id == "loc_button") {
         event.preventDefault();
         if (navigator.geolocation) {
@@ -244,15 +262,27 @@ function onSubmit(event) {
             setCookie("checked", "false", 365)
         }
 
-        fetch(
-            'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
-            { method: 'GET' }
-        )
-            .then(response => response.text())
-            .then(finalData => {
-                updateUI(JSON.parse(finalData), timer, lat, long)
-            })
-            .catch(error => console.log('error:', error));
+        if (user == undefined && pass == undefined) {
+            fetch(
+                'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+                { method: 'GET' }
+            )
+                .then(response => response.text())
+                .then(finalData => {
+                    updateUI(JSON.parse(finalData), timer, lat, long)
+                })
+                .catch(error => console.log('error:', error));
+        } else if (user != undefined && pass != undefined) {
+            fetch(
+                'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&user=" + user + "&pass=" + pass,
+                { method: 'GET' }
+            )
+                .then(response => response.text())
+                .then(finalData => {
+                    updateUI(JSON.parse(JSON.parse(finalData)[0]), timer, lat, long, JSON.parse(finalData)[1])
+                })
+                .catch(error => console.log('error:', error));
+        }
         event.preventDefault();
     }
     return false;
@@ -266,7 +296,7 @@ function ShowHideDivQuestion(event) {
     }
 }
 
-function updateUI(final, timer, lat, long) {
+function updateUI(final, timer, lat, long, final2) {
     if (final != null) {
         if (final.length == 1) {
             document.getElementById("p1").innerHTML = "Best target: " + (() => { let firstChar = final[0][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final[0][0].split(""); if (firstChar[0] == "I") { return final[0][0].substring(1) } else { return final[0][0] } })() + ", Magnitude: " + final[0][2] + ", Type: " + final[0][3] + ", Constellation: " + final[0][4] + "<br />";
@@ -291,6 +321,31 @@ function updateUI(final, timer, lat, long) {
         }
     } else {
         document.getElementById("p1").innerHTML = "No targets found for the search params, try widening the search."
+    }
+    if (final2 != null) {
+        if (final2.length == 1) {
+            document.getElementById("p2").innerHTML = "Favorites: <br /> <br /> Best target: " + (() => { let firstChar = final2[0][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final2[0][0].split(""); if (firstChar[0] == "I") { return final2[0][0].substring(1) } else { return final2[0][0] } })() + ", Magnitude: " + final2[0][2] + ", Type: " + final2[0][3] + ", Constellation: " + final2[0][4] + "<br />";
+        } else if (final2.length == 2) {
+            document.getElementById("p2").innerHTML = "Favorites: <br /> <br /> Best target: " + (() => { let firstChar = final2[0][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final2[0][0].split(""); if (firstChar[0] == "I") { return final2[0][0].substring(1) } else { return final2[0][0] } })() + ", Magnitude: " + final2[0][2] + ", Type: " + final2[0][3] + ", Constellation: " + final2[0][4] + "<br />" +
+                "2nd best target: " + (() => { let firstChar = final2[1][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final2[1][0].split(""); if (firstChar[0] == "I") { return final2[1][0].substring(1) } else { return final2[1][0] } })() + ", Magnitude: " + final2[1][2] + ", Type: " + final2[1][3] + ", Constellation: " + final2[1][4] + "<br />";
+        } else if (final2.length == 3) {
+            document.getElementById("p2").innerHTML = "Favorites: <br /> <br /> Best target: " + (() => { let firstChar = final2[0][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final2[0][0].split(""); if (firstChar[0] == "I") { return final2[0][0].substring(1) } else { return final2[0][0] } })() + ", Magnitude: " + final2[0][2] + ", Type: " + final2[0][3] + ", Constellation: " + final2[0][4] + "<br />" +
+                "2nd best target: " + (() => { let firstChar = final2[1][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final2[1][0].split(""); if (firstChar[0] == "I") { return final2[1][0].substring(1) } else { return final2[1][0] } })() + ", Magnitude: " + final2[1][2] + ", Type: " + final2[1][3] + ", Constellation: " + final2[1][4] + "<br />" +
+                "3rd best target: " + (() => { let firstChar = final2[2][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final2[2][0].split(""); if (firstChar[0] == "I") { return final2[2][0].substring(1) } else { return final2[2][0] } })() + ", Magnitude: " + final2[2][2] + ", Type: " + final2[2][3] + ", Constellation: " + final2[2][4] + "<br />";
+        } else if (final2.length == 4) {
+            document.getElementById("p2").innerHTML = "Favorites: <br /> <br /> Best target: " + (() => { let firstChar = final2[0][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final2[0][0].split(""); if (firstChar[0] == "I") { return final2[0][0].substring(1) } else { return final2[0][0] } })() + ", Magnitude: " + final2[0][2] + ", Type: " + final2[0][3] + ", Constellation: " + final2[0][4] + "<br />" +
+                "2nd best target: " + (() => { let firstChar = final2[1][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final2[1][0].split(""); if (firstChar[0] == "I") { return final2[1][0].substring(1) } else { return final2[1][0] } })() + ", Magnitude: " + final2[1][2] + ", Type: " + final2[1][3] + ", Constellation: " + final2[1][4] + "<br />" +
+                "3rd best target: " + (() => { let firstChar = final2[2][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final2[2][0].split(""); if (firstChar[0] == "I") { return final2[2][0].substring(1) } else { return final2[2][0] } })() + ", Magnitude: " + final2[2][2] + ", Type: " + final2[2][3] + ", Constellation: " + final2[2][4] + "<br />" +
+                "4th best target: " + (() => { let firstChar = final2[3][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final2[3][0].split(""); if (firstChar[0] == "I") { return final2[3][0].substring(1) } else { return final2[3][0] } })() + ", Magnitude: " + final2[3][2] + ", Type: " + final2[3][3] + ", Constellation: " + final2[3][4] + "<br />";
+        } else {
+            document.getElementById("p2").innerHTML = "Favorites: <br /> <br /> Best target: " + (() => { let firstChar = final2[0][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final2[0][0].split(""); if (firstChar[0] == "I") { return final2[0][0].substring(1) } else { return final2[0][0] } })() + ", Magnitude: " + final2[0][2] + ", Type: " + final2[0][3] + ", Constellation: " + final2[0][4] + "<br />" +
+                "2nd best target: " + (() => { let firstChar = final2[1][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final2[1][0].split(""); if (firstChar[0] == "I") { return final2[1][0].substring(1) } else { return final2[1][0] } })() + ", Magnitude: " + final2[1][2] + ", Type: " + final2[1][3] + ", Constellation: " + final2[1][4] + "<br />" +
+                "3rd best target: " + (() => { let firstChar = final2[2][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final2[2][0].split(""); if (firstChar[0] == "I") { return final2[2][0].substring(1) } else { return final2[2][0] } })() + ", Magnitude: " + final2[2][2] + ", Type: " + final2[2][3] + ", Constellation: " + final2[2][4] + "<br />" +
+                "4th best target: " + (() => { let firstChar = final2[3][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final2[3][0].split(""); if (firstChar[0] == "I") { return final2[3][0].substring(1) } else { return final2[3][0] } })() + ", Magnitude: " + final2[3][2] + ", Type: " + final2[3][3] + ", Constellation: " + final2[3][4] + "<br />" +
+                "5th best target: " + (() => { let firstChar = final2[4][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final2[4][0].split(""); if (firstChar[0] == "I") { return final2[4][0].substring(1) } else { return final2[4][0] } })() + ", Magnitude: " + final2[4][2] + ", Type: " + final2[4][3] + ", Constellation: " + final2[4][4];
+        }
+    } else {
+        document.getElementById("p2").innerHTML = "No favorites found."
     }
     document.getElementById("timerLable").innerHTML = "Computed in:" + (new Date() - timer) / 1000 + "s";
 

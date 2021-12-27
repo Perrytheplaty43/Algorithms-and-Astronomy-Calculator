@@ -30,6 +30,17 @@ h1 {
 	margin-right: 8px;
 }
 
+.container42 {
+	display: none;
+}
+
+.p12 {
+	font-size: 18px;
+	margin-left: 10px;
+	overflow-wrap: normal;
+	color: #00eb1b;
+}
+
 .form {
 	width: 100%;
 	height: 22px;
@@ -219,6 +230,13 @@ label {
 	margin-left: 4px;
 	overflow-wrap: normal;
 	color: lightseagreen;
+}
+
+.p12 {
+	font-size: 18px;
+	margin-left: 4px;
+	overflow-wrap: normal;
+	color: lightgreen;
 }
 
 .p1green {

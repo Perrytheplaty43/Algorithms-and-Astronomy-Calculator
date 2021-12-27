@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <script src="./script.js" defer></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="flexbox">
+        <div class="container1">
+            <h1 class="title">Login</h1>
+        </div>
+        <div class="container2">
+            <form onsubmit="return onSubmit(event)">
+                <label for="user">Username:</label><br>
+                <input type="text" id="user" name="user" class="form"><br>
+                <label for="pass">Password:</label><br>
+                <input type="password" id="pass" name="pass" class="form">
+                <button type="submit" id="submit">Submit</button>
+            </form>
+        </div>
+        <div class="container3">
+            <div class="suc" id="suc">
+                <p class="sucText">Logged in</p>
+            </div>
+        </div>
+        <div class="container4">
+            <div class="same" id="nouser">
+                <p class="sameText">No username</p>
+            </div>
+        </div>
+        <div class="container5">
+            <div class="same" id="wrong">
+                <p class="sameText">Invalid Password</p>
+            </div>
+        </div>
+        <div class="container7">
+            <p class="p12" id="indicator">Login</p>
+        </div>
+        <div class="container8">
+            <form onsubmit="return onSubmit(event)">
+                <label for="user">Add favorite object:</label><br>
+                <input type="text" id="object" name="object" class="form2" placeholder="NGC1234" pattern="(^[N|n][G|g][C|c][1-9][0-9]?[0-9]?[0-9])|([I|i][C|c][1-9][0-9]?[0-9]?[0-9])"><br>
+                <button type="submit" id="submitObj">Submit</button>
+                <button type="submit" id="clear">Clear All</button>
+            </form>
+        </div>
+        <div class="container9">
+            <form onsubmit="return bottomForm(event)">            
+                <button type="submit" class="submitButton4" id="redirect">Go to search</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

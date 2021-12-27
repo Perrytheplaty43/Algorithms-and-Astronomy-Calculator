@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login</title>
+  <script src="./script.js" defer></script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div class="flexbox">
+    <div class="container1">
+      <h1 class="title">Signup</h1>
+    </div>
+    <div class="container2">
+      <form onsubmit="return onSubmit(event)">
+        <label for="user">Username:</label><br>
+        <input type="text" id="user" name="user" class="form"><br>
+        <label for="pass">Password:</label><br>
+        <input type="password" id="pass" name="pass" class="form">
+        <button type="submit" id="submit">Submit</button>
+      </form>
+    </div>
+    <div class="container3">
+      <div class="suc" id="suc">
+        <p class="sucText">Succses</p>
+      </div>
+    </div>
+    <div class="container4">
+      <div class="same" id="same">
+        <p class="sameText">A user with the same username already exists</p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
