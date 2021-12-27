@@ -58,6 +58,36 @@ function onSubmit(event) {
 function updateUI() {
     document.getElementById("indicator").innerHTML = "Loged in as: " + user
     document.getElementById("indicator").classList.add('p1green2')
+
+    fetch(
+        'https://' + window.location.hostname + '/api/params?user=' + user + '&pass=' + pass,
+        { method: 'GET' }
+    )
+        .then(response => response.text())
+        .then(res => {
+            let res = JSON.parse(res)
+            let type = res.type.split(",")
+
+            if (!type.includes("Gx")) document.getElementById("Gx").checked = false;
+            if (!type.includes("OC")) document.getElementById("OC").checked = false;
+            if (!type.includes("Gb")) document.getElementById("Gb").checked = false;
+            if (!type.includes("Nb")) document.getElementById("Nb").checked = false;
+            if (!type.includes("Pl")) document.getElementById("Pl").checked = false;
+            if (!type.includes("CpN")) document.getElementById("CpN").checked = false;
+            if (!type.includes("Ast")) document.getElementById("Ast").checked = false;
+            if (!type.includes("Kt")) document.getElementById("Kt").checked = false;
+            if (!type.includes("TS")) document.getElementById("TS").checked = false;
+            if (!type.includes("DS")) document.getElementById("DS").checked = false;
+            if (!type.includes("SS")) document.getElementById("SS").checked = false;
+            if (!type.includes("Q")) document.getElementById("Q").checked = false;
+            if (!type.includes("U")) document.getElementById("U").checked = false;
+            if (!type.includes("D")) document.getElementById("D").checked = false;
+            if (!type.includes("PD")) document.getElementById("PD").checked = false;
+
+            document.getElementById("tolerance").value = res.tol
+            document.getElementById("toleranceMag").value = res.magTol
+        })
+        .catch(error => console.log('error:', error));
 }
 
 function bottomForm(event) {

@@ -724,6 +724,29 @@ function myServer(req, res) {
             })
     }
 
+    if (method == 'GET' && surl.pathname == '/api/params') {
+        let searchParams = surl.searchParams
+        let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
+
+        return login(user, pass, true)
+            .then(() => {
+                setTimeout(() => {
+                    if (theLoginRes == "suc") {
+                        const docRef = db.collection('users').doc(user);
+                        let doc = await docRef.get()
+
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(JSON.stringify({ type: doc.data().type, tol: doc.data().tol, magTol: doc.data().magTol }));
+                        res.end();
+                        return
+                    } else {
+
+                    }
+                }, 1000)
+            })
+    }
+
     if (method == 'GET' && surl.pathname == '/api/moon') {
         let searchParams = surl.searchParams
         let lat = searchParams.get('lat')
