@@ -764,12 +764,10 @@ function myServer(req, res) {
         let tolMag = searchParams.get('tolMag')
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
+        let correct;
 
-        let userReq = searchParams.get('user')
-        let passReq = searchParams.get('pass')
-
-        if (user != undefined && pass != undefined) {
-            let correct = fetch(
+        if (userReq != undefined && userReq != undefined) {
+            correct = fetch(
                 'https://' + ip + '/api/login?user=' + userReq + '&pass=' + passReq,
                 { method: 'GET' }
             )
