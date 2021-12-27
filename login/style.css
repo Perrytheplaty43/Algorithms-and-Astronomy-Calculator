@@ -274,6 +274,13 @@ label {
 	color: lightseagreen;
 }
 
+.p12 {
+	font-size: 18px;
+	margin-left: 10px;
+	overflow-wrap: normal;
+	color: lightseagreen;
+}
+
 .p1green {
 	font-size: 18px;
 	margin-left: 4px;
