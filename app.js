@@ -693,12 +693,11 @@ function myServer(req, res) {
 
     const addParam = async (type, tol, magTol, user) => {
         const docRef = db.collection('users').doc(user);
-        let doc = await docRef.get()
 
         return await docRef.update({
-            type: ((() => { if (doc.data().type != null) { return doc.data().type + type + "," } else { return type + "," } })()),
-            tol: ((() => { if (doc.data().tol != null) { return doc.data().tol + tol + "," } else { return tol + "," } })()),
-            magTol: ((() => { if (doc.data().magTol != null) { return doc.data().magTol + magTol + "," } else { return magTol + "," } })())
+            type: type,
+            tol: tol,
+            magTol: magTol
         })
     }
 
