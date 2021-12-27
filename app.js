@@ -765,7 +765,7 @@ function myServer(req, res) {
         let passReq = searchParams.get('pass')
 
         if (userReq != undefined && userReq != undefined) {
-            correct = login(user, pass, true)
+            correct = login(userReq, passReq, true)
                 .then(() => {
                     setTimeout(() => {
                         if (none) {
