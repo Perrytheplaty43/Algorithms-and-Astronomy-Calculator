@@ -671,6 +671,9 @@ function myServer(req, res) {
             .then(() => {
                 setTimeout(() => {
                     if (theLoginRes == "suc") {
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(JSON.stringify({ res: "done" }));
+                        res.end();
                         return addFav(id, user)
                     } else {
 
