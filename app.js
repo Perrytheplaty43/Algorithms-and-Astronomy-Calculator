@@ -659,11 +659,8 @@ function myServer(req, res) {
         const docRef = db.collection('users').doc(user);
         let doc = await docRef.get()
 
-        console.log(doc._fieldsProto.fav.stringValue, "___________________________")
-        //.data()
-        console.log(doc.data().fav, "___________________________")
         return await docRef.update({
-            fav: id
+            fav: doc.data().fav + id + ","
         })
     }
 
