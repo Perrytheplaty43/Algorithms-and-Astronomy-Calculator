@@ -64,3 +64,7 @@ function bottomForm(event) {
     event.preventDefault();
     window.location.href = "https://" + window.location.hostname + "/astroTargetFinder?user=" + user + "&pass=" + pass;
 }
+
+function SignOutRe() {
+    alert("it works")
+}
