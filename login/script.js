@@ -36,7 +36,18 @@ function onSubmit(event) {
         )
             .then(response => response.text())
             .then(res => {
-                if (JSON.parse(res).res == "error") {
+                if (JSON.parse(res).res != "done") {
+                    alert("error")
+                }
+            })
+    } else if (event.submitter.id == "clear") {
+        fetch(
+            'https://' + window.location.hostname + '/api/fav?user=' + user + '&pass=' + pass + '&id=NGC0000',
+            { method: 'POST' }
+        )
+            .then(response => response.text())
+            .then(res => {
+                if (JSON.parse(res).res != "done") {
                     alert("error")
                 }
             })

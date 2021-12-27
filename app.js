@@ -656,9 +656,15 @@ function myServer(req, res) {
         const docRef = db.collection('users').doc(user);
         let doc = await docRef.get()
 
-        return await docRef.update({
-            fav: doc.data().fav + id + ","
-        })
+        if (id != "NGC0000") {
+            return await docRef.update({
+                fav: doc.data().fav + id + ","
+            })
+        } else if (id == "NGC0000") {
+            return await docRef.set({
+                fav: ""
+            })
+        }
     }
 
     if (method == 'POST' && surl.pathname == '/api/fav') {
