@@ -274,7 +274,7 @@ function onSubmit(event) {
                 .then(response => response.text())
                 .then(finalData => {
                     updateUI(JSON.parse(finalData)[0], timer, lat, long)
-                    console.log(JSON.parse(finalData)[1])
+                    console.log(JSON.parse(finalData)[0])
                 })
                 .catch(error => console.log('error:', error));
         }
