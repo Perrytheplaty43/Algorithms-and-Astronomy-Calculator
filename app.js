@@ -605,7 +605,6 @@ function myServer(req, res) {
     let none = true
     let theLoginRes;
     const login = async (user, pass, only) => {
-        console.log("fav? :", only)
         const snapshot = await db.collection('users').get();
         return await snapshot.forEach(async (doc) => {
             if (doc.id == user) {
@@ -617,7 +616,6 @@ function myServer(req, res) {
                         res.end();
                     } else {
                         theLoginRes = "suc"
-                        console.log(theLoginRes)
                     }
                     return "correct"
                 } else {
@@ -628,7 +626,6 @@ function myServer(req, res) {
                         res.end();
                     } else {
                         theLoginRes = "wrong"
-                        console.log(theLoginRes)
                     }
                     return "true"
                 }
@@ -673,7 +670,6 @@ function myServer(req, res) {
         return login(user, pass, true)
             .then(() => {
                 setTimeout(() => {
-                    console.log(theLoginRes)
                     if (theLoginRes == "suc") {
                         return addFav(id, user)
                     } else {
