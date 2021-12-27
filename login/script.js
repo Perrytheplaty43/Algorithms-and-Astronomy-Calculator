@@ -65,7 +65,7 @@ function updateUI() {
     )
         .then(response => response.text())
         .then(res => {
-            let res = JSON.parse(res)
+            res = JSON.parse(res)
             let type = res.type.split(",")
 
             if (!type.includes("Gx")) document.getElementById("Gx").checked = false;
