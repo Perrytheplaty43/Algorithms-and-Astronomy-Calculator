@@ -180,7 +180,7 @@ label {
 }
 
 .container8 {
-	/* display: none; */
+	display: none;
 	margin-left: 10px;
 }
 
@@ -291,6 +291,7 @@ button {
 .container9 {
 	margin-left: 10px;
 	margin-bottom: 10px;
+	display: none;
 }
 
 .p12 {

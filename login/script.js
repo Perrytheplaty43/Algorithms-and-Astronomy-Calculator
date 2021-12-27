@@ -88,6 +88,8 @@ function updateUI() {
             document.getElementById("toleranceMag").value = res.magTol
         })
         .catch(error => console.log('error:', error));
+    document.getElementsByClassName("container8").style.display = "block"
+    document.getElementsByClassName("container9").style.display = "block"
 }
 
 function bottomForm(event) {
