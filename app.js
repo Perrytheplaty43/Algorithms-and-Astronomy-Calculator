@@ -809,6 +809,7 @@ function myServer(req, res) {
                                     const docRef = db.collection('users').doc(userReq);
                                     let doc = await docRef.get()
                                     let raw = JSON.parse(finalData)
+                                    let theFinal = []
                                     let favArr = doc.data().fav.split(",")
                                     favArr.splice(favArr.length - 1, 1)
                                     for (let i = 0; i <= favArr.length - 1; i++) {
@@ -828,8 +829,13 @@ function myServer(req, res) {
                                     }
                                     console.log(favArr)
                                     for (let i = 0; i <= raw.length - 1; i++) {
-
+                                        for(let y = 0; y <= favArr.length - 1; y++) {
+                                            if(raw[i][0] == favArr[y]) {
+                                                theFinal.push(raw[i])
+                                            }
+                                        }
                                     }
+                                    console.log(theFinal)
                                 }
                                 res.write(finalData);
                                 res.end();
