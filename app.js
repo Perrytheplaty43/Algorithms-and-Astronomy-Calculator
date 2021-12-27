@@ -829,16 +829,19 @@ function myServer(req, res) {
                                     }
                                     console.log(favArr)
                                     for (let i = 0; i <= raw.length - 1; i++) {
-                                        for(let y = 0; y <= favArr.length - 1; y++) {
-                                            if(raw[i][0] == favArr[y]) {
+                                        for (let y = 0; y <= favArr.length - 1; y++) {
+                                            if (raw[i][0] == favArr[y]) {
                                                 theFinal.push(raw[i])
                                             }
                                         }
                                     }
                                     console.log(theFinal)
+                                    res.write([finalData, theFinal]);
+                                    res.end();
+                                } else {
+                                    res.write([finalData, []]);
+                                    res.end();
                                 }
-                                res.write(finalData);
-                                res.end();
                             })
                             .catch(error => console.log('error:', error));
                     } else {
