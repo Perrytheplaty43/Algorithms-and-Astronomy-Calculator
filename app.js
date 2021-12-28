@@ -441,7 +441,13 @@ function myServer(req, res) {
                 if (timesUNIX[1] <= theJSON.list[i].dt) {
                     break;
                 }
-                clouds.push([theJSON.list[i].dt, theJSON.list[i].clouds.all])
+                let dew;
+                let temp = parseFloat(theJSON.list[i].main.temp) - 273.15
+                let rHumid = parseFloat(theJSON.list[i].main.humidity)
+                let a = 17.62
+                let b = 243.12
+                dew = (b * (Math.log(rHumid / 100) + a * temp / (b + temp)) / (a - (Math.log(rHumid / 100) + a * temp / (b + temp))))
+                clouds.push([theJSON.list[i].dt, theJSON.list[i].clouds.all, Math.abs(dew - temp)])
             }
         }
         clouds = clouds.sort(compareSecondColumn)
@@ -449,11 +455,11 @@ function myServer(req, res) {
         let bad = false
         let oneGood = false
         for (let i = 0; i <= clouds.length - 1; i++) {
-            if (clouds[i][1] < 10) {
+            if (clouds[i][1] < 10 && clouds[i][2] > 1.5) {
                 goodWeather.push(clouds[i])
                 oneGood = true
             }
-            if (clouds[clouds.length - 1][1] > 10 || ((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length > 30) {
+            if (clouds[clouds.length - 1][1] > 10 || ((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length > 30 || clouds[i][2] < 1.5) {
                 bad = true
             }
         }
@@ -462,9 +468,9 @@ function myServer(req, res) {
         } else {
             searchDate = 0
         }
-        if (((() => { for (let i = 0; i <= clouds.length - 1; i++) { if (clouds[i][1] > 10) { return true } } return false })())) {
+        if (((() => { for (let i = 0; i <= clouds.length - 1; i++) { if (clouds[i][1] > 10) { return true } } return false })()) && ((() => { for (let i = 0; i <= clouds.length - 1; i++) { if (clouds[i][2] > 1.5) { return true } } return false })())) {
             return "Perfect";
-        } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length < 30) {
+        } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length < 30 && clouds[i][2] > 1.5) {
             return "Fair";
         } else if (clouds.length == 0) {
             return "Unknown";
@@ -864,37 +870,42 @@ function myServer(req, res) {
                             .then(response => response.text())
                             .then(async finalData => {
                                 res.writeHead(200, { 'Content-Type': 'text/json' });
-                                const docRef = db.collection('users').doc(userReq);
-                                let doc = await docRef.get()
-                                if (theLoginRes == "suc" && doc.data().fav != null) {
-                                    let raw = JSON.parse(finalData)
-                                    let theFinal = []
-                                    let favArr = doc.data().fav.split(",")
-                                    favArr.splice(favArr.length - 1, 1)
-                                    for (let i = 0; i <= favArr.length - 1; i++) {
-                                        let favArr2 = favArr[i].split('')
-                                        if (favArr2.includes("I")) {
-                                            favArr2 = favArr2.join('').split("IC")
-                                            if (favArr2[1].length > 3) {
-                                                favArr2[0] = "I"
-                                                favArr[i] = favArr2.join('')
+                                if (theLoginRes == "suc") {
+                                    const docRef = db.collection('users').doc(userReq);
+                                    let doc = await docRef.get()
+                                    if (doc.data().fav != null) {
+                                        let raw = JSON.parse(finalData)
+                                        let theFinal = []
+                                        let favArr = doc.data().fav.split(",")
+                                        favArr.splice(favArr.length - 1, 1)
+                                        for (let i = 0; i <= favArr.length - 1; i++) {
+                                            let favArr2 = favArr[i].split('')
+                                            if (favArr2.includes("I")) {
+                                                favArr2 = favArr2.join('').split("IC")
+                                                if (favArr2[1].length > 3) {
+                                                    favArr2[0] = "I"
+                                                    favArr[i] = favArr2.join('')
+                                                } else {
+                                                    favArr2[0] = "I "
+                                                    favArr[i] = favArr2.join('')
+                                                }
                                             } else {
-                                                favArr2[0] = "I "
-                                                favArr[i] = favArr2.join('')
-                                            }
-                                        } else {
-                                            favArr[i] = favArr[i].substring(3)
-                                        }
-                                    }
-                                    for (let i = 0; i <= raw.length - 1; i++) {
-                                        for (let y = 0; y <= favArr.length - 1; y++) {
-                                            if (raw[i][0] == favArr[y]) {
-                                                theFinal.push(raw[i])
+                                                favArr[i] = favArr[i].substring(3)
                                             }
                                         }
+                                        for (let i = 0; i <= raw.length - 1; i++) {
+                                            for (let y = 0; y <= favArr.length - 1; y++) {
+                                                if (raw[i][0] == favArr[y]) {
+                                                    theFinal.push(raw[i])
+                                                }
+                                            }
+                                        }
+                                        res.write(JSON.stringify([finalData, theFinal]));
+                                        res.end();
+                                    } else {
+                                        res.write(JSON.stringify([finalData, []]));
+                                        res.end();
                                     }
-                                    res.write(JSON.stringify([finalData, theFinal]));
-                                    res.end();
                                 } else {
                                     res.write(JSON.stringify([finalData, []]));
                                     res.end();
