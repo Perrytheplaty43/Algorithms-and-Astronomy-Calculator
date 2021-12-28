@@ -704,11 +704,7 @@ function myServer(req, res) {
             .then(() => {
                 setTimeout(async () => {
                     if (theLoginRes == "suc") {
-                        await signup(user, passNew, true)
-                        res.writeHead(200, { 'Content-Type': 'text/json' });
-                        res.write(JSON.stringify({ res: "suc" }));
-                        res.end();
-                        return
+                        return await signup(user, passNew, true)
                     } else {
                         res.writeHead(200, { 'Content-Type': 'text/json' });
                         res.write(JSON.stringify({ res: "err" }));
