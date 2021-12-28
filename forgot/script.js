@@ -7,10 +7,10 @@ function onSubmit(event) {
         )
             .then(response => response.text())
             .then(data => {
-                if (JSON.parse(data).res == "nouser") {
+                if (data.res == "nouser") {
                     document.getElementById("suc").style.display = "none"
                     document.getElementById("wrong").style.display = "block"
-                } else if (JSON.parse(data).res == "suc") {
+                } else if (data.res == "suc") {
                     document.getElementById("suc").style.display = "block"
                     document.getElementById("wrong").style.display = "none"
                 } else {
