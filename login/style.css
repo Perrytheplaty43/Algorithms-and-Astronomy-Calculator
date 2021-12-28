@@ -290,6 +290,7 @@ label {
 	color: red;
 	text-decoration: underline;
 	cursor: pointer;
+	text-align: center;
 }
 
 button {
