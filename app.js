@@ -284,6 +284,45 @@ function myServer(req, res) {
         });
         return;
     }
+    if (method == 'GET' && surl.pathname == '/forgot/style.css') {
+        fs.readFile(home + delimiter + 'forgot' + delimiter + 'style.css', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/css' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/forgot/script.js') {
+        fs.readFile(home + delimiter + 'forgot' + delimiter + 'script.js', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/js' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/forgot/') {
+        fs.readFile(home + delimiter + 'forgot' + delimiter + 'index.html', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
     if (method == 'GET' && surl.pathname == '/favicon.ico') {
         fs.readFile(home + delimiter + 'favicon.ico', function (err, html) {
             if (err) {
@@ -1104,7 +1143,7 @@ function myServer(req, res) {
                     from: '"astronomycalculatornoreply" <astronomycalculatorreset@zohomail.com>',
                     to: doc.data().email,
                     subject: 'Reset Password ',
-                    html: 'Click <a href="https://' + addr + '/forgot?token=' + doc.data().token + '">here</a> to reset password'
+                    html: 'Click <a href="https://' + addr + '/api/forgot?token=' + doc.data().token + '">here</a> to reset password'
                 }
                 transporter.sendMail(mailOptions, function (error, info) {
                     if (error) {
@@ -1112,7 +1151,7 @@ function myServer(req, res) {
                     }
                 })
                 res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.write("email sent");
+                res.write("suc");
                 res.end();
                 return
             } else {
