@@ -868,7 +868,7 @@ function myServer(req, res) {
                                 if (theLoginRes == "suc" && doc.data().fav != null) {
                                     let raw = JSON.parse(finalData)
                                     let theFinal = []
-                                    let favArr = doc.data().fav.split(",")
+                                    let favArr = doc.data().fav.toUpperCase().split(",")
                                     favArr.splice(favArr.length - 1, 1)
                                     for (let i = 0; i <= favArr.length - 1; i++) {
                                         let favArr2 = favArr[i].split('')
