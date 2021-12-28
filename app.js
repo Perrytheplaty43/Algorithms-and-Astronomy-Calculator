@@ -63,7 +63,7 @@ const snapshot = await db.collection('users').get();
 snapshot.forEach((doc) => {
     console.log(doc.id, '=>', doc.data());
 });
-
+console.log(process.env.USER, process.env.PASS)
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
