@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <script src="./script.js" defer></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="flexbox">
+        <div class="container1">
+            <h1 class="title">Login</h1>
+        </div>
+        <div class="container2">
+            <form onsubmit="return onSubmit(event)">
+                <label for="user">Username:</label><br>
+                <input type="text" id="user" name="user" class="form"><br>
+                <label for="pass">Old Password:</label><br>
+                <input type="password" id="pass" name="pass" class="form"><br>
+                <label for="pass">New Password:</label><br>
+                <input type="password" id="passNew" name="pass" class="form">
+                <button type="submit" id="submit">Submit</button><br>
+                <p onclick="return SignOutRe()" class="p13">Dont have an account? Click here to signup.</p>
+            </form>
+        </div>
+        <div class="container3">
+            <div class="suc" id="suc">
+                <p class="sucText">Logged in</p>
+            </div>
+        </div>
+        <div class="container5">
+            <div class="same" id="wrong">
+                <p class="sameText">Invalid Password</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
