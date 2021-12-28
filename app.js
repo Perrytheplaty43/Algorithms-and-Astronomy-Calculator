@@ -696,7 +696,7 @@ function myServer(req, res) {
         let searchParams = surl.searchParams
         let user = searchParams.get('user')
         let pass = searchParams.get('pass')
-        let pass = searchParams.get('passNew')
+        let passNew = searchParams.get('passNew')
 
         return login(user, pass, true)
             .then(() => {
