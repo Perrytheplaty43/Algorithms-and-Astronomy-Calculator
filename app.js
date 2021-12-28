@@ -470,7 +470,7 @@ function myServer(req, res) {
             searchDate = 0
         }
         console.log(clouds)
-        if (((() => { for (let i = 0; i <= clouds.length - 1; i++) { if (clouds[i][1] > 10) { return true } } return false })()) && clouds[i][2] > 2) {
+        if (((() => { for (let i = 0; i <= clouds.length - 1; i++) { if (clouds[i][1] > 10) { return true } } return false })()) && ((() => { for (let i = 0; i <= clouds.length - 1; i++) { if (clouds[i][2] > 2) { return true } } return false })())) {
             return "Perfect";
         } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length < 30 && clouds[i][2] > 2) {
             return "Fair";
