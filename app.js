@@ -1163,7 +1163,7 @@ function myServer(req, res) {
         }
     }
 
-    if (method == 'GET' && surl.pathname == '/forgot') {
+    if (method == 'POST' && surl.pathname == '/forgot') {
         let searchParams = surl.searchParams
         let user = searchParams.get('user')
 
