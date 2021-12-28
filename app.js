@@ -468,7 +468,6 @@ function myServer(req, res) {
         } else {
             searchDate = 0
         }
-        console.log(clouds)
         if (((() => { for (let i = 0; i <= clouds.length - 1; i++) { if (clouds[i][1] > 10) { return true } } return false })()) && ((() => { for (let i = 0; i <= clouds.length - 1; i++) { if (clouds[i][2] > 1.5) { return true } } return false })())) {
             return "Perfect";
         } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length < 30 && clouds[i][2] > 1.5) {
