@@ -658,6 +658,7 @@ function myServer(req, res) {
     const addFav = async (id, user) => {
         const docRef = db.collection('users').doc(user);
         let doc = await docRef.get()
+        id = id.toUpperCase()
 
         if (id != "NGC0000") {
             return await docRef.update({
@@ -1022,6 +1023,7 @@ const server = home.startsWith('/home/runner/') ?
 
 function errorLog(testing, err, id) {
     if (!testing) {
+        let date = new Date();
         fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err + " ID=" + id, (err) => {
             if (err) console.log(err);
             return;

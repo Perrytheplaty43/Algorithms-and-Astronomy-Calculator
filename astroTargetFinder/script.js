@@ -127,6 +127,9 @@ const mapImages = {
     '2371': './Images/NGC2371.jpg',
     '2242': './Images/NGC2242.jpg',
     'I 289': './Images/IC289.jpg',
+    '1778': './Images/NGC1778.jpg',
+    '2768': './Images/NGC2768.jpg',
+    '2681': './Images/NGC2681.jpg',
 };
 
 let user;
