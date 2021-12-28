@@ -57,8 +57,6 @@ initializeApp({
 
 const db = getFirestore();
 
-const res = await db.collection('users').doc('adim').delete();
-
 const snapshot = await db.collection('users').get();
 snapshot.forEach((doc) => {
     console.log(doc.id, '=>', doc.data());
