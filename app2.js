@@ -16,6 +16,7 @@ initializeApp({
 
 const db = getFirestore();
 
+const home = process.cwd()
 let ip = '10.138.0.3';
 if (home.startsWith('/home/pi')) {
     ip = '192.168.1.88';
