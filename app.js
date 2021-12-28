@@ -457,11 +457,11 @@ function myServer(req, res) {
         let bad = false
         let oneGood = false
         for (let i = 0; i <= clouds.length - 1; i++) {
-            if (clouds[i][1] < 10 && clouds[i][2] > 2) {
+            if (clouds[i][1] < 10 && clouds[i][2] > 1.5) {
                 goodWeather.push(clouds[i])
                 oneGood = true
             }
-            if (clouds[clouds.length - 1][1] > 10 || ((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length > 30 || clouds[i][2] < 2) {
+            if (clouds[clouds.length - 1][1] > 10 || ((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length > 30 || clouds[i][2] < 1.5) {
                 bad = true
             }
         }
@@ -471,9 +471,9 @@ function myServer(req, res) {
             searchDate = 0
         }
         console.log(clouds)
-        if (((() => { for (let i = 0; i <= clouds.length - 1; i++) { if (clouds[i][1] > 10) { return true } } return false })()) && ((() => { for (let i = 0; i <= clouds.length - 1; i++) { if (clouds[i][2] > 2) { return true } } return false })())) {
+        if (((() => { for (let i = 0; i <= clouds.length - 1; i++) { if (clouds[i][1] > 10) { return true } } return false })()) && ((() => { for (let i = 0; i <= clouds.length - 1; i++) { if (clouds[i][2] > 1.5) { return true } } return false })())) {
             return "Perfect";
-        } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length < 30 && clouds[i][2] > 2) {
+        } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length < 30 && clouds[i][2] > 1.5) {
             return "Fair";
         } else if (clouds.length == 0) {
             return "Unknown";
