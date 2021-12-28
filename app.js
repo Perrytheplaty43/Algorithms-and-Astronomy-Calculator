@@ -19,6 +19,8 @@ globalThis.child = child
 import dotenv from 'dotenv'
 dotenv.config()
 
+import nodemailer from 'nodemailer';
+
 import { initializeApp, applicationDefault, cert } from 'firebase-admin/app';
 import { getFirestore, Timestamp, FieldValue } from 'firebase-admin/firestore';
 
@@ -60,6 +62,16 @@ const db = getFirestore();
 const snapshot = await db.collection('users').get();
 snapshot.forEach((doc) => {
     console.log(doc.id, '=>', doc.data());
+});
+
+var transporter = nodemailer.createTransport({
+    host: 'smtp.zoho.com',
+    port: 465,
+    secure: true, // use SSL
+    auth: {
+        user: process.env.USER,
+        pass: process.env.PASS
+    }
 });
 
 function myServer(req, res) {
@@ -608,7 +620,7 @@ function myServer(req, res) {
             .catch(error => console.log('error:', error));
         return;
     }
-    const signup = async (user, pass, reseting) => {
+    const signup = async (user, pass, reseting, email) => {
         const snapshot = await db.collection('users').get();
         let same = false
         if (!reseting) {
@@ -634,7 +646,10 @@ function myServer(req, res) {
                     fav: null,
                     type: null,
                     tol: null,
-                    magTol: null
+                    magTol: null,
+                    token: null,
+                    tokenEx: null,
+                    email: email
                 }).then(() => {
                     res.writeHead(200, { 'Content-Type': 'text/json' });
                     res.write(JSON.stringify({ res: "suc" }));
@@ -657,8 +672,9 @@ function myServer(req, res) {
         let searchParams = surl.searchParams
         let user = searchParams.get('user')
         let pass = searchParams.get('pass')
+        let email = searchParams.get('email')
 
-        return signup(user, pass, false)
+        return signup(user, pass, false, email)
     }
 
     let none = true
@@ -696,13 +712,14 @@ function myServer(req, res) {
         let searchParams = surl.searchParams
         let user = searchParams.get('user')
         let pass = searchParams.get('pass')
+        let email = searchParams.get('email')
         let passNew = searchParams.get('passNew')
 
         return login(user, pass, true)
             .then(() => {
                 setTimeout(async () => {
                     if (theLoginRes == "suc") {
-                        return await signup(user, passNew, true)
+                        return await signup(user, passNew, true, email)
                     } else {
                         res.writeHead(200, { 'Content-Type': 'text/json' });
                         res.write(JSON.stringify({ res: "err" }));
@@ -1059,6 +1076,59 @@ function myServer(req, res) {
             }
         })
         return;
+    }
+
+    function makeid(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() *
+                charactersLength));
+        }
+        return result;
+    }
+
+    const forgot = async (user) => {
+        if (user != undefined) {
+            const docRef = db.collection('users').doc(user);
+            if (docRef != undefined) {
+                let currentDate = new Date()
+                currentDate.setMinutes(currentDate.getMinutes() + 30)
+                let doc = await docRef.get()
+                await docRef.update({
+                    token: makeid(40),
+                    tokenEx: currentDate.toString()
+                })
+                var mailOptions = {
+                    from: '"Astronomy Calculator " <astronomycalculatornoreply@gmail.com>',
+                    to: doc.data().email,
+                    subject: 'Reset Password ',
+                    html: 'Click <a href="https://' + addr + '/forgot?token=' + doc.data().token + '">here</a> to reset password'
+                }
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                        return console.log(error);
+                    }
+                })
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.write("email sent");
+                res.end();
+                return
+            } else {
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.write("nouser");
+                res.end();
+                return
+            }
+        }
+    }
+
+    if (method == 'GET' && surl.pathname == '/forgot') {
+        let searchParams = surl.searchParams
+        let user = searchParams.get('user')
+
+        return forgot(user)
     }
 
     if (!no404) {
