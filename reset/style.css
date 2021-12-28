@@ -97,7 +97,7 @@ label {
 	animation-fill-mode: forwards;
 	width: fit-content;
 	display: inline-block;
-	max-width: 10vw;
+	max-width: 20vw;
 	font-size: 2.25vw;
 	text-align: center;
 	white-space: nowrap;
@@ -162,6 +162,7 @@ label {
 .sucText {
     color: lime;
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .same {
