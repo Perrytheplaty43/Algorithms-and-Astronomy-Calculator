@@ -196,6 +196,45 @@ function myServer(req, res) {
         });
         return;
     }
+    if (method == 'GET' && surl.pathname == '/reset/style.css') {
+        fs.readFile(home + delimiter + 'reset' + delimiter + 'style.css', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/css' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/reset/script.js') {
+        fs.readFile(home + delimiter + 'reset' + delimiter + 'script.js', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/js' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/reset/') {
+        fs.readFile(home + delimiter + 'reset' + delimiter + 'index.html', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
     if (method == 'GET' && surl.pathname == '/login/style.css') {
         fs.readFile(home + delimiter + 'login' + delimiter + 'style.css', function (err, html) {
             if (err) {
@@ -571,36 +610,49 @@ function myServer(req, res) {
             .catch(error => console.log('error:', error));
         return;
     }
-    const signup = async (user, pass) => {
+    const signup = async (user, pass, reseting) => {
         const snapshot = await db.collection('users').get();
         let same = false
-        await snapshot.forEach((doc) => {
-            if (doc.id == user) {
-                res.writeHead(200, { 'Content-Type': 'text/json' });
-                res.write(JSON.stringify({ res: "same" }));
-                res.end();
-                same = true;
-                return
-            }
-        })
+        if (!reseting) {
+            await snapshot.forEach((doc) => {
+                if (doc.id == user) {
+                    res.writeHead(200, { 'Content-Type': 'text/json' });
+                    res.write(JSON.stringify({ res: "same" }));
+                    res.end();
+                    same = true;
+                    return
+                }
+            })
+        }
         let salt = await bcrypt.genSalt()
         let hashedPass = await bcrypt.hash(pass, salt)
 
         const docRef = db.collection('users').doc(user);
         if (!same) {
-            return await docRef.set({
-                user: user,
-                pass: hashedPass,
-                fav: null,
-                type: null,
-                tol: null,
-                magTol: null
-            }).then(() => {
-                res.writeHead(200, { 'Content-Type': 'text/json' });
-                res.write(JSON.stringify({ res: "suc" }));
-                res.end();
-                return
-            });
+            if (!reseting) {
+                return await docRef.set({
+                    user: user,
+                    pass: hashedPass,
+                    fav: null,
+                    type: null,
+                    tol: null,
+                    magTol: null
+                }).then(() => {
+                    res.writeHead(200, { 'Content-Type': 'text/json' });
+                    res.write(JSON.stringify({ res: "suc" }));
+                    res.end();
+                    return
+                });
+            } else {
+                return await docRef.update({
+                    pass: hashedPass
+                }).then(() => {
+                    res.writeHead(200, { 'Content-Type': 'text/json' });
+                    res.write(JSON.stringify({ res: "suc" }));
+                    res.end();
+                    return
+                });
+            }
         }
     }
     if (method == 'POST' && surl.pathname == '/api/signup') {
@@ -608,7 +660,7 @@ function myServer(req, res) {
         let user = searchParams.get('user')
         let pass = searchParams.get('pass')
 
-        return signup(user, pass)
+        return signup(user, pass, false)
     }
 
     let none = true
@@ -641,6 +693,28 @@ function myServer(req, res) {
             }
         });
     }
+
+    if (method == 'POST' && surl.pathname == '/api/reset') {
+        let searchParams = surl.searchParams
+        let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
+        let passNew = searchParams.get('passNew')
+
+        return login(user, pass, true)
+            .then(() => {
+                setTimeout(async () => {
+                    if (theLoginRes == "suc") {
+                        return await signup(user, passNew, true)
+                    } else {
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(JSON.stringify({ res: "err" }));
+                        res.end();
+                        return
+                    }
+                }, 1000)
+            })
+    }
+
     if (method == 'GET' && surl.pathname == '/api/login') {
         let searchParams = surl.searchParams
         let user = searchParams.get('user')
