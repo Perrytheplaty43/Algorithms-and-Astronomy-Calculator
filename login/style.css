@@ -281,7 +281,15 @@ label {
 	color: lightseagreen;
 	text-decoration: underline;
 	cursor: pointer;
-	
+}
+
+.p132 {
+	font-size: 18px;
+	margin-left: 4px;
+	overflow-wrap: normal;
+	color: red;
+	text-decoration: underline;
+	cursor: pointer;
 }
 
 button {

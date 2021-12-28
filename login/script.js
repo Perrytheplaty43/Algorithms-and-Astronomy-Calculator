@@ -101,6 +101,9 @@ function SignOutRe() {
     window.location.href = "https://" + window.location.hostname + "/signup/";
 }
 
+function ResetOutRe() {
+    window.location.href = "https://" + window.location.hostname + "/reset/";
+}
 function ShowHideDivQuestion(event) {
     let thing = document.getElementsByClassName("tooltiptext")[0];
     thing.style.display = event.srcElement.checked ? "block" : "none"
