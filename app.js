@@ -446,8 +446,7 @@ function myServer(req, res) {
                 let rHumid = parseFloat(theJSON.list[i].main.humidity)
                 let a = 17.62
                 let b = 243.12
-                dew = (b * a * (Math.log(rHumid / 100) + a * temp / (b + temp)) / (a - a * (Math.log(rHumid / 100) + a * temp / (b + temp))))
-                console.log({dew: dew, a: a, b: b, rHumid: rHumid, temp: temp})
+                dew = (b * (Math.log(rHumid / 100) + a * temp / (b + temp)) / (a - (Math.log(rHumid / 100) + a * temp / (b + temp))))
                 console.log(Math.abs(dew - temp))
                 clouds.push([theJSON.list[i].dt, theJSON.list[i].clouds.all, Math.abs(dew - temp)])
             }
