@@ -21,7 +21,8 @@
                 <input type="text" id="user" name="user" class="form"><br>
                 <label for="pass">Password:</label><br>
                 <input type="password" id="pass" name="pass" class="form">
-                <button type="submit" id="submit">Submit</button>
+                <button type="submit" id="submit">Submit</button><br>
+                <p onclick="return SignOutRe()" class="p13">Dont have an account? Click here to signup.</p>
             </form>
         </div>
         <div class="container3">
@@ -42,16 +43,89 @@
         <div class="container7">
             <p class="p12" id="indicator">Login</p>
         </div>
-        <div class="container8">
+        <div class="container8" id="container8">
             <form onsubmit="return onSubmit(event)">
-                <label for="user">Add favorite object:</label><br>
+                <label >Add favorite object:</label><br>
                 <input type="text" id="object" name="object" class="form2" placeholder="NGC1234" pattern="(^[N|n][G|g][C|c][1-9][0-9]?[0-9]?[0-9])|([I|i][C|c][1-9][0-9]?[0-9]?[0-9])"><br>
                 <button type="submit" id="submitObj">Submit</button>
                 <button type="submit" id="clear">Clear All</button>
+                <p class="p2">Set default options:</p>
+                <div class="optionContainer">
+                    <div class="checkboxes">
+                        <p class="p4">Type:</p>
+                        <form id="advOpt">
+                            <input type="checkbox" id="Gx" name="Gx" value="Gx" checked>
+                            <label for="Gx"> Galaxy</label><br>
+
+                            <input type="checkbox" id="OC" name="OC" value="OC" checked>
+                            <label for="OC"> Open star cluster</label><br>
+
+                            <input type="checkbox" id="Gb" name="Gb" value="Gb" checked>
+                            <label for="Gb"> Globular star cluster</label><br>
+
+                            <input type="checkbox" id="Nb" name="Nb" value="Nb" checked>
+                            <label for="Nb"> Bright emission or reflection nebula</label><br>
+
+                            <input type="checkbox" id="Pl" name="Pl" value="Pl" checked>
+                            <label for="Pl"> Planetary nebula</label><br>
+
+                            <input type="checkbox" id="CpN" name="CpN" value="CpN" checked>
+                            <label for="CpN"> Cluster associated with nebulosity</label><br>
+
+                            <input type="checkbox" id="Ast" name="Ast" value="Ast" checked>
+                            <label for="Ast"> Asterism</label><br>
+
+                            <input type="checkbox" id="Kt" name="Kt" value="Kt" checked>
+                            <label for="Kt"> Knot or nebulous region in an external galaxy</label><br>
+
+                            <input type="checkbox" id="TS" name="TS" value="TS" checked>
+                            <label for="TS"> Triple star</label><br>
+
+                            <input type="checkbox" id="DS" name="DS" value="DS" checked>
+                            <label for="DS"> Double star</label><br>
+
+                            <input type="checkbox" id="SS" name="SS" value="SS" checked>
+                            <label for="SS"> Single star</label><br>
+
+                            <input type="checkbox" id="Q" name="Q" value="Q" checked>
+                            <label for="Q"> Uncertain type or may not exist</label><br>
+
+                            <input type="checkbox" id="U" name="U" value="U" checked>
+                            <label for="U"> Unidentified at the place given, or type unknown</label><br>
+
+                            <input type="checkbox" id="D" name="D" value="D" checked>
+                            <label for="D"> Object called nonexistent in the RNGC</label><br>
+
+                            <input type="checkbox" id="PD" name="PD" value="PD" checked>
+                            <label for="PD"> Photographic plate defect</label><br>
+                        </form>
+                    </div>
+                    <div class="params">
+                        <p class="p4">Parameters:</p>
+                        <form id="advParams" class="advParams">
+                            <p class="p6">Enter Tolerance (42-88):</p>
+                            <input type="number" name="tolerance" id="tolerance" class="form" placeholder="Tolerance"
+                                value="70" max=88 min=42>
+
+                            <p class="p6">Enter Mag Tolerance:</p>
+                            <p class="tooltiptext" style="margin-left: 105%;">
+                                <b>Tolerance:</b> Tolerance in altitude above the horizon (in degrees) that the
+                                algorithm will accept.
+                                <b>Mag Tolerance:</b> Tolerance in brightness in magnitudes. The objects dimmer than the
+                                enter tolerance will be discarded from the result.
+                            </p>
+                            <input type="number" name="toleranceMag" id="toleranceMag" class="form"
+                                placeholder="Mag Tolerance" value="10" min=0>
+                        </form>
+                        <input type="checkbox" class="question" id="question" onclick="ShowHideDivQuestion(event)"></input>
+                        <label for="question" class="question">?</label>
+                    </div>
+                </div>
+                <button id="submitParams" onclick="return submitParams()">Submit</button>
             </form>
         </div>
-        <div class="container9">
-            <form onsubmit="return bottomForm(event)">            
+        <div class="container9" id="container9">
+            <form onsubmit="return bottomForm(event)">
                 <button type="submit" class="submitButton4" id="redirect">Go to search</button>
             </form>
         </div>

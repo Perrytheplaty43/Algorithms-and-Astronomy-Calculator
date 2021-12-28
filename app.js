@@ -585,7 +585,10 @@ function myServer(req, res) {
             return await docRef.set({
                 user: user,
                 pass: hashedPass,
-                fav: null
+                fav: null,
+                type: null,
+                tol: null,
+                magTol: null
             }).then(() => {
                 res.writeHead(200, { 'Content-Type': 'text/json' });
                 res.write(JSON.stringify({ res: "suc" }));
@@ -681,6 +684,62 @@ function myServer(req, res) {
                         res.write(JSON.stringify({ res: "done" }));
                         res.end();
                         return addFav(id, user)
+                    } else {
+
+                    }
+                }, 1000)
+            })
+    }
+
+    const addParam = async (type, tol, magTol, user) => {
+        const docRef = db.collection('users').doc(user);
+
+        return await docRef.update({
+            type: type,
+            tol: tol,
+            magTol: magTol
+        })
+    }
+
+    if (method == 'POST' && surl.pathname == '/api/params') {
+        let searchParams = surl.searchParams
+        let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
+        let type = searchParams.get('type')
+        let tol = searchParams.get('tol')
+        let magTol = searchParams.get('magTol')
+
+        return login(user, pass, true)
+            .then(() => {
+                setTimeout(() => {
+                    if (theLoginRes == "suc") {
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(JSON.stringify({ res: "done" }));
+                        res.end();
+                        return addParam(type, tol, magTol, user)
+                    } else {
+
+                    }
+                }, 1000)
+            })
+    }
+
+    if (method == 'GET' && surl.pathname == '/api/params') {
+        let searchParams = surl.searchParams
+        let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
+
+        return login(user, pass, true)
+            .then(() => {
+                setTimeout(async () => {
+                    if (theLoginRes == "suc") {
+                        const docRef = db.collection('users').doc(user);
+                        let doc = await docRef.get()
+
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(JSON.stringify({ type: doc.data().type, tol: doc.data().tol, magTol: doc.data().magTol }));
+                        res.end();
+                        return
                     } else {
 
                     }
@@ -804,9 +863,9 @@ function myServer(req, res) {
                             .then(response => response.text())
                             .then(async finalData => {
                                 res.writeHead(200, { 'Content-Type': 'text/json' });
-                                if (theLoginRes == "suc") {
-                                    const docRef = db.collection('users').doc(userReq);
-                                    let doc = await docRef.get()
+                                const docRef = db.collection('users').doc(userReq);
+                                let doc = await docRef.get()
+                                if (theLoginRes == "suc" && doc.data().fav != null) {
                                     let raw = JSON.parse(finalData)
                                     let theFinal = []
                                     let favArr = doc.data().fav.split(",")
@@ -836,7 +895,7 @@ function myServer(req, res) {
                                     res.write(JSON.stringify([finalData, theFinal]));
                                     res.end();
                                 } else {
-                                    res.write([finalData, []]);
+                                    res.write(JSON.stringify([finalData, []]));
                                     res.end();
                                 }
                             })

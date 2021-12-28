@@ -56,11 +56,136 @@ function onSubmit(event) {
 }
 
 function updateUI() {
-    document.getElementById("indicator").innerHTML = "Loged in as: " + user
+    document.getElementById("indicator").textContent = "Loged in as: " + user
     document.getElementById("indicator").classList.add('p1green2')
+
+    fetch(
+        'https://' + window.location.hostname + '/api/params?user=' + user + '&pass=' + pass,
+        { method: 'GET' }
+    )
+        .then(response => response.text())
+        .then(res => {
+            res = JSON.parse(res)
+            let type = res.type.split(",")
+
+            if (!type.includes("Gx")) document.getElementById("Gx").checked = false;
+            if (!type.includes("OC")) document.getElementById("OC").checked = false;
+            if (!type.includes("Gb")) document.getElementById("Gb").checked = false;
+            if (!type.includes("Nb")) document.getElementById("Nb").checked = false;
+            if (!type.includes("Pl")) document.getElementById("Pl").checked = false;
+            if (!type.includes("CpN")) document.getElementById("CpN").checked = false;
+            if (!type.includes("Ast")) document.getElementById("Ast").checked = false;
+            if (!type.includes("Kt")) document.getElementById("Kt").checked = false;
+            if (!type.includes("TS")) document.getElementById("TS").checked = false;
+            if (!type.includes("DS")) document.getElementById("DS").checked = false;
+            if (!type.includes("SS")) document.getElementById("SS").checked = false;
+            if (!type.includes("Q")) document.getElementById("Q").checked = false;
+            if (!type.includes("U")) document.getElementById("U").checked = false;
+            if (!type.includes("D")) document.getElementById("D").checked = false;
+            if (!type.includes("PD")) document.getElementById("PD").checked = false;
+
+            document.getElementById("tolerance").value = res.tol
+            document.getElementById("toleranceMag").value = res.magTol
+        })
+        .catch(error => console.log('error:', error));
+    document.getElementById("container8").style.display = "block"
+    document.getElementById("container9").style.display = "block"
 }
 
 function bottomForm(event) {
     event.preventDefault();
     window.location.href = "https://" + window.location.hostname + "/astroTargetFinder?user=" + user + "&pass=" + pass;
+}
+
+function SignOutRe() {
+    window.location.href = "https://" + window.location.hostname + "/signup/";
+}
+
+function ShowHideDivQuestion(event) {
+    let thing = document.getElementsByClassName("tooltiptext")[0];
+    thing.style.display = event.srcElement.checked ? "block" : "none"
+    if (document.getElementsByClassName("checkboxes")[0].offsetWidth + document.getElementsByClassName("params")[0].offsetWidth > window.innerWidth * 0.64) {
+        document.getElementsByClassName("tooltiptext")[0].style.marginLeft = "0";
+    }
+}
+
+function submitParams() {
+    let types = []
+    let Gx = document.getElementById("Gx");
+    let OC = document.getElementById("OC");
+    let Gb = document.getElementById("Gb");
+    let Nb = document.getElementById("Nb");
+    let Pl = document.getElementById("Pl");
+    let CpN = document.getElementById("CpN");
+    let Ast = document.getElementById("Ast");
+    let Kt = document.getElementById("Kt");
+    let TS = document.getElementById("TS");
+    let DS = document.getElementById("DS");
+    let SS = document.getElementById("SS");
+    let Q = document.getElementById("Q");
+    let U = document.getElementById("U");
+    let D = document.getElementById("D");
+    let PD = document.getElementById("PD");
+    let tol = document.getElementById("tolerance").value;
+    let tolMag = document.getElementById("toleranceMag").value;
+
+    if (Gx.checked) {
+        types.push("Gx")
+    }
+    if (OC.checked) {
+        types.push("OC")
+    }
+    if (Gb.checked) {
+        types.push("Gb")
+    }
+    if (Nb.checked) {
+        types.push("Nb")
+    }
+    if (Pl.checked) {
+        types.push("Pl")
+    }
+    if (CpN.checked) {
+        types.push("CpN")
+    }
+    if (Ast.checked) {
+        types.push("Ast")
+    }
+    if (Kt.checked) {
+        types.push("Kt")
+    }
+    if (TS.checked) {
+        types.push("TS")
+    }
+    if (DS.checked) {
+        types.push("DS")
+    }
+    if (SS.checked) {
+        types.push("SS")
+    }
+    if (Q.checked) {
+        types.push("Q")
+    }
+    if (U.checked) {
+        types.push("U")
+    }
+    if (D.checked) {
+        types.push("D")
+    }
+    if (PD.checked) {
+        types.push("PD")
+    }
+
+    if (user != undefined && pass != undefined) {
+        fetch(
+            'https://' + window.location.hostname + '/api/params?tol=' + tol + '&magTol=' + tolMag + '&type=' + types + "&user=" + user + "&pass=" + pass,
+            { method: 'POST' }
+        )
+            .then(response => response.text())
+            .then(res => {
+                if (JSON.parse(res).res != "done") {
+                    alert("error")
+                }
+            })
+            .catch(error => console.log('error:', error));
+    }
 }

@@ -180,7 +180,7 @@ label {
 }
 
 .container8 {
-	/* display: none; */
+	display: none;
 	margin-left: 10px;
 }
 
@@ -274,8 +274,24 @@ label {
 	color: lightseagreen;
 }
 
+.p13 {
+	font-size: 18px;
+	margin-left: 4px;
+	overflow-wrap: normal;
+	color: lightseagreen;
+	text-decoration: underline;
+	cursor: pointer;
+	
+}
+
+button {
+	cursor: pointer;
+}
+
 .container9 {
 	margin-left: 10px;
+	margin-bottom: 10px;
+	display: none;
 }
 
 .p12 {

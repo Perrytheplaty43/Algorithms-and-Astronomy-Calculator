@@ -122,6 +122,11 @@ const mapImages = {
     '2537': './Images/NGC2537.jpg',
     '2460': './Images/NGC2460.jpg',
     '2541': './Images/NGC2541.jpg',
+    '2500': './Images/NGC2500.jpg',
+    '2639': './Images/NGC2639.jpg',
+    '2371': './Images/NGC2371.jpg',
+    '2242': './Images/NGC2242.jpg',
+    'I 289': './Images/IC289.jpg',
 };
 
 let user;
@@ -137,9 +142,42 @@ if (window.location.search.length != 0) {
     document.getElementById("favs").style.display = "block"
     document.getElementById("indicator2").innerHTML = "Logged in as: " + user
     document.getElementById("indicator").style.display = "block"
+
+    fetch(
+        'https://' + window.location.hostname + '/api/params?user=' + user + '&pass=' + pass,
+        { method: 'GET' }
+    )
+        .then(response => response.text())
+        .then(res => {
+            res = JSON.parse(res)
+            let type = res.type.split(",")
+
+            if (!type.includes("Gx")) document.getElementById("Gx").checked = false;
+            if (!type.includes("OC")) document.getElementById("OC").checked = false;
+            if (!type.includes("Gb")) document.getElementById("Gb").checked = false;
+            if (!type.includes("Nb")) document.getElementById("Nb").checked = false;
+            if (!type.includes("Pl")) document.getElementById("Pl").checked = false;
+            if (!type.includes("CpN")) document.getElementById("CpN").checked = false;
+            if (!type.includes("Ast")) document.getElementById("Ast").checked = false;
+            if (!type.includes("Kt")) document.getElementById("Kt").checked = false;
+            if (!type.includes("TS")) document.getElementById("TS").checked = false;
+            if (!type.includes("DS")) document.getElementById("DS").checked = false;
+            if (!type.includes("SS")) document.getElementById("SS").checked = false;
+            if (!type.includes("Q")) document.getElementById("Q").checked = false;
+            if (!type.includes("U")) document.getElementById("U").checked = false;
+            if (!type.includes("D")) document.getElementById("D").checked = false;
+            if (!type.includes("PD")) document.getElementById("PD").checked = false;
+
+            document.getElementById("tolerance").value = res.tol
+            document.getElementById("toleranceMag").value = res.magTol
+        })
+        .catch(error => console.log('error:', error));
+
+    document.getElementById("prefs1").style.visibility = "hidden"
+    document.getElementById("cookie").style.visibility = false
 }
 
-if (getCookie("checked") == "true" && document.getElementById("cookie") != null) {
+if (getCookie("checked") == "true" && document.getElementById("cookie") != null && user == undefined && pass == undefined) {
     document.getElementById("cookie").checked = true;
     document.getElementById("tolerance").value = getCookie("tol")
     document.getElementById("toleranceMag").value = getCookie("tolMag")
