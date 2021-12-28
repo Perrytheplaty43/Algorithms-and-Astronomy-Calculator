@@ -56,7 +56,7 @@ function onSubmit(event) {
 }
 
 function updateUI() {
-    document.getElementById("indicator").innerHTML = "Loged in as: " + user
+    document.getElementById("indicator").textContent = "Loged in as: " + user
     document.getElementById("indicator").classList.add('p1green2')
 
     fetch(
