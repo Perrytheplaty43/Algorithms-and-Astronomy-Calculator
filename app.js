@@ -658,6 +658,7 @@ function myServer(req, res) {
     const addFav = async (id, user) => {
         const docRef = db.collection('users').doc(user);
         let doc = await docRef.get()
+        id = id.toUpperCase()
 
         if (id != "NGC0000") {
             return await docRef.update({
@@ -868,7 +869,7 @@ function myServer(req, res) {
                                 if (theLoginRes == "suc" && doc.data().fav != null) {
                                     let raw = JSON.parse(finalData)
                                     let theFinal = []
-                                    let favArr = doc.data().fav.toUpperCase().split(",")
+                                    let favArr = doc.data().fav.split(",")
                                     favArr.splice(favArr.length - 1, 1)
                                     for (let i = 0; i <= favArr.length - 1; i++) {
                                         let favArr2 = favArr[i].split('')
