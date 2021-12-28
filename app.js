@@ -65,12 +65,10 @@ snapshot.forEach((doc) => {
 });
 
 var transporter = nodemailer.createTransport({
-    host: 'smtp.zoho.com',
-    port: 465,
-    secure: true, // use SSL
+    service: 'gmail',
     auth: {
         user: process.env.USER,
-        pass: process.env.PASS
+        pass: process.env.PASS,
     }
 });
 
