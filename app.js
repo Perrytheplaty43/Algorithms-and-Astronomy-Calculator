@@ -613,15 +613,17 @@ function myServer(req, res) {
     const signup = async (user, pass, reseting) => {
         const snapshot = await db.collection('users').get();
         let same = false
-        await snapshot.forEach((doc) => {
-            if (doc.id == user) {
-                res.writeHead(200, { 'Content-Type': 'text/json' });
-                res.write(JSON.stringify({ res: "same" }));
-                res.end();
-                same = true;
-                return
-            }
-        })
+        if (!reseting) {
+            await snapshot.forEach((doc) => {
+                if (doc.id == user) {
+                    res.writeHead(200, { 'Content-Type': 'text/json' });
+                    res.write(JSON.stringify({ res: "same" }));
+                    res.end();
+                    same = true;
+                    return
+                }
+            })
+        }
         let salt = await bcrypt.genSalt()
         let hashedPass = await bcrypt.hash(pass, salt)
 
