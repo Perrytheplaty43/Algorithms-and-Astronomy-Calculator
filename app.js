@@ -587,6 +587,8 @@ function myServer(req, res) {
         let hashedPass = await bcrypt.hash(pass, salt)
 
         const docRef = db.collection('users').doc(user);
+        let doc = docRef.get()
+        console.log(doc.data().fav)
         if (!same) {
             return await docRef.set({
                 user: user,
