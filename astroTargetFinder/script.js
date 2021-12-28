@@ -341,6 +341,7 @@ function updateUI(final, timer, lat, long, final2) {
     if (final != null) {
         if (user == undefined) {
             final[0] = JSON.parse(final[0])
+            final = final[0]
         }
         if (final.length == 1) {
             document.getElementById("p1").innerHTML = "Best target: " + (() => { let firstChar = final[0][0].split(""); if (firstChar[0] == "I") { return "IC" } else { return "NGC" } })() + (() => { let firstChar = final[0][0].split(""); if (firstChar[0] == "I") { return final[0][0].substring(1) } else { return final[0][0] } })() + ", Magnitude: " + final[0][2] + ", Type: " + final[0][3] + ", Constellation: " + final[0][4] + "<br />";
