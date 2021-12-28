@@ -441,7 +441,13 @@ function myServer(req, res) {
                 if (timesUNIX[1] <= theJSON.list[i].dt) {
                     break;
                 }
-                clouds.push([theJSON.list[i].dt, theJSON.list[i].clouds.all])
+                let dew;
+                let temp = parseFloat(theJSON.list[i].main.temp) - 273.15
+                let rHumid = parseFloat(theJSON.list[i].main.humidity)
+                let a = 17.62
+                let b = 243.12
+                dew = (b * a * (Math.log(rHumid / 100) + a * temp / (b + temp)) / (a - a * (Math.log(rHumid / 100) + a * temp / (b + temp))))
+                clouds.push([theJSON.list[i].dt, theJSON.list[i].clouds.all, Math.abs(dew - temp)])
             }
         }
         clouds = clouds.sort(compareSecondColumn)
@@ -449,11 +455,11 @@ function myServer(req, res) {
         let bad = false
         let oneGood = false
         for (let i = 0; i <= clouds.length - 1; i++) {
-            if (clouds[i][1] < 10) {
+            if (clouds[i][1] < 10 && clouds[i][2] > 2) {
                 goodWeather.push(clouds[i])
                 oneGood = true
             }
-            if (clouds[clouds.length - 1][1] > 10 || ((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length > 30) {
+            if (clouds[clouds.length - 1][1] > 10 || ((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length > 30 || clouds[i][2] < 2) {
                 bad = true
             }
         }
@@ -462,9 +468,9 @@ function myServer(req, res) {
         } else {
             searchDate = 0
         }
-        if (((() => { for (let i = 0; i <= clouds.length - 1; i++) { if (clouds[i][1] > 10) { return true } } return false })())) {
+        if (((() => { for (let i = 0; i <= clouds.length - 1; i++) { if (clouds[i][1] > 10) { return true } } return false })()) && clouds[i][2] > 2) {
             return "Perfect";
-        } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length < 30) {
+        } else if (((() => { let turning = 0; for (let i = 0; i <= clouds.length - 1; i++) { turning += clouds[i][1]; } return turning })()) / clouds.length < 30 && clouds[i][2] > 2) {
             return "Fair";
         } else if (clouds.length == 0) {
             return "Unknown";
