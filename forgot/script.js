@@ -7,10 +7,10 @@ function onSubmit(event) {
         )
             .then(response => response.text())
             .then(data => {
-                if (data.res == "nouser") {
+                if (data == "nouser") {
                     document.getElementById("suc").style.display = "none"
                     document.getElementById("wrong").style.display = "block"
-                } else if (data.res == "suc") {
+                } else if (data == "suc") {
                     document.getElementById("suc").style.display = "block"
                     document.getElementById("wrong").style.display = "none"
                 } else {
