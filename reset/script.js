@@ -10,7 +10,6 @@ function onSubmit(event) {
                 if (JSON.parse(data).res == "err") {
                     document.getElementById("suc").style.display = "none"
                     document.getElementById("wrong").style.display = "block"
-                    updateUI()
                 } else if (JSON.parse(data).res == "suc") {
                     document.getElementById("suc").style.display = "block"
                     document.getElementById("wrong").style.display = "none"
