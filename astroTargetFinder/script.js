@@ -177,7 +177,7 @@ if (window.location.search.length != 0) {
         .catch(error => console.log('error:', error));
 
     document.getElementById("prefs1").style.visibility = "hidden"
-    document.getElementById("cookie").style.visibility = false
+    document.getElementById("cookie").style.visibility = "hidden"
 }
 
 if (getCookie("checked") == "true" && document.getElementById("cookie") != null && user == undefined && pass == undefined) {
