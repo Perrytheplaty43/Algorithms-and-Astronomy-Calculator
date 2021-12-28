@@ -67,7 +67,7 @@ console.log(process.env.USER, process.env.PASS)
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.USER,
+        user: process.env.USERNAME,
         pass: process.env.PASS,
     }
 });
