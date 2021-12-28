@@ -2,7 +2,7 @@ function onSubmit(event) {
     if (event.submitter.id == "submit") {
         event.preventDefault();
         fetch(
-            'https://' + window.location.hostname + '/api/reset?user=' + document.getElementById("user").value + '&pass=' + document.getElementById("pass").value + '&passNew=' + document.getElementById("passNew").value,
+            'https://' + window.location.hostname + '/api/reset?user=' + document.getElementById("user").value + '&pass=' + document.getElementById("pass").value + '&passNew=' + document.getElementById("passNew").value + '&email=' + document.getElementById("email").value,
             { method: 'POST' }
         )
             .then(response => response.text())
