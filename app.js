@@ -1176,7 +1176,11 @@ function myServer(req, res) {
         let user = searchParams.get('user')
         let pass = searchParams.get('pass')
 
-        return forgot(user, pass)
+        return forgot(user, pass).then(() => {
+            const docRef = db.collection('users').doc(user);
+            let doc = await docRef.get()
+            console.log(doc.data().token)
+        })
     }
 
     const forgotChecker = async (token, user, pass) => {
