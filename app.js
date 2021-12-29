@@ -1158,6 +1158,8 @@ function myServer(req, res) {
         let pass = searchParams.get('pass')
 
         return forgot(user, pass).then(async () => {
+            const docRef = db.collection('users').doc(user);
+            let doc = await docRef.get()
             var mailOptions = {
                 from: '"astronomycalculator" <astronomycalculator@outlook.com>',
                 to: doc.data().email,
