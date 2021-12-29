@@ -11,24 +11,24 @@ function onSubmit(event) {
 		let start = new Date();
 		let theText = unscrambler(words);
 		let time = "(Computed in:" + " " + (() => { if (((new Date() - start) / 1000) == 0) { toFast = true; return "so fast I couldn't count)"; } else { return (new Date() - start) / 1000; } })() + (() => { if (!toFast) { return "s)" } else { return "" } })();
-		document.getElementById("p1").innerHTML = theText;
-		document.getElementById("timerLable").innerHTML = time;
-		document.getElementById("word").innerHTML = "Words: " + wordCounter(words);
-		document.getElementById("char").innerHTML = "Characters: " + words.length;
+		document.getElementById("p1").textContent = theText;
+		document.getElementById("timerLable").textContent = time;
+		document.getElementById("word").textContent = "Words: " + wordCounter(words);
+		document.getElementById("char").textContent = "Characters: " + words.length;
 		return false;
 	} else if (event.submitter.id == "randomCase_button") {
 		let startCase = new Date();
 		let theRandomCase = randomCase(words);
 		event.preventDefault();
 		let time = "(Computed in:" + " " + (() => { if (((new Date() - startCase) / 1000) == 0) { toFast = true; return "so fast I couldn't count)"; } else { return (new Date() - startCase) / 1000; } })() + (() => { if (!toFast) { return "s)" } else { return "" } })();
-		document.getElementById("timerLable").innerHTML = time;
-		document.getElementById("word").innerHTML = "Words: " + wordCounter(words);
-		document.getElementById("char").innerHTML = "Characters: " + words.length;
-		document.getElementById("p1").innerHTML = theRandomCase;
+		document.getElementById("timerLable").textContent = time;
+		document.getElementById("word").textContent = "Words: " + wordCounter(words);
+		document.getElementById("char").textContent = "Characters: " + words.length;
+		document.getElementById("p1").textContent = theRandomCase;
 		return false;
 	} else if (event.submitter.id == "clear_button") {
 		event.preventDefault();
-		document.getElementById("p1").innerHTML = "Submit Input";
+		document.getElementById("p1").textContent = "Submit Input";
 		return false;
 	} else if (event.submitter.id == "sorting_button") {
 		let theValueOut;
@@ -119,7 +119,7 @@ function onSubmit(event) {
 			//console.log(input, args[1]);
 			//max num 112813857
 			if (!benching) searchResult = sheach(input);
-			document.getElementById("p1").innerHTML = theValueOut.join(", ") + "<br />" + "<br />" + "Contains the number: " + searchResult + "<br />" + "<br />" + "Time total:" + " " + (new Date() - start) / 1000 + "s" + "<br />" + "Time array gen:" + " " + timeRand + "s" + "<br />" + "Time merge sort:" + " " + timeSort + "s" + "<br />" + "Elements:" + " " + args[1] + " " + "Searched for:" + " " + input + " " + "Algorithum used:" + " " + method;
+			document.getElementById("p1").textContent = theValueOut.join(", ") + "<br />" + "<br />" + "Contains the number: " + searchResult + "<br />" + "<br />" + "Time total:" + " " + (new Date() - start) / 1000 + "s" + "<br />" + "Time array gen:" + " " + timeRand + "s" + "<br />" + "Time merge sort:" + " " + timeSort + "s" + "<br />" + "Elements:" + " " + args[1] + " " + "Searched for:" + " " + input + " " + "Algorithum used:" + " " + method;
 			document.getElementById("bla").scrollIntoView();
 		}
 		return false;
