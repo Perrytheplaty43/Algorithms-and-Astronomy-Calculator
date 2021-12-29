@@ -868,9 +868,9 @@ function myServer(req, res) {
         let doc = await docRef.get()
         id = id.toUpperCase()
 
-        console.log(doc.data().fav.values)
         if (id != "NGC0000") {
             let vals = Object.values(doc.data().fav)
+            console.log(vals)
             return await docRef.update({
                 fav: vals.push(id)
                 //fav: ((() => { if (doc.data().fav != null) { return doc.data().fav + id + "," } else { return id + "," } })())
