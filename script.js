@@ -119,7 +119,7 @@ function onSubmit(event) {
 			//console.log(input, args[1]);
 			//max num 112813857
 			if (!benching) searchResult = sheach(input);
-			document.getElementById("p1").textContent = theValueOut.join(", ") + "...\r\n\r\n...";
+			document.getElementById("p1").textContent = theValueOut.join(", ") + "\r\n\r\n";
 			document.getElementById("p1").textContent += "Contains the number: " + searchResult + "\r\n\r\n";
 			document.getElementById("p1").textContent += "Time total:" + " " + (new Date() - start) / 1000 + "s" + "\r\n";
 			document.getElementById("p1").textContent += "Time array gen:" + " " + timeRand + "s" + "\r\n";
