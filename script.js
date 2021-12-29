@@ -46,7 +46,6 @@ function onSubmit(event) {
 				benching = true;
 				let timeRand = (new Date() - startRand) / 1000;
 
-				if (!benching) console.log(nElements);
 				let startSort = new Date();
 
 				let method;
@@ -55,22 +54,18 @@ function onSubmit(event) {
 					let out = quiksort(nElements);
 					casualHeapSort(out);
 					method = "quiksort";
-					if (!benching) console.log(out);
 				} else if (args[2] == 3) {
 					nElements.sort();
-					console.log(nElements);
 					method = "built in js sort";
 				} else {
 					let output = mergeSort(nElements);
 					method = "casual merge sort";
-					console.log(output);
 				}
 				let timeSort = (new Date() - startSort) / 1000;
 
 				//console.log(input, args[1]);
 				//max num 112813857
-				if (!benching) console.log(sheach(input));
-				console.log("Time total:", (new Date() - start) / 1000 + "s" + "\n" + "Time array gen:", timeRand + "s" + "\n" + "Time merge sort:", timeSort + "s" + "\n" + "Elements:", i, "Searched for:", input, "Algorithum used:", method);
+				//console.log("Time total:", (new Date() - start) / 1000 + "s" + "\n" + "Time array gen:", timeRand + "s" + "\n" + "Time merge sort:", timeSort + "s" + "\n" + "Elements:", i, "Searched for:", input, "Algorithum used:", method);
 			}
 		} else {
 			let start = new Date();
@@ -86,7 +81,6 @@ function onSubmit(event) {
 			}
 			let timeRand = (new Date() - startRand) / 1000;
 
-			if (!benching) console.log(nElements);
 			let startSort = new Date();
 
 			let method;
