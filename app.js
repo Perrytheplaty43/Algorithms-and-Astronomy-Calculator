@@ -1236,7 +1236,7 @@ function myServer(req, res) {
                 from: '"astronomycalculator" <astronomycalculator@outlook.com>',
                 to: doc.data().email,
                 subject: 'Reset Password ',
-                html: 'Click <a href="https://' + addr + '/forgotReset?token=' + doc.data().token + '&user=' + user + '">' + 'https://' + addr + '/api/forgot?token=' + doc.data().token + '&user=' + user + '</a> to reset password'
+                html: 'Click <a href="https://' + addr + '/forgotReset?token=' + doc.data().token + '&user=' + userFromEmail + '">' + 'https://' + addr + '/api/forgot?token=' + doc.data().token + '&user=' + userFromEmail + '</a> to reset password'
             }
             transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
