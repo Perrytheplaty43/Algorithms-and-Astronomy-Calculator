@@ -1128,7 +1128,7 @@ function myServer(req, res) {
         return result;
     }
 
-    const forgot = async (user) => {
+    const forgot = async (user, pass) => {
         if (user != undefined) {
             const docRef = db.collection('users').doc(user);
             if (docRef != undefined) {
@@ -1143,7 +1143,7 @@ function myServer(req, res) {
                     from: '"astronomycalculatornoreply" <astronomycalculatorreset@zohomail.com>',
                     to: doc.data().email,
                     subject: 'Reset Password ',
-                    html: 'Click <a href="https://' + addr + '/api/forgot?token=' + doc.data().token + '">here</a> to reset password'
+                    html: 'Click <a href="https://' + addr + '/api/forgot?token=' + doc.data().token + '&user=' + user + '&pass=' + pass + '">here</a> to reset password'
                 }
                 transporter.sendMail(mailOptions, function (error, info) {
                     if (error) {
@@ -1166,8 +1166,45 @@ function myServer(req, res) {
     if (method == 'POST' && surl.pathname == '/forgot') {
         let searchParams = surl.searchParams
         let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
 
-        return forgot(user)
+        return forgot(user, pass)
+    }
+
+    const forgotChecker = async (token, user, pass) => {
+        if (user != undefined && token.length == 40 && pass != undefined) {
+            const docRef = db.collection('users').doc(user);
+            let doc = await docRef.get()
+            let timeNow = new Date()
+            let tokenEx = new Date(doc.data().tokenEx)
+            if (tokenEx > timeNow && token == doc.data().token) {
+                let salt = await bcrypt.genSalt()
+                let hashedPass = await bcrypt.hash(pass, salt)
+                return await docRef.update({
+                    pass: hashedPass
+                }).then(() => {
+                    fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.html', function (err, html) {
+                        if (err) {
+                            console.log(err);
+                            errorLog(testing, err, "2")
+                            return;
+                        }
+                        res.writeHead(200, { 'Content-Type': 'text/html' });
+                        res.write(html);
+                        res.end();
+                    });
+                })
+            }
+        }
+    }
+
+    if (method == 'GET' && surl.pathname == '/api/forgot') {
+        let searchParams = surl.searchParams
+        let token = searchParams.get('token')
+        let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
+
+        return forgotChecker(token, user, pass)
     }
 
     if (!no404) {

@@ -2,7 +2,7 @@ function onSubmit(event) {
     if (event.submitter.id == "submit") {
         event.preventDefault();
         fetch(
-            'https://' + window.location.hostname + '/forgot?user=' + document.getElementById("user").value,
+            'https://' + window.location.hostname + '/forgot?user=' + document.getElementById("user").value + '&pass=' + document.getElementById("pass").value,
             { method: 'POST' }
         )
             .then(response => response.text())
