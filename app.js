@@ -1234,7 +1234,6 @@ function myServer(req, res) {
             let doc = await docRef.get()
             let timeNow = new Date()
             let tokenEx = new Date(doc.data().tokenEx)
-            console.log({ token: token, databastoken: doc.data().token })
             if (tokenEx > timeNow && token == doc.data().token) {
                 let salt = await bcrypt.genSalt()
                 let hashedPass = await bcrypt.hash(pass, salt)
