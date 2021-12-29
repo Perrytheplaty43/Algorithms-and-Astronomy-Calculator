@@ -1143,7 +1143,7 @@ function myServer(req, res) {
                     tokenEx: currentDate.toString()
                 })
                 var mailOptions = {
-                    from: '"astronomycalculatornoreply" <astronomycalculatorreset@zohomail.com>',
+                    from: '"astronomycalculator" <astronomycalculator@outlook.com>',
                     to: doc.data().email,
                     subject: 'Reset Password ',
                     html: 'Click <a href="https://' + addr + '/api/forgot?token=' + doc.data().token + '&user=' + user + '&pass=' + pass + '">here</a> to reset password'
