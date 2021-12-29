@@ -1176,7 +1176,7 @@ function myServer(req, res) {
         let user = searchParams.get('user')
         let pass = searchParams.get('pass')
 
-        return forgot(user, pass).then(() => {
+        return forgot(user, pass).then(async () => {
             const docRef = db.collection('users').doc(user);
             let doc = await docRef.get()
             console.log(doc.data().token)
