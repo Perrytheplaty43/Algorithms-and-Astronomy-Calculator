@@ -738,6 +738,12 @@ function myServer(req, res) {
                     res.end();
                     same = true;
                     return
+                } else if (doc.data().email == email) {
+                    res.writeHead(200, { 'Content-Type': 'text/json' });
+                    res.write(JSON.stringify({ res: "sameemail" }));
+                    res.end();
+                    same = true;
+                    return
                 }
             })
         }

@@ -25,3 +25,7 @@ function onSubmit(event) {
 function SignOutRe() {
     window.location.href = "https://" + window.location.hostname + "/signup/";
 }
+
+function LogInRe(){
+    window.location.href = "https://" + window.location.hostname + "/login/";
+}
