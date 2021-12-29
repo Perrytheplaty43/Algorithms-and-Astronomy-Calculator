@@ -10,6 +10,7 @@ if (queryString != undefined) {
 }
 
 function onSubmit(event) {
+    event.preventDefault();
     let pass = document.getElementById("pass").value
     fetch(
         'https://' + window.location.hostname + '/api/forgot?user=' + user + '&token=' + token + '&pass=' + pass,
@@ -25,6 +26,7 @@ function onSubmit(event) {
             }
         })
         .catch(error => console.log('error:', error));
+    return false
 }
 
 function SignOutRe() {
