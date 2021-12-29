@@ -1202,6 +1202,7 @@ function myServer(req, res) {
     }
 
     if (method == 'GET' && surl.pathname == '/api/forgot') {
+        console.log("in")
         let searchParams = surl.searchParams
         let token = searchParams.get('token')
         let user = searchParams.get('user')
