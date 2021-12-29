@@ -870,7 +870,6 @@ function myServer(req, res) {
 
         if (id != "NGC0000") {
             let vals = Object.values(doc.data().fav)
-            console.log(vals)
             vals.push(id)
             return await docRef.update({
                 fav: vals
@@ -1085,7 +1084,6 @@ function myServer(req, res) {
                                         //let favArr = doc.data().fav.split(",")
                                         let favArr = doc.data().fav
                                         console.log(favArr)
-                                        favArr.splice(favArr.length - 1, 1)
                                         for (let i = 0; i <= favArr.length - 1; i++) {
                                             let favArr2 = favArr[i].split('')
                                             if (favArr2.includes("I")) {
