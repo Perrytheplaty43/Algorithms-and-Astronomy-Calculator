@@ -65,9 +65,12 @@ snapshot.forEach((doc) => {
 });
 console.log(process.env.USER, process.env.PASS)
 var transporter = nodemailer.createTransport({
-    host: 'smtp.zoho.com',
-    port: 465,
-    secure: true, // use SSL
+    host: "smtp-mail.outlook.com",
+    secureConnection: false,
+    port: 587,
+    tls: {
+        ciphers: 'SSLv3'
+    },
     auth: {
         user: process.env.USERNAME,
         pass: process.env.PASS
