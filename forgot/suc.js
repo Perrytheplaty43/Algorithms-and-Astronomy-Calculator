@@ -12,7 +12,7 @@ if (queryString != undefined) {
 function onSubmit(event) {
     event.preventDefault();
     let pass;
-    if (document.getElementById("pass") == document.getElementById("pass2")) {
+    if (document.getElementById("pass").value == document.getElementById("pass2").value) {
         pass = document.getElementById("pass").value
     } else {
         document.getElementById("wrong").style.display = "block"
