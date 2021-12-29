@@ -19,12 +19,19 @@
             <form onsubmit="return onSubmit(event)">
                 <label for="pass">New Password:</label><br>
                 <input type="password" id="pass" name="pass" class="form">
+                <label for="pass">Retype password:</label><br>
+                <input type="password" id="pass2" name="pass2" class="form">
                 <button type="submit" id="submit">Submit</button><br>
             </form>
         </div>
         <div class="container2" id="suc">
             <p onclick="return SignOutRe()" class="sucText">Succses click here to login</p>
             </form>
+        </div>
+        <div class="container5">
+            <div class="same" id="wrong">
+                <p class="sameText">Passwords do not match</p>
+            </div>
         </div>
     </div>
 </body>

@@ -11,7 +11,13 @@ if (queryString != undefined) {
 
 function onSubmit(event) {
     event.preventDefault();
-    let pass = document.getElementById("pass").value
+    let pass;
+    if (document.getElementById("pass") == document.getElementById("pass2")) {
+        pass = document.getElementById("pass").value
+    } else {
+        document.getElementById("wrong").style.display = "block"
+        return false
+    }
     fetch(
         'https://' + window.location.hostname + '/api/forgot?user=' + user + '&token=' + token + '&pass=' + pass,
         { method: 'GET' }
