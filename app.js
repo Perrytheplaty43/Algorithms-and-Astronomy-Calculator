@@ -1131,14 +1131,12 @@ function myServer(req, res) {
         return result;
     }
 
-    const forgot = async (user, pass) => {
+    const forgot = async (user) => {
         if (user != undefined) {
             const docRef = db.collection('users').doc(user);
             if (docRef != undefined) {
                 let currentDate = new Date()
                 currentDate.setMinutes(currentDate.getMinutes() + 30)
-                let doc = await docRef.get()
-                console.log(doc.data().token, "  dddddd")
                 return await docRef.update({
                     token: makeid(40),
                     tokenEx: currentDate.toString()
@@ -1157,7 +1155,7 @@ function myServer(req, res) {
         let user = searchParams.get('user')
         let pass = searchParams.get('pass')
 
-        return forgot(user, pass).then(async () => {
+        return forgot(user).then(async () => {
             const docRef = db.collection('users').doc(user);
             let doc = await docRef.get()
             var mailOptions = {
