@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Reset Password</title>
+    <script src="./script.js" defer></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="flexbox">
+        <div class="container1">
+            <h1 class="title">Reset Password</h1>
+        </div>
+        <div class="container2">
+            <form onsubmit="return onSubmit(event)">
+                <label for="user">Email:</label><br>
+                <input type="text" id="email" name="email" class="form"><br>
+                <button type="submit" id="submit">Submit</button><br>
+                <p onclick="return SignOutRe()" class="p13">Dont have an account? Click here to signup.</p>
+            </form>
+        </div>
+        <div class="container3">
+            <div class="suc" id="suc">
+                <p class="sucText" onclick="return LogInRe()">Email sent, click here to login</p>
+            </div>
+        </div>
+        <div class="container5">
+            <div class="same" id="wrong">
+                <p class="sameText">No such username</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

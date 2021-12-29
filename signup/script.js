@@ -2,7 +2,7 @@ function onSubmit(event) {
     if (event.submitter.id == "submit") {
         event.preventDefault();
         fetch(
-            'https://' + window.location.hostname + '/api/signup?user=' + document.getElementById("user").value + '&pass=' + document.getElementById("pass").value,
+            'https://' + window.location.hostname + '/api/signup?user=' + document.getElementById("user").value + '&pass=' + document.getElementById("pass").value + '&email=' + document.getElementById("email").value,
             { method: 'POST' }
         )
             .then(response => response.text())
@@ -14,6 +14,8 @@ function onSubmit(event) {
                     document.getElementById("suc").style.display = "block"
                     document.getElementById("same").style.display = "none"
                     
+                } else if (JSON.parse(data).res == "sameemail") {
+                    document.getElementById("email").style.display = "block"
                 }
             })
             .catch(error => console.log('error:', error));

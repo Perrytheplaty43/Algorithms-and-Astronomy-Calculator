@@ -192,3 +192,7 @@ function submitParams() {
             .catch(error => console.log('error:', error));
     }
 }
+
+function ForgotOutRe(){
+    window.location.href = "https://" + window.location.hostname + "/forgot/";
+}

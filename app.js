@@ -19,6 +19,8 @@ globalThis.child = child
 import dotenv from 'dotenv'
 dotenv.config()
 
+import nodemailer from 'nodemailer';
+
 import { initializeApp, applicationDefault, cert } from 'firebase-admin/app';
 import { getFirestore, Timestamp, FieldValue } from 'firebase-admin/firestore';
 
@@ -60,6 +62,19 @@ const db = getFirestore();
 const snapshot = await db.collection('users').get();
 snapshot.forEach((doc) => {
     console.log(doc.id, '=>', doc.data());
+});
+console.log(process.env.USER, process.env.PASS)
+var transporter = nodemailer.createTransport({
+    host: "smtp-mail.outlook.com",
+    secureConnection: false,
+    port: 587,
+    tls: {
+        ciphers: 'SSLv3'
+    },
+    auth: {
+        user: process.env.USERNAME,
+        pass: process.env.PASS
+    }
 });
 
 function myServer(req, res) {
@@ -259,8 +274,112 @@ function myServer(req, res) {
         });
         return;
     }
+    if (method == 'GET' && surl.pathname == '/forgotReset/suc.css') {
+        fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.css', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/css' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/forgotReset') {
+        fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.html', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/forgotReset/suc.js') {
+        fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.js', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/js' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/api/err.css') {
+        fs.readFile(home + delimiter + 'forgot' + delimiter + 'err.css', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/css' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/api/err.js') {
+        fs.readFile(home + delimiter + 'forgot' + delimiter + 'err.js', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/js' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
     if (method == 'GET' && surl.pathname == '/login/') {
         fs.readFile(home + delimiter + 'login' + delimiter + 'index.html', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/forgot/style.css') {
+        fs.readFile(home + delimiter + 'forgot' + delimiter + 'style.css', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/css' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/forgot/script.js') {
+        fs.readFile(home + delimiter + 'forgot' + delimiter + 'script.js', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/js' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/forgot/') {
+        fs.readFile(home + delimiter + 'forgot' + delimiter + 'index.html', function (err, html) {
             if (err) {
                 console.log(err);
                 errorLog(testing, err, "2")
@@ -608,7 +727,7 @@ function myServer(req, res) {
             .catch(error => console.log('error:', error));
         return;
     }
-    const signup = async (user, pass, reseting) => {
+    const signup = async (user, pass, reseting, email) => {
         const snapshot = await db.collection('users').get();
         let same = false
         if (!reseting) {
@@ -616,6 +735,12 @@ function myServer(req, res) {
                 if (doc.id == user) {
                     res.writeHead(200, { 'Content-Type': 'text/json' });
                     res.write(JSON.stringify({ res: "same" }));
+                    res.end();
+                    same = true;
+                    return
+                } else if (doc.data().email == email) {
+                    res.writeHead(200, { 'Content-Type': 'text/json' });
+                    res.write(JSON.stringify({ res: "sameemail" }));
                     res.end();
                     same = true;
                     return
@@ -631,10 +756,13 @@ function myServer(req, res) {
                 return await docRef.set({
                     user: user,
                     pass: hashedPass,
-                    fav: null,
-                    type: null,
-                    tol: null,
-                    magTol: null
+                    fav: [],
+                    type: ["Gx", "OC", "Gb", "Nb", "Pl", "CpN", "Ast", "Kt", "TS", "DS", "SS", "Q", "U", "D", "PD"],
+                    tol: 70,
+                    magTol: 10,
+                    token: null,
+                    tokenEx: null,
+                    email: email
                 }).then(() => {
                     res.writeHead(200, { 'Content-Type': 'text/json' });
                     res.write(JSON.stringify({ res: "suc" }));
@@ -657,8 +785,9 @@ function myServer(req, res) {
         let searchParams = surl.searchParams
         let user = searchParams.get('user')
         let pass = searchParams.get('pass')
+        let email = searchParams.get('email')
 
-        return signup(user, pass, false)
+        return signup(user, pass, false, email)
     }
 
     let none = true
@@ -696,13 +825,14 @@ function myServer(req, res) {
         let searchParams = surl.searchParams
         let user = searchParams.get('user')
         let pass = searchParams.get('pass')
+        let email = searchParams.get('email')
         let passNew = searchParams.get('passNew')
 
         return login(user, pass, true)
             .then(() => {
                 setTimeout(async () => {
                     if (theLoginRes == "suc") {
-                        return await signup(user, passNew, true)
+                        return await signup(user, passNew, true, email)
                     } else {
                         res.writeHead(200, { 'Content-Type': 'text/json' });
                         res.write(JSON.stringify({ res: "err" }));
@@ -739,12 +869,14 @@ function myServer(req, res) {
         id = id.toUpperCase()
 
         if (id != "NGC0000") {
+            let vals = Object.values(doc.data().fav)
+            vals.push(id)
             return await docRef.update({
-                fav: ((() => { if (doc.data().fav != null) { return doc.data().fav + id + "," } else { return id + "," } })())
+                fav: vals
             })
         } else if (id == "NGC0000") {
             return await docRef.update({
-                fav: ""
+                fav: []
             })
         }
     }
@@ -772,11 +904,12 @@ function myServer(req, res) {
 
     const addParam = async (type, tol, magTol, user) => {
         const docRef = db.collection('users').doc(user);
+        let typeArr = type.split(",")
 
         return await docRef.update({
-            type: type,
-            tol: tol,
-            magTol: magTol
+            type: typeArr,
+            tol: parseInt(tol),
+            magTol: parseInt(magTol)
         })
     }
 
@@ -816,7 +949,7 @@ function myServer(req, res) {
                         let doc = await docRef.get()
 
                         res.writeHead(200, { 'Content-Type': 'text/json' });
-                        res.write(JSON.stringify({ type: doc.data().type, tol: doc.data().tol, magTol: doc.data().magTol }));
+                        res.write(JSON.stringify({ type: doc.data().type.join(","), tol: doc.data().tol, magTol: doc.data().magTol }));
                         res.end();
                         return
                     } else {
@@ -948,8 +1081,7 @@ function myServer(req, res) {
                                     if (doc.data().fav != null) {
                                         let raw = JSON.parse(finalData)
                                         let theFinal = []
-                                        let favArr = doc.data().fav.split(",")
-                                        favArr.splice(favArr.length - 1, 1)
+                                        let favArr = doc.data().fav
                                         for (let i = 0; i <= favArr.length - 1; i++) {
                                             let favArr2 = favArr[i].split('')
                                             if (favArr2.includes("I")) {
@@ -1059,6 +1191,109 @@ function myServer(req, res) {
             }
         })
         return;
+    }
+
+    function makeid(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.~';
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() *
+                charactersLength));
+        }
+        return result;
+    }
+
+    let userFromEmail;
+
+    const forgot = async (email) => {
+        let user;
+        if (email != undefined) {
+            const snapshot = await db.collection('users').get();
+            snapshot.forEach((doc) => {
+                if (doc.data().email == email) {
+                    user = doc.id
+                }
+            });
+            userFromEmail = user
+            const docRef = db.collection('users').doc(user);
+            if (docRef != undefined) {
+                let currentDate = new Date()
+                currentDate.setMinutes(currentDate.getMinutes() + 30)
+                return await docRef.update({
+                    token: makeid(40),
+                    tokenEx: currentDate
+                })
+            } else {
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.write("nouser");
+                res.end();
+                return
+            }
+        }
+    }
+
+    if (method == 'POST' && surl.pathname == '/forgot') {
+        let searchParams = surl.searchParams
+        let email = searchParams.get('email')
+
+        return forgot(email).then(async () => {
+            const docRef = db.collection('users').doc(userFromEmail);
+            let doc = await docRef.get()
+            var mailOptions = {
+                from: '"astronomycalculator" <astronomycalculator@outlook.com>',
+                to: doc.data().email,
+                subject: 'Reset Password ',
+                html: 'Click <a href="https://' + addr + '/forgotReset?token=' + doc.data().token + '&user=' + userFromEmail + '">' + 'https://' + addr + '/api/forgot?token=' + doc.data().token + '&user=' + userFromEmail + '</a> to reset password'
+            }
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    return console.log(error);
+                }
+            })
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write("suc");
+            res.end();
+            return
+        })
+    }
+
+    const forgotChecker = async (token, user, pass) => {
+        if (user != undefined && token.length == 40 && pass != undefined) {
+            const docRef = db.collection('users').doc(user);
+            let doc = await docRef.get()
+            let timeNow = new Date()
+            let tokenEx = doc.data().tokenEx.toDate()
+            if (tokenEx > timeNow && token == doc.data().token) {
+                let salt = await bcrypt.genSalt()
+                let hashedPass = await bcrypt.hash(pass, salt)
+                return await docRef.update({
+                    pass: hashedPass
+                }).then(() => {
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.write(JSON.stringify({ res: "suc" }));
+                    res.end();
+                }).then(async () => {
+                    return await docRef.update({
+                        token: null,
+                        tokenEx: null
+                    })
+                })
+            } else {
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.write(JSON.stringify({ res: "err" }));
+                res.end();
+            }
+        }
+    }
+
+    if (method == 'GET' && surl.pathname == '/api/forgot') {
+        let searchParams = surl.searchParams
+        let token = searchParams.get('token')
+        let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
+
+        return forgotChecker(token, user, pass)
     }
 
     if (!no404) {

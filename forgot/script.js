@@ -2,15 +2,15 @@ function onSubmit(event) {
     if (event.submitter.id == "submit") {
         event.preventDefault();
         fetch(
-            'https://' + window.location.hostname + '/api/reset?user=' + document.getElementById("user").value + '&pass=' + document.getElementById("pass").value + '&passNew=' + document.getElementById("passNew").value + '&email=' + document.getElementById("email").value,
+            'https://' + window.location.hostname + '/forgot?email=' + document.getElementById("email").value,
             { method: 'POST' }
         )
             .then(response => response.text())
             .then(data => {
-                if (JSON.parse(data).res == "err") {
+                if (data == "nouser") {
                     document.getElementById("suc").style.display = "none"
                     document.getElementById("wrong").style.display = "block"
-                } else if (JSON.parse(data).res == "suc") {
+                } else if (data == "suc") {
                     document.getElementById("suc").style.display = "block"
                     document.getElementById("wrong").style.display = "none"
                 } else {
@@ -26,6 +26,6 @@ function SignOutRe() {
     window.location.href = "https://" + window.location.hostname + "/signup/";
 }
 
-function LogInRe() {
+function LogInRe(){
     window.location.href = "https://" + window.location.hostname + "/login/";
 }
