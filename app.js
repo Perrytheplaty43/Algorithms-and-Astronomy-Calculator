@@ -1199,11 +1199,12 @@ function myServer(req, res) {
     let userFromEmail;
 
     const forgot = async (email) => {
+        let user;
         if (email != undefined) {
             const snapshot = await db.collection('users').get();
-            let user = snapshot.forEach((doc) => {
+            snapshot.forEach((doc) => {
                 if (doc.data().email == email) {
-                    return doc.id
+                    user = doc.id
                 }
             });
             userFromEmail = user
