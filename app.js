@@ -274,6 +274,58 @@ function myServer(req, res) {
         });
         return;
     }
+    if (method == 'GET' && surl.pathname == '/forgot/suc.css') {
+        fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.css', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/css' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/forgot/suc.js') {
+        fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.js', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/js' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/forgot/err.css') {
+        fs.readFile(home + delimiter + 'forgot' + delimiter + 'err.css', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/css' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/forgot/err.js') {
+        fs.readFile(home + delimiter + 'forgot' + delimiter + 'err.js', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/js' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
     if (method == 'GET' && surl.pathname == '/login/') {
         fs.readFile(home + delimiter + 'login' + delimiter + 'index.html', function (err, html) {
             if (err) {
@@ -1184,7 +1236,6 @@ function myServer(req, res) {
             let tokenEx = new Date(doc.data().tokenEx)
             console.log({ token: token, databastoken: doc.data().token })
             if (tokenEx > timeNow && token == doc.data().token) {
-                console.log("in3")
                 let salt = await bcrypt.genSalt()
                 let hashedPass = await bcrypt.hash(pass, salt)
                 return await docRef.update({
