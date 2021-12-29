@@ -1261,7 +1261,7 @@ function myServer(req, res) {
             const docRef = db.collection('users').doc(user);
             let doc = await docRef.get()
             let timeNow = new Date()
-            let tokenEx = new Date(doc.data().tokenEx)
+            let tokenEx = doc.data().tokenEx
             if (tokenEx > timeNow && token == doc.data().token) {
                 let salt = await bcrypt.genSalt()
                 let hashedPass = await bcrypt.hash(pass, salt)
