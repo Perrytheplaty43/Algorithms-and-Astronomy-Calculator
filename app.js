@@ -757,7 +757,7 @@ function myServer(req, res) {
                     user: user,
                     pass: hashedPass,
                     fav: [],
-                    type: null,
+                    type: [],
                     tol: null,
                     magTol: null,
                     token: null,
@@ -873,7 +873,6 @@ function myServer(req, res) {
             vals.push(id)
             return await docRef.update({
                 fav: vals
-                //fav: ((() => { if (doc.data().fav != null) { return doc.data().fav + id + "," } else { return id + "," } })())
             })
         } else if (id == "NGC0000") {
             return await docRef.update({
@@ -905,11 +904,12 @@ function myServer(req, res) {
 
     const addParam = async (type, tol, magTol, user) => {
         const docRef = db.collection('users').doc(user);
+        let typeArr = type.split(",")
 
         return await docRef.update({
-            type: type,
-            tol: tol,
-            magTol: magTol
+            type: typeArr,
+            tol: parseInt(tol),
+            magTol: parseInt(magTol)
         })
     }
 
@@ -949,7 +949,7 @@ function myServer(req, res) {
                         let doc = await docRef.get()
 
                         res.writeHead(200, { 'Content-Type': 'text/json' });
-                        res.write(JSON.stringify({ type: doc.data().type, tol: doc.data().tol, magTol: doc.data().magTol }));
+                        res.write(JSON.stringify({ type: doc.data().type.join(","), tol: doc.data().tol, magTol: doc.data().magTol }));
                         res.end();
                         return
                     } else {
@@ -1081,9 +1081,7 @@ function myServer(req, res) {
                                     if (doc.data().fav != null) {
                                         let raw = JSON.parse(finalData)
                                         let theFinal = []
-                                        //let favArr = doc.data().fav.split(",")
                                         let favArr = doc.data().fav
-                                        console.log(favArr)
                                         for (let i = 0; i <= favArr.length - 1; i++) {
                                             let favArr2 = favArr[i].split('')
                                             if (favArr2.includes("I")) {
