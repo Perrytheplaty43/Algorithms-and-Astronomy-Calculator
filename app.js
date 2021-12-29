@@ -274,7 +274,7 @@ function myServer(req, res) {
         });
         return;
     }
-    if (method == 'GET' && surl.pathname == '/forgot/suc.css') {
+    if (method == 'GET' && surl.pathname == '/api/forgot/suc.css') {
         fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.css', function (err, html) {
             if (err) {
                 console.log(err);
@@ -287,7 +287,7 @@ function myServer(req, res) {
         });
         return;
     }
-    if (method == 'GET' && surl.pathname == '/forgot/suc.js') {
+    if (method == 'GET' && surl.pathname == '/api/forgot/suc.js') {
         fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.js', function (err, html) {
             if (err) {
                 console.log(err);
@@ -300,7 +300,7 @@ function myServer(req, res) {
         });
         return;
     }
-    if (method == 'GET' && surl.pathname == '/forgot/err.css') {
+    if (method == 'GET' && surl.pathname == '/api/forgot/err.css') {
         fs.readFile(home + delimiter + 'forgot' + delimiter + 'err.css', function (err, html) {
             if (err) {
                 console.log(err);
@@ -313,7 +313,7 @@ function myServer(req, res) {
         });
         return;
     }
-    if (method == 'GET' && surl.pathname == '/forgot/err.js') {
+    if (method == 'GET' && surl.pathname == '/api/forgot/err.js') {
         fs.readFile(home + delimiter + 'forgot' + delimiter + 'err.js', function (err, html) {
             if (err) {
                 console.log(err);
