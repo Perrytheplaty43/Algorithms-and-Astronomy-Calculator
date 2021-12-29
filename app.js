@@ -1273,6 +1273,11 @@ function myServer(req, res) {
                     res.writeHead(200, { 'Content-Type': 'text/html' });
                     res.write(JSON.stringify({ res: "suc" }));
                     res.end();
+                }).then(async () => {
+                    return await docRef.update({
+                        token: null,
+                        tokenEx: null
+                    })
                 })
             } else {
                 res.writeHead(200, { 'Content-Type': 'text/html' });
