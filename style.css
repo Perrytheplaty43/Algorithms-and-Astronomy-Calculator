@@ -188,7 +188,7 @@ button {
     font-size: 18px;
     margin-left: 4px;
 	overflow-wrap: normal;
-	white-space: pre;
+	white-space: pre-wrap;
 }
 
 .p2 {
