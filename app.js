@@ -1176,13 +1176,13 @@ function myServer(req, res) {
 
     const forgotChecker = async (token, user, pass) => {
         console.log("in")
-        console.log({user: user, tokenLen: token.length, pass: pass})
         if (user != undefined && token.length == 40 && pass != undefined) {
             console.log("in2")
             const docRef = db.collection('users').doc(user);
             let doc = await docRef.get()
             let timeNow = new Date()
             let tokenEx = new Date(doc.data().tokenEx)
+            console.log({timeNow: timeNow, experation: tokenEx, token: token, databastoken: doc.data().token})
             if (tokenEx > timeNow && token == doc.data().token) {
                 console.log("in3")
                 let salt = await bcrypt.genSalt()
