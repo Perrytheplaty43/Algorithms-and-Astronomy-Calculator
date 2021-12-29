@@ -1142,25 +1142,6 @@ function myServer(req, res) {
                 return await docRef.update({
                     token: makeid(40),
                     tokenEx: currentDate.toString()
-                }).then(() => {
-                    setTimeout(async () => {
-                        console.log(doc.data().token, "  dddddd")
-                        var mailOptions = {
-                            from: '"astronomycalculator" <astronomycalculator@outlook.com>',
-                            to: doc.data().email,
-                            subject: 'Reset Password ',
-                            html: 'Click <a href="https://' + addr + '/api/forgot?token=' + doc.data().token + '&user=' + user + '&pass=' + pass + '">here</a> to reset password'
-                        }
-                        transporter.sendMail(mailOptions, function (error, info) {
-                            if (error) {
-                                return console.log(error);
-                            }
-                        })
-                        res.writeHead(200, { 'Content-Type': 'text/html' });
-                        res.write("suc");
-                        res.end();
-                        return
-                    }, 1000)
                 })
             } else {
                 res.writeHead(200, { 'Content-Type': 'text/html' });
@@ -1177,9 +1158,21 @@ function myServer(req, res) {
         let pass = searchParams.get('pass')
 
         return forgot(user, pass).then(async () => {
-            const docRef = db.collection('users').doc(user);
-            let doc = await docRef.get()
-            console.log(doc.data().token)
+            var mailOptions = {
+                from: '"astronomycalculator" <astronomycalculator@outlook.com>',
+                to: doc.data().email,
+                subject: 'Reset Password ',
+                html: 'Click <a href="https://' + addr + '/api/forgot?token=' + doc.data().token + '&user=' + user + '&pass=' + pass + '">here</a> to reset password'
+            }
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    return console.log(error);
+                }
+            })
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write("suc");
+            res.end();
+            return
         })
     }
 
