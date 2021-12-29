@@ -1139,26 +1139,28 @@ function myServer(req, res) {
                 currentDate.setMinutes(currentDate.getMinutes() + 30)
                 let doc = await docRef.get()
                 console.log(doc.data().token, "  dddddd")
-                await docRef.update({
+                return await docRef.update({
                     token: makeid(40),
                     tokenEx: currentDate.toString()
                 }).then(() => {
-                    console.log(doc.data().token, "  dddddd")
-                    var mailOptions = {
-                        from: '"astronomycalculator" <astronomycalculator@outlook.com>',
-                        to: doc.data().email,
-                        subject: 'Reset Password ',
-                        html: 'Click <a href="https://' + addr + '/api/forgot?token=' + doc.data().token + '&user=' + user + '&pass=' + pass + '">here</a> to reset password'
-                    }
-                    transporter.sendMail(mailOptions, function (error, info) {
-                        if (error) {
-                            return console.log(error);
+                    setTimeout(async () => {
+                        console.log(doc.data().token, "  dddddd")
+                        var mailOptions = {
+                            from: '"astronomycalculator" <astronomycalculator@outlook.com>',
+                            to: doc.data().email,
+                            subject: 'Reset Password ',
+                            html: 'Click <a href="https://' + addr + '/api/forgot?token=' + doc.data().token + '&user=' + user + '&pass=' + pass + '">here</a> to reset password'
                         }
-                    })
-                    res.writeHead(200, { 'Content-Type': 'text/html' });
-                    res.write("suc");
-                    res.end();
-                    return
+                        transporter.sendMail(mailOptions, function (error, info) {
+                            if (error) {
+                                return console.log(error);
+                            }
+                        })
+                        res.writeHead(200, { 'Content-Type': 'text/html' });
+                        res.write("suc");
+                        res.end();
+                        return
+                    }, 1000)
                 })
             } else {
                 res.writeHead(200, { 'Content-Type': 'text/html' });
@@ -1183,7 +1185,7 @@ function myServer(req, res) {
             let doc = await docRef.get()
             let timeNow = new Date()
             let tokenEx = new Date(doc.data().tokenEx)
-            console.log({token: token, databastoken: doc.data().token })
+            console.log({ token: token, databastoken: doc.data().token })
             if (tokenEx > timeNow && token == doc.data().token) {
                 console.log("in3")
                 let salt = await bcrypt.genSalt()
