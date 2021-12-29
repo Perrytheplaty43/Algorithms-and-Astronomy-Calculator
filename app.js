@@ -1175,12 +1175,15 @@ function myServer(req, res) {
     }
 
     const forgotChecker = async (token, user, pass) => {
+        console.log("in")
         if (user != undefined && token.length == 40 && pass != undefined) {
+            console.log("in2")
             const docRef = db.collection('users').doc(user);
             let doc = await docRef.get()
             let timeNow = new Date()
             let tokenEx = new Date(doc.data().tokenEx)
             if (tokenEx > timeNow && token == doc.data().token) {
+                console.log("in3")
                 let salt = await bcrypt.genSalt()
                 let hashedPass = await bcrypt.hash(pass, salt)
                 return await docRef.update({
@@ -1213,7 +1216,6 @@ function myServer(req, res) {
     }
 
     if (method == 'GET' && surl.pathname == '/api/forgot') {
-        console.log("in")
         let searchParams = surl.searchParams
         let token = searchParams.get('token')
         let user = searchParams.get('user')
