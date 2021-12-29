@@ -757,9 +757,9 @@ function myServer(req, res) {
                     user: user,
                     pass: hashedPass,
                     fav: [],
-                    type: [],
-                    tol: null,
-                    magTol: null,
+                    type: ["Gx", "OC", "Gb", "Nb", "Pl", "CpN", "Ast", "Kt", "TS", "DS", "SS", "Q", "U", "D", "PD"],
+                    tol: 70,
+                    magTol: 10,
                     token: null,
                     tokenEx: null,
                     email: email
