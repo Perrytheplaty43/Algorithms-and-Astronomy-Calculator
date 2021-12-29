@@ -1197,6 +1197,17 @@ function myServer(req, res) {
                         res.end();
                     });
                 })
+            } else {
+                fs.readFile(home + delimiter + 'forgot' + delimiter + 'err.html', function (err, html) {
+                    if (err) {
+                        console.log(err);
+                        errorLog(testing, err, "2")
+                        return;
+                    }
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.write(html);
+                    res.end();
+                });
             }
         }
     }
