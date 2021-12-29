@@ -274,7 +274,7 @@ function myServer(req, res) {
         });
         return;
     }
-    if (method == 'GET' && surl.pathname == '/api/suc.css') {
+    if (method == 'GET' && surl.pathname == '/forgotReset/suc.css') {
         fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.css', function (err, html) {
             if (err) {
                 console.log(err);
@@ -287,7 +287,20 @@ function myServer(req, res) {
         });
         return;
     }
-    if (method == 'GET' && surl.pathname == '/api/suc.js') {
+    if (method == 'GET' && surl.pathname == '/forgotReset') {
+        fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.html', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/forgotReset/suc.js') {
         fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.js', function (err, html) {
             if (err) {
                 console.log(err);
@@ -1183,8 +1196,17 @@ function myServer(req, res) {
         return result;
     }
 
-    const forgot = async (user) => {
-        if (user != undefined) {
+    let userFromEmail;
+
+    const forgot = async (email) => {
+        if (email != undefined) {
+            const snapshot = await db.collection('users').get();
+            let user = snapshot.forEach((doc) => {
+                if (doc.data().email == email) {
+                    return doc.id
+                }
+            });
+            userFromEmail = user
             const docRef = db.collection('users').doc(user);
             if (docRef != undefined) {
                 let currentDate = new Date()
@@ -1204,17 +1226,16 @@ function myServer(req, res) {
 
     if (method == 'POST' && surl.pathname == '/forgot') {
         let searchParams = surl.searchParams
-        let user = searchParams.get('user')
-        let pass = searchParams.get('pass')
+        let email = searchParams.get('email')
 
-        return forgot(user).then(async () => {
-            const docRef = db.collection('users').doc(user);
+        return forgot(email).then(async () => {
+            const docRef = db.collection('users').doc(userFromEmail);
             let doc = await docRef.get()
             var mailOptions = {
                 from: '"astronomycalculator" <astronomycalculator@outlook.com>',
                 to: doc.data().email,
                 subject: 'Reset Password ',
-                html: 'Click <a href="https://' + addr + '/api/forgot?token=' + doc.data().token + '&user=' + user + '&pass=' + pass + '">here</a> to reset password'
+                html: 'Click <a href="https://' + addr + '/forgotReset?token=' + doc.data().token + '&user=' + user + '">' + 'https://' + addr + '/api/forgot?token=' + doc.data().token + '&user=' + user + '</a> to reset password'
             }
             transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
@@ -1240,28 +1261,14 @@ function myServer(req, res) {
                 return await docRef.update({
                     pass: hashedPass
                 }).then(() => {
-                    fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.html', function (err, html) {
-                        if (err) {
-                            console.log(err);
-                            errorLog(testing, err, "2")
-                            return;
-                        }
-                        res.writeHead(200, { 'Content-Type': 'text/html' });
-                        res.write(html);
-                        res.end();
-                    });
+                    res.writeHead(200, { 'Content-Type': 'text/html' });
+                    res.write(JSON.stringify({ res: "suc" }));
+                    res.end();
                 })
             } else {
-                fs.readFile(home + delimiter + 'forgot' + delimiter + 'err.html', function (err, html) {
-                    if (err) {
-                        console.log(err);
-                        errorLog(testing, err, "2")
-                        return;
-                    }
-                    res.writeHead(200, { 'Content-Type': 'text/html' });
-                    res.write(html);
-                    res.end();
-                });
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.write(JSON.stringify({ res: "err" }));
+                res.end();
             }
         }
     }

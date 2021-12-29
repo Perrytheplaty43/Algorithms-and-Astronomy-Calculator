@@ -27,7 +27,7 @@ h1 {
 }
 
 .container2 {
-    display: flex;
+    display: none;
     justify-content: space-around;
 	margin-right: 8px;
 }
