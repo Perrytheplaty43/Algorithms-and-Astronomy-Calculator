@@ -119,7 +119,12 @@ function onSubmit(event) {
 			//console.log(input, args[1]);
 			//max num 112813857
 			if (!benching) searchResult = sheach(input);
-			document.getElementById("p1").textContent = theValueOut.join(", ") + "<br />" + "<br />" + "Contains the number: " + searchResult + "<br />" + "<br />" + "Time total:" + " " + (new Date() - start) / 1000 + "s" + "<br />" + "Time array gen:" + " " + timeRand + "s" + "<br />" + "Time merge sort:" + " " + timeSort + "s" + "<br />" + "Elements:" + " " + args[1] + " " + "Searched for:" + " " + input + " " + "Algorithum used:" + " " + method;
+			document.getElementById("p1").textContent = theValueOut.join(", ") + "\r\n\r\n";
+			document.getElementById("p1").textContent += "Contains the number: " + searchResult + "\r\n\r\n";
+			document.getElementById("p1").textContent += "Time total:" + " " + (new Date() - start) / 1000 + "s" + "\r\n";
+			document.getElementById("p1").textContent += "Time array gen:" + " " + timeRand + "s" + "\r\n";
+			document.getElementById("p1").textContent += "Time merge sort:" + " " + timeSort + "s" + "\r\n";
+			document.getElementById("p1").textContent += "Elements:" + " " + args[1] + " " + "Searched for:" + " " + input + " " + "Algorithum used:" + " " + method
 			document.getElementById("bla").scrollIntoView();
 		}
 		return false;
