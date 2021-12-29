@@ -20,7 +20,7 @@ function onSubmit(event) {
         .then(finalData => {
             data = JSON.parse(finalData)
             if (data.res == "suc") {
-                document.getElementsByClassName("container2").style.display = "flex"
+                document.getElementById("suc").style.display = "flex"
             } else {
                 alert("error, link might have expired")
             }
