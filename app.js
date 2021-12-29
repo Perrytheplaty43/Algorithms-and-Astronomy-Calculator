@@ -756,7 +756,7 @@ function myServer(req, res) {
                 return await docRef.set({
                     user: user,
                     pass: hashedPass,
-                    fav: null,
+                    fav: [],
                     type: null,
                     tol: null,
                     magTol: null,
