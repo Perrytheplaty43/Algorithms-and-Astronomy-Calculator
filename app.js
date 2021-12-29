@@ -870,11 +870,12 @@ function myServer(req, res) {
 
         if (id != "NGC0000") {
             return await docRef.update({
-                fav: ((() => { if (doc.data().fav != null) { return doc.data().fav + id + "," } else { return id + "," } })())
+                fav: doc.data().fav.push(id)
+                //fav: ((() => { if (doc.data().fav != null) { return doc.data().fav + id + "," } else { return id + "," } })())
             })
         } else if (id == "NGC0000") {
             return await docRef.update({
-                fav: ""
+                fav: []
             })
         }
     }
@@ -1078,7 +1079,9 @@ function myServer(req, res) {
                                     if (doc.data().fav != null) {
                                         let raw = JSON.parse(finalData)
                                         let theFinal = []
-                                        let favArr = doc.data().fav.split(",")
+                                        //let favArr = doc.data().fav.split(",")
+                                        let favArr = doc.data().fav
+                                        console.log(favArr)
                                         favArr.splice(favArr.length - 1, 1)
                                         for (let i = 0; i <= favArr.length - 1; i++) {
                                             let favArr2 = favArr[i].split('')
