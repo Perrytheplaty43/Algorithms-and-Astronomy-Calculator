@@ -194,5 +194,5 @@ function submitParams() {
 }
 
 function ForgotOutRe(){
-    window.location.href = "https://" + window.location.hostname + "/reset/";
+    window.location.href = "https://" + window.location.hostname + "/forgot/";
 }
