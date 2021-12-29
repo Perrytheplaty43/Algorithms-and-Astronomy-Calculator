@@ -1220,7 +1220,7 @@ function myServer(req, res) {
                 currentDate.setMinutes(currentDate.getMinutes() + 30)
                 return await docRef.update({
                     token: makeid(40),
-                    tokenEx: currentDate.toString()
+                    tokenEx: currentDate
                 })
             } else {
                 res.writeHead(200, { 'Content-Type': 'text/html' });
