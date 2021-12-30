@@ -196,3 +196,23 @@ function submitParams() {
 function ForgotOutRe(){
     window.location.href = "https://" + window.location.hostname + "/forgot/";
 }
+
+function defaultLoc(event) {
+    event.preventDefault();
+    let lat = parseFloat(document.getElementById("lat").value)
+    let long = parseFloat(document.getElementById("long").value)
+    if (user != undefined && pass != undefined && lat.length > 0 && long.length > 0) {
+        fetch(
+            'https://' + window.location.hostname + '/api/loc?lat=' + lat + '&long=' + long + '&user=' + user + '&pass=' + pass,
+            { method: 'POST' }
+        )
+            .then(response => response.text())
+            .then(res => {
+                if (JSON.parse(res).res != "done") {
+                    alert("error")
+                }
+            })
+            .catch(error => console.log('error:', error));
+    }
+    return false
+}

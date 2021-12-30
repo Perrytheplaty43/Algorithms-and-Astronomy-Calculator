@@ -22,7 +22,7 @@ dotenv.config()
 import nodemailer from 'nodemailer';
 
 import { initializeApp, applicationDefault, cert } from 'firebase-admin/app';
-import { getFirestore, Timestamp, FieldValue } from 'firebase-admin/firestore';
+import { getFirestore, Timestamp, FieldValue, GeoPoint } from 'firebase-admin/firestore';
 
 import bcrypt from 'bcrypt'
 
@@ -762,7 +762,8 @@ function myServer(req, res) {
                     magTol: 10,
                     token: null,
                     tokenEx: null,
-                    email: email
+                    email: email,
+                    home: null
                 }).then(() => {
                     res.writeHead(200, { 'Content-Type': 'text/json' });
                     res.write(JSON.stringify({ res: "suc" }));
@@ -895,6 +896,36 @@ function myServer(req, res) {
                         res.write(JSON.stringify({ res: "done" }));
                         res.end();
                         return addFav(id, user)
+                    } else {
+
+                    }
+                }, 1000)
+            })
+    }
+
+    const addLoc = async (lat, long, user) => {
+        const docRef = db.collection('users').doc(user);
+
+        return await docRef.update({
+            home: new GeoPoint(lat, long)
+        })
+    }
+
+    if (method == 'POST' && surl.pathname == '/api/loc') {
+        let searchParams = surl.searchParams
+        let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
+        let lat = searchParams.get('lat')
+        let long = searchParams.get('long')
+
+        return login(user, pass, true)
+            .then(() => {
+                setTimeout(() => {
+                    if (theLoginRes == "suc") {
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(JSON.stringify({ res: "done" }));
+                        res.end();
+                        return addLoc(lat, long, user)
                     } else {
 
                     }
