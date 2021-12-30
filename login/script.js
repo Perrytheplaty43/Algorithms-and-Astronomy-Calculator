@@ -197,7 +197,7 @@ function ForgotOutRe(){
     window.location.href = "https://" + window.location.hostname + "/forgot/";
 }
 
-function defaultLoc(event) {
+function Loc(event) {
     event.preventDefault();
     let lat = parseFloat(document.getElementById("lat").value)
     let long = parseFloat(document.getElementById("long").value)
