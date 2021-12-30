@@ -363,4 +363,5 @@ input[type=checkbox] {
 
 .optionContainer#container10 {
 	margin-left: 10px;
+	display: none;
 }
