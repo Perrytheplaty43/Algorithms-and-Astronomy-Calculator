@@ -86,6 +86,8 @@ function updateUI() {
 
             document.getElementById("tolerance").value = res.tol
             document.getElementById("toleranceMag").value = res.magTol
+            document.getElementById("lat").value = res.lat
+            document.getElementById("long").value = res.long
         })
         .catch(error => console.log('error:', error));
     document.getElementById("container8").style.display = "block"
