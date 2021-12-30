@@ -140,6 +140,10 @@ if (window.location.search.length != 0) {
     const params = Object.fromEntries(urlSearchParams.entries());
     user = params.user
     pass = params.pass
+    if (user != "" || user != undefined || pass != "" || pass != undefined) {
+        document.getElementById("Long").value = "Loading..."
+        document.getElementById("Long").readOnly = true
+    }
 
     window.history.pushState("", "", "/astroTargetFinder");
     document.getElementById("favs").style.display = "block"
