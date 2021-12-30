@@ -983,9 +983,8 @@ function myServer(req, res) {
                         let lat;
                         let long;
                         if (doc.data().home != null) {
-                            let geopoint = docRef.getGeoPoint("home")
-                            lat = geopoint.getLatitude()
-                            long = geopoint.getLongitude()
+                            lat = doc.data().home.getLatitude()
+                            long = doc.data().home.getLongitude()
                         }
                         console.log(lat, long)
                         res.write(JSON.stringify({ type: doc.data().type.join(","), tol: doc.data().tol, magTol: doc.data().magTol }));
