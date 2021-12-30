@@ -983,8 +983,8 @@ function myServer(req, res) {
                         let lat;
                         let long;
                         if (doc.data().home != null) {
-                            lat = doc.data().home.getLatitude()
-                            long = doc.data().home.getLongitude()
+                            lat = doc.data().home.latitude
+                            long = doc.data().home.longitude
                         }
                         console.log(lat, long)
                         res.write(JSON.stringify({ type: doc.data().type.join(","), tol: doc.data().tol, magTol: doc.data().magTol }));
