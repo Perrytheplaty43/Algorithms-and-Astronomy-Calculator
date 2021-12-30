@@ -51,17 +51,6 @@ function onSubmit(event) {
                     alert("error")
                 }
             })
-    } else if (event.submitter.id == "loc_button") {
-        event.preventDefault();
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            document.getElementById("lat").innerHTML = "Geolocation is not supported by this browser.";
-        }
-        function showPosition(position) {
-            document.getElementById("lat").value = position.coords.latitude
-            document.getElementById("long").value = position.coords.longitude
-        }
     }
     return false
 }
@@ -207,26 +196,39 @@ function submitParams() {
     }
 }
 
-function ForgotOutRe(){
+function ForgotOutRe() {
     window.location.href = "https://" + window.location.hostname + "/forgot/";
 }
 
 function Loc(event) {
-    event.preventDefault();
-    let lat = parseFloat(document.getElementById("lat").value)
-    let long = parseFloat(document.getElementById("long").value)
-    if (user != undefined && pass != undefined && lat != NaN && long != NaN) {
-        fetch(
-            'https://' + window.location.hostname + '/api/loc?lat=' + lat + '&long=' + long + '&user=' + user + '&pass=' + pass,
-            { method: 'POST' }
-        )
-            .then(response => response.text())
-            .then(res => {
-                if (JSON.parse(res).res != "done") {
-                    alert("error")
-                }
-            })
-            .catch(error => console.log('error:', error));
+    if (event.submitter.id == "loc_button") {
+        event.preventDefault();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            document.getElementById("lat").innerHTML = "Geolocation is not supported by this browser.";
+        }
+        function showPosition(position) {
+            document.getElementById("lat").value = position.coords.latitude
+            document.getElementById("long").value = position.coords.longitude
+        }
+    } else {
+        event.preventDefault();
+        let lat = parseFloat(document.getElementById("lat").value)
+        let long = parseFloat(document.getElementById("long").value)
+        if (user != undefined && pass != undefined && lat != NaN && long != NaN) {
+            fetch(
+                'https://' + window.location.hostname + '/api/loc?lat=' + lat + '&long=' + long + '&user=' + user + '&pass=' + pass,
+                { method: 'POST' }
+            )
+                .then(response => response.text())
+                .then(res => {
+                    if (JSON.parse(res).res != "done") {
+                        alert("error")
+                    }
+                })
+                .catch(error => console.log('error:', error));
+        }
     }
     return false
 }
