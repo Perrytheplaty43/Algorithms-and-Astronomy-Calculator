@@ -10,7 +10,7 @@ globalThis.http = http
 import fs from "fs";
 globalThis.fs = fs
 
-import path from "path";
+import path, { parse } from "path";
 globalThis.path = path
 
 import child from 'child_process';
@@ -907,7 +907,7 @@ function myServer(req, res) {
         const docRef = db.collection('users').doc(user);
 
         return await docRef.update({
-            home: new GeoPoint(lat, long)
+            home: new GeoPoint(parseFloat(lat), parseFloat(long))
         })
     }
 
