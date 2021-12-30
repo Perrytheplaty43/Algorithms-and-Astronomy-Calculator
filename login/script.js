@@ -92,7 +92,7 @@ function updateUI() {
         .catch(error => console.log('error:', error));
     document.getElementById("container8").style.display = "block"
     document.getElementById("container9").style.display = "block"
-    document.getElementById("container10").style.display = "block"
+    document.getElementById("container10").style.display = "flex"
 }
 
 function bottomForm(event) {
