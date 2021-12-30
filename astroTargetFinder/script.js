@@ -173,6 +173,7 @@ if (window.location.search.length != 0) {
 
             document.getElementById("tolerance").value = res.tol
             document.getElementById("toleranceMag").value = res.magTol
+            document.getElementById("Long").value = res.lat + ", " + res.long
         })
         .catch(error => console.log('error:', error));
 
