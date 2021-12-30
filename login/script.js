@@ -51,6 +51,17 @@ function onSubmit(event) {
                     alert("error")
                 }
             })
+    } else if (event.submitter.id == "loc_button") {
+        event.preventDefault();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            document.getElementById("lat").innerHTML = "Geolocation is not supported by this browser.";
+        }
+        function showPosition(position) {
+            document.getElementById("lat").value = position.coords.latitude
+            document.getElementById("long").value = position.coords.longitude
+        }
     }
     return false
 }
