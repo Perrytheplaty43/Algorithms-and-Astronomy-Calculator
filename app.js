@@ -980,7 +980,13 @@ function myServer(req, res) {
                         let doc = await docRef.get()
 
                         res.writeHead(200, { 'Content-Type': 'text/json' });
-                        console.log(doc.data().home.getLatitude(), doc.data().home.getLongitude())
+                        let lat;
+                        let long;
+                        if (doc.data().home != null) {
+                            lat = doc.data().home.getLatitude()
+                            long = doc.data().home.getLongitude()
+                        }
+                        console.log(lat, long)
                         res.write(JSON.stringify({ type: doc.data().type.join(","), tol: doc.data().tol, magTol: doc.data().magTol }));
                         res.end();
                         return
