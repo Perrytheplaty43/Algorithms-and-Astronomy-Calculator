@@ -212,6 +212,7 @@ function Loc(event) {
             document.getElementById("lat").value = position.coords.latitude
             document.getElementById("long").value = position.coords.longitude
         }
+        return false
     } else {
         event.preventDefault();
         let lat = parseFloat(document.getElementById("lat").value)
@@ -229,6 +230,6 @@ function Loc(event) {
                 })
                 .catch(error => console.log('error:', error));
         }
+        return false
     }
-    return false
 }
