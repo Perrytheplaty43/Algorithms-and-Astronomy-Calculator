@@ -10,7 +10,7 @@ globalThis.http = http
 import fs from "fs";
 globalThis.fs = fs
 
-import path from "path";
+import path, { parse } from "path";
 globalThis.path = path
 
 import child from 'child_process';
@@ -22,7 +22,7 @@ dotenv.config()
 import nodemailer from 'nodemailer';
 
 import { initializeApp, applicationDefault, cert } from 'firebase-admin/app';
-import { getFirestore, Timestamp, FieldValue } from 'firebase-admin/firestore';
+import { getFirestore, Timestamp, FieldValue, GeoPoint } from 'firebase-admin/firestore';
 
 import bcrypt from 'bcrypt'
 
@@ -762,7 +762,8 @@ function myServer(req, res) {
                     magTol: 10,
                     token: null,
                     tokenEx: null,
-                    email: email
+                    email: email,
+                    home: null
                 }).then(() => {
                     res.writeHead(200, { 'Content-Type': 'text/json' });
                     res.write(JSON.stringify({ res: "suc" }));
@@ -902,6 +903,36 @@ function myServer(req, res) {
             })
     }
 
+    const addLoc = async (lat, long, user) => {
+        const docRef = db.collection('users').doc(user);
+
+        return await docRef.update({
+            home: new GeoPoint(parseFloat(lat), parseFloat(long))
+        })
+    }
+
+    if (method == 'POST' && surl.pathname == '/api/loc') {
+        let searchParams = surl.searchParams
+        let user = searchParams.get('user')
+        let pass = searchParams.get('pass')
+        let lat = searchParams.get('lat')
+        let long = searchParams.get('long')
+
+        return login(user, pass, true)
+            .then(() => {
+                setTimeout(() => {
+                    if (theLoginRes == "suc") {
+                        res.writeHead(200, { 'Content-Type': 'text/json' });
+                        res.write(JSON.stringify({ res: "done" }));
+                        res.end();
+                        return addLoc(lat, long, user)
+                    } else {
+
+                    }
+                }, 1000)
+            })
+    }
+
     const addParam = async (type, tol, magTol, user) => {
         const docRef = db.collection('users').doc(user);
         let typeArr = type.split(",")
@@ -949,7 +980,14 @@ function myServer(req, res) {
                         let doc = await docRef.get()
 
                         res.writeHead(200, { 'Content-Type': 'text/json' });
-                        res.write(JSON.stringify({ type: doc.data().type.join(","), tol: doc.data().tol, magTol: doc.data().magTol }));
+                        let lat;
+                        let long;
+                        if (doc.data().home != null) {
+                            lat = doc.data().home.latitude
+                            long = doc.data().home.longitude
+                        }
+                        console.log(lat, long)
+                        res.write(JSON.stringify({ type: doc.data().type.join(","), tol: doc.data().tol, magTol: doc.data().magTol, lat: lat, long: long = long}));
                         res.end();
                         return
                     } else {
@@ -1342,7 +1380,7 @@ const server = home.startsWith('/home/runner/') ?
 function errorLog(testing, err, id) {
     if (!testing) {
         let date = new Date();
-        fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + "::::::::" + err + " ID=" + id, (err) => {
+        fs.appendFile(home + delimiter + 'Logs' + delimiter + 'error.txt', "\n" + (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + "::::::::" + err + " ID=" + id, (err) => {
             if (err) console.log(err);
             return;
         })

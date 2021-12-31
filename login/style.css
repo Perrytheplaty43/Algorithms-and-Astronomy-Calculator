@@ -360,3 +360,9 @@ input[type=checkbox] {
 .checkboxes {
 	margin-right: 32px;
 }
+
+.optionContainer#container10 {
+	margin-left: 10px;
+	display: none;
+	margin-top: 15px;
+}

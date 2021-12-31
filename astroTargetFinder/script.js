@@ -140,6 +140,10 @@ if (window.location.search.length != 0) {
     const params = Object.fromEntries(urlSearchParams.entries());
     user = params.user
     pass = params.pass
+    if (user != "" || user != undefined || pass != "" || pass != undefined) {
+        document.getElementById("Long").value = "Loading..."
+        document.getElementById("Long").readOnly = true
+    }
 
     window.history.pushState("", "", "/astroTargetFinder");
     document.getElementById("favs").style.display = "block"
@@ -173,6 +177,8 @@ if (window.location.search.length != 0) {
 
             document.getElementById("tolerance").value = res.tol
             document.getElementById("toleranceMag").value = res.magTol
+            document.getElementById("Long").value = res.lat + ", " + res.long
+            document.getElementById("Long").readOnly = false;
         })
         .catch(error => console.log('error:', error));
 
