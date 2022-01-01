@@ -1091,6 +1091,7 @@ function myServer(req, res) {
         
         if (dateMoon == "") {
             let month;
+            let day;
             let now = new Date()
             if  (now.getMonth() + 1 >= 1 || now.getMonth() + 1 <= 9) {
                 month = "0" + now.getMonth() + 1
