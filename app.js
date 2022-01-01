@@ -700,6 +700,7 @@ function myServer(req, res) {
                 return response.text();
             })
             .then(r => {
+                console.log(r)
                 let saved = save(r, timesUNIX, moon)
                 if (!astro) {
                     res.write(JSON.stringify({ conditions: saved }))
