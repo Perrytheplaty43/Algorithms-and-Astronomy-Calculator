@@ -170,6 +170,19 @@ function myServer(req, res) {
         });
         return;
     }
+    if (method == 'GET' && surl.pathname == '/privacyPolicy/index.html') {
+        fs.readFile(home + delimiter + 'privacyPolicy' + delimiter + 'index.html', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "3")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
     if (method == 'GET' && surl.pathname == '/signup/style.css') {
         fs.readFile(home + delimiter + 'signup' + delimiter + 'style.css', function (err, html) {
             if (err) {
