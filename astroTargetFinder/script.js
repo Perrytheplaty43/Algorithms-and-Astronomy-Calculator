@@ -344,7 +344,7 @@ function ShowHideDivQuestion(event) {
 }
 
 function updateUI(final, timer, lat, long, final2) {
-    if (final != null) {
+    if (final[0] != 'null') {
         if (user == undefined) {
             final[0] = JSON.parse(final[0])
             final = final[0]
