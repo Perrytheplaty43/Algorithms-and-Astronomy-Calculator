@@ -170,7 +170,7 @@ function myServer(req, res) {
         });
         return;
     }
-    if (method == 'GET' && surl.pathname == '/privacyPolicy/index.html') {
+    if (method == 'GET' && surl.pathname == '/privacyPolicy') {
         fs.readFile(home + delimiter + 'privacyPolicy' + delimiter + 'index.html', function (err, html) {
             if (err) {
                 console.log(err);
