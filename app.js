@@ -1093,12 +1093,12 @@ function myServer(req, res) {
             let month;
             let day;
             let now = new Date()
-            if  ((now.getMonth() + 1) >= 1 || (now.getMonth() + 1) <= 9) {
+            if  ((now.getMonth() + 1) >= 1 && (now.getMonth() + 1) <= 9) {
                 month = "0" + (now.getMonth() + 1)
             } else {
                 month = (now.getMonth() + 1)
             }
-            if  (now.getDate() >= 1 || now.getDate() <= 9) {
+            if  (now.getDate() >= 1 && now.getDate() <= 9) {
                 day = "0" + now.getDate()
             } else {
                 day = now.getDate()
