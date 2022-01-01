@@ -1009,7 +1009,7 @@ function myServer(req, res) {
             .then(response => response.text())
             .then(data => {
                 res.writeHead(200, { 'Content-Type': 'text/json' });
-                console.log(JSON.parse(data).location.time[1])
+                console.log(JSON.parse(data))
                 let moonsetIndex = 0
                 if (JSON.parse(data).location.time[0].moonset == undefined) {
                     moonsetIndex = 1
