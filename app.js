@@ -1009,7 +1009,7 @@ function myServer(req, res) {
             .then(response => response.text())
             .then(data => {
                 res.writeHead(200, { 'Content-Type': 'text/json' });
-                console.log(data)
+                console.log(JSON.parse(data).location.time[0])
                 res.write(JSON.stringify({ moonrise: JSON.parse(data).location.time[0].moonrise.time, moonset: JSON.parse(data).location.time[0].moonset.time, phase: JSON.parse(data).location.time[0].moonphase.value }));
                 res.end();
             })
