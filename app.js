@@ -987,7 +987,7 @@ function myServer(req, res) {
                             long = doc.data().home.longitude
                         }
                         console.log(lat, long)
-                        res.write(JSON.stringify({ type: doc.data().type.join(","), tol: doc.data().tol, magTol: doc.data().magTol, lat: lat, long: long = long}));
+                        res.write(JSON.stringify({ type: doc.data().type.join(","), tol: doc.data().tol, magTol: doc.data().magTol, lat: lat, long: long = long }));
                         res.end();
                         return
                     } else {
@@ -1009,8 +1009,16 @@ function myServer(req, res) {
             .then(response => response.text())
             .then(data => {
                 res.writeHead(200, { 'Content-Type': 'text/json' });
-                console.log(data)
-                res.write(JSON.stringify({ moonrise: JSON.parse(data).location.time[0].moonrise.time, moonset: JSON.parse(data).location.time[0].moonset.time, phase: JSON.parse(data).location.time[0].moonphase.value }));
+                let moonsetIndex = 0
+                if (JSON.parse(data).location.time[0].moonset != undefined) {
+                    moonsetIndex = JSON.parse(data).location.time[0].moonset
+                }
+                let moonriseIndex = 0
+                if (JSON.parse(data).location.time[0].moonrise != undefined) {
+                    moonriseIndex = JSON.parse(data).location.time[0].moonrise
+                }
+                console.log(moonsetIndex)
+                res.write(JSON.stringify({ moonrise: moonriseIndex, moonset: moonsetIndex, phase: JSON.parse(data).location.time[0].moonphase.value }));
                 res.end();
             })
             .catch(error => console.log('error:', error));
@@ -1088,17 +1096,17 @@ function myServer(req, res) {
         }
 
         let dateMoon = dateToSend
-        
+
         if (dateMoon == "") {
             let month;
             let day;
             let now = new Date()
-            if  ((now.getMonth() + 1) >= 1 && (now.getMonth() + 1) <= 9) {
+            if ((now.getMonth() + 1) >= 1 && (now.getMonth() + 1) <= 9) {
                 month = "0" + (now.getMonth() + 1)
             } else {
                 month = (now.getMonth() + 1)
             }
-            if  (now.getDate() >= 1 && now.getDate() <= 9) {
+            if (now.getDate() >= 1 && now.getDate() <= 9) {
                 day = "0" + now.getDate()
             } else {
                 day = now.getDate()
