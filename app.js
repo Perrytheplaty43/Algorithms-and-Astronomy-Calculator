@@ -1010,7 +1010,16 @@ function myServer(req, res) {
             .then(data => {
                 res.writeHead(200, { 'Content-Type': 'text/json' });
                 console.log(JSON.parse(data).location.time[0])
-                res.write(JSON.stringify({ moonrise: JSON.parse(data).location.time[0].moonrise.time, moonset: JSON.parse(data).location.time[0].moonset.time, phase: JSON.parse(data).location.time[0].moonphase.value }));
+                let moonsetIndex = 0
+                if (JSON.parse(data).location.time[0].moonset == undefined) {
+                    moonsetIndex = 1
+                }
+
+                let moonriseIndex = 0
+                if (JSON.parse(data).location.time[0].moonrise == undefined) {
+                    moonriseIndex = 1
+                }
+                res.write(JSON.stringify({ moonrise: JSON.parse(data).location.time[moonriseIndex].moonrise.time, moonset: JSON.parse(data).location.time[moonsetIndex].moonset.time, phase: JSON.parse(data).location.time[0].moonphase.value }));
                 res.end();
             })
             .catch(error => console.log('error:', error));
