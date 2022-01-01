@@ -1088,9 +1088,21 @@ function myServer(req, res) {
         }
 
         let dateMoon = dateToSend
+        
         if (dateMoon == "") {
+            let month;
             let now = new Date()
-            dateMoon = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()
+            if  (now.getMonth() + 1 >= 1 || now.getMonth() + 1 <= 9) {
+                month = "0" + now.getMonth() + 1
+            } else {
+                month = now.getMonth() + 1
+            }
+            if  (now.getDate() >= 1 || now.getDate() <= 9) {
+                day = "0" + now.getDate()
+            } else {
+                day = now.getDate()
+            }
+            dateMoon = now.getFullYear() + "-" + (month) + "-" + day
         }
         console.log('https://' + addr + '/api/moon?lat=' + lat + '&lon=' + long + "&date=" + dateMoon)
         return fetch(
