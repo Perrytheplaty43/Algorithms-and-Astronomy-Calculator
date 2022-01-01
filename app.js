@@ -1009,7 +1009,7 @@ function myServer(req, res) {
             .then(response => response.text())
             .then(data => {
                 res.writeHead(200, { 'Content-Type': 'text/json' });
-                console.log(JSON.parse(data).location.time[0])
+                console.log(JSON.parse(data).location.time[1])
                 let moonsetIndex = 0
                 if (JSON.parse(data).location.time[0].moonset == undefined) {
                     moonsetIndex = 1
@@ -1019,6 +1019,7 @@ function myServer(req, res) {
                 if (JSON.parse(data).location.time[0].moonrise == undefined) {
                     moonriseIndex = 1
                 }
+                console.log(moonsetIndex)
                 res.write(JSON.stringify({ moonrise: JSON.parse(data).location.time[moonriseIndex].moonrise.time, moonset: JSON.parse(data).location.time[moonsetIndex].moonset.time, phase: JSON.parse(data).location.time[0].moonphase.value }));
                 res.end();
             })
