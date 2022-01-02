@@ -19,6 +19,9 @@ globalThis.child = child
 import dotenv from 'dotenv'
 dotenv.config()
 
+import OS from 'os'
+process.env.UV_THREADPOOL_SIZE = OS.cpus().length
+
 import nodemailer from 'nodemailer';
 
 import { initializeApp, applicationDefault, cert } from 'firebase-admin/app';
