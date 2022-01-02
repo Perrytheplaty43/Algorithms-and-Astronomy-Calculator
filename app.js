@@ -58,12 +58,6 @@ initializeApp({
 });
 
 const db = getFirestore();
-
-const snapshot = await db.collection('users').get();
-snapshot.forEach((doc) => {
-    console.log(doc.id, '=>', doc.data());
-});
-console.log(process.env.USER, process.env.PASS)
 var transporter = nodemailer.createTransport({
     host: "smtp-mail.outlook.com",
     secureConnection: false,
@@ -999,7 +993,6 @@ function myServer(req, res) {
                             lat = doc.data().home.latitude
                             long = doc.data().home.longitude
                         }
-                        console.log(lat, long)
                         res.write(JSON.stringify({ type: doc.data().type.join(","), tol: doc.data().tol, magTol: doc.data().magTol, lat: lat, long: long = long }));
                         res.end();
                         return
@@ -1030,7 +1023,6 @@ function myServer(req, res) {
                 if (JSON.parse(data).location.time[0].moonrise != undefined) {
                     moonriseIndex = JSON.parse(data).location.time[0].moonrise
                 }
-                console.log(moonsetIndex)
                 res.write(JSON.stringify({ moonrise: moonriseIndex, moonset: moonsetIndex, phase: JSON.parse(data).location.time[0].moonphase.value }));
                 res.end();
             })
