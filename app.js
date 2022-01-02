@@ -154,6 +154,19 @@ function myServer(req, res) {
         });
         return;
     }
+    if (method == 'GET' && surl.pathname == '/robots.txt') {
+        fs.readFile(home + delimiter + 'robots.txt', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
     if (method == 'GET' && surl.pathname == '/script.js') {
         fs.readFile(home + delimiter + 'script.js', function (err, html) {
             if (err) {
