@@ -38,8 +38,6 @@ const frameworkPath1 = "/MineSweeper/MineSweeperWWW/_framework";
 const frameworkPath2 = "/_framework";
 let fileCount;
 
-console.log("Pool: ", process.env.UV_THREADPOOL_SIZE)
-
 let KEY = process.env.KEY
 let ip = '10.138.0.3';
 let addr = "athesto.ddns.net"
