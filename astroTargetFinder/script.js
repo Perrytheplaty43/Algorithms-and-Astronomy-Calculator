@@ -130,6 +130,13 @@ const mapImages = {
     '1778': './Images/NGC1778.jpg',
     '2768': './Images/NGC2768.jpg',
     '2681': './Images/NGC2681.jpg',
+    '2549': './Images/NGC2549.jpg',
+    '2787': './Images/NGC2787.jpg',
+    '2654': './Images/NGC2654.jpg',
+    '2903': './Images/NGC2903.jpg',
+    '2022': './Images/NGC2022.jpg',
+    '2420': './Images/NGC2420.jpg',
+    '2331': './Images/NGC2331.jpg',
 };
 
 let user;
