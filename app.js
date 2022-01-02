@@ -19,6 +19,9 @@ globalThis.child = child
 import dotenv from 'dotenv'
 dotenv.config()
 
+import OS from 'os'
+process.env.UV_THREADPOOL_SIZE = OS.cpus().length
+
 import nodemailer from 'nodemailer';
 
 import { initializeApp, applicationDefault, cert } from 'firebase-admin/app';
@@ -146,6 +149,19 @@ function myServer(req, res) {
                 return;
             }
             res.writeHead(200, { 'Content-Type': 'text/css' });
+            res.write(html);
+            res.end();
+        });
+        return;
+    }
+    if (method == 'GET' && surl.pathname == '/robots.txt') {
+        fs.readFile(home + delimiter + 'robots.txt', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "2")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text' });
             res.write(html);
             res.end();
         });
