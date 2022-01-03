@@ -1384,7 +1384,7 @@ function myServer(req, res) {
                 return;
             }
             let date = new Date();
-            let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + ":" + " 404";
+            let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + " " + req.socket.remoteAddress + ":" + " 404 :   " + surl.pathname;
             res.writeHead(200, { 'Content-Type': 'text/html' });
             res.statusCode = 404;
             res.write(html);
