@@ -1217,6 +1217,7 @@ function myServer(req, res) {
 
     }
     if (method == 'GET' && surl.pathname == '/astro') {
+        console.log(surl)
         return astro(surl.searchParams)
     }
 
