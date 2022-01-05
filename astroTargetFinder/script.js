@@ -137,6 +137,12 @@ const mapImages = {
     '2022': './Images/NGC2022.jpg',
     '2420': './Images/NGC2420.jpg',
     '2331': './Images/NGC2331.jpg',
+    '7497': './Images/NGC7497.jpg',
+    '3628': './Images/NGC3627.jpg',
+    '3623': './Images/NGC3627.jpg',
+    '3627': './Images/NGC3627.jpg',
+    '4559': './Images/NGC4559.jpg',
+    '1499': './Images/NGC1499.jpg',
 };
 
 let user;

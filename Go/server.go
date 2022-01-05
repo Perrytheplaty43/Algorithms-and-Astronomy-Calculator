@@ -308,7 +308,7 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 			continue
 		}
 		one, _ := strconv.ParseFloat(outArray[i][2].(string), 64)
-		if one < tolMag && one != 0 && isGoodType(outArray[i][3].(string), types) {
+		if one < tolMag && isGoodType(outArray[i][3].(string), types) {
 			final = append(final, outArray[i])
 		}
 	}
