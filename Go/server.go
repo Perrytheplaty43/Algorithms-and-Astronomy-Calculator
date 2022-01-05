@@ -124,7 +124,7 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 		searchTimeOut := (searchTime.Hour() * 60) + searchTime.Minute()
 		noon = float64(searchTimeOut / 60)
 	} else {
-		if moonPhase < 40 && moonPhase > 50 && moonPhase != 0 && moonrise != 0 && moonset != 0{
+		if moonPhase < 40 && moonPhase > 50 && moonPhase != 0 && moonrise != 0 && moonset != 0 {
 			noon = float64(((moonset - moonrise) / 2) + moonrise)
 		} else {
 			times := sunsetriseTime(lat, long, targetDate)
@@ -308,14 +308,26 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 			continue
 		}
 		one, _ := strconv.ParseFloat(outArray[i][2].(string), 64)
-		if one < tolMag && one != 0 && isGoodType(outArray[i][3].(string), types) {
-			final = append(final, outArray[i])
+		if one < tolMag && isGoodType(outArray[i][3].(string), types) {
+			if outArray[i][3].(string) != "Nb" {
+				if one != 0 {
+					final = append(final, outArray[i])
+				}
+			} else {
+				final = append(final, outArray[i])
+			}
 		}
 	}
 	sort.Slice(final[:], func(i, j int) bool {
 		one, _ := strconv.ParseFloat(final[i][2].(string), 64)
 		two, _ := strconv.ParseFloat(final[j][2].(string), 64)
-		return one < two
+		oneAc := final[i][1].(float64)
+		twoAc := final[j][1].(float64)
+		if one == two {
+			return oneAc < twoAc
+		} else {
+			return one < two
+		}
 	})
 	for i := 0; i <= len(final)-1; i++ {
 		final[i][3] = typeKey[final[i][3].(string)]
