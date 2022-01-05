@@ -322,7 +322,13 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 	sort.Slice(final[:], func(i, j int) bool {
 		one, _ := strconv.ParseFloat(final[i][2].(string), 64)
 		two, _ := strconv.ParseFloat(final[j][2].(string), 64)
-		return one < two
+		oneAc, _ := strconv.ParseFloat(final[i][1].(string), 64)
+		twoAc, _ := strconv.ParseFloat(final[j][1].(string), 64)
+		if one == two {
+			return oneAc < twoAc
+		} else {
+			return one < two
+		}
 	})
 	for i := 0; i <= len(final)-1; i++ {
 		final[i][3] = typeKey[final[i][3].(string)]
