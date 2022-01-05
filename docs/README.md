@@ -11,7 +11,8 @@ as listed in the NGC catalog. The Minesweeper page is a Bolero applitction write
 this [repository](https://github.com/albert-du/BoleroMinesweeper). There are 2 servers running
 from this repo, a rasberry pi and a GCP vm instance. The pi is auto deploying from the dev branch:
 [athesto-dev.ddns.net](https://athesto-dev.ddns.net/) and the master branch on the GCP VM instance:
-[athesto.ddns.net](https://athesto.ddns.net/).
+[athesto.ddns.net](https://athesto.ddns.net/). There is also an Android mobile app for the astronomy
+algorithm at this [repo](https://github.com/Perrytheplaty43/Astro-DeepSky-Target-Finder-Android-App/).
 
 # Astronomy Calculator API
 The algorithm used is also being run as a JSON api. `GET` requests should be made with the following
