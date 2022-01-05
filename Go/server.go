@@ -124,7 +124,7 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 		searchTimeOut := (searchTime.Hour() * 60) + searchTime.Minute()
 		noon = float64(searchTimeOut / 60)
 	} else {
-		if moonPhase < 40 && moonPhase > 50 && moonPhase != 0 && moonrise != 0 && moonset != 0{
+		if moonPhase < 40 && moonPhase > 50 && moonPhase != 0 && moonrise != 0 && moonset != 0 {
 			noon = float64(((moonset - moonrise) / 2) + moonrise)
 		} else {
 			times := sunsetriseTime(lat, long, targetDate)
@@ -309,7 +309,9 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 		}
 		one, _ := strconv.ParseFloat(outArray[i][2].(string), 64)
 		if one < tolMag && isGoodType(outArray[i][3].(string), types) {
-			final = append(final, outArray[i])
+			if tolMag == 0 && outArray[i][3].(string) != "OC" || outArray[i][3].(string) != "Gx" {
+				final = append(final, outArray[i])
+			}
 		}
 	}
 	sort.Slice(final[:], func(i, j int) bool {
