@@ -311,7 +311,6 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 		if one < tolMag && isGoodType(outArray[i][3].(string), types) {
 			if outArray[i][3].(string) != "Nb" {
 				if one != 0 {
-					fmt.Println(outArray[i][3].(string), one)
 					final = append(final, outArray[i])
 				}
 			} else {
