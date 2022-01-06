@@ -525,6 +525,14 @@ function myServer(req, res) {
             if (err) {
                 console.log(err);
                 errorLog(testing, err, "11")
+                fs.appendFile(home + delimiter + 'Logs' + delimiter + 'todo.txt', "\n" + id, (err) => {
+                    if (err) {
+                        console.log(err);
+                        errorLog(testing, err, "20")
+                        return;
+                    }
+                    return;
+                })
                 return;
             }
             let date = new Date();
