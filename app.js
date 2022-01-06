@@ -529,11 +529,9 @@ function myServer(req, res) {
                     if (err) {
                         console.log(err);
                         errorLog(testing, err, "20")
-                        res.end();
-                        return;
                     }
-                    return;
                 })
+                res.end();
                 return;
             }
             let date = new Date();
