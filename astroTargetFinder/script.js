@@ -705,7 +705,7 @@ function save(inputs, timesUNIX) {
         document.getElementById("condition").classList.remove('p1green')
         document.getElementById("condition").classList.remove('p1yellow')
     }
-    document.getElementById("condition").innerHTML = "Weather Contition: " + condition;
+    document.getElementById("condition").innerHTML = "Weather Condition: " + condition;
 }
 
 function sunsetriseTime(lat, long, targetDate) {
