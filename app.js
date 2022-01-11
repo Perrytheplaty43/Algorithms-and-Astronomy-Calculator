@@ -1142,8 +1142,7 @@ function myServer(req, res) {
             }
             dateMoon = now.getFullYear() + "-" + (month) + "-" + day
         }
-        console.log(debugging)
-        if (debugging == undefined) {
+        if (debugging == null) {
             return fetch(
                 'https://' + addr + '/api/moon?lat=' + lat + '&lon=' + long + "&date=" + dateMoon,
                 { method: 'GET' }
