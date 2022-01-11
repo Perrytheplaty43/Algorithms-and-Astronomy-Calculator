@@ -1224,6 +1224,7 @@ function myServer(req, res) {
                     });
                 })
         } else {
+            console.log("Debugging")
             if (!home.startsWith('/home/runner/')) {
                 return fetch(
                     'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + 0 + "&moonrise=" + 0 + "&moonset=" + 0 + "&phase=" + 0,
