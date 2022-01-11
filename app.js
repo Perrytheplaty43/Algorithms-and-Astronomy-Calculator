@@ -520,7 +520,7 @@ function myServer(req, res) {
             }
         }
         id = id.reverse();
-        let name = id.join("")
+        let name = id.join("").replace("%20", "")
         fs.readFile(home + delimiter + 'Images' + delimiter + name + '.jpg', function (err, html) {
             if (err) {
                 console.log(err);
