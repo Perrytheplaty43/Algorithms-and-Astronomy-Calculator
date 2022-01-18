@@ -345,6 +345,8 @@ const mapImages = {
     'I 435': './Images/IC435.jpg',
     '2301': './Images/NGC2301.jpg',
     '2024': './Images/NGC2024.jpg',
+    '1662': './Images/NGC1662.jpg',
+    '1746': './Images/NGC1746.jpg',
 };
 
 let user;
