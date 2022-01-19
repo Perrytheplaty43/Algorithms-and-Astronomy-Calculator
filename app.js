@@ -510,7 +510,7 @@ function myServer(req, res) {
     }
     if (method == 'GET' && surl.pathname.search(".jpg") !== -1) {
         let id = [];
-        for (i = surl.pathname.search(".jpg") - 1; i > 0; i--) {
+        for (let i = surl.pathname.search(".jpg") - 1; i > 0; i--) {
             if (surl.pathname[i] == "/") {
                 break;
             } else {
