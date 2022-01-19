@@ -428,7 +428,7 @@ if (getCookie("checked") == "true" && document.getElementById("cookie") != null 
 
 let date = new Date();
 function onSubmit(event) {
-    if (event.submitter.id == undefined) {
+    if (event.submitter == undefined) {
         event.preventDefault();
         window.location.href = "/";
     } else if (event.submitter.id == "home_button") {
