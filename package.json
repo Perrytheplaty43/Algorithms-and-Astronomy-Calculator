@@ -1,16 +1,10 @@
 {
   "dependencies": {
-<<<<<<< HEAD
     "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "firebase-admin": "^10.0.1",
     "node-fetch": "^3.1.0",
     "nodemailer": "^6.7.2"
-=======
-    "dotenv": "^14.2.0",
-    "firebase-admin": "^10.0.1",
-    "node-fetch": "^3.1.1"
->>>>>>> 50c1392f24d8c9f107d5469998ec40361bbe336a
   },
   "name": "unscrambler-main",
   "description": "Nodejs web server that will scramble or unscramble text into a particular pattern.",
