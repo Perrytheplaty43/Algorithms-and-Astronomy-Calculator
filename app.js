@@ -509,14 +509,12 @@ function myServer(req, res) {
         return;
     }
     if (method == 'GET' && surl.pathname.search(".jpg") !== -1) {
-        let path = surl.pathname.split("");
         let id = [];
-        var i;
         for (i = surl.pathname.search(".jpg") - 1; i > 0; i--) {
-            if (path[i] == "/") {
+            if (surl.pathname[i] == "/") {
                 break;
             } else {
-                id.push(path[i]);
+                id.push(surl.pathname[i]);
             }
         }
         id = id.reverse();
