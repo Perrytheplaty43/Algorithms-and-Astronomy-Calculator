@@ -428,7 +428,10 @@ if (getCookie("checked") == "true" && document.getElementById("cookie") != null 
 
 let date = new Date();
 function onSubmit(event) {
-    if (event.submitter.id == "home_button") {
+    if (event.submitter.id == undefined) {
+        event.preventDefault();
+        window.location.href = "/";
+    } else if (event.submitter.id == "home_button") {
         event.preventDefault();
         window.location.href = "./";
     } else if (event.submitter.id == "login_button") {
@@ -444,9 +447,6 @@ function onSubmit(event) {
         function showPosition(position) {
             document.getElementById("Long").value = position.coords.latitude + ", " + position.coords.longitude;
         }
-    } else if (event.submitter.id == "container1") {
-        event.preventDefault();
-        window.location.href = "/";
     } else {
         let timer = new Date();
         let [lat, long] = document.getElementById("Long").value.split(",");
