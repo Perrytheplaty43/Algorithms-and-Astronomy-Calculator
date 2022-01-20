@@ -1513,7 +1513,7 @@ function errorLog(testing, err, id) {
 
 function logging(testing, write, req) {
     if (!testing) {
-        fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write + "::android: " + req.headers['user-agent'], (err) => {
+        fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write + "::android: " + req.headers['user-agent'].includes("Android"), (err) => {
             if (err) console.log(err);
 
             return;
