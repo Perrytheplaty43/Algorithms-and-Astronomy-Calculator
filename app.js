@@ -29,8 +29,6 @@ import { getFirestore, Timestamp, FieldValue, GeoPoint } from 'firebase-admin/fi
 
 import bcrypt from 'bcrypt'
 
-import useragent from 'useragent';
-
 const delimiter = "/";
 
 let testing = false;
@@ -1513,7 +1511,7 @@ function errorLog(testing, err, id) {
 
 function logging(testing, write, req) {
     if (!testing) {
-        fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write + "::android: " + req.headers['user-agent'].includes("Android"), (err) => {
+        fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write + (req.headers['user-agent'].includes("Android") ? "::android" : ""), (err) => {
             if (err) console.log(err);
 
             return;
