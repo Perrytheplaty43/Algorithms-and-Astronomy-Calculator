@@ -1111,6 +1111,9 @@ function myServer(req, res) {
         let userReq = searchParams.get('user')
         let passReq = searchParams.get('pass')
 
+        let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ":: " + req.socket.remoteAddress;
+        logging(testing, write, req)
+
         if (userReq != undefined && userReq != undefined) {
             correct = login(userReq, passReq, true)
                 .then(() => {
