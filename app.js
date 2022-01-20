@@ -77,7 +77,7 @@ var transporter = nodemailer.createTransport({
 });
 
 function myServer(req, res) {
-    console.log(useragent.parse(req.headers['user-agent']));
+    console.log(useragent.is(req.headers['user-agent']).windows);
     const { method, url } = req;
     if (!testing) {
         fs.stat(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', (err, stats) => {
