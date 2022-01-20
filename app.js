@@ -29,6 +29,8 @@ import { getFirestore, Timestamp, FieldValue, GeoPoint } from 'firebase-admin/fi
 
 import bcrypt from 'bcrypt'
 
+import useragent from 'useragent';
+
 const delimiter = "/";
 
 let testing = false;
@@ -75,7 +77,7 @@ var transporter = nodemailer.createTransport({
 });
 
 function myServer(req, res) {
-    console.log(req.headers['user-agent']);
+    console.log(useragent.parse(req.headers['user-agent']));
     const { method, url } = req;
     if (!testing) {
         fs.stat(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', (err, stats) => {
