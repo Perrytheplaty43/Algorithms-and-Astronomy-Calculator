@@ -29,6 +29,8 @@ import { getFirestore, Timestamp, FieldValue, GeoPoint } from 'firebase-admin/fi
 
 import bcrypt from 'bcrypt'
 
+import useragent from 'useragent';
+
 const delimiter = "/";
 
 let testing = false;
@@ -121,7 +123,7 @@ function myServer(req, res) {
             let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
             res.write(html);
             res.end();
-            logging(testing, write)
+            logging(testing, write, req)
         });
         return;
     }
@@ -439,7 +441,7 @@ function myServer(req, res) {
             res.writeHead(200, { 'Content-Type': 'text/html' });
             res.write(html);
             res.end();
-            logging(testing, write)
+            logging(testing, write, req)
         });
         return;
     }
@@ -537,7 +539,7 @@ function myServer(req, res) {
             res.writeHead(200, { 'Content-Type': 'image/jpg' });
             res.write(html);
             res.end();
-            logging(testing, write)
+            logging(testing, write, req)
         });
         return;
     }
@@ -553,7 +555,7 @@ function myServer(req, res) {
             res.writeHead(200, { 'Content-Type': 'text/html' });
             res.write(html);
             res.end();
-            logging(testing, write)
+            logging(testing, write, req)
         });
         return;
     }
@@ -1093,7 +1095,7 @@ function myServer(req, res) {
         let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ":: " + req.socket.remoteAddress + ":" + " " + id;
         res.writeHead(302, { 'Location': 'Images/' + id + '.jpg', 'Content-Type': 'image/jpg' });
         res.end();
-        logging(testing, write)
+        logging(testing, write, req)
         return;
     }
     const astro = (searchParams) => {
@@ -1463,7 +1465,7 @@ function myServer(req, res) {
             res.statusCode = 404;
             res.write(html);
             res.end();
-            logging(testing, write)
+            logging(testing, write, req)
         });
         return;
     }
@@ -1506,9 +1508,9 @@ function errorLog(testing, err, id) {
     }
 }
 
-function logging(testing, write) {
+function logging(testing, write, req) {
     if (!testing) {
-        fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write, (err) => {
+        fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write + "::android: " + useragent.is(req.headers['user-agent']).android, (err) => {
             if (err) console.log(err);
 
             return;
