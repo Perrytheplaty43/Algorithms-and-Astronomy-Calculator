@@ -77,7 +77,6 @@ var transporter = nodemailer.createTransport({
 });
 
 function myServer(req, res) {
-    console.log(useragent.is(req.headers['user-agent']).android);
     const { method, url } = req;
     if (!testing) {
         fs.stat(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', (err, stats) => {
