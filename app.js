@@ -77,7 +77,7 @@ var transporter = nodemailer.createTransport({
 });
 
 function myServer(req, res) {
-    console.log(useragent.is(req.headers['user-agent']).windows);
+    console.log(useragent.is(req.headers['user-agent']).android);
     const { method, url } = req;
     if (!testing) {
         fs.stat(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', (err, stats) => {
@@ -1511,7 +1511,7 @@ function errorLog(testing, err, id) {
 
 function logging(testing, write) {
     if (!testing) {
-        fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write, (err) => {
+        fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write + "::android: " + useragent.is(req.headers['user-agent']).android, (err) => {
             if (err) console.log(err);
 
             return;
