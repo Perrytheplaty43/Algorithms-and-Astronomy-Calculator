@@ -1511,7 +1511,7 @@ function errorLog(testing, err, id) {
 
 function logging(testing, write, req) {
     if (!testing) {
-        if (req.headers != undefined) {
+        if (req.headers['user-agent'] != undefined) {
             fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write + (req.headers['user-agent'].includes("Android") ? "::android" : ""), (err) => {
                 if (err) console.log(err);
 
