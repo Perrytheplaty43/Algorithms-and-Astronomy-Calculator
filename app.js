@@ -1511,11 +1511,19 @@ function errorLog(testing, err, id) {
 
 function logging(testing, write, req) {
     if (!testing) {
-        fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write + (req.headers['user-agent'].includes("Android") ? "::android" : ""), (err) => {
-            if (err) console.log(err);
+        if (req.headers != undefined) {
+            fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write + (req.headers['user-agent'].includes("Android") ? "::android" : ""), (err) => {
+                if (err) console.log(err);
 
-            return;
-        })
+                return;
+            })
+        } else {
+            fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write + "::header_ERR", (err) => {
+                if (err) console.log(err);
+
+                return;
+            }) 
+        }
     }
 }
 let finished = 0;
