@@ -4,6 +4,7 @@
 /.env
 /regal-campaign-334804-b6bd7af56930.json
 /regal-campaign-334804-firebase-adminsdk-diw5x-9e37631f62.json
-/node_modules/**
+node_modules/
+node/
 /package.json
 /package-lock.json
