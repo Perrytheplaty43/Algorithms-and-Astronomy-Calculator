@@ -94,7 +94,7 @@ func main() {
 	}
 	if dirname == "test" {
 		amTesting = true
-		records := readCsvFile("/home/runner/work/Algorithms-and-Astronomy-Calculator/Algorithms-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
+		records := readCsvFile("/home/alexander_i_bakalov/AAC/astroTargetFinder/ngc2000Final.txt")
 		var types []string = []string{"Gx", "OC", "Gb", "Nb", "Pl", "CpN", "Ast", "Kt", "TS", "DS", "SS", "Q", "U", "D", "PD"}
 		fmt.Print(astro(records[:], 47.740372, -122.222695, 70, 10, types, "2100-10-16", 0, 0, 0, 0))
 	} else {
