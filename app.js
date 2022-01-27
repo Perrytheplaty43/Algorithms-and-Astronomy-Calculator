@@ -1109,6 +1109,8 @@ function myServer(req, res) {
         let correct;
         let userReq = searchParams.get('user')
         let passReq = searchParams.get('pass')
+        
+        if (searchParams.get('tester') == "true") testing = true
 
         let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ":: " + req.socket.remoteAddress;
         logging(testing, write, req)
