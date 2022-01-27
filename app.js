@@ -1109,10 +1109,11 @@ function myServer(req, res) {
         let correct;
         let userReq = searchParams.get('user')
         let passReq = searchParams.get('pass')
+        let amITesting = searchParams.get('testing')
         
         let amTesting = false
-        if (searchParams.get('tester') == "true") amTesting = true
-        console.log(searchParams.get('tester'), amTesting)
+        if (amITesting == "true") amTesting = true
+        console.log(amITesting, amTesting)
 
         let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ":: " + req.socket.remoteAddress;
         logging(testing, write, req, amTesting)
