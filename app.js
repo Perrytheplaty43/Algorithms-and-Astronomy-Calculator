@@ -1112,6 +1112,7 @@ function myServer(req, res) {
         
         let amTesting = false
         if (searchParams.get('tester') == "true") amTesting = true
+        console.log(searchParams.get('tester'), amTesting)
 
         let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ":: " + req.socket.remoteAddress;
         logging(testing, write, req, amTesting)
