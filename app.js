@@ -1112,8 +1112,7 @@ function myServer(req, res) {
         let amITesting = searchParams.get('testing')
         
         let amTesting = false
-        if (amITesting == "true") amTesting = true
-        console.log(amITesting, amTesting)
+        if (amITesting == process.env.LOG_KEY) amTesting = true
 
         let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ":: " + req.socket.remoteAddress;
         logging(testing, write, req, amTesting)
