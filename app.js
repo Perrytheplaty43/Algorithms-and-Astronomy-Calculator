@@ -1510,7 +1510,7 @@ function errorLog(testing, err, id) {
             return;
         })
     } else {
-        throw err
+        console.log(err)
     }
 }
 
