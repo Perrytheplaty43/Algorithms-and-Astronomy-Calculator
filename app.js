@@ -1109,11 +1109,13 @@ function myServer(req, res) {
         let correct;
         let userReq = searchParams.get('user')
         let passReq = searchParams.get('pass')
+        let amITesting = searchParams.get('testing')
         
-        if (searchParams.get('tester') == "true") testing = true
+        let amTesting = false
+        if (amITesting == process.env.LOG_KEY) amTesting = true
 
         let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ":: " + req.socket.remoteAddress;
-        logging(testing, write, req)
+        logging(testing, write, req, amTesting)
 
         if (userReq != undefined && userReq != undefined) {
             correct = login(userReq, passReq, true)
@@ -1508,12 +1510,12 @@ function errorLog(testing, err, id) {
             return;
         })
     } else {
-        throw err
+        console.log(err)
     }
 }
 
-function logging(testing, write, req) {
-    if (!testing) {
+function logging(testing, write, req, amTesting) {
+    if (!testing && amTesting != true) {
         if (req.headers['user-agent'] != undefined) {
             fs.appendFile(home + delimiter + 'Logs' + delimiter + 'log' + fileCount + '.txt', "\n" + write + (req.headers['user-agent'].includes("Android") ? "::android" : ""), (err) => {
                 if (err) console.log(err);
