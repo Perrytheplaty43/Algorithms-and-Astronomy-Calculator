@@ -1160,6 +1160,7 @@ function myServer(req, res) {
             )
                 .then(response => response.text())
                 .then(finalData => {
+                    console.log(finalData)
                     let riseset = JSON.parse(finalData)
                     let rise = new Date(riseset.moonrise || 0)
                     let set = new Date(riseset.moonset || 0)
