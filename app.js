@@ -1163,11 +1163,11 @@ function myServer(req, res) {
                     let riseset = JSON.parse(finalData)
                     let rise = new Date(riseset.moonrise.time || 0)
                     let set = new Date(riseset.moonset.time || 0)
-                    console.log(riseset.moonrise.time, riseset.moonset.time, rise, set)
                     return [(rise.getTime() / 1000).toFixed(0) || 0, (set.getTime() / 1000).toFixed(0) || 0, riseset.phase || 0]
                 })
                 .catch(error => console.log('error:', error))
                 .then(moon => {
+                    console.log('http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate + "&moonrise=" + moon[0] + "&moonset=" + moon[1] + "&phase=" + moon[2])
                     return isWeatherGood(lat, long, dateToSend, true, moon).then(() => {
                         if (!home.startsWith('/home/runner/')) {
                             return fetch(
