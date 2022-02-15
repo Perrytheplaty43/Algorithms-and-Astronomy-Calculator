@@ -1038,14 +1038,19 @@ function myServer(req, res) {
             .then(data => {
                 res.writeHead(200, { 'Content-Type': 'text/json' });
                 let moonsetIndex = 0
-                if (JSON.parse(data).location.time[0].moonset != undefined) {
-                    moonsetIndex = JSON.parse(data).location.time[0].moonset
+                try {
+                    if (JSON.parse(data).location.time[0].moonset != undefined) {
+                        moonsetIndex = JSON.parse(data).location.time[0].moonset
+                    }
+                    let moonriseIndex = 0
+                    if (JSON.parse(data).location.time[0].moonrise != undefined) {
+                        moonriseIndex = JSON.parse(data).location.time[0].moonrise
+                    }
+                    res.write(JSON.stringify({ moonrise: moonriseIndex, moonset: moonsetIndex, phase: JSON.parse(data).location.time[0].moonphase.value }));
+                } catch {
+                    console.log("Moon API Query Failed")
+                    res.write(JSON.stringify({ error: "Moon API Query Failed" }));
                 }
-                let moonriseIndex = 0
-                if (JSON.parse(data).location.time[0].moonrise != undefined) {
-                    moonriseIndex = JSON.parse(data).location.time[0].moonrise
-                }
-                res.write(JSON.stringify({ moonrise: moonriseIndex, moonset: moonsetIndex, phase: JSON.parse(data).location.time[0].moonphase.value }));
                 res.end();
             })
             .catch(error => console.log('error:', error));
@@ -1110,7 +1115,7 @@ function myServer(req, res) {
         let userReq = searchParams.get('user')
         let passReq = searchParams.get('pass')
         let amITesting = searchParams.get('testing')
-        
+
         let amTesting = false
         if (amITesting == process.env.LOG_KEY) amTesting = true
 
@@ -1527,7 +1532,7 @@ function logging(testing, write, req, amTesting) {
                 if (err) console.log(err);
 
                 return;
-            }) 
+            })
         }
     }
 }
