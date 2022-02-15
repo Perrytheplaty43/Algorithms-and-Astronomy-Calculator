@@ -1163,7 +1163,7 @@ function myServer(req, res) {
                     let riseset = JSON.parse(finalData)
                     let rise = new Date(riseset.moonrise || 0)
                     let set = new Date(riseset.moonset || 0)
-                    return [(rise.getTime() / 1000).toFixed(0), (set.getTime() / 1000).toFixed(0), riseset.phase || 0]
+                    return [(rise.getTime() / 1000).toFixed(0) || 0, (set.getTime() / 1000).toFixed(0) || 0, riseset.phase || 0]
                 })
                 .catch(error => console.log('error:', error))
                 .then(moon => {
