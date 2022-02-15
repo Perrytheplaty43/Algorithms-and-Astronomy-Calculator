@@ -1161,9 +1161,9 @@ function myServer(req, res) {
                 .then(response => response.text())
                 .then(finalData => {
                     let riseset = JSON.parse(finalData)
-                    let rise = new Date(riseset.moonrise || 0)
-                    let set = new Date(riseset.moonset || 0)
-                    console.log(riseset.moonrise, riseset.moonset, riseset.moonrise || 0, riseset.moonset || 0)
+                    let rise = new Date(riseset.moonrise.time || 0)
+                    let set = new Date(riseset.moonset.time || 0)
+                    console.log(riseset.moonrise.time, riseset.moonset.time, rise, set)
                     return [(rise.getTime() / 1000).toFixed(0) || 0, (set.getTime() / 1000).toFixed(0) || 0, riseset.phase || 0]
                 })
                 .catch(error => console.log('error:', error))
