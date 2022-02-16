@@ -52,7 +52,7 @@ if (!home.startsWith('/home/runner')) {
     })
 }
 
-import serviceAccount from './regal-campaign-334804-firebase-adminsdk-diw5x-9e37631f62.json';
+import serviceAccount from './regal-campaign-334804-5d515362c7e2.json';
 import admin from 'firebase-admin'
 
 initializeApp({
@@ -1167,7 +1167,6 @@ function myServer(req, res) {
                 })
                 .catch(error => console.log('error:', error))
                 .then(moon => {
-                    console.log('http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate + "&moonrise=" + moon[0] + "&moonset=" + moon[1] + "&phase=" + moon[2])
                     return isWeatherGood(lat, long, dateToSend, true, moon).then(() => {
                         if (!home.startsWith('/home/runner/')) {
                             return fetch(
