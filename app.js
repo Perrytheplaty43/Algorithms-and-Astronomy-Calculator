@@ -52,7 +52,7 @@ if (!home.startsWith('/home/runner')) {
     })
 }
 
-import serviceAccount from './regal-campaign-334804-firebase-adminsdk-diw5x-9e37631f62.json';
+import serviceAccount from './regal-campaign-334804-5d515362c7e2.json';
 import admin from 'firebase-admin'
 
 initializeApp({
