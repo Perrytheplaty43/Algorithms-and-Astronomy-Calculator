@@ -347,6 +347,23 @@ const mapImages = {
     '2024': './Images/NGC2024.jpg',
     '1662': './Images/NGC1662.jpg',
     '1746': './Images/NGC1746.jpg',
+    '3184': './Images/NGC3184.jpg',
+    'I5068': './Images/IC5068.jpg',
+    '7000': './Images/NGC7000.jpg',
+    '5076': './Images/NGC5076.jpg',
+    '3992': './Images/NGC3992.jpg',
+    '4125': './Images/NGC4125.jpg',
+    '4826': './Images/NGC4826.jpg',
+    '4258': './Images/NGC4258.jpg',
+    '896': './Images/NGC896.jpg',
+    '1333': './Images/NGC1333.jpg',
+    '4449': './Images/NGC4449.jpg',
+    '6543': './Images/NGC6543.jpg',
+    '2490': './Images/NGC2490.jpg',
+    '2480': './Images/NGC2480.jpg',
+    'I2475': './Images/IC2475.jpg',
+    'I2478': './Images/IC2478.jpg',
+    '4236': './Images/NGC4236.jpg',
 };
 
 let user;
