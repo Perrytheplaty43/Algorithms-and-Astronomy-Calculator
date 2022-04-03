@@ -1624,5 +1624,5 @@ function serveFile(method, path, name, contentType, surl, res, req) {
         });
         return false;
     }
-    return
+    return false;
 }
