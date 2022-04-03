@@ -1610,12 +1610,12 @@ function serveFile(method, path, name, contentType, surl, res, req) {
                 errorLog(testing, err, name)
                 return false;
             }
-            if (name == "index.html") {
-                console.log("in here 3")
-                let date = new Date();
-                let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
-                logging(testing, write, req)
-            }
+            // if (name == "index.html") {
+            //     console.log("in here 3")
+            //     let date = new Date();
+            //     let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
+            //     logging(testing, write, req)
+            // }
             res.writeHead(200, { 'Content-Type': contentType });
             res.write(html);
             console.log("in here 4")
