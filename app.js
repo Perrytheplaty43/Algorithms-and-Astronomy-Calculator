@@ -1602,19 +1602,23 @@ function compareSecondColumn(a, b) {
 function serveFile(method, path, name, contentType, surl, res, req) {
     console.log(surl.pathname, path)
     if (method == 'GET' && surl.pathname == path) {
+        console.log("in here")
         fs.readFile(home + delimiter + name, function (err, html) {
+            console.log("in here 2")
             if (err) {
                 console.log(err);
                 errorLog(testing, err, name)
                 return false;
             }
             if (name == "index.html") {
+                console.log("in here 3")
                 let date = new Date();
                 let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
                 logging(testing, write, req)
             }
             res.writeHead(200, { 'Content-Type': contentType });
             res.write(html);
+            console.log("in here 4")
             res.end();
             return false;
         });
