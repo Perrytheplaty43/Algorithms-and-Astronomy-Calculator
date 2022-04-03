@@ -149,58 +149,20 @@ function myServer(req, res) {
     if (serveFile("GET", "/forgot/style.css", "forgot" + delimiter + "style.css", "text/css", surl, res, req)) return;
     if (serveFile("GET", "/forgot/script.js", "forgot" + delimiter + "script.js", "text/js", surl, res, req)) return;
     if (serveFile("GET", "/forgot/", "forgot" + delimiter + "index.html", "text/html", surl, res, req)) return;
-    // if (method == 'GET' && surl.pathname == '/forgot/style.css') {
-    //     fs.readFile(home + delimiter + 'forgot' + delimiter + 'style.css', function (err, html) {
+    if (serveFile("GET", "/favicon.ico", "favicon.ico", "image/x-icon", surl, res, req)) return;
+    // if (method == 'GET' && surl.pathname == '/favicon.ico') {
+    //     fs.readFile(home + delimiter + 'favicon.ico', function (err, html) {
     //         if (err) {
     //             console.log(err);
-    //             errorLog(testing, err, "2")
+    //             errorLog(testing, err, "4")
     //             return;
     //         }
-    //         res.writeHead(200, { 'Content-Type': 'text/css' });
+    //         res.writeHead(200, { 'Content-Type': 'image/x-icon' });
     //         res.write(html);
     //         res.end();
     //     });
     //     return;
     // }
-    // if (method == 'GET' && surl.pathname == '/forgot/script.js') {
-    //     fs.readFile(home + delimiter + 'forgot' + delimiter + 'script.js', function (err, html) {
-    //         if (err) {
-    //             console.log(err);
-    //             errorLog(testing, err, "2")
-    //             return;
-    //         }
-    //         res.writeHead(200, { 'Content-Type': 'text/js' });
-    //         res.write(html);
-    //         res.end();
-    //     });
-    //     return;
-    // }
-    // if (method == 'GET' && surl.pathname == '/forgot/') {
-    //     fs.readFile(home + delimiter + 'forgot' + delimiter + 'index.html', function (err, html) {
-    //         if (err) {
-    //             console.log(err);
-    //             errorLog(testing, err, "2")
-    //             return;
-    //         }
-    //         res.writeHead(200, { 'Content-Type': 'text/html' });
-    //         res.write(html);
-    //         res.end();
-    //     });
-    //     return;
-    // }
-    if (method == 'GET' && surl.pathname == '/favicon.ico') {
-        fs.readFile(home + delimiter + 'favicon.ico', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "4")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'image/x-icon' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
     if (method == 'GET' && surl.pathname == '/astroTargetFinder') {
         fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'index.html', function (err, html) {
             if (err) {
