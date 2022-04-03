@@ -154,19 +154,20 @@ function myServer(req, res) {
         });
         return;
     }
-    if (method == 'GET' && surl.pathname == '/robots.txt') {
-        fs.readFile(home + delimiter + 'robots.txt', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
+    // if (method == 'GET' && surl.pathname == '/robots.txt') {
+    //     fs.readFile(home + delimiter + 'robots.txt', function (err, html) {
+    //         if (err) {
+    //             console.log(err);
+    //             errorLog(testing, err, "2")
+    //             return;
+    //         }
+    //         res.writeHead(200, { 'Content-Type': 'text' });
+    //         res.write(html);
+    //         res.end();
+    //     });
+    //     return;
+    // }
+    serveFile("GET", "/robots.txt", "robots.txt", "text");
     if (method == 'GET' && surl.pathname == '/script.js') {
         fs.readFile(home + delimiter + 'script.js', function (err, html) {
             if (err) {
@@ -1606,5 +1607,21 @@ function compareSecondColumn(a, b) {
     }
     else {
         return (a[1] < b[1]) ? -1 : 1;
+    }
+}
+
+function serveFile(method, path, name, contentType) {
+    if (method == 'GET' && surl.pathname == path) {
+        fs.readFile(home + delimiter + name, function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, name)
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': contentType });
+            res.write(html);
+            res.end();
+        });
+        return;
     }
 }
