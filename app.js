@@ -109,22 +109,23 @@ function myServer(req, res) {
     }
     let date = new Date();
     if (req.socket.remoteAddress == "98.232.109.230") console.log((parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + " Rish visit")
-    if (method == 'GET' && surl.pathname == '/app.js' || surl.pathname == '/') {
-        fs.readFile(home + delimiter + 'index.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "1")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            let date = new Date();
-            let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
-            res.write(html);
-            res.end();
-            logging(testing, write, req)
-        });
-        return;
-    }
+    // if (method == 'GET' && surl.pathname == '/app.js' || surl.pathname == '/') {
+    //     fs.readFile(home + delimiter + 'index.html', function (err, html) {
+    //         if (err) {
+    //             console.log(err);
+    //             errorLog(testing, err, "1")
+    //             return;
+    //         }
+    //         res.writeHead(200, { 'Content-Type': 'text/html' });
+    //         let date = new Date();
+    //         let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
+    //         res.write(html);
+    //         res.end();
+    //         logging(testing, write, req)
+    //     });
+    //     return;
+    // }
+    if (!serveFile("GET", "/", "index.html", "text/html", surl, res)) return;
     if (method == 'POST' && surl.pathname == '/astroBlank') {
         let idBlank = surl.searchParams
         let id = idBlank.get('id')
@@ -141,32 +142,20 @@ function myServer(req, res) {
         }
         return;
     }
-    if (method == 'GET' && surl.pathname == '/style.css') {
-        fs.readFile(home + delimiter + 'style.css', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/css' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    // if (method == 'GET' && surl.pathname == '/robots.txt') {
-    //     fs.readFile(home + delimiter + 'robots.txt', function (err, html) {
+    // if (method == 'GET' && surl.pathname == '/style.css') {
+    //     fs.readFile(home + delimiter + 'style.css', function (err, html) {
     //         if (err) {
     //             console.log(err);
     //             errorLog(testing, err, "2")
     //             return;
     //         }
-    //         res.writeHead(200, { 'Content-Type': 'text' });
+    //         res.writeHead(200, { 'Content-Type': 'text/css' });
     //         res.write(html);
     //         res.end();
     //     });
     //     return;
     // }
+    if (!serveFile("GET", "/style.css", "style.css", "text/css", surl, res)) return;
     if (!serveFile("GET", "/robots.txt", "robots.txt", "text", surl, res)) return;
     if (method == 'GET' && surl.pathname == '/script.js') {
         fs.readFile(home + delimiter + 'script.js', function (err, html) {
@@ -1466,7 +1455,6 @@ function myServer(req, res) {
     }
 
     if (!no404) {
-        console.log("404")
         fs.readFile(home + delimiter + 'notfound.html', function (err, html) {
             if (err) {
                 console.log(err);
@@ -1612,9 +1600,7 @@ function compareSecondColumn(a, b) {
 }
 
 function serveFile(method, path, name, contentType, surl, res) {
-    console.log("Serving " + name);
     if (method == 'GET' && surl.pathname == path) {
-        console.log("in if");
         fs.readFile(home + delimiter + name, function (err, html) {
             if (err) {
                 console.log(err);
@@ -1624,6 +1610,10 @@ function serveFile(method, path, name, contentType, surl, res) {
             res.writeHead(200, { 'Content-Type': contentType });
             res.write(html);
             res.end();
+            if (name == "index.html") {
+                let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
+                logging(testing, write, req)
+            }
         });
         return;
     }
