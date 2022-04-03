@@ -138,8 +138,11 @@ function myServer(req, res) {
     if (serveFile("GET", "/reset/style.css", "reset" + delimiter + "style.css", "text/css", surl, res, req)) return;
     if (serveFile("GET", "/reset/script.js", "reset" + delimiter + "script.js", "text/js", surl, res, req)) return;
     if (serveFile("GET", "/reset/", "reset" + delimiter + "index.html", "text/html", surl, res, req)) return;
-    // if (method == 'GET' && surl.pathname == '/reset/style.css') {
-    //     fs.readFile(home + delimiter + 'reset' + delimiter + 'style.css', function (err, html) {
+    if (serveFile("GET", "/login/style.css", "login" + delimiter + "style.css", "text/css", surl, res, req)) return;
+    if (serveFile("GET", "/login/script.js", "login" + delimiter + "script.js", "text/js", surl, res, req)) return;
+    if (serveFile("GET", "/login/", "login" + delimiter + "index.html", "text/html", surl, res, req)) return;
+    // if (method == 'GET' && surl.pathname == '/login/style.css') {
+    //     fs.readFile(home + delimiter + 'login' + delimiter + 'style.css', function (err, html) {
     //         if (err) {
     //             console.log(err);
     //             errorLog(testing, err, "2")
@@ -151,8 +154,8 @@ function myServer(req, res) {
     //     });
     //     return;
     // }
-    // if (method == 'GET' && surl.pathname == '/reset/script.js') {
-    //     fs.readFile(home + delimiter + 'reset' + delimiter + 'script.js', function (err, html) {
+    // if (method == 'GET' && surl.pathname == '/login/script.js') {
+    //     fs.readFile(home + delimiter + 'login' + delimiter + 'script.js', function (err, html) {
     //         if (err) {
     //             console.log(err);
     //             errorLog(testing, err, "2")
@@ -164,45 +167,6 @@ function myServer(req, res) {
     //     });
     //     return;
     // }
-    // if (method == 'GET' && surl.pathname == '/reset/') {
-    //     fs.readFile(home + delimiter + 'reset' + delimiter + 'index.html', function (err, html) {
-    //         if (err) {
-    //             console.log(err);
-    //             errorLog(testing, err, "2")
-    //             return;
-    //         }
-    //         res.writeHead(200, { 'Content-Type': 'text/html' });
-    //         res.write(html);
-    //         res.end();
-    //     });
-    //     return;
-    // }
-    if (method == 'GET' && surl.pathname == '/login/style.css') {
-        fs.readFile(home + delimiter + 'login' + delimiter + 'style.css', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/css' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/login/script.js') {
-        fs.readFile(home + delimiter + 'login' + delimiter + 'script.js', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/js' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
     if (method == 'GET' && surl.pathname == '/forgotReset/suc.css') {
         fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.css', function (err, html) {
             if (err) {
@@ -268,19 +232,20 @@ function myServer(req, res) {
         });
         return;
     }
-    if (method == 'GET' && surl.pathname == '/login/') {
-        fs.readFile(home + delimiter + 'login' + delimiter + 'index.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
+
+    // if (method == 'GET' && surl.pathname == '/login/') {
+    //     fs.readFile(home + delimiter + 'login' + delimiter + 'index.html', function (err, html) {
+    //         if (err) {
+    //             console.log(err);
+    //             errorLog(testing, err, "2")
+    //             return;
+    //         }
+    //         res.writeHead(200, { 'Content-Type': 'text/html' });
+    //         res.write(html);
+    //         res.end();
+    //     });
+    //     return;
+    // }
     if (method == 'GET' && surl.pathname == '/forgot/style.css') {
         fs.readFile(home + delimiter + 'forgot' + delimiter + 'style.css', function (err, html) {
             if (err) {
