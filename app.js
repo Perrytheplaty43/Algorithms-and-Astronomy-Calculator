@@ -167,7 +167,7 @@ function myServer(req, res) {
     //     });
     //     return;
     // }
-    serveFile("GET", "/robots.txt", "robots.txt", "text", surl, res);
+    if (!serveFile("GET", "/robots.txt", "robots.txt", "text", surl, res)) return;
     if (method == 'GET' && surl.pathname == '/script.js') {
         fs.readFile(home + delimiter + 'script.js', function (err, html) {
             if (err) {
@@ -1627,4 +1627,5 @@ function serveFile(method, path, name, contentType, surl, res) {
         });
         return;
     }
+    return false
 }
