@@ -125,7 +125,7 @@ function myServer(req, res) {
     //     });
     //     return;
     // }
-    if (serveFile("GET", "/", "index.html", "text/html", surl, res)) return;
+    if (serveFile("GET", "/", "index.html", "text/html", surl, res, req)) return;
     if (method == 'POST' && surl.pathname == '/astroBlank') {
         let idBlank = surl.searchParams
         let id = idBlank.get('id')
@@ -155,8 +155,8 @@ function myServer(req, res) {
     //     });
     //     return;
     // }
-    if (serveFile("GET", "/style.css", "style.css", "text/css", surl, res)) return;
-    if (serveFile("GET", "/robots.txt", "robots.txt", "text", surl, res)) return;
+    if (serveFile("GET", "/style.css", "style.css", "text/css", surl, res, req)) return;
+    if (serveFile("GET", "/robots.txt", "robots.txt", "text", surl, res, req)) return;
     if (method == 'GET' && surl.pathname == '/script.js') {
         fs.readFile(home + delimiter + 'script.js', function (err, html) {
             if (err) {
@@ -1599,7 +1599,7 @@ function compareSecondColumn(a, b) {
     }
 }
 
-function serveFile(method, path, name, contentType, surl, res) {
+function serveFile(method, path, name, contentType, surl, res, req) {
     if (method == 'GET' && surl.pathname == path) {
         fs.readFile(home + delimiter + name, function (err, html) {
             if (err) {
