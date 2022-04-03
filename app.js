@@ -109,23 +109,22 @@ function myServer(req, res) {
     }
     let date = new Date();
     if (req.socket.remoteAddress == "98.232.109.230") console.log((parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + " Rish visit")
-    // if (method == 'GET' && surl.pathname == '/app.js' || surl.pathname == '/') {
-    //     fs.readFile(home + delimiter + 'index.html', function (err, html) {
-    //         if (err) {
-    //             console.log(err);
-    //             errorLog(testing, err, "1")
-    //             return;
-    //         }
-    //         res.writeHead(200, { 'Content-Type': 'text/html' });
-    //         let date = new Date();
-    //         let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
-    //         res.write(html);
-    //         res.end();
-    //         logging(testing, write, req)
-    //     });
-    //     return;
-    // }
-    if (!serveFile("GET", "/", "index.html", "text/html", surl, res, req)) {console.log("returning"); return;}
+    if (method == 'GET' && surl.pathname == '/app.js' || surl.pathname == '/') {
+        fs.readFile(home + delimiter + 'index.html', function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, "1")
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            let date = new Date();
+            let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
+            res.write(html);
+            res.end();
+            logging(testing, write, req)
+        });
+        return;
+    }
     if (method == 'POST' && surl.pathname == '/astroBlank') {
         let idBlank = surl.searchParams
         let id = idBlank.get('id')
@@ -155,8 +154,8 @@ function myServer(req, res) {
     //     });
     //     return;
     // }
-    if (!serveFile("GET", "/style.css", "style.css", "text/css", surl, res, req)) return;
-    if (!serveFile("GET", "/robots.txt", "robots.txt", "text", surl, res, req)) return;
+    if (!serveFile("GET", "/style.css", "style.css", "text/css", surl, res)) return;
+    if (!serveFile("GET", "/robots.txt", "robots.txt", "text", surl, res)) return;
     if (method == 'GET' && surl.pathname == '/script.js') {
         fs.readFile(home + delimiter + 'script.js', function (err, html) {
             if (err) {
@@ -1599,30 +1598,19 @@ function compareSecondColumn(a, b) {
     }
 }
 
-function serveFile(method, path, name, contentType, surl, res, req) {
-    console.log(surl.pathname, path)
+function serveFile(method, path, name, contentType, surl, res) {
     if (method == 'GET' && surl.pathname == path) {
-        console.log("in here")
         fs.readFile(home + delimiter + name, function (err, html) {
-            console.log("in here 2")
             if (err) {
                 console.log(err);
                 errorLog(testing, err, name)
-                return false;
+                return;
             }
-            // if (name == "index.html") {
-            //     console.log("in here 3")
-            //     let date = new Date();
-            //     let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
-            //     logging(testing, write, req)
-            // }
             res.writeHead(200, { 'Content-Type': contentType });
             res.write(html);
-            console.log("in here 4")
             res.end();
-            return false;
         });
-        return false;
+        return;
     }
-    return false;
+    return false
 }
