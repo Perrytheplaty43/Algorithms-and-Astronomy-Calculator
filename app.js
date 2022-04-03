@@ -154,32 +154,20 @@ function myServer(req, res) {
     if (serveFile("GET", "/astroTargetFinder/style.css", "astroTargetFinder" + delimiter + "style.css", "text/css", surl, res, req)) return;
     if (serveFile("GET", "/astroTargetFinder/script.js", "astroTargetFinder" + delimiter + "script.js", "text/js", surl, res, req)) return;
     if (serveFile("GET", "/astroTargetFinder/ngc2000Final.txt", "astroTargetFinder" + delimiter + "ngc2000Final.txt", "text/plain", surl, res, req)) return;
-    // if (method == 'GET' && surl.pathname == '/astroTargetFinder/ngc2000Final.txt') {
-    //     fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'ngc2000Final.txt', function (err, html) {
+    if (serveFile("GET", "/enterInput.html", "enterInput.html", "text/html", surl, res, req)) return;
+    // if (method == 'GET' && surl.pathname == '/enterInput.html') {
+    //     fs.readFile(home + delimiter + 'enterInput.html', function (err, html) {
     //         if (err) {
     //             console.log(err);
-    //             errorLog(testing, err, "8")
+    //             errorLog(testing, err, "9")
     //             return;
     //         }
-    //         res.writeHead(200, { 'Content-Type': 'text/txt' });
+    //         res.writeHead(200, { 'Content-Type': 'text/html' });
     //         res.write(html);
     //         res.end();
     //     });
     //     return;
     // }
-    if (method == 'GET' && surl.pathname == '/enterInput.html') {
-        fs.readFile(home + delimiter + 'enterInput.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "9")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
     if (method == 'GET' && surl.pathname == '/404.css') {
         fs.readFile(home + delimiter + '404.css', function (err, html) {
             if (err) {
