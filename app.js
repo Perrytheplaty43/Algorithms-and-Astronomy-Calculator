@@ -1607,6 +1607,11 @@ function serveFile(method, path, name, contentType, surl, res, req) {
                 errorLog(testing, err, name)
                 return true;
             }
+            if (surl.pathname == "/") {
+                let date = new Date();
+                let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
+                logging(testing, write, req)
+            }
             res.writeHead(200, { 'Content-Type': contentType });
             res.write(html);
             res.end();
