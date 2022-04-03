@@ -150,61 +150,51 @@ function myServer(req, res) {
     if (serveFile("GET", "/forgot/script.js", "forgot" + delimiter + "script.js", "text/js", surl, res, req)) return;
     if (serveFile("GET", "/forgot/", "forgot" + delimiter + "index.html", "text/html", surl, res, req)) return;
     if (serveFile("GET", "/favicon.ico", "favicon.ico", "image/x-icon", surl, res, req)) return;
-    // if (method == 'GET' && surl.pathname == '/favicon.ico') {
-    //     fs.readFile(home + delimiter + 'favicon.ico', function (err, html) {
+    if (serveFile("GET", "/astroTargetFinder", "astroTargetFinder" + delimiter + "index.html", "text/html", surl, res, req)) return;
+    if (serveFile("GET", "/astroTargetFinder/style.css", "astroTargetFinder" + delimiter + "style.css", "text/css", surl, res, req)) return;
+    if (serveFile("GET", "/astroTargetFinder/script.js", "astroTargetFinder" + delimiter + "script.js", "text/js", surl, res, req)) return;
+    // if (method == 'GET' && surl.pathname == '/astroTargetFinder') {
+    //     fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'index.html', function (err, html) {
     //         if (err) {
     //             console.log(err);
-    //             errorLog(testing, err, "4")
+    //             errorLog(testing, err, "5")
     //             return;
     //         }
-    //         res.writeHead(200, { 'Content-Type': 'image/x-icon' });
+    //         let date = new Date();
+    //         let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Astro" + "_______";
+    //         res.writeHead(200, { 'Content-Type': 'text/html' });
+    //         res.write(html);
+    //         res.end();
+    //         logging(testing, write, req)
+    //     });
+    //     return;
+    // }
+    // if (method == 'GET' && surl.pathname == '/astroTargetFinder/script.js') {
+    //     fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'script.js', function (err, html) {
+    //         if (err) {
+    //             console.log(err);
+    //             errorLog(testing, err, "6")
+    //             return;
+    //         }
+    //         res.writeHead(200, { 'Content-Type': 'text/js' });
     //         res.write(html);
     //         res.end();
     //     });
     //     return;
     // }
-    if (method == 'GET' && surl.pathname == '/astroTargetFinder') {
-        fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'index.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "5")
-                return;
-            }
-            let date = new Date();
-            let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Astro" + "_______";
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.write(html);
-            res.end();
-            logging(testing, write, req)
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/astroTargetFinder/script.js') {
-        fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'script.js', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "6")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/js' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/astroTargetFinder/style.css') {
-        fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'style.css', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "7")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/css' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
+    // if (method == 'GET' && surl.pathname == '/astroTargetFinder/style.css') {
+    //     fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'style.css', function (err, html) {
+    //         if (err) {
+    //             console.log(err);
+    //             errorLog(testing, err, "7")
+    //             return;
+    //         }
+    //         res.writeHead(200, { 'Content-Type': 'text/css' });
+    //         res.write(html);
+    //         res.end();
+    //     });
+    //     return;
+    // }
     if (method == 'GET' && surl.pathname == '/astroTargetFinder/ngc2000Final.txt') {
         fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'ngc2000Final.txt', function (err, html) {
             if (err) {
@@ -1356,6 +1346,10 @@ function serveFile(method, path, name, contentType, surl, res, req) {
             if (surl.pathname == "/") {
                 let date = new Date();
                 let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
+                logging(testing, write, req)
+            } else if (surl.pathname == "/astroTargetFinder") {
+                let date = new Date();
+                let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Astro" + "_______";
                 logging(testing, write, req)
             }
             res.writeHead(200, { 'Content-Type': contentType });
