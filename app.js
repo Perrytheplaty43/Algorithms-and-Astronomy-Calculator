@@ -125,7 +125,7 @@ function myServer(req, res) {
     //     });
     //     return;
     // }
-    if (!serveFile("GET", "/", "index.html", "text/html", surl, res, req)) return;
+    if (!serveFile("GET", "/", "index.html", "text/html", surl, res, req)) {console.log("returning"); return;}
     if (method == 'POST' && surl.pathname == '/astroBlank') {
         let idBlank = surl.searchParams
         let id = idBlank.get('id')
