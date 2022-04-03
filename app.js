@@ -109,22 +109,23 @@ function myServer(req, res) {
     }
     let date = new Date();
     if (req.socket.remoteAddress == "98.232.109.230") console.log((parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + " Rish visit")
-    if (method == 'GET' && surl.pathname == '/app.js' || surl.pathname == '/') {
-        fs.readFile(home + delimiter + 'index.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "1")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            let date = new Date();
-            let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
-            res.write(html);
-            res.end();
-            logging(testing, write, req)
-        });
-        return;
-    }
+    // if (method == 'GET' && surl.pathname == '/app.js' || surl.pathname == '/') {
+    //     fs.readFile(home + delimiter + 'index.html', function (err, html) {
+    //         if (err) {
+    //             console.log(err);
+    //             errorLog(testing, err, "1")
+    //             return;
+    //         }
+    //         res.writeHead(200, { 'Content-Type': 'text/html' });
+    //         let date = new Date();
+    //         let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
+    //         res.write(html);
+    //         res.end();
+    //         logging(testing, write, req)
+    //     });
+    //     return;
+    // }
+    if (serveFile("GET", "/", "index.html", "text/html", surl, res)) return;
     if (method == 'POST' && surl.pathname == '/astroBlank') {
         let idBlank = surl.searchParams
         let id = idBlank.get('id')
