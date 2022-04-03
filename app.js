@@ -167,7 +167,7 @@ function myServer(req, res) {
     //     });
     //     return;
     // }
-    serveFile("GET", "/robots.txt", "robots.txt", "text", surl);
+    serveFile("GET", "/robots.txt", "robots.txt", "text", surl, res);
     if (method == 'GET' && surl.pathname == '/script.js') {
         fs.readFile(home + delimiter + 'script.js', function (err, html) {
             if (err) {
@@ -1610,7 +1610,7 @@ function compareSecondColumn(a, b) {
     }
 }
 
-function serveFile(method, path, name, contentType, surl) {
+function serveFile(method, path, name, contentType, surl, res) {
     if (method == 'GET' && surl.pathname == path) {
         fs.readFile(home + delimiter + name, function (err, html) {
             if (err) {
