@@ -1611,6 +1611,7 @@ function serveFile(method, path, name, contentType, surl, res) {
             res.write(html);
             res.end();
             if (name == "index.html") {
+                let date = new Date();
                 let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
                 logging(testing, write, req)
             }
