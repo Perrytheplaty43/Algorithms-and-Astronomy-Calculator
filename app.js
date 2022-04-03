@@ -130,33 +130,21 @@ function myServer(req, res) {
 
     if (serveFile("GET", "/style.css", "style.css", "text/css", surl, res, req)) return;
     if (serveFile("GET", "/robots.txt", "robots.txt", "text", surl, res, req)) return;
-    // if (method == 'GET' && surl.pathname == '/script.js') {
-    //     fs.readFile(home + delimiter + 'script.js', function (err, html) {
+    if (serveFile("GET", "/script.js", "script.js", "text/js", surl, res, req)) return;
+    // if (method == 'GET' && surl.pathname == '/privacyPolicy') {
+    //     fs.readFile(home + delimiter + 'privacyPolicy' + delimiter + 'index.html', function (err, html) {
     //         if (err) {
     //             console.log(err);
     //             errorLog(testing, err, "3")
     //             return;
     //         }
-    //         res.writeHead(200, { 'Content-Type': 'text/js' });
+    //         res.writeHead(200, { 'Content-Type': 'text/html' });
     //         res.write(html);
     //         res.end();
     //     });
     //     return;
     // }
-    if (serveFile("GET", "/script.js", "script.js", "text/js", surl, res, req)) return;
-    if (method == 'GET' && surl.pathname == '/privacyPolicy') {
-        fs.readFile(home + delimiter + 'privacyPolicy' + delimiter + 'index.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "3")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
+    if (serveFile("GET", "/privacyPolicy", "privacyPolicy" + delimiter + "index.html", "text/html", surl, res, req)) return;
     if (method == 'GET' && surl.pathname == '/signup/style.css') {
         fs.readFile(home + delimiter + 'signup' + delimiter + 'style.css', function (err, html) {
             if (err) {
