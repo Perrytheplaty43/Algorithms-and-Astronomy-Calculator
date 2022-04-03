@@ -156,19 +156,9 @@ function myServer(req, res) {
     if (serveFile("GET", "/astroTargetFinder/ngc2000Final.txt", "astroTargetFinder" + delimiter + "ngc2000Final.txt", "text/plain", surl, res, req)) return;
     if (serveFile("GET", "/enterInput.html", "enterInput.html", "text/html", surl, res, req)) return;
     if (serveFile("GET", "/404.css", "404.css", "text/css", surl, res, req)) return;
-    // if (method == 'GET' && surl.pathname == '/404.css') {
-    //     fs.readFile(home + delimiter + '404.css', function (err, html) {
-    //         if (err) {
-    //             console.log(err);
-    //             errorLog(testing, err, "10")
-    //             return;
-    //         }
-    //         res.writeHead(200, { 'Content-Type': 'text/css' });
-    //         res.write(html);
-    //         res.end();
-    //     });
-    //     return;
-    // }
+    if (serveFile("GET", "/MineSweeper", 'MineSweeper' + delimiter + 'MineSweeperWWW' + delimiter + 'index.html', "text/html", surl, res, req)) return;
+    if (serveFile("GET", '/MineSweeper/MineSweeperWWW/css/index.css', 'MineSweeper' + delimiter + 'MineSweeperWWW' + delimiter + 'css' + delimiter + 'index.css', "text/css", surl, res, req)) return;
+
     if (method == 'GET' && surl.pathname.search(".jpg") !== -1) {
         let id = [];
         for (let i = surl.pathname.search(".jpg") - 1; i > 0; i--) {
@@ -202,35 +192,35 @@ function myServer(req, res) {
         });
         return;
     }
-    if (method == 'GET' && surl.pathname == '/MineSweeper') {
-        fs.readFile(home + delimiter + 'MineSweeper' + delimiter + 'MineSweeperWWW' + delimiter + 'index.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "12")
-                return;
-            }
-            let date = new Date();
-            let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Minesweeper" + "_______";
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.write(html);
-            res.end();
-            logging(testing, write, req)
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/MineSweeper/MineSweeperWWW/css/index.css') {
-        fs.readFile(home + delimiter + 'MineSweeper' + delimiter + 'MineSweeperWWW' + delimiter + 'css' + delimiter + 'index.css', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "13")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/css' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
+    // if (method == 'GET' && surl.pathname == '/MineSweeper') {
+    //     fs.readFile(home + delimiter + 'MineSweeper' + delimiter + 'MineSweeperWWW' + delimiter + 'index.html', function (err, html) {
+    //         if (err) {
+    //             console.log(err);
+    //             errorLog(testing, err, "12")
+    //             return;
+    //         }
+    //         let date = new Date();
+    //         let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Minesweeper" + "_______";
+    //         res.writeHead(200, { 'Content-Type': 'text/html' });
+    //         res.write(html);
+    //         res.end();
+    //         logging(testing, write, req)
+    //     });
+    //     return;
+    // }
+    // if (method == 'GET' && surl.pathname == '/MineSweeper/MineSweeperWWW/css/index.css') {
+    //     fs.readFile(home + delimiter + 'MineSweeper' + delimiter + 'MineSweeperWWW' + delimiter + 'css' + delimiter + 'index.css', function (err, html) {
+    //         if (err) {
+    //             console.log(err);
+    //             errorLog(testing, err, "13")
+    //             return;
+    //         }
+    //         res.writeHead(200, { 'Content-Type': 'text/css' });
+    //         res.write(html);
+    //         res.end();
+    //     });
+    //     return;
+    // }
     if (surl.pathname.startsWith(frameworkPath1)) {
         let fileName = surl.pathname.substring(frameworkPath1.length);
         let extention = fileName.substring(fileName.lastIndexOf('.'));
