@@ -144,8 +144,13 @@ function myServer(req, res) {
     if (serveFile("GET", "/forgotReset/suc.css", "forgot" + delimiter + "suc.css", "text/css", surl, res, req)) return;
     if (serveFile("GET", "/forgotReset", "forgot" + delimiter + "suc.html", "text/html", surl, res, req)) return;
     if (serveFile("GET", "/forgotReset/suc.js", "forgot" + delimiter + "suc.js", "text/js", surl, res, req)) return;
-    // if (method == 'GET' && surl.pathname == '/forgotReset/suc.css') {
-    //     fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.css', function (err, html) {
+    if (serveFile("GET", "/api/err.css", "forgot" + delimiter + "err.css", "text/css", surl, res, req)) return;
+    if (serveFile("GET", "/api/err.js", "forgot" + delimiter + "err.js", "text/js", surl, res, req)) return;
+    if (serveFile("GET", "/forgot/style.css", "forgot" + delimiter + "style.css", "text/css", surl, res, req)) return;
+    if (serveFile("GET", "/forgot/script.js", "forgot" + delimiter + "script.js", "text/js", surl, res, req)) return;
+    if (serveFile("GET", "/forgot/", "forgot" + delimiter + "index.html", "text/html", surl, res, req)) return;
+    // if (method == 'GET' && surl.pathname == '/forgot/style.css') {
+    //     fs.readFile(home + delimiter + 'forgot' + delimiter + 'style.css', function (err, html) {
     //         if (err) {
     //             console.log(err);
     //             errorLog(testing, err, "2")
@@ -157,21 +162,8 @@ function myServer(req, res) {
     //     });
     //     return;
     // }
-    // if (method == 'GET' && surl.pathname == '/forgotReset') {
-    //     fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.html', function (err, html) {
-    //         if (err) {
-    //             console.log(err);
-    //             errorLog(testing, err, "2")
-    //             return;
-    //         }
-    //         res.writeHead(200, { 'Content-Type': 'text/html' });
-    //         res.write(html);
-    //         res.end();
-    //     });
-    //     return;
-    // }
-    // if (method == 'GET' && surl.pathname == '/forgotReset/suc.js') {
-    //     fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.js', function (err, html) {
+    // if (method == 'GET' && surl.pathname == '/forgot/script.js') {
+    //     fs.readFile(home + delimiter + 'forgot' + delimiter + 'script.js', function (err, html) {
     //         if (err) {
     //             console.log(err);
     //             errorLog(testing, err, "2")
@@ -183,71 +175,19 @@ function myServer(req, res) {
     //     });
     //     return;
     // }
-    if (method == 'GET' && surl.pathname == '/api/err.css') {
-        fs.readFile(home + delimiter + 'forgot' + delimiter + 'err.css', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/css' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/api/err.js') {
-        fs.readFile(home + delimiter + 'forgot' + delimiter + 'err.js', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/js' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/forgot/style.css') {
-        fs.readFile(home + delimiter + 'forgot' + delimiter + 'style.css', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/css' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/forgot/script.js') {
-        fs.readFile(home + delimiter + 'forgot' + delimiter + 'script.js', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/js' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/forgot/') {
-        fs.readFile(home + delimiter + 'forgot' + delimiter + 'index.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
+    // if (method == 'GET' && surl.pathname == '/forgot/') {
+    //     fs.readFile(home + delimiter + 'forgot' + delimiter + 'index.html', function (err, html) {
+    //         if (err) {
+    //             console.log(err);
+    //             errorLog(testing, err, "2")
+    //             return;
+    //         }
+    //         res.writeHead(200, { 'Content-Type': 'text/html' });
+    //         res.write(html);
+    //         res.end();
+    //     });
+    //     return;
+    // }
     if (method == 'GET' && surl.pathname == '/favicon.ico') {
         fs.readFile(home + delimiter + 'favicon.ico', function (err, html) {
             if (err) {
