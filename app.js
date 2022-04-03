@@ -109,23 +109,8 @@ function myServer(req, res) {
     }
     let date = new Date();
     if (req.socket.remoteAddress == "98.232.109.230") console.log((parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + " Rish visit")
-    // if (method == 'GET' && surl.pathname == '/app.js' || surl.pathname == '/') {
-    //     fs.readFile(home + delimiter + 'index.html', function (err, html) {
-    //         if (err) {
-    //             console.log(err);
-    //             errorLog(testing, err, "1")
-    //             return;
-    //         }
-    //         res.writeHead(200, { 'Content-Type': 'text/html' });
-    //         let date = new Date();
-    //         let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
-    //         res.write(html);
-    //         res.end();
-    //         logging(testing, write, req)
-    //     });
-    //     return;
-    // }
     if (serveFile("GET", "/", "index.html", "text/html", surl, res, req)) return;
+
     if (method == 'POST' && surl.pathname == '/astroBlank') {
         let idBlank = surl.searchParams
         let id = idBlank.get('id')
@@ -142,34 +127,23 @@ function myServer(req, res) {
         }
         return;
     }
-    // if (method == 'GET' && surl.pathname == '/style.css') {
-    //     fs.readFile(home + delimiter + 'style.css', function (err, html) {
+
+    if (serveFile("GET", "/style.css", "style.css", "text/css", surl, res, req)) return;
+    if (serveFile("GET", "/robots.txt", "robots.txt", "text", surl, res, req)) return;
+    // if (method == 'GET' && surl.pathname == '/script.js') {
+    //     fs.readFile(home + delimiter + 'script.js', function (err, html) {
     //         if (err) {
     //             console.log(err);
-    //             errorLog(testing, err, "2")
+    //             errorLog(testing, err, "3")
     //             return;
     //         }
-    //         res.writeHead(200, { 'Content-Type': 'text/css' });
+    //         res.writeHead(200, { 'Content-Type': 'text/js' });
     //         res.write(html);
     //         res.end();
     //     });
     //     return;
     // }
-    if (serveFile("GET", "/style.css", "style.css", "text/css", surl, res, req)) return;
-    if (serveFile("GET", "/robots.txt", "robots.txt", "text", surl, res, req)) return;
-    if (method == 'GET' && surl.pathname == '/script.js') {
-        fs.readFile(home + delimiter + 'script.js', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "3")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/js' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
+    if (serveFile("GET", "/script.js", "script.js", "text/js", surl, res, req)) return;
     if (method == 'GET' && surl.pathname == '/privacyPolicy') {
         fs.readFile(home + delimiter + 'privacyPolicy' + delimiter + 'index.html', function (err, html) {
             if (err) {
