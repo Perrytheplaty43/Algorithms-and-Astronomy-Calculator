@@ -1466,6 +1466,7 @@ function myServer(req, res) {
     }
 
     if (!no404) {
+        console.log("404")
         fs.readFile(home + delimiter + 'notfound.html', function (err, html) {
             if (err) {
                 console.log(err);
@@ -1611,7 +1612,9 @@ function compareSecondColumn(a, b) {
 }
 
 function serveFile(method, path, name, contentType, surl, res) {
+    console.log("Serving " + name);
     if (method == 'GET' && surl.pathname == path) {
+        console.log("in if");
         fs.readFile(home + delimiter + name, function (err, html) {
             if (err) {
                 console.log(err);
