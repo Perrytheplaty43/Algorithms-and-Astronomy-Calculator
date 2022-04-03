@@ -1600,6 +1600,7 @@ function compareSecondColumn(a, b) {
 }
 
 function serveFile(method, path, name, contentType, surl, res, req) {
+    console.log(surl.pathname, path)
     if (method == 'GET' && surl.pathname == path) {
         fs.readFile(home + delimiter + name, function (err, html) {
             if (err) {
