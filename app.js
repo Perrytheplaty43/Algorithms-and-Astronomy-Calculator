@@ -154,8 +154,8 @@ function myServer(req, res) {
     //     });
     //     return;
     // }
-    if (!serveFile("GET", "/style.css", "style.css", "text/css", surl, res)) return;
-    if (!serveFile("GET", "/robots.txt", "robots.txt", "text", surl, res)) return;
+    if (serveFile("GET", "/style.css", "style.css", "text/css", surl, res)) return;
+    if (serveFile("GET", "/robots.txt", "robots.txt", "text", surl, res)) return;
     if (method == 'GET' && surl.pathname == '/script.js') {
         fs.readFile(home + delimiter + 'script.js', function (err, html) {
             if (err) {
@@ -1604,13 +1604,13 @@ function serveFile(method, path, name, contentType, surl, res) {
             if (err) {
                 console.log(err);
                 errorLog(testing, err, name)
-                return;
+                return true;
             }
             res.writeHead(200, { 'Content-Type': contentType });
             res.write(html);
             res.end();
         });
-        return;
+        return true;
     }
     return false
 }
