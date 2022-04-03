@@ -153,61 +153,20 @@ function myServer(req, res) {
     if (serveFile("GET", "/astroTargetFinder", "astroTargetFinder" + delimiter + "index.html", "text/html", surl, res, req)) return;
     if (serveFile("GET", "/astroTargetFinder/style.css", "astroTargetFinder" + delimiter + "style.css", "text/css", surl, res, req)) return;
     if (serveFile("GET", "/astroTargetFinder/script.js", "astroTargetFinder" + delimiter + "script.js", "text/js", surl, res, req)) return;
-    // if (method == 'GET' && surl.pathname == '/astroTargetFinder') {
-    //     fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'index.html', function (err, html) {
+    if (serveFile("GET", "/astroTargetFinder/ngc2000Final.txt", "astroTargetFinder" + delimiter + "ngc2000Final.txt", "text/plain", surl, res, req)) return;
+    // if (method == 'GET' && surl.pathname == '/astroTargetFinder/ngc2000Final.txt') {
+    //     fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'ngc2000Final.txt', function (err, html) {
     //         if (err) {
     //             console.log(err);
-    //             errorLog(testing, err, "5")
+    //             errorLog(testing, err, "8")
     //             return;
     //         }
-    //         let date = new Date();
-    //         let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Astro" + "_______";
-    //         res.writeHead(200, { 'Content-Type': 'text/html' });
-    //         res.write(html);
-    //         res.end();
-    //         logging(testing, write, req)
-    //     });
-    //     return;
-    // }
-    // if (method == 'GET' && surl.pathname == '/astroTargetFinder/script.js') {
-    //     fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'script.js', function (err, html) {
-    //         if (err) {
-    //             console.log(err);
-    //             errorLog(testing, err, "6")
-    //             return;
-    //         }
-    //         res.writeHead(200, { 'Content-Type': 'text/js' });
+    //         res.writeHead(200, { 'Content-Type': 'text/txt' });
     //         res.write(html);
     //         res.end();
     //     });
     //     return;
     // }
-    // if (method == 'GET' && surl.pathname == '/astroTargetFinder/style.css') {
-    //     fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'style.css', function (err, html) {
-    //         if (err) {
-    //             console.log(err);
-    //             errorLog(testing, err, "7")
-    //             return;
-    //         }
-    //         res.writeHead(200, { 'Content-Type': 'text/css' });
-    //         res.write(html);
-    //         res.end();
-    //     });
-    //     return;
-    // }
-    if (method == 'GET' && surl.pathname == '/astroTargetFinder/ngc2000Final.txt') {
-        fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'ngc2000Final.txt', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "8")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/txt' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
     if (method == 'GET' && surl.pathname == '/enterInput.html') {
         fs.readFile(home + delimiter + 'enterInput.html', function (err, html) {
             if (err) {
