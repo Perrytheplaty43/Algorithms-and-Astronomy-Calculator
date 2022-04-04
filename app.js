@@ -109,22 +109,8 @@ function myServer(req, res) {
     }
     let date = new Date();
     if (req.socket.remoteAddress == "98.232.109.230") console.log((parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + " Rish visit")
-    if (method == 'GET' && surl.pathname == '/app.js' || surl.pathname == '/') {
-        fs.readFile(home + delimiter + 'index.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "1")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            let date = new Date();
-            let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
-            res.write(html);
-            res.end();
-            logging(testing, write, req)
-        });
-        return;
-    }
+    if (serveFile("GET", "/", "index.html", "text/html", surl, res, req)) return;
+
     if (method == 'POST' && surl.pathname == '/astroBlank') {
         let idBlank = surl.searchParams
         let id = idBlank.get('id')
@@ -141,373 +127,38 @@ function myServer(req, res) {
         }
         return;
     }
-    if (method == 'GET' && surl.pathname == '/style.css') {
-        fs.readFile(home + delimiter + 'style.css', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/css' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/robots.txt') {
-        fs.readFile(home + delimiter + 'robots.txt', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/script.js') {
-        fs.readFile(home + delimiter + 'script.js', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "3")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/js' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/privacyPolicy') {
-        fs.readFile(home + delimiter + 'privacyPolicy' + delimiter + 'index.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "3")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/signup/style.css') {
-        fs.readFile(home + delimiter + 'signup' + delimiter + 'style.css', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/css' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/signup/script.js') {
-        fs.readFile(home + delimiter + 'signup' + delimiter + 'script.js', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/js' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/signup/') {
-        fs.readFile(home + delimiter + 'signup' + delimiter + 'index.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/reset/style.css') {
-        fs.readFile(home + delimiter + 'reset' + delimiter + 'style.css', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/css' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/reset/script.js') {
-        fs.readFile(home + delimiter + 'reset' + delimiter + 'script.js', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/js' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/reset/') {
-        fs.readFile(home + delimiter + 'reset' + delimiter + 'index.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/login/style.css') {
-        fs.readFile(home + delimiter + 'login' + delimiter + 'style.css', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/css' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/login/script.js') {
-        fs.readFile(home + delimiter + 'login' + delimiter + 'script.js', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/js' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/forgotReset/suc.css') {
-        fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.css', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/css' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/forgotReset') {
-        fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/forgotReset/suc.js') {
-        fs.readFile(home + delimiter + 'forgot' + delimiter + 'suc.js', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/js' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/api/err.css') {
-        fs.readFile(home + delimiter + 'forgot' + delimiter + 'err.css', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/css' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/api/err.js') {
-        fs.readFile(home + delimiter + 'forgot' + delimiter + 'err.js', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/js' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/login/') {
-        fs.readFile(home + delimiter + 'login' + delimiter + 'index.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/forgot/style.css') {
-        fs.readFile(home + delimiter + 'forgot' + delimiter + 'style.css', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/css' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/forgot/script.js') {
-        fs.readFile(home + delimiter + 'forgot' + delimiter + 'script.js', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/js' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/forgot/') {
-        fs.readFile(home + delimiter + 'forgot' + delimiter + 'index.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "2")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/favicon.ico') {
-        fs.readFile(home + delimiter + 'favicon.ico', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "4")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'image/x-icon' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/astroTargetFinder') {
-        fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'index.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "5")
-                return;
-            }
-            let date = new Date();
-            let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Astro" + "_______";
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.write(html);
-            res.end();
-            logging(testing, write, req)
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/astroTargetFinder/script.js') {
-        fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'script.js', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "6")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/js' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/astroTargetFinder/style.css') {
-        fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'style.css', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "7")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/css' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/astroTargetFinder/ngc2000Final.txt') {
-        fs.readFile(home + delimiter + 'astroTargetFinder' + delimiter + 'ngc2000Final.txt', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "8")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/txt' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/enterInput.html') {
-        fs.readFile(home + delimiter + 'enterInput.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "9")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/404.css') {
-        fs.readFile(home + delimiter + '404.css', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "10")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/css' });
-            res.write(html);
-            res.end();
-        });
-        return;
-    }
+
+    if (serveFile("GET", "/style.css", "style.css", "text/css", surl, res, req)) return;
+    if (serveFile("GET", "/robots.txt", "robots.txt", "text", surl, res, req)) return;
+    if (serveFile("GET", "/script.js", "script.js", "text/js", surl, res, req)) return;
+    if (serveFile("GET", "/privacyPolicy", "privacyPolicy" + delimiter + "index.html", "text/html", surl, res, req)) return;
+    if (serveFile("GET", "/signup/style.css", "signup" + delimiter + "style.css", "text/css", surl, res, req)) return;
+    if (serveFile("GET", "/signup/script.js", "signup" + delimiter + "script.js", "text/js", surl, res, req)) return;
+    if (serveFile("GET", "/signup/", "signup" + delimiter + "index.html", "text/html", surl, res, req)) return;
+    if (serveFile("GET", "/reset/style.css", "reset" + delimiter + "style.css", "text/css", surl, res, req)) return;
+    if (serveFile("GET", "/reset/script.js", "reset" + delimiter + "script.js", "text/js", surl, res, req)) return;
+    if (serveFile("GET", "/reset/", "reset" + delimiter + "index.html", "text/html", surl, res, req)) return;
+    if (serveFile("GET", "/login/style.css", "login" + delimiter + "style.css", "text/css", surl, res, req)) return;
+    if (serveFile("GET", "/login/script.js", "login" + delimiter + "script.js", "text/js", surl, res, req)) return;
+    if (serveFile("GET", "/login/", "login" + delimiter + "index.html", "text/html", surl, res, req)) return;
+    if (serveFile("GET", "/forgotReset/suc.css", "forgot" + delimiter + "suc.css", "text/css", surl, res, req)) return;
+    if (serveFile("GET", "/forgotReset", "forgot" + delimiter + "suc.html", "text/html", surl, res, req)) return;
+    if (serveFile("GET", "/forgotReset/suc.js", "forgot" + delimiter + "suc.js", "text/js", surl, res, req)) return;
+    if (serveFile("GET", "/api/err.css", "forgot" + delimiter + "err.css", "text/css", surl, res, req)) return;
+    if (serveFile("GET", "/api/err.js", "forgot" + delimiter + "err.js", "text/js", surl, res, req)) return;
+    if (serveFile("GET", "/forgot/style.css", "forgot" + delimiter + "style.css", "text/css", surl, res, req)) return;
+    if (serveFile("GET", "/forgot/script.js", "forgot" + delimiter + "script.js", "text/js", surl, res, req)) return;
+    if (serveFile("GET", "/forgot/", "forgot" + delimiter + "index.html", "text/html", surl, res, req)) return;
+    if (serveFile("GET", "/favicon.ico", "favicon.ico", "image/x-icon", surl, res, req)) return;
+    if (serveFile("GET", "/astroTargetFinder", "astroTargetFinder" + delimiter + "index.html", "text/html", surl, res, req)) return;
+    if (serveFile("GET", "/astroTargetFinder/style.css", "astroTargetFinder" + delimiter + "style.css", "text/css", surl, res, req)) return;
+    if (serveFile("GET", "/astroTargetFinder/script.js", "astroTargetFinder" + delimiter + "script.js", "text/js", surl, res, req)) return;
+    if (serveFile("GET", "/astroTargetFinder/ngc2000Final.txt", "astroTargetFinder" + delimiter + "ngc2000Final.txt", "text/plain", surl, res, req)) return;
+    if (serveFile("GET", "/enterInput.html", "enterInput.html", "text/html", surl, res, req)) return;
+    if (serveFile("GET", "/404.css", "404.css", "text/css", surl, res, req)) return;
+    if (serveFile("GET", "/MineSweeper", 'MineSweeper' + delimiter + 'MineSweeperWWW' + delimiter + 'index.html', "text/html", surl, res, req)) return;
+    if (serveFile("GET", '/MineSweeper/MineSweeperWWW/css/index.css', 'MineSweeper' + delimiter + 'MineSweeperWWW' + delimiter + 'css' + delimiter + 'index.css', "text/css", surl, res, req)) return;
+
     if (method == 'GET' && surl.pathname.search(".jpg") !== -1) {
         let id = [];
         for (let i = surl.pathname.search(".jpg") - 1; i > 0; i--) {
@@ -538,35 +189,6 @@ function myServer(req, res) {
             res.write(html);
             res.end();
             logging(testing, write, req)
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/MineSweeper') {
-        fs.readFile(home + delimiter + 'MineSweeper' + delimiter + 'MineSweeperWWW' + delimiter + 'index.html', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "12")
-                return;
-            }
-            let date = new Date();
-            let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Minesweeper" + "_______";
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.write(html);
-            res.end();
-            logging(testing, write, req)
-        });
-        return;
-    }
-    if (method == 'GET' && surl.pathname == '/MineSweeper/MineSweeperWWW/css/index.css') {
-        fs.readFile(home + delimiter + 'MineSweeper' + delimiter + 'MineSweeperWWW' + delimiter + 'css' + delimiter + 'index.css', function (err, html) {
-            if (err) {
-                console.log(err);
-                errorLog(testing, err, "13")
-                return;
-            }
-            res.writeHead(200, { 'Content-Type': 'text/css' });
-            res.write(html);
-            res.end();
         });
         return;
     }
@@ -1607,4 +1229,34 @@ function compareSecondColumn(a, b) {
     else {
         return (a[1] < b[1]) ? -1 : 1;
     }
+}
+
+function serveFile(method, path, name, contentType, surl, res, req) {
+    if (method == 'GET' && surl.pathname == path) {
+        fs.readFile(home + delimiter + name, function (err, html) {
+            if (err) {
+                console.log(err);
+                errorLog(testing, err, name)
+                return true;
+            }
+            if (surl.pathname == "/") {
+                let date = new Date();
+                let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Home" + "_______";
+                logging(testing, write, req)
+            } else if (surl.pathname == "/astroTargetFinder") {
+                let date = new Date();
+                let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Astro" + "_______";
+                logging(testing, write, req)
+            } else if (surl.pathname == "/MineSweeper") {
+                let date = new Date();
+                let write = (parseInt(date.getMonth()) + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "::" + "_______" + req.socket.remoteAddress + " Minesweeper" + "_______";
+                logging(testing, write, req)
+            }
+            res.writeHead(200, { 'Content-Type': contentType });
+            res.write(html);
+            res.end();
+        });
+        return true;
+    }
+    return false
 }
