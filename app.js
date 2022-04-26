@@ -381,6 +381,20 @@ function myServer(req, res) {
     const signup = async (user, pass, reseting, email) => {
         const snapshot = await db.collection('users').get();
         let same = false
+        if (pass.length <= 7) {
+            res.writeHead(200, { 'Content-Type': 'text/json' });
+            res.write(JSON.stringify({ res: "shortPass" }));
+            res.end();
+            same = true;
+            return
+        }
+        if (!validateEmail(email)) {
+            res.writeHead(200, { 'Content-Type': 'text/json' });
+            res.write(JSON.stringify({ res: "invalidEmail" }));
+            res.end();
+            same = true;
+            return
+        }
         if (!reseting) {
             await snapshot.forEach((doc) => {
                 if (doc.id == user) {
@@ -1259,4 +1273,9 @@ function serveFile(method, path, name, contentType, surl, res, req) {
         return true;
     }
     return false
+}
+
+function validateEmail(email) {
+    let re = /\S+@\S+\.\S+/;
+    return re.test(email);
 }

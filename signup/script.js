@@ -13,13 +13,25 @@ function onSubmit(event) {
                 } else if (JSON.parse(data).res == "suc") {
                     document.getElementById("suc").style.display = "block"
                     document.getElementById("same").style.display = "none"
-                    
                 } else if (JSON.parse(data).res == "sameemail") {
                     document.getElementById("email").style.display = "block"
+                    document.getElementById("same").style.display = "none"
+                    document.getElementById("suc").style.display = "none"
+                    document.getElementById("passShort").style.display = "none"
+                    document.getElementById("emailInvalid").style.display = "none"
+                } else if (JSON.parse(data).res == "shortPass") {
+                    document.getElementById("passShort").style.display = "block"
+                    document.getElementById("suc").style.display = "none"
+                    document.getElementById("same").style.display = "none"
+                    document.getElementById("emailInvalid").style.display = "none"
+                } else if (JSON.parse(data).res == "invalidEmail") {
+                    document.getElementById("emailInvalid").style.display = "block"
+                    document.getElementById("suc").style.display = "none"
+                    document.getElementById("same").style.display = "none"
+                    document.getElementById("passShort").style.display = "none"
                 }
             })
             .catch(error => console.log('error:', error));
-        
     }
     return false
 }
