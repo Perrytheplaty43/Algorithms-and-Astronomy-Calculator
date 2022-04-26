@@ -15,12 +15,17 @@ function onSubmit(event) {
                     document.getElementById("same").style.display = "none"
                 } else if (JSON.parse(data).res == "sameemail") {
                     document.getElementById("email").style.display = "block"
+                    document.getElementById("same").style.display = "none"
                 } else if (JSON.parse(data).res == "shortPass") {
                     document.getElementById("passShort").style.display = "block"
                     document.getElementById("suc").style.display = "none"
+                    document.getElementById("same").style.display = "none"
+                    document.getElementById("emailInvalid").style.display = "none"
                 } else if (JSON.parse(data).res == "invalidEmail") {
                     document.getElementById("emailInvalid").style.display = "block"
                     document.getElementById("suc").style.display = "none"
+                    document.getElementById("same").style.display = "none"
+                    document.getElementById("passShort").style.display = "none"
                 }
             })
             .catch(error => console.log('error:', error));
