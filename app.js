@@ -381,7 +381,7 @@ function myServer(req, res) {
     const signup = async (user, pass, reseting, email) => {
         const snapshot = await db.collection('users').get();
         let same = false
-        if (pass.length <= 8) {
+        if (pass.length <= 7) {
             res.writeHead(200, { 'Content-Type': 'text/json' });
             res.write(JSON.stringify({ res: "shortPass" }));
             res.end();
