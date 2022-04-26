@@ -32,7 +32,6 @@ function onSubmit(event) {
                 }
             })
             .catch(error => console.log('error:', error));
-        
     }
     return false
 }
