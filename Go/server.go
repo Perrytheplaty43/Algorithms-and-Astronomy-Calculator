@@ -339,7 +339,7 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 			final[i][4] = "Not in constellation!!"
 		}
 		magFloat,_ := strconv.ParseFloat(final[i][2].(string), 64)
-		final[i] = append(final[i], (((((final[i][1].(float64) - minAccALT) / 90) * 75) + ((tolMag - (magFloat + 30))) / 95) * 25) / 100)
+		final[i] = append(final[i], (((((final[i][1].(float64) - minAccALT) / 90) * 75) + ((tolMag - (magFloat + 30))) / 95) * 25))
 	}
 	fmt.Printf("%v", final)
 	return final
