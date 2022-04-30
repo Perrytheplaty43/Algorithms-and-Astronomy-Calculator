@@ -339,7 +339,7 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 			final[i][4] = "Not in constellation!!"
 		}
 	}
-	println(final)
+	fmt.Printf("%v", final)
 	return final
 }
 func findLST(time float64, daysSinceJ2000 float64, long float64) float64 {
