@@ -591,7 +591,7 @@ function ShowHideDivQuestion(event) {
 }
 
 function showScoreHelp(event) {
-    let thing = document.getElementsByClassName("scoreHelp")[0];
+    let thing = document.getElementsByClassName("scoretiptext")[0];
     thing.style.display = event.srcElement.checked ? "block" : "none"
 }
 
