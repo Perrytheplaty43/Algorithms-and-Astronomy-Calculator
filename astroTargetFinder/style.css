@@ -169,6 +169,11 @@ label {
 	animation-fill-mode: forwards;
 }
 
+.helpButton:hover {
+	animation: darken 1s;
+	animation-fill-mode: forwards;
+}
+
 .submitButton4 {
 	margin-top: 3px;
 	flex-grow: 1;
@@ -321,7 +326,20 @@ img {
 	z-index: 1;
 	overflow-x: hidden;
 }
-
+.scoretiptext {
+	opacity: 0;
+	width: 30vw;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	padding: 5px 0;
+	border-radius: 6px;
+	font-size: 1.2vw;
+	position: absolute;
+	visibility: hidden;
+	z-index: 1;
+	overflow-x: hidden;
+}
 .tooltiptext {
 	display: none;
 	top: 0;

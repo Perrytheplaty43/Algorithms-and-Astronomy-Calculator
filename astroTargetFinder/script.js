@@ -590,6 +590,11 @@ function ShowHideDivQuestion(event) {
     }
 }
 
+function showScoreHelp(event) {
+    let thing = document.getElementsByClassName("scoreHelp")[0];
+    thing.style.display = event.srcElement.checked ? "block" : "none"
+}
+
 function updateUI(final, timer, lat, long, final2) {
     if (final[0] != 'null') {
         if (user == undefined) {
