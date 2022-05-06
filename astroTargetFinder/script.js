@@ -590,6 +590,23 @@ function ShowHideDivQuestion(event) {
     }
 }
 
+function showScoreHelp(event) {
+    let thing = document.getElementsByClassName("scoretiptext")[0];
+    thing.style.display = "block"
+    waitFor(5000).then(async () => {
+        await thing.classList.add("scoretiptextClose");
+    }).then(async () => { await waitFor(2000) }).then(() => {
+        thing.classList.remove("scoretiptextClose");
+        thing.style.display = "none";
+    })
+}
+
+const waitFor = (time) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(true), time);
+    });
+};
+
 function updateUI(final, timer, lat, long, final2) {
     if (final[0] != 'null') {
         if (user == undefined) {

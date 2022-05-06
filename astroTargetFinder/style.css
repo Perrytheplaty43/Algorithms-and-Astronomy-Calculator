@@ -161,6 +161,19 @@ label {
 	animation-fill-mode: forwards;
 }
 
+.helpButton {
+	margin-top: 3px;
+	margin-left: 3px;
+	flex-grow: 1;
+	cursor: pointer;
+	animation-fill-mode: forwards;
+}
+
+.helpButton:hover {
+	animation: darken 1s;
+	animation-fill-mode: forwards;
+}
+
 .submitButton4 {
 	margin-top: 3px;
 	flex-grow: 1;
@@ -313,7 +326,21 @@ img {
 	z-index: 1;
 	overflow-x: hidden;
 }
-
+.scoretiptext {
+	width: 30vw;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	padding: 5px 0;
+	border-radius: 6px;
+	font-size: 1.2vw;
+	position: absolute;
+	z-index: 1;
+	overflow-x: hidden;
+	animation-duration: 2s;
+	animation-name: showtooltip;
+	animation-fill-mode: forwards;
+}
 .tooltiptext {
 	display: none;
 	top: 0;
@@ -321,7 +348,11 @@ img {
 	animation-name: showtooltip;
 	animation-fill-mode: forwards;
 }
-
+.scoretiptextClose {
+	animation-duration: 2s;
+	animation-name: hidetooltip;
+	animation-fill-mode: forwards;
+}
 @keyframes showtooltip {
 	from {
 		opacity: 0;
@@ -331,6 +362,18 @@ img {
 	to {
 		opacity: 1;
 		visibility: visible;
+	}
+}
+
+@keyframes hidetooltip {
+	from {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	to {
+		opacity: 0;
+		visibility: hidden;
 	}
 }
 
