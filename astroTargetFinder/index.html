@@ -45,13 +45,12 @@
                 
                 <input type="checkbox" id="visWeather" name="visWeather" value="visWeather" onclick="ShowHideDiv(this, 'container5')">
                 <label for="visWeather"> Show weather</label>
+                <p class="scoretiptext" id="scoreHelp">Visability Score is calculated taking factors in such as <b>Elevation above the horizon (H) and Brightness (B)</b> 
+                    using the following formula:<br>
+                    <b></b>75(H/90) + 35(1-((B+10)/40))</b>
+                </p>
             </form>
             <button class="helpButton" onclick="showScoreHelp(event)">How is "Visability Score" calculated?</button>
-
-            <p class="scoretiptext" id="scoreHelp">Visability Score is calculated taking factors in such as <b>Elevation above the horizon (H) and Brightness (B)</b> 
-                using the following formula:<br>
-                <b></b>75(H/90) + 35(1-((B+10)/40))</b>
-            </p>
         </div>
         <div class="container6" id="visAdv-container">
             <p class="p2">Advanced Options:</p>
