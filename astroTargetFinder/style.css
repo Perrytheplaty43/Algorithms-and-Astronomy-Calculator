@@ -336,7 +336,7 @@ img {
 	border-radius: 6px;
 	font-size: 1.2vw;
 	position: absolute;
-	visibility: hidden;
+	/* visibility: hidden; */
 	z-index: 1;
 	overflow-x: hidden;
 }
