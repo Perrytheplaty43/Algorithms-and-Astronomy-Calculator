@@ -348,7 +348,11 @@ img {
 	animation-name: showtooltip;
 	animation-fill-mode: forwards;
 }
-
+.scoretiptextClose {
+	animation-duration: 2s;
+	animation-name: hidetooltip;
+	animation-fill-mode: forwards;
+}
 @keyframes showtooltip {
 	from {
 		opacity: 0;
@@ -358,6 +362,18 @@ img {
 	to {
 		opacity: 1;
 		visibility: visible;
+	}
+}
+
+@keyframes hidetooltip {
+	from {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	to {
+		opacity: 0;
+		visibility: hidden;
 	}
 }
 

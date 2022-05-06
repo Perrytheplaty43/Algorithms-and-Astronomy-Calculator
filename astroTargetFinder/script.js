@@ -594,7 +594,7 @@ function showScoreHelp(event) {
     let thing = document.getElementsByClassName("scoretiptext")[0];
     thing.style.display = "block"
     waitFor(5000).then(() => {
-        thing.style.display = "none"
+        thing.classList.add("scoretiptextClose");
     })
 }
 
