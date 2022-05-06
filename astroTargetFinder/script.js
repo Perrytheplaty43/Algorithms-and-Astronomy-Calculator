@@ -595,6 +595,8 @@ function showScoreHelp(event) {
     thing.style.display = "block"
     waitFor(5000).then(() => {
         thing.classList.add("scoretiptextClose");
+    }).then(waitFor(2000)).then(() => {
+        thing.classList.remove("scoretiptextClose");
     })
 }
 
