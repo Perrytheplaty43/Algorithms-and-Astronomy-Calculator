@@ -327,7 +327,6 @@ img {
 	overflow-x: hidden;
 }
 .scoretiptext {
-	/* opacity: 0; */
 	width: 30vw;
 	background-color: black;
 	color: #fff;
@@ -336,9 +335,11 @@ img {
 	border-radius: 6px;
 	font-size: 1.2vw;
 	position: absolute;
-	/* visibility: hidden; */
 	z-index: 1;
 	overflow-x: hidden;
+	animation-duration: 2s;
+	animation-name: showtooltip;
+	animation-fill-mode: forwards;
 }
 .tooltiptext {
 	display: none;
