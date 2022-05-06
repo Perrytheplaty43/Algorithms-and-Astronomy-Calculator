@@ -592,8 +592,17 @@ function ShowHideDivQuestion(event) {
 
 function showScoreHelp(event) {
     let thing = document.getElementsByClassName("scoretiptext")[0];
-    thing.style.display = event.srcElement.checked ? "block" : "none"
+    thing.style.display = "block"
+    waitFor(5000).then(() => {
+        thing.style.display = "none"
+    })
 }
+
+const waitFor = (time) => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(true), time);
+    });
+};
 
 function updateUI(final, timer, lat, long, final2) {
     if (final[0] != 'null') {
