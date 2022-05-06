@@ -597,6 +597,7 @@ function showScoreHelp(event) {
         await thing.classList.add("scoretiptextClose");
     }).then(async () => { await waitFor(2000) }).then(() => {
         thing.classList.remove("scoretiptextClose");
+        thing.style.display = "none";
     })
 }
 
