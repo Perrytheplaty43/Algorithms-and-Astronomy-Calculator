@@ -327,7 +327,7 @@ img {
 	overflow-x: hidden;
 }
 .scoretiptext {
-	opacity: 0;
+	/* opacity: 0; */
 	width: 30vw;
 	background-color: black;
 	color: #fff;
