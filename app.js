@@ -803,72 +803,80 @@ function myServer(req, res) {
                 })
                 .catch(error => console.log('error:', error))
                 .then(moon => {
-                    return isWeatherGood(lat, long, dateToSend, true, moon).then(() => {
-                        if (!home.startsWith('/home/runner/')) {
-                            return fetch(
-                                'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate + "&moonrise=" + moon[0] + "&moonset=" + moon[1] + "&phase=" + moon[2],
-                                { method: 'GET' }
-                            )
-                                .then(response => response.text())
-                                .then(async finalData => {
-                                    res.writeHead(200, { 'Content-Type': 'text/json' });
-                                    if (theLoginRes == "suc") {
-                                        const docRef = db.collection('users').doc(userReq);
-                                        let doc = await docRef.get()
-                                        if (doc.data().fav != null) {
-                                            let raw = JSON.parse(finalData)
-                                            let theFinal = []
-                                            let favArr = doc.data().fav
-                                            for (let i = 0; i <= favArr.length - 1; i++) {
-                                                let favArr2 = favArr[i].split('')
-                                                if (favArr2.includes("I")) {
-                                                    favArr2 = favArr2.join('').split("IC")
-                                                    if (favArr2[1].length > 3) {
-                                                        favArr2[0] = "I"
-                                                        favArr[i] = favArr2.join('')
-                                                    } else {
-                                                        favArr2[0] = "I "
-                                                        favArr[i] = favArr2.join('')
+                    if (moon[0] != undefined) {
+                        if (moon.length >= 3) {
+                            return isWeatherGood(lat, long, dateToSend, true, moon).then(() => {
+                                if (!home.startsWith('/home/runner/')) {
+                                    return fetch(
+                                        'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate + "&moonrise=" + moon[0] + "&moonset=" + moon[1] + "&phase=" + moon[2],
+                                        { method: 'GET' }
+                                    )
+                                        .then(response => response.text())
+                                        .then(async finalData => {
+                                            res.writeHead(200, { 'Content-Type': 'text/json' });
+                                            if (theLoginRes == "suc") {
+                                                const docRef = db.collection('users').doc(userReq);
+                                                let doc = await docRef.get()
+                                                if (doc.data().fav != null) {
+                                                    let raw = JSON.parse(finalData)
+                                                    let theFinal = []
+                                                    let favArr = doc.data().fav
+                                                    for (let i = 0; i <= favArr.length - 1; i++) {
+                                                        let favArr2 = favArr[i].split('')
+                                                        if (favArr2.includes("I")) {
+                                                            favArr2 = favArr2.join('').split("IC")
+                                                            if (favArr2[1].length > 3) {
+                                                                favArr2[0] = "I"
+                                                                favArr[i] = favArr2.join('')
+                                                            } else {
+                                                                favArr2[0] = "I "
+                                                                favArr[i] = favArr2.join('')
+                                                            }
+                                                        } else {
+                                                            favArr[i] = favArr[i].substring(3)
+                                                        }
                                                     }
+                                                    for (let i = 0; i <= raw.length - 1; i++) {
+                                                        for (let y = 0; y <= favArr.length - 1; y++) {
+                                                            if (raw[i][0] == favArr[y]) {
+                                                                theFinal.push(raw[i])
+                                                            }
+                                                        }
+                                                    }
+                                                    res.write(JSON.stringify([finalData, theFinal]));
+                                                    res.end();
                                                 } else {
-                                                    favArr[i] = favArr[i].substring(3)
+                                                    res.write(JSON.stringify([finalData, []]));
+                                                    res.end();
                                                 }
+                                            } else {
+                                                res.write(JSON.stringify([finalData, []]));
+                                                res.end();
                                             }
-                                            for (let i = 0; i <= raw.length - 1; i++) {
-                                                for (let y = 0; y <= favArr.length - 1; y++) {
-                                                    if (raw[i][0] == favArr[y]) {
-                                                        theFinal.push(raw[i])
-                                                    }
-                                                }
-                                            }
-                                            res.write(JSON.stringify([finalData, theFinal]));
+                                        })
+                                        .catch(error => console.log('error:', error));
+                                } else {
+                                    return fetch(
+                                        'http://127.0.0.1:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+                                        { method: 'GET' }
+                                    )
+                                        .then(response => response.text())
+                                        .then(finalData => {
+                                            res.writeHead(200, { 'Content-Type': 'text/json' });
+                                            finalData.join(",")
+                                            res.write(finalData);
                                             res.end();
-                                        } else {
-                                            res.write(JSON.stringify([finalData, []]));
-                                            res.end();
-                                        }
-                                    } else {
-                                        res.write(JSON.stringify([finalData, []]));
-                                        res.end();
-                                    }
-                                })
-                                .catch(error => console.log('error:', error));
-                        } else {
-                            return fetch(
-                                'http://127.0.0.1:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
-                                { method: 'GET' }
-                            )
-                                .then(response => response.text())
-                                .then(finalData => {
-                                    res.writeHead(200, { 'Content-Type': 'text/json' });
-                                    finalData.join(",")
-                                    res.write(finalData);
-                                    res.end();
-                                })
-                                .catch(error => console.log('error:', error));
+                                        })
+                                        .catch(error => console.log('error:', error));
 
+                                }
+                            });
+                        } else {
+                            console.log("moon error")
                         }
-                    });
+                    } else {
+                        console.log("moon error")
+                    }
                 })
         } else {
             console.log("Debugging")
