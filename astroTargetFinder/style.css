@@ -1,3 +1,7 @@
+label {
+	cursor: pointer;
+}
+
 body {
 	margin: 0;
 	background-color: black;
