@@ -951,7 +951,7 @@ function myServer(req, res) {
         return astro(surl.searchParams)
     }
     const score = (searchParams) => {
-        return console.log(astro(searchParams)).then(() => {return astro(searchParams)})
+        return console.log(astro(searchParams))
     }
     if (method == 'GET' && surl.pathname == '/score') {
         return score(surl.searchParams)
