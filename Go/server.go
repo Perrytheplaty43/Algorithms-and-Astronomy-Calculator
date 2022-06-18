@@ -340,7 +340,7 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 		}
 		magFloat, _ := strconv.ParseFloat(final[i][2].(string), 64)
 		final[i] = append(final[i], 75*(final[i][1].(float64)/90)+(100-75)*(1-((magFloat+10)/40)))
-		fmt.print(final[i][1], final[i][2])
+		fmt.Print(final[i][1], final[i][2])
 	}
 	return final
 }
