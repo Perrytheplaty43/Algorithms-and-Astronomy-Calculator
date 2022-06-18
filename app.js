@@ -950,7 +950,12 @@ function myServer(req, res) {
     if (method == 'GET' && surl.pathname == '/astro') {
         return astro(surl.searchParams)
     }
-
+    const score = (searchParams) => {
+        //75*(final[i][1].(float64)/90)+(100-75)*(1-((magFloat+10)/40))
+    }
+    if (method == 'GET' && surl.pathname == '/score') {
+        return score(surl.searchParams)
+    }
     if (method == 'GET' && surl.pathname == '/api/scrambler') {
         let data = '';
         req.on('data', chunk => {
