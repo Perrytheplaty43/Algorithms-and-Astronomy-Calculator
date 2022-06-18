@@ -951,7 +951,8 @@ function myServer(req, res) {
         return astro(surl.searchParams)
     }
     const score = (searchParams) => {
-        //75*(final[i][1].(float64)/90)+(100-75)*(1-((magFloat+10)/40))
+        console.log(astro(searchParams))
+        return astro(searchParams)
     }
     if (method == 'GET' && surl.pathname == '/score') {
         return score(surl.searchParams)
