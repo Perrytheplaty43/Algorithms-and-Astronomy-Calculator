@@ -950,8 +950,8 @@ function myServer(req, res) {
     if (method == 'GET' && surl.pathname == '/astro') {
         return astro(surl.searchParams)
     }
-    const score = (searchParams) => {
-        return console.log(astro(searchParams))
+    const score = async (searchParams) => {
+        return console.log(await astro(searchParams))
     }
     if (method == 'GET' && surl.pathname == '/score') {
         return score(surl.searchParams)
