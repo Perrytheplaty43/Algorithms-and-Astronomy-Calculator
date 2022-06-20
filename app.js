@@ -950,7 +950,6 @@ function myServer(req, res) {
     if (method == 'GET' && surl.pathname == '/astro') {
         return astro(surl.searchParams)
     }
-
     if (method == 'GET' && surl.pathname == '/api/scrambler') {
         let data = '';
         req.on('data', chunk => {
