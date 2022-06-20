@@ -371,9 +371,15 @@ const mapImages = {
     '5102': './Images/NGC5102.jpg',
     'I4592': './Images/IC4592.jpg',
     'I4605': './Images/IC4605.jpg',
-    'I4604': './Images/IC4605.jpg',
+    'I4604': './Images/IC4604.jpg',
     'I4628': './Images/IC4628.jpg',
     '6357': './Images/NGC6357.jpg',
+    '5466': './Images/NGC5466.jpg',
+    '956': './Images/NGC956.jpg',
+    '5634': './Images/NGC5634.jpg',
+    '6121': './Images/NGC6121.jpg',
+    'I1152': './Images/IC1152.jpg',
+    '6210': './Images/NGC6210.jpg',
 };
 
 let user;
