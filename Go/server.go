@@ -341,6 +341,14 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 		magFloat, _ := strconv.ParseFloat(final[i][2].(string), 64)
 		final[i] = append(final[i], 75*(final[i][1].(float64)/90)+(35)*(1-((magFloat+10)/40)))
 	}
+	/*
+	//indexes might be wrong needs testing
+	if sortByVisScore == true {
+		sort.Slice(final[:], func(i, j int) bool{
+			return final[i][5] < final[j][5]
+		})
+	}
+	*/
 	return final
 }
 func findLST(time float64, daysSinceJ2000 float64, long float64) float64 {
