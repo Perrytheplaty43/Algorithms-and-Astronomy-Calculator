@@ -349,7 +349,7 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 		sort.Slice(final[:], func(i, j int) bool {
 			oneVis := final[i][5].(float64)
 			twoVis := final[j][5].(float64)
-			return oneVis < twoVis
+			return oneVis > twoVis
 		})
 	}
 	return final
