@@ -505,6 +505,7 @@ function onSubmit(event) {
         isWeatherGood(lat, long, dateToSend);
         let tol = document.getElementById("tolerance").value;
         let tolMag = document.getElementById("toleranceMag").value;
+        let sortByVis = document.getElementById("sortVis").checked
 
         if (Gx.checked) {
             types.push("Gx")
@@ -564,7 +565,7 @@ function onSubmit(event) {
 
         if (user == undefined && pass == undefined) {
             fetch(
-                'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+                'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&sortByVis=" + sortByVis,
                 { method: 'GET' }
             )
                 .then(response => response.text())
@@ -574,7 +575,7 @@ function onSubmit(event) {
                 .catch(error => console.log('error:', error));
         } else if (user != undefined && pass != undefined) {
             fetch(
-                'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&user=" + user + "&pass=" + pass,
+                'https://' + window.location.hostname + '/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&sortByVis=" + sortByVis + "&user=" + user + "&pass=" + pass,
                 { method: 'GET' }
             )
                 .then(response => response.text())
