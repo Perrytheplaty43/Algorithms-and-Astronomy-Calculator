@@ -54,13 +54,14 @@ func astroHandler(w http.ResponseWriter, r *http.Request) {
 		moonset, _ := strconv.ParseInt(r.Form["moonset"][0], 10, 64)
 		types := strings.Split(r.Form["type"][0], ",")
 		moonPhase, _ := strconv.ParseFloat(r.Form["phase"][0], 64)
+		sortByVis, _ := strconv.ParseBool(r.Form["sortByVis"][0])
 		var records [][]string
 		if homeDir == "/home/pi" {
 			records = readCsvFile("/home/pi/github/Algorithums-and-Astronomy-Calculator/astroTargetFinder/ngc2000Final.txt")
 		} else {
 			records = readCsvFile("/home/alexander_i_bakalov/AAC/astroTargetFinder/ngc2000Final.txt")
 		}
-		finalArray := astro(records[:], lat, long, tol, tolMag, types, date, UNIXtime, moonrise, moonset, moonPhase)
+		finalArray := astro(records[:], lat, long, tol, tolMag, types, date, UNIXtime, moonrise, moonset, moonPhase, sortByVis)
 		j, _ := json.Marshal(finalArray)
 		w.Write(j)
 	default:
@@ -96,7 +97,7 @@ func main() {
 		amTesting = true
 		records := readCsvFile("/home/alexander_i_bakalov/AAC/astroTargetFinder/ngc2000Final.txt")
 		var types []string = []string{"Gx", "OC", "Gb", "Nb", "Pl", "CpN", "Ast", "Kt", "TS", "DS", "SS", "Q", "U", "D", "PD"}
-		fmt.Print(astro(records[:], 47.740372, -122.222695, 70, 10, types, "2100-10-16", 0, 0, 0, 0))
+		fmt.Print(astro(records[:], 47.740372, -122.222695, 70, 10, types, "2100-10-16", 0, 0, 0, 0, false))
 	} else {
 		http.HandleFunc("/astro", astroHandler)
 		sample = append(sample, *star, *star, *star)
@@ -105,7 +106,7 @@ func main() {
 	}
 }
 
-func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string, date string, UNIXtime int64, moonrise int64, moonset int64, moonPhase float64) [][]interface{} {
+func astro(data [][]string, lat float64, long float64, tol float64, tolMag float64, types []string, date string, UNIXtime int64, moonrise int64, moonset int64, moonPhase float64, sortByVis bool) [][]interface{} {
 	var avgALTArray [][]interface{}
 	var ALT2 float64
 	var noon float64
@@ -162,9 +163,9 @@ func astro(data [][]string, lat float64, long float64, tol float64, tolMag float
 	sort.Slice(avgALTArray[:], func(i, j int) bool {
 		return avgALTArray[i][1].(float64) > avgALTArray[j][1].(float64)
 	})
-	return formOutput(avgALTArray, data, tol, tolMag, types)
+	return formOutput(avgALTArray, data, tol, tolMag, types, sortByVis)
 }
-func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, tolMag float64, types []string) [][]interface{} {
+func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, tolMag float64, types []string, sortByVis bool) [][]interface{} {
 	var final [][]interface{}
 
 	typeKey := make(map[string]string)
@@ -318,17 +319,19 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 			}
 		}
 	}
-	sort.Slice(final[:], func(i, j int) bool {
-		one, _ := strconv.ParseFloat(final[i][2].(string), 64)
-		two, _ := strconv.ParseFloat(final[j][2].(string), 64)
-		oneAc := final[i][1].(float64)
-		twoAc := final[j][1].(float64)
-		if one == two {
-			return oneAc < twoAc
-		} else {
-			return one < two
-		}
-	})
+	if !sortByVis {
+		sort.Slice(final[:], func(i, j int) bool {
+			one, _ := strconv.ParseFloat(final[i][2].(string), 64)
+			two, _ := strconv.ParseFloat(final[j][2].(string), 64)
+			oneAc := final[i][1].(float64)
+			twoAc := final[j][1].(float64)
+			if one == two {
+				return oneAc < twoAc
+			} else {
+				return one < two
+			}
+		})
+	}
 	for i := 0; i <= len(final)-1; i++ {
 		final[i][3] = typeKey[final[i][3].(string)]
 		if final[i][3] == nil {
@@ -341,14 +344,14 @@ func formOutput(avgArray [][]interface{}, data [][]string, minAccALT float64, to
 		magFloat, _ := strconv.ParseFloat(final[i][2].(string), 64)
 		final[i] = append(final[i], 75*(final[i][1].(float64)/90)+(35)*(1-((magFloat+10)/40)))
 	}
-	/*
 	//indexes might be wrong needs testing
-	if sortByVisScore == true {
-		sort.Slice(final[:], func(i, j int) bool{
-			return final[i][5] < final[j][5]
+	if sortByVis {
+		sort.Slice(final[:], func(i, j int) bool {
+			oneVis := final[i][5].(float64)
+			twoVis := final[j][5].(float64)
+			return oneVis < twoVis
 		})
 	}
-	*/
 	return final
 }
 func findLST(time float64, daysSinceJ2000 float64, long float64) float64 {

@@ -414,6 +414,10 @@ input[type=checkbox] {
 	margin-top: 32px;
 }
 
+.sortVis {
+	margin-top: 20px;
+}
+
 .checkboxes {
 	margin-right: 32px;
 }

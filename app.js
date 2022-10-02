@@ -746,6 +746,7 @@ function myServer(req, res) {
         let types = searchParams.get('type')
         let dateToSend = searchParams.get('date')
         let debugging = searchParams.get('debugging')
+        let sortByVis = searchParams.get('sortByVis')
 
         let correct;
         let userReq = searchParams.get('user')
@@ -809,7 +810,7 @@ function myServer(req, res) {
                                 return isWeatherGood(lat, long, dateToSend, true, moon).then(() => {
                                     if (!home.startsWith('/home/runner/')) {
                                         return fetch(
-                                            'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate + "&moonrise=" + moon[0] + "&moonset=" + moon[1] + "&phase=" + moon[2],
+                                            'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + searchDate + "&moonrise=" + moon[0] + "&moonset=" + moon[1] + "&phase=" + moon[2] + "&sortByVis=" + sortByVis,
                                             { method: 'GET' }
                                         )
                                             .then(response => response.text())
@@ -858,7 +859,7 @@ function myServer(req, res) {
                                             .catch(error => console.log('error:', error));
                                     } else {
                                         return fetch(
-                                            'http://127.0.0.1:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+                                            'http://127.0.0.1:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&sortByVis=" + sortByVis,
                                             { method: 'GET' }
                                         )
                                             .then(response => response.text())
@@ -886,7 +887,7 @@ function myServer(req, res) {
             console.log("Debugging")
             if (!home.startsWith('/home/runner/')) {
                 return fetch(
-                    'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + 0 + "&moonrise=" + 0 + "&moonset=" + 0 + "&phase=" + 0,
+                    'http://' + ip + ':8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&weatherTime=" + 0 + "&moonrise=" + 0 + "&moonset=" + 0 + "&phase=" + 0 + "&sortByVis=" + false,
                     { method: 'GET' }
                 )
                     .then(response => response.text())
@@ -935,7 +936,7 @@ function myServer(req, res) {
                     .catch(error => console.log('error:', error));
             } else {
                 return fetch(
-                    'http://127.0.0.1:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend,
+                    'http://127.0.0.1:8001/astro?lat=' + lat + '&long=' + long + '&tol=' + tol + '&tolMag=' + tolMag + '&type=' + types + "&date=" + dateToSend + "&sortByVis=" + sortByVis,
                     { method: 'GET' }
                 )
                     .then(response => response.text())
