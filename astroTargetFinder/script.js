@@ -440,7 +440,7 @@ if (getCookie("checked") == "true" && document.getElementById("cookie") != null 
     document.getElementById("cookie").checked = true;
     document.getElementById("tolerance").value = getCookie("tol")
     document.getElementById("toleranceMag").value = getCookie("tolMag")
-    document.getElementById("sortVis").checked = getCookie("sortByVis")
+    document.getElementById("sortVis").checked = getCookie("sortByVis") == 'true'
     let cookieTypes = getCookie("type").split(",")
 
     if (!cookieTypes.includes("Gx")) document.getElementById("Gx").checked = false;
