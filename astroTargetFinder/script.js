@@ -560,7 +560,7 @@ function onSubmit(event) {
             setCookie("tolMag", tolMag, 365)
             setCookie("type", types, 365)
             setCookie("tol", tol, 365)
-            setCookie("sortByVis", document.getElementById(sortVis).checked, 365)
+            setCookie("sortByVis", document.getElementById("sortVis").checked, 365)
         } else {
             setCookie("checked", "false", 365)
         }
