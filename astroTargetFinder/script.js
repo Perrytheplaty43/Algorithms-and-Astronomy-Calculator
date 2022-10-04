@@ -440,6 +440,7 @@ if (getCookie("checked") == "true" && document.getElementById("cookie") != null 
     document.getElementById("cookie").checked = true;
     document.getElementById("tolerance").value = getCookie("tol")
     document.getElementById("toleranceMag").value = getCookie("tolMag")
+    document.getElementById("sortVis1").checked = getCookie("sortByVis")
     let cookieTypes = getCookie("type").split(",")
 
     if (!cookieTypes.includes("Gx")) document.getElementById("Gx").checked = false;
@@ -559,6 +560,7 @@ function onSubmit(event) {
             setCookie("tolMag", tolMag, 365)
             setCookie("type", types, 365)
             setCookie("tol", tol, 365)
+            setCookie("sortByVis", document.getElementById(sortVis).checked, 365)
         } else {
             setCookie("checked", "false", 365)
         }
