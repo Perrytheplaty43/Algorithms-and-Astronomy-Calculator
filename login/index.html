@@ -47,8 +47,9 @@
         </div>
         <div class="container8" id="container8">
             <form onsubmit="return onSubmit(event)">
-                <label >Add favorite object:</label><br>
-                <input type="text" id="object" name="object" class="form2" placeholder="NGC1234" pattern="(^[N|n][G|g][C|c][1-9][0-9]?[0-9]?[0-9])|([I|i][C|c][1-9][0-9]?[0-9]?[0-9])"><br>
+                <label>Add favorite object:</label><br>
+                <input type="text" id="object" name="object" class="form2" placeholder="NGC1234"
+                    pattern="(^[N|n][G|g][C|c][1-9][0-9]?[0-9]?[0-9])|([I|i][C|c][1-9][0-9]?[0-9]?[0-9])"><br>
                 <button type="submit" id="submitObj">Submit</button>
                 <button type="submit" id="clear">Clear All</button>
                 <p class="p2">Set default options:</p>
@@ -117,9 +118,12 @@
                                 enter tolerance will be discarded from the result.
                             </p>
                             <input type="number" name="toleranceMag" id="toleranceMag" class="form"
-                                placeholder="Mag Tolerance" value="10" min=0>
+                                placeholder="Mag Tolerance" value="10" min=0><br>
+                            <input class="sortByVis" type="checkbox" id="sortByVis" name="sortByVis" checked>
+                            <label for="sortByVis"> Sort by visibility score</label><br>
                         </form>
-                        <input type="checkbox" class="question" id="question" onclick="ShowHideDivQuestion(event)"></input>
+                        <input type="checkbox" class="question" id="question"
+                            onclick="ShowHideDivQuestion(event)"></input>
                         <label for="question" class="question">?</label>
                     </div>
                 </div>
@@ -133,7 +137,8 @@
                 <label for="long"> Enter Longitude</label>
                 <input type="text" id="long" name="lat" placeholder="Longitude" class="form"><br>
                 <button class="submitButton4" id="defaultLoc">Submit</button>
-                <button type="submit" class="submitButton1" id="loc_button" name="scramble_button">Get Current Location</button>
+                <button type="submit" class="submitButton1" id="loc_button" name="scramble_button">Get Current
+                    Location</button>
             </form>
         </div>
         <div class="container9" id="container9">

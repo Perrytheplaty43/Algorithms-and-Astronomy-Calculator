@@ -423,6 +423,7 @@ function myServer(req, res) {
                     pass: hashedPass,
                     fav: [],
                     type: ["Gx", "OC", "Gb", "Nb", "Pl", "CpN", "Ast", "Kt", "TS", "DS", "SS", "Q", "U", "D", "PD"],
+                    sortByVis: true,
                     tol: 70,
                     magTol: 10,
                     token: null,
@@ -598,12 +599,13 @@ function myServer(req, res) {
             })
     }
 
-    const addParam = async (type, tol, magTol, user) => {
+    const addParam = async (type, sortByVis, tol, magTol, user) => {
         const docRef = db.collection('users').doc(user);
         let typeArr = type.split(",")
 
         return await docRef.update({
             type: typeArr,
+            sortByVis: sortByVis,
             tol: parseInt(tol),
             magTol: parseInt(magTol)
         })
@@ -616,6 +618,7 @@ function myServer(req, res) {
         let type = searchParams.get('type')
         let tol = searchParams.get('tol')
         let magTol = searchParams.get('magTol')
+        let sortByVis = parseBool(searchParams.get('sortByVis'))
 
         return login(user, pass, true)
             .then(() => {
@@ -624,7 +627,7 @@ function myServer(req, res) {
                         res.writeHead(200, { 'Content-Type': 'text/json' });
                         res.write(JSON.stringify({ res: "done" }));
                         res.end();
-                        return addParam(type, tol, magTol, user)
+                        return addParam(type, sortByVis, tol, magTol, user)
                     } else {
 
                     }
@@ -651,7 +654,7 @@ function myServer(req, res) {
                             lat = doc.data().home.latitude
                             long = doc.data().home.longitude
                         }
-                        res.write(JSON.stringify({ type: doc.data().type.join(","), tol: doc.data().tol, magTol: doc.data().magTol, lat: lat, long: long = long }));
+                        res.write(JSON.stringify({ type: doc.data().type.join(","), sortByVis: doc.data().sortByVis, tol: doc.data().tol, magTol: doc.data().magTol, lat: lat, long: long = long }));
                         res.end();
                         return
                     } else {

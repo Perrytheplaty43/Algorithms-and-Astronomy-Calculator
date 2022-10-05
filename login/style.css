@@ -366,3 +366,7 @@ input[type=checkbox] {
 	display: none;
 	margin-top: 15px;
 }
+
+.sortVis {
+	margin-top: 20px;
+}
