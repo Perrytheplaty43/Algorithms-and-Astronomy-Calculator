@@ -84,6 +84,7 @@ function updateUI() {
             if (!type.includes("D")) document.getElementById("D").checked = false;
             if (!type.includes("PD")) document.getElementById("PD").checked = false;
 
+            document.getElementById("sortByVis").checked = res.sortByvis
             document.getElementById("tolerance").value = res.tol
             document.getElementById("toleranceMag").value = res.magTol
             document.getElementById("lat").value = res.lat
@@ -183,7 +184,7 @@ function submitParams() {
 
     if (user != undefined && pass != undefined) {
         fetch(
-            'https://' + window.location.hostname + '/api/params?tol=' + tol + '&magTol=' + tolMag + '&type=' + types + "&user=" + user + "&pass=" + pass,
+            'https://' + window.location.hostname + '/api/params?tol=' + tol + '&magTol=' + tolMag + '&type=' + types + '&sortByVis=' + document.getElementById("sortByVis").checked + "&user=" + user + "&pass=" + pass,
             { method: 'POST' }
         )
             .then(response => response.text())
