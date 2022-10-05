@@ -429,7 +429,7 @@ function myServer(req, res) {
                     token: null,
                     tokenEx: null,
                     email: email,
-                    home: null
+                    home: new GeoPoint(0, 0)
                 }).then(() => {
                     res.writeHead(200, { 'Content-Type': 'text/json' });
                     res.write(JSON.stringify({ res: "suc" }));
