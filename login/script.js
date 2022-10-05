@@ -84,7 +84,7 @@ function updateUI() {
             if (!type.includes("D")) document.getElementById("D").checked = false;
             if (!type.includes("PD")) document.getElementById("PD").checked = false;
 
-            document.getElementById("sortByVis").checked = res.sortByvis
+            document.getElementById("sortByVis").checked = res.sortByVis
             document.getElementById("tolerance").value = res.tol
             document.getElementById("toleranceMag").value = res.magTol
             document.getElementById("lat").value = res.lat
